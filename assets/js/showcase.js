@@ -65,15 +65,15 @@
       narr: "board.narr.1"
     },
     {
-      col: 0, phase: "Dev Planning", approvals: ["SM Lead", "BA Lead", "PO", "SA Lead"],
+      col: 0, phase: "Dev Planning", approvals: ["team", "business", "product", "architecture"],
       acts: [
         { who: "gate", cls: "gate", name: "phase validator", title: "Phase flow validated", body: "Phases run in a fixed sequence. A jump is <b>reverted automatically</b> through the API with an explanatory comment — the board cannot be lied to." },
-        { who: "gate", cls: "gate", name: "approval checker", title: "Approval chain complete", body: "SM Lead → BA Lead → PO → SA Lead. One role may hold only one approval state; a contradictory second value clears both and posts a warning." }
+        { who: "gate", cls: "gate", name: "approval checker", title: "Approval chain complete", body: "team → business → product → architecture. One role may hold only one approval state; a contradictory second value clears both and posts a warning." }
       ],
       narr: "board.narr.2"
     },
     {
-      col: 1, phase: "Development", approvals: ["SM Lead", "BA Lead", "PO", "SA Lead"],
+      col: 1, phase: "Development", approvals: ["team", "business", "product", "architecture"],
       acts: [
         { who: "engineer", cls: "human", name: "manual", title: "Card moved to In Dev", body: "This is the <b>only</b> manual step in the whole cycle." },
         { who: "bot", cls: "bot", name: "board bot", title: "✓ Branch Created", body: "<code>dev/sprint-24/issue-471</code> from <code>release/sprint-24</code> — naming derived from milestone and ticket number, so it is traceable forever." }
@@ -81,7 +81,7 @@
       narr: "board.narr.3"
     },
     {
-      col: 1, phase: "Development", approvals: ["SM Lead", "BA Lead", "PO", "SA Lead"],
+      col: 1, phase: "Development", approvals: ["team", "business", "product", "architecture"],
       acts: [
         { who: "engineer", cls: "human", name: "manual", title: "3 commits pushed", body: "<code>a91f0c2</code> reconcile ledger rows · <code>7d4e118</code> add retry backoff · <code>c02b9af</code> tests" },
         { who: "gate", cls: "gate", name: "duplicate webhook guard", title: "Second webhook ignored", body: "GitLab sends the same event more than once. A 120s dedupe window and a per-cycle idempotency check make sure the automation never runs twice for one action." }
@@ -89,7 +89,7 @@
       narr: "board.narr.4"
     },
     {
-      col: 2, phase: "Development", approvals: ["SM Lead", "BA Lead", "PO", "SA Lead"],
+      col: 2, phase: "Development", approvals: ["team", "business", "product", "architecture"],
       acts: [
         { who: "engineer", cls: "human", name: "manual", title: "Card moved to In Review", body: "" },
         { who: "bot", cls: "bot", name: "board bot", title: "Merge Request Created", body: "<code>!812</code> &nbsp; <code>dev/sprint-24/issue-471</code> → <code>release/sprint-24</code>, reviewers assigned from the milestone owners." },
@@ -98,7 +98,7 @@
       narr: "board.narr.5"
     },
     {
-      col: 3, phase: "Development", approvals: ["SM Lead", "BA Lead", "PO", "SA Lead"], botmark: true,
+      col: 3, phase: "Development", approvals: ["team", "business", "product", "architecture"], botmark: true,
       acts: [
         { who: "reviewer", cls: "human", name: "manual", title: "Approved and merged in the GitLab UI", body: "The bot never merges on a human's behalf. If the card is set to Merged too early, it posts the summary and <b>reverts the status</b> so a person still clicks merge." },
         { who: "bot", cls: "bot", name: "board bot", title: "Merge confirmed by API polling", body: "Merge is asynchronous: the webhook can arrive before GitLab agrees with itself. The orchestrator polls until the state is real — and fails loudly if it never becomes real." },
@@ -107,7 +107,7 @@
       narr: "board.narr.6"
     },
     {
-      col: 4, phase: "Promote", approvals: ["SM Lead", "BA Lead", "PO", "SA Lead"], botmark: true,
+      col: 4, phase: "Promote", approvals: ["team", "business", "product", "architecture"], botmark: true,
       acts: [
         { who: "release owner", cls: "human", name: "manual", title: "Card moved to Deploy · ticket closed", body: "" },
         { who: "gate", cls: "gate", name: "deploy guard", title: "Guards passed", body: "No pending services left · identical payload within 60s is silently dropped · the previous deploy pipeline for this cycle has finished. If a pipeline is still running the request is <b>refused</b>, not queued." },
@@ -116,11 +116,11 @@
       narr: "board.narr.7"
     },
     {
-      col: 4, phase: "SIT", approvals: ["SM Lead", "BA Lead", "PO", "SA Lead", "Dev Lead"], botmark: true,
+      col: 4, phase: "SIT", approvals: ["team", "business", "product", "architecture", "engineering"], botmark: true,
       acts: [
         { who: "domain pipeline", cls: "bot", name: "callback", title: "Deploy Result", body: '<table class="mini-tbl"><tr><th>service</th><th>env</th><th>status</th></tr><tr><td>ledger-service</td><td>SIT</td><td class="ok">SUCCESS</td></tr><tr><td>scheduler-job</td><td>SIT</td><td class="ok">SUCCESS</td></tr><tr><td>mobile-bff</td><td>SIT</td><td class="ok">SUCCESS</td></tr></table>The pipeline writes its own result back into the ticket as a comment — the audit trail lives where the work lives.' },
         { who: "QA", cls: "human", name: "chatops", title: "/diff sit", body: "Artifact comparison between environments posted as a MATCH / DIFF / MISSING table, so \"is UAT really what we tested?\" is a command, not an argument." },
-        { who: "bot", cls: "bot", name: "board bot", title: "Phase advanced", body: "Integration Testing → SIT, Dev Lead approval recorded. Security scanners keep running on schedule as a continuous gate, and release branches are kept in sync by cascading merges where the approver is never the author." }
+        { who: "bot", cls: "bot", name: "board bot", title: "Phase advanced", body: "Integration Testing → SIT, final approval recorded. Security scanners keep running on schedule as a continuous gate, and release branches are kept in sync by cascading merges where the approver is never the author." }
       ],
       narr: "board.narr.8"
     }

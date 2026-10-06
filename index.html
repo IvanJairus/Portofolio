@@ -63,6 +63,7 @@
           <div class="hero-cta">
             <a class="btn btn-primary" href="#work"><span data-i18n="hero.cta.work">Selected work</span> <span class="arr">→</span></a>
             <a class="btn btn-ghost" href="#contact"><span data-i18n="hero.cta.contact">Get in touch</span></a>
+            <a class="btn btn-ghost" href="assets/cv/cv-ivan-jairus.pdf" download><span data-i18n="hero.cta.cv">CV (PDF)</span> <span class="arr">↓</span></a>
           </div>
 
           <div class="terminal" aria-hidden="true">
@@ -82,7 +83,7 @@
             <img src="assets/img/profile.jpg"
                  srcset="assets/img/profile-480.jpg 480w, assets/img/profile.jpg 800w"
                  sizes="(max-width: 860px) 72vw, 400px"
-                 alt="Portrait photo" data-i18n-attr="alt:hero.photo.alt"
+                 alt="Ivan Jairus — Senior DevOps / DevSecOps Engineer" data-i18n-attr="alt:hero.photo.alt"
                  width="800" height="1000" fetchpriority="high" decoding="async" />
           </div>
         </figure>
@@ -101,6 +102,7 @@
           <div class="hf-node" data-hf="5"><i></i><span>UAT</span><em class="hf-sub">tag &amp; merge</em></div>
           <div class="hf-node hf-prod" data-hf="6"><i></i><span>PROD</span><em class="hf-sub">release ledger</em></div>
         </div>
+        <p class="sr-only">Release pipeline stages: commit (git push), build (maven, gradle, npm), scan (trivy, sonarqube), approval gate (five-layer chain), deploy to SIT, promote to UAT, release to PROD with a release ledger.</p>
         <p class="hf-caption" data-i18n="hero.flow.caption">Every change I ship travels this exact path — across five artifact types, two CI engines and three environments.</p>
         <p class="care-note" data-i18n="hero.flow.note">// one pipeline serves SIT → UAT → PROD — promotion changes nothing but the URL and the credentials</p>
       </div>
@@ -132,7 +134,7 @@
             <em class="mono" data-i18n="about.p3.link">see Platform →</em>
           </a>
           <a class="pf-card" href="#threat">
-            <b>824</b>
+            <b>4</b>
             <span data-i18n="about.p4.text">comments from a bot that woke itself up — one night</span>
             <em class="mono" data-i18n="about.p4.link">see Threat model →</em>
           </a>
@@ -219,7 +221,7 @@
     <section id="board">
       <div class="wrap">
         <div class="section-head" data-reveal>
-          <span class="kicker" data-i18n="board.kicker">Masterpiece I — release orchestration</span>
+          <span class="kicker" data-i18n="board.kicker">Case study I — release orchestration</span>
           <h2 data-i18n="board.title">I turned a bare GitLab board into a release system</h2>
           <p class="lead" data-i18n="board.lead">GitLab issue boards have almost none of what a regulated release needs: no approval chain, no phase enforcement, no state, no deploy trigger. Instead of buying a tool, I made the board itself drive the pipeline. Engineers move a card; branches, merge requests, scans, approvals, deploys and audit comments all happen by themselves — and every result is written back into the ticket.</p>
           <p class="before-line mono"><span>before:</span> <span data-i18n="board.before">approvals lived in chat, release state lived in one person's head, deploys were triggered from a terminal</span></p>
@@ -230,9 +232,9 @@
           <div class="ba-side ba-before">
             <div class="ba-tag mono">gitlab <em>out of the box</em></div>
             <div class="ba-cols">
-              <div class="ba-col"><h5>To do</h5><span class="ba-card"></span><span class="ba-card sm"></span></div>
-              <div class="ba-col"><h5>Doing</h5><span class="ba-card"></span></div>
-              <div class="ba-col"><h5>Done</h5></div>
+              <div class="ba-col"><h3>To do</h3><span class="ba-card"></span><span class="ba-card sm"></span></div>
+              <div class="ba-col"><h3>Doing</h3><span class="ba-card"></span></div>
+              <div class="ba-col"><h3>Done</h3></div>
             </div>
             <p class="ba-note" data-i18n="board.ba.before">no approval chain · no phase state · no trigger — just columns</p>
           </div>
@@ -243,11 +245,11 @@
           <div class="ba-side ba-after">
             <div class="ba-tag mono">the board <em>I built</em></div>
             <div class="ba-cols five">
-              <div class="ba-col"><h5>To do</h5><span class="ba-card on">#471<i class="ba-badge">Intake</i></span></div>
-              <div class="ba-col"><h5>In Dev</h5><span class="ba-card lit"><i class="ba-dot"></i>branch auto-made</span></div>
-              <div class="ba-col"><h5>In Review</h5><span class="ba-card lit"><i class="ba-dot"></i>MR + scans</span></div>
-              <div class="ba-col"><h5>Merged</h5><span class="ba-card lit"><i class="ba-chips">✓✓✓✓✓</i>5-layer approval</span></div>
-              <div class="ba-col"><h5>Deploy</h5><span class="ba-card lit"><i class="ba-dot"></i>pipeline + audit</span></div>
+              <div class="ba-col"><h3>To do</h3><span class="ba-card on">#471<i class="ba-badge">Intake</i></span></div>
+              <div class="ba-col"><h3>In Dev</h3><span class="ba-card lit"><i class="ba-dot"></i>branch auto-made</span></div>
+              <div class="ba-col"><h3>In Review</h3><span class="ba-card lit"><i class="ba-dot"></i>MR + scans</span></div>
+              <div class="ba-col"><h3>Merged</h3><span class="ba-card lit"><i class="ba-chips">✓✓✓✓✓</i>5-layer approval</span></div>
+              <div class="ba-col"><h3>Deploy</h3><span class="ba-card lit"><i class="ba-dot"></i>pipeline + audit</span></div>
             </div>
             <p class="ba-note" data-i18n="board.ba.after">phase badge · approval chips · bot comments · deploy trigger — the board runs the release</p>
           </div>
@@ -280,15 +282,15 @@
 
           <div class="bd-grid">
             <div class="bd-board">
-              <div class="bd-col" data-col="0"><h4>To do<span class="cc">1</span></h4><div class="bd-colbody"></div></div>
-              <div class="bd-col" data-col="1"><h4>In Dev<span class="cc">1</span></h4><div class="bd-colbody">
+              <div class="bd-col" data-col="0"><h3>To do<span class="cc">1</span></h3><div class="bd-colbody"></div></div>
+              <div class="bd-col" data-col="1"><h3>In Dev<span class="cc">1</span></h3><div class="bd-colbody">
                 <div class="bd-card ghost"><div class="bc-top"><span class="bc-iid mono">#468</span></div><div class="bc-title">fix: timeout on statement export</div></div>
               </div></div>
-              <div class="bd-col" data-col="2"><h4>In Review<span class="cc">0</span></h4><div class="bd-colbody"></div></div>
-              <div class="bd-col" data-col="3"><h4>Merged<span class="cc">1</span></h4><div class="bd-colbody">
+              <div class="bd-col" data-col="2"><h3>In Review<span class="cc">0</span></h3><div class="bd-colbody"></div></div>
+              <div class="bd-col" data-col="3"><h3>Merged<span class="cc">1</span></h3><div class="bd-colbody">
                 <div class="bd-card ghost"><div class="bc-top"><span class="bc-iid mono">#465</span></div><div class="bc-title">chore: bump base image</div></div>
               </div></div>
-              <div class="bd-col" data-col="4"><h4>Deploy<span class="cc">0</span></h4><div class="bd-colbody"></div></div>
+              <div class="bd-col" data-col="4"><h3>Deploy<span class="cc">0</span></h3><div class="bd-colbody"></div></div>
 
               <div class="bd-card" id="bd-card">
                 <div class="bc-top"><span class="bc-iid mono">#471</span><span class="bc-phase mono" data-bd-phase>Intake</span></div>
@@ -323,11 +325,11 @@
           <div class="bpanel" data-reveal>
             <h3><span class="n">D1</span><span data-i18n="board.p1.title">A five-layer approval chain, enforced by machine</span></h3>
             <div class="chain">
-              <span class="chain-link" data-i18n="board.chain.1">SM Lead</span><i>→</i>
-              <span class="chain-link" data-i18n="board.chain.2">BA Lead</span><i>→</i>
-              <span class="chain-link" data-i18n="board.chain.3">PO</span><i>→</i>
-              <span class="chain-link" data-i18n="board.chain.4">SA Lead</span><i>→</i>
-              <span class="chain-link" data-i18n="board.chain.5">Dev Lead</span>
+              <span class="chain-link" data-i18n="board.chain.1">team</span><i>→</i>
+              <span class="chain-link" data-i18n="board.chain.2">business</span><i>→</i>
+              <span class="chain-link" data-i18n="board.chain.3">product</span><i>→</i>
+              <span class="chain-link" data-i18n="board.chain.4">architecture</span><i>→</i>
+              <span class="chain-link" data-i18n="board.chain.5">engineering</span>
             </div>
             <ul class="blist">
               <li data-i18n="board.p1.a">Every phase demands a specific approval field; skip one and the phase is reverted automatically with an explanatory comment.</li>
@@ -338,7 +340,7 @@
 
           <div class="bpanel" data-reveal style="--d:.1s">
             <h3><span class="n">D2</span><span data-i18n="board.p2.title">Designed around a real incident</span></h3>
-            <p class="bp-lead" data-i18n="board.p2.lead">A retry command with substring matching let the bot trigger itself: 824 comments across 8 tickets in one night. The fix is layered, and 25 regression tests keep it fixed.</p>
+            <p class="bp-lead" data-i18n="board.p2.lead">A retry command with substring matching let the bot trigger itself: hundreds of runaway comments across multiple tickets in one night. The fix is layered — four guards — and 25 regression tests keep it from recurring.</p>
             <div class="layers">
               <div class="layer"><b>L1</b><span data-i18n="board.layer.1">bot accounts excluded at the CI rule level</span></div>
               <div class="layer"><b>L2</b><span data-i18n="board.layer.2">bot username guard inside the orchestrator</span></div>
@@ -363,7 +365,7 @@
     <section id="platform">
       <div class="wrap">
         <div class="section-head" data-reveal>
-          <span class="kicker" data-i18n="plat.kicker">Masterpiece II — release control plane</span>
+          <span class="kicker" data-i18n="plat.kicker">Case study II — release control plane</span>
           <h2 data-i18n="plat.title">The dashboard that replaced five tools and a spreadsheet</h2>
           <p class="lead" data-i18n="plat.lead">A self-built release management platform: version drift between environments, build and deploy triggering, live console streaming, quality gates, secret changes, mobile test recordings and role-based access — in one page, updated in realtime. Below is an interactive replica with sanitized dummy data. Click anything.</p>
           <p class="before-line mono"><span>before:</span> <span data-i18n="plat.before">five tools and one spreadsheet to answer "what runs in UAT right now?"</span></p>
@@ -566,7 +568,7 @@
               <div class="mailshow-head">
                 <div>
                   <span class="ms-title mono">email reports //</span>
-                  <span class="ms-sub" data-i18n="lc.mail.headsub">what the weekly runs deliver to the team inbox — sample, sanitized</span>
+                  <span class="ms-sub" data-i18n="lc.mail.headsub">report emails my pipelines generate — sample data, sanitized</span>
                 </div>
                 <div class="ms-tabs" role="tablist">
                   <button class="ms-tab on" data-mail="sync" role="tab">branch sync</button>
@@ -622,7 +624,7 @@
                   </div>
                   <div class="mail-callout">
                     <b>ⓘ Catatan Penting — Keterbatasan Alat SAST Ini</b>
-                    <p>Hasil pemindaian ini dihasilkan oleh <b>Semgrep</b> yang dijalankan otomatis melalui pipeline DevOps, dan <b>berbeda dari alat SAST yang digunakan Tim Security / CISO</b>. Temuan bersifat indikatif dan dapat mengandung <i>false positive</i>. Laporan ini <b>ditujukan sebagai bahan analisis awal bagi developer</b> — bukan hasil audit keamanan resmi.</p>
+                    <p>Hasil pemindaian ini dihasilkan oleh <b>Semgrep</b> yang dijalankan otomatis melalui pipeline DevOps, Temuan bersifat indikatif dan dapat mengandung <i>false positive</i>. Laporan ini <b>ditujukan sebagai bahan analisis awal bagi developer</b> — bukan pengganti pemindaian keamanan formal.</p>
                   </div>
                   <div class="mail-meta mono"><span>Generated: 01 Oct 2026 01:31 WIB</span><span>31 service</span><span>Scanner: Semgrep</span><span class="mail-branches">development ✓ · R1.0 ✓ · R1.1 ✓ · R1.2 ✓</span></div>
                   <div class="mail-stats ms2">
@@ -640,6 +642,7 @@
                   </table>
                   <div class="mail-att mono"><span>📎 sast-report-core-fe.html · 17 KB</span><span>📎 sast-report-core-be.html · 70 KB</span></div>
                   <div class="mail-note mono">Laporan detail per category dilampirkan pada email ini dan dapat dibuka langsung di browser.</div>
+                  <div class="mail-note mono" data-i18n="lc.mail.artifact">// the report text stays in Indonesian — it is the actual artifact my team receives, not a translation</div>
                 </div>
               </div>
 
@@ -676,7 +679,7 @@
                 </div>
               </div>
             </div>
-            <p class="care-note lc-mailcap" data-i18n="lc.mail.caption">// faithful copies of the real HTML emails my pipelines send every week — names, domains and links are sanitized; the layout, statuses and colors are exactly what the team receives. The amber disclaimer is deliberate: a scanner that overclaims is worse than no scanner</p>
+            <p class="care-note lc-mailcap" data-i18n="lc.mail.caption">// dummy data in the report format my pipelines generate — names, domains and links are sanitized. The amber disclaimer is deliberate: a scanner that overclaims is worse than no scanner</p>
           </div>
         </div>
 
@@ -685,7 +688,7 @@
           <div class="eco-card eco-old">
             <div class="eco-tag mono">then — jira + jenkins</div>
             <ul>
-              <li data-i18n="eco.o1">46 shared-library steps; 34 touch Jira, 31 drive GitLab REST directly</li>
+              <li data-i18n="eco.o1">dozens of shared-library steps wiring Jira webhooks to GitLab automation</li>
               <li data-i18n="eco.o2">Jira webhook → gateway job parses the changelog and dispatches sibling Jenkins jobs</li>
               <li data-i18n="eco.o3">those jobs create branches, open MRs, approve, merge and deploy across SIT / UAT / PROD</li>
               <li data-i18n="eco.o4">secrets from Vault, email reports before any dashboard existed</li>
@@ -949,7 +952,22 @@
           <span class="kicker" data-i18n="exp.kicker">Experience</span>
           <h2 data-i18n="exp.title">One direction, deepened</h2>
         </div>
-        <div class="timeline" data-profile="experience"></div>
+        <div class="timeline" data-profile="experience">
+          <div class="tl-item">
+            <div class="tl-period">2024 — Present</div>
+            <h3 class="tl-title">Senior DevOps / DevSecOps Engineer</h3>
+            <div class="tl-company">State-owned banking group, Indonesia</div>
+            <ul class="tl-points">
+              <li>Own CI/CD for a wholesale banking platform: one pipeline standard shared by 40+ repositories across two CI engines.</li>
+              <li>Built the release control plane and the ChatOps orchestrator that drives branch, merge, deploy and scan workflows from issue boards.</li>
+              <li>Codified a 52-rule pipeline standard and the security gates (SAST, container scan, SBOM, quality gate) enforced on every merge.</li>
+              <li>Designed the platform architecture and delivery workflows end-to-end: gateway routing, stage contracts, environment promotion and the release ledger.</li>
+              <li>Mentored and onboarded new engineers, and transferred ownership of the four projects I held — with architecture docs and runbooks.</li>
+              <li>Built and maintained the delivery layer that came before GitLab-native automation: dozens of Jenkins shared-library steps wiring Jira webhooks to GitLab across SIT, UAT and PROD.</li>
+            </ul>
+          </div>
+        </div>
+        <p class="exp-edu mono" data-reveal><span data-i18n="exp.edu.label">education //</span> <span data-i18n="exp.edu">S1 Informatics — Universitas Tarumanagara</span></p>
         <div class="exp-signals">
           <div class="sig" data-reveal>
             <span class="sig-ic">◇</span>
@@ -978,11 +996,12 @@
           <div class="mail-line">
             <a class="mail-link" data-profile="email-link" href="mailto:Filemonivanjairus@gmail.com">Filemonivanjairus@gmail.com</a>
             <button class="copy-btn" data-copy-btn data-i18n="contact.cta">Copy email</button>
+            <a class="copy-btn" href="assets/cv/cv-ivan-jairus.pdf" download data-i18n="contact.cv">Download CV</a>
           </div>
         </div>
 
         <aside class="contact-meta" data-reveal style="--d:.1s">
-          <div class="status-pill"><i></i><span>open to work</span></div>
+          <div class="status-pill"><i></i><span data-i18n="contact.open">open to work</span></div>
           <div class="cm-row">
             <div class="cm-k" data-i18n="contact.email">Email</div>
             <div class="cm-v"><span data-profile="email">Filemonivanjairus@gmail.com</span></div>
@@ -992,8 +1011,11 @@
             <div class="cm-v"><span data-profile="location">Jakarta, Indonesia</span></div>
           </div>
           <div class="cm-row">
-            <div class="cm-k">links</div>
-            <div class="cm-v" data-profile="links" style="display:grid;gap:6px"></div>
+            <div class="cm-k" data-i18n="contact.links">links</div>
+            <div class="cm-v" data-profile="links" style="display:grid;gap:6px">
+            <a href="https://www.linkedin.com/in/ivan-jairus/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+            <a href="https://github.com/IvanJairus" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          </div>
           </div>
         </aside>
       </div>
@@ -1008,10 +1030,10 @@
     </div>
   </footer>
 
-  <script src="assets/js/config.js"></script>
-  <script src="assets/js/i18n.js"></script>
-  <script src="assets/js/diagrams.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/showcase.js"></script>
+  <script defer src="assets/js/config.js"></script>
+  <script defer src="assets/js/i18n.js"></script>
+  <script defer src="assets/js/diagrams.js"></script>
+  <script defer src="assets/js/main.js"></script>
+  <script defer src="assets/js/showcase.js"></script>
 </body>
 </html>

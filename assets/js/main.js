@@ -7,7 +7,10 @@
 
   const LS_LANG = "pf.lang";
   const LS_THEME = "pf.theme";
-  let lang = localStorage.getItem(LS_LANG) || "en";
+  /* localStorage bisa diblokir browser — situs harus tetap jalan dengan default */
+  const lsGet = (k, d) => { try { return localStorage.getItem(k) || d; } catch (e) { return d; } };
+  const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+  let lang = lsGet(LS_LANG, "en");
   if (!window.I18N[lang]) lang = "en";
 
   const t = (key) => (window.I18N[lang] && window.I18N[lang][key]) || (window.I18N.en[key] || key);
@@ -288,7 +291,7 @@
 
   /* ---------- boot ---------- */
   document.addEventListener("DOMContentLoaded", () => {
-    applyTheme(localStorage.getItem(LS_THEME) || "dark");
+    applyTheme(lsGet(LS_THEME, "dark"));
     renderProfile();
     applyI18n();
     initReveal();
@@ -301,7 +304,7 @@
     document.querySelectorAll("[data-lang-btn]").forEach((b) => {
       b.addEventListener("click", () => {
         lang = b.dataset.langBtn;
-        localStorage.setItem(LS_LANG, lang);
+        lsSet(LS_LANG, lang);
         applyI18n();
         document.dispatchEvent(new CustomEvent("pf:langchange", { detail: { lang: lang } }));
       });
@@ -311,7 +314,7 @@
     if (themeBtn) {
       themeBtn.addEventListener("click", () => {
         const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
-        localStorage.setItem(LS_THEME, next);
+        lsSet(LS_THEME, next);
         applyTheme(next);
       });
     }
