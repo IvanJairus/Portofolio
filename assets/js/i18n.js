@@ -193,6 +193,7 @@ window.I18N = {
 
     "work.demo.board": "See the interactive walkthrough",
     "work.demo.platform": "Try the interactive replica",
+    "work.demo.architecture": "See the gateway diagram",
 
     "hero.kicker": "Senior DevSecOps Engineer",
     "hero.role": "I build the machines that build the software.",
