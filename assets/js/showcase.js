@@ -509,6 +509,7 @@
     if (projSel && projSel.value !== P.proj) projSel.value = P.proj;
     P.crumb.textContent = TITLES[P.view] || "";
     P.viewEl.innerHTML = VIEW[P.view] ? VIEW[P.view]() : "";
+    P.viewEl.querySelectorAll("[data-h]").forEach(function (b) { b.style.height = b.getAttribute("data-h") + "%"; });
     if (P.view === "deploys" && P.deployTab === "monitoring" && P.building) startConsole();
   }
 
@@ -538,12 +539,12 @@
       return "<tr><td class='svc'>" + s.n + "</td><td><span class='rp-badge type'>" + s.t + "</span></td>" +
         "<td class='mono'>" + s.sit + "</td><td class='mono'>" + s.uat + "</td>" +
         "<td>" + stBadge(s.st) + "</td>" +
-        "<td>" + (s.st === "same" ? "<span class='mono' style='color:var(--accent)'>✓ ✓ ✓</span>" : "<span class='mono' style='color:var(--warn)'>✓ ✓ ✗</span>") + "</td></tr>";
+        "<td>" + (s.st === "same" ? "<span class='mono qg-ok'>✓ ✓ ✓</span>" : "<span class='mono qg-warn'>✓ ✓ ✗</span>") + "</td></tr>";
     }).join("");
     var weeks = [9, 14, 11, 18, 22, 17, 26, 24];
     var max = Math.max.apply(null, weeks);
     var bars = weeks.map(function (w, i) {
-      return '<b data-l="w' + (33 + i) + '" style="height:' + Math.round((w / max) * 100) + '%" class="' + (w >= 20 ? "hot" : "") + '"></b>';
+      return '<b data-l="w' + (33 + i) + '" data-h="' + Math.round((w / max) * 100) + '" class="' + (w >= 20 ? "hot" : "") + '"></b>';
     }).join("");
 
     return '<div class="rp-h"><h4>Release overview</h4><span class="sub">auto-refresh via SSE</span></div>' +
@@ -573,7 +574,7 @@
     }).join("");
     return '<div class="rp-h"><h4>Ticket board</h4><span class="sub">8 statuses · validated transitions</span></div>' +
       '<div class="rp-kanban">' + html + "</div>" +
-      panel("Transition rules", "", '<div class="rp-note" style="border-top:none">A ticket may only move along the allowed path; <code>emergency-hotfix</code> starts directly at <b>sit-deployed</b>. Every transition is recorded with actor and timestamp, and a rejected PRE-UAT review returns the ticket to <b>sit-deployed</b> and increments its rejection counter.</div>');
+      panel("Transition rules", "", '<div class="rp-note rp-note--plain">A ticket may only move along the allowed path; <code>emergency-hotfix</code> starts directly at <b>sit-deployed</b>. Every transition is recorded with actor and timestamp, and a rejected PRE-UAT review returns the ticket to <b>sit-deployed</b> and increments its rejection counter.</div>');
   };
 
   /* ---------- view: deploys ---------- */
@@ -608,16 +609,16 @@
     }).join("");
     var count = Object.keys(P.sel).length;
     return panel("Build & Deploy", count + " selected",
-      '<div class="rp-sel" style="padding-top:12px">' +
-      '<select class="rp-inp" style="flex:0 0 190px"><option>pipeline: sit-deploy</option><option>pipeline: uat-promote</option><option>pipeline: prod-release</option></select>' +
-      '<input class="rp-inp" style="flex:0 0 190px" value="release/sprint-24" aria-label="branch" />' +
+      '<div class="rp-sel rp-sel--pad">' +
+      '<select class="rp-inp rp-w190"><option>pipeline: sit-deploy</option><option>pipeline: uat-promote</option><option>pipeline: prod-release</option></select>' +
+      '<input class="rp-inp rp-w190" value="release/sprint-24" aria-label="branch" />' +
       '<button class="rp-btn" data-act="selectall">select all</button>' +
       '<button class="rp-btn" data-act="clearsel">clear</button>' +
       "</div>" +
       '<div class="rp-svc-grid">' + grid + "</div>" +
       '<div class="rp-sel">' +
       '<button class="rp-btn primary" data-act="deploy"' + (count ? "" : " disabled") + ">Deploy " + (count ? "(" + count + ")" : "") + "</button>" +
-      '<span class="mono" style="font-size:10px;color:var(--ink-faint)">or</span>' +
+      '<span class="mono rp-or">or</span>' +
       '<input class="rp-inp" placeholder="paste a commit SHA — services resolved from the diff" data-act-input="sha" />' +
       '<button class="rp-btn" data-act="bycommit">Deploy by Commit</button>' +
       "</div>",
@@ -633,7 +634,7 @@
     }).join("");
     return panel("Active builds", P.building ? '<span class="rp-building"><i></i>building</span>' : (P.lastRunOk ? badge("SUCCESS", "ok") : badge("idle", "")),
       '<div class="rp-stages">' + stages + "</div>" +
-      '<div style="padding:12px"><div class="rp-console" data-console>' + (P.consoleHtml || '<span class="c-dim">no active build — trigger one from Build &amp; Deploy</span>') + "</div></div>" +
+      '<div class="rp-pad"><div class="rp-console" data-console>' + (P.consoleHtml || '<span class="c-dim">no active build — trigger one from Build &amp; Deploy</span>') + "</div></div>" +
       '<div class="rp-sel"><button class="rp-btn" data-act="jenkins">View in CI server</button>' +
       '<button class="rp-btn" data-act="rerun">Re-run last build</button></div>',
       "Queue item, pipeline stages and console output are polled progressively and streamed into the page — engineers watch a deploy without ever opening the CI server.");
@@ -673,25 +674,25 @@
       ["updated", "kv/data/core/database", "rina.p", "16:20"],
       ["created", "kv/data/mobile/ios-profile", "ivan.j", "19:41"]
     ].map(function (v) {
-      return '<div class="rp-chg"><span class="s ' + (v[0] === "created" ? "add" : "mod") + '">' + v[0] + '</span><span class="mono">' + v[1] + '</span><span class="mono" style="margin-left:auto;color:var(--ink-faint)">' + v[2] + " · " + v[3] + "</span></div>";
+      return '<div class="rp-chg"><span class="s ' + (v[0] === "created" ? "add" : "mod") + '">' + v[0] + '</span><span class="mono">' + v[1] + '</span><span class="mono rp-meta-r">' + v[2] + " · " + v[3] + "</span></div>";
     }).join("");
 
     var approved = P.planStatus === "approved";
     return '<div class="rp-h"><h4>PRE-UAT review</h4><span class="sub">plan #48 · ' + P.planStatus + "</span></div>" +
-      (approved ? '<div class="rp-note" style="border:1px solid var(--accent-line);background:var(--accent-dim);color:var(--accent);border-radius:2px;margin-bottom:14px">Plan approved and tags created — 6 repositories tagged consistently.</div>' : "") +
+      (approved ? '<div class="rp-note rp-note--ok">Plan approved and tags created — 6 repositories tagged consistently.</div>' : "") +
       panel("Services to deploy", ch.length + " changed",
         "<table class='rp-tbl'><tr><th>service</th><th>type</th><th>version</th><th>ticket</th><th>state</th></tr>" + rows + "</table>",
         "This list is generated from the version diff, not typed by a human.") +
       panel("Config files to sync", "", cfg) +
       panel("Vault secret changes", "tracked per actor", vault) +
       panel("Auto-generated tag description", "from grouped tickets",
-        '<div style="padding:12px"><div class="rp-pre">' + esc(TAG_DESC) + "</div></div>" +
+        '<div class="rp-pad"><div class="rp-pre">' + esc(TAG_DESC) + "</div></div>" +
         '<div class="rp-sel"><button class="rp-btn" data-act="copytags">Copy</button></div>') +
       '<div class="rp-actions">' +
       '<button class="rp-btn primary" data-act="createtags"' + (approved || !can("approve") ? " disabled" : "") + ">Create Tags &amp; Promote</button>" +
       '<button class="rp-btn" data-act="approve"' + (!can("approve") || approved ? " disabled" : "") + ">Approve</button>" +
       '<button class="rp-btn danger" data-act="reject"' + (!can("approve") || approved ? " disabled" : "") + ">Reject</button>" +
-      (!can("approve") ? '<span class="mono" style="font-size:10px;color:var(--warn);align-self:center">approval requires devsecops or admin</span>' : "") +
+      (!can("approve") ? '<span class="mono rp-warn-inline">approval requires devsecops or admin</span>' : "") +
       "</div>";
   };
 
@@ -704,15 +705,15 @@
         "<td class='mono'>" + s.b + "</td><td class='mono'>" + s.v + "</td><td class='mono'>" + s.s + "</td>" +
         "<td class='mono'>" + s.c + "</td><td class='mono'>" + s.d + "</td>" +
         "<td class='mono'>" + s.tv.map(function (n, k) {
-          return "<span style='color:" + (k === 0 && n ? "var(--danger)" : (k === 1 && n ? "var(--warn)" : "var(--ink-faint)")) + "'>" + n + "</span>";
+          return "<span class='" + (k === 0 && n ? "sev-crit" : (k === 1 && n ? "sev-warn" : "sev-faint")) + "'>" + n + "</span>";
         }).join(" / ") + "</td>" +
         "<td><button class='rp-btn' data-act='scanone' data-i='" + i + "'>rescan</button></td></tr>";
     }).join("");
     return '<div class="rp-h"><h4>Quality &amp; security scans</h4><span class="sub">sonarqube + trivy</span></div>' +
-      '<div class="rp-actions" style="margin-bottom:14px">' +
+      '<div class="rp-actions rp-mb14">' +
       '<button class="rp-btn" data-act="fetchsonar">Fetch from SonarQube</button>' +
       '<button class="rp-btn primary" data-act="triggerscan">Trigger Scan</button>' +
-      '<select class="rp-inp" style="flex:0 0 190px"><option>branch: release/sprint-24</option><option>branch: main</option></select>' +
+      '<select class="rp-inp rp-w190"><option>branch: release/sprint-24</option><option>branch: main</option></select>' +
       "</div>" +
       panel("Per-repository results", "live",
         "<table class='rp-tbl'><tr><th>repo</th><th>gate</th><th>rating</th><th>bugs</th><th>vulns</th><th>smells</th><th>coverage</th><th>dupl.</th><th>trivy C/H/M</th><th></th></tr>" + rows + "</table>",
@@ -750,7 +751,7 @@
     var kv = s.kv.map(function (k) { return "<dt>" + k[0] + "</dt><dd>" + k[1] + "</dd>"; }).join("");
     return '<div class="rp-h"><h4>Secret store browser</h4><span class="sub">KV v2 · values masked in this demo</span></div>' +
       '<div class="rp-secrets"><div>' + list +
-      '<div class="rp-actions" style="margin-top:10px"><button class="rp-btn" data-act="newsecret">+ New secret</button></div></div>' +
+      '<div class="rp-actions rp-mt10"><button class="rp-btn" data-act="newsecret">+ New secret</button></div></div>' +
       panel(s.p, "version 4", '<dl class="rp-kv">' + kv + "</dl>" +
         '<div class="rp-sel"><button class="rp-btn" data-act="editsecret">Edit</button>' +
         '<button class="rp-btn danger" data-act="delsecret">Delete version</button></div>') +
@@ -775,7 +776,7 @@
       ["pipeline-key", "pipeline", "core-banking"]
     ].map(function (u) {
       return "<tr><td class='svc'>" + u[0] + "</td><td>" + badge(u[1], u[1] === "admin" ? "ok" : "") + "</td><td class='mono'>" + u[2] + "</td>" +
-        "<td>" + (can("users") ? "<button class='rp-btn danger' data-act='deluser'>remove</button>" : "<span class='mono' style='color:var(--ink-faint)'>locked</span>") + "</td></tr>";
+        "<td>" + (can("users") ? "<button class='rp-btn danger' data-act='deluser'>remove</button>" : "<span class='mono rp-locked'>locked</span>") + "</td></tr>";
     }).join("");
     var audit = AUDIT.map(function (a) {
       return "<tr><td class='mono'>" + a.t + "</td><td class='mono'>" + a.a + "</td><td>" + badge(a.r) + "</td><td class='mono'>" + a.e + "</td></tr>";
@@ -787,9 +788,9 @@
       panel("Audit log", "capped at 1000 entries",
         "<table class='rp-tbl rp-audit'><tr><th>time</th><th>actor</th><th>role</th><th>event</th></tr>" + audit + "</table>") +
       panel("Health", "v5.22.2",
-        '<div class="rp-sel" style="padding:12px">' +
-        '<span class="mono" style="font-size:10.5px;color:var(--ink-dim)">uptime 14d 06:22 · heap 118 MB · rate limit 100 req/min/ip</span>' +
-        '<button class="rp-btn primary" data-act="platformupdate" style="margin-left:auto">Platform Update</button></div>',
+        '<div class="rp-sel rp-pad">' +
+        '<span class="mono rp-dimline">uptime 14d 06:22 · heap 118 MB · rate limit 100 req/min/ip</span>' +
+        '<button class="rp-btn primary rp-mla" data-act="platformupdate">Platform Update</button></div>',
         "That button triggers the CI job that redeploys this dashboard itself — the platform is delivered by the same pipeline it orchestrates.");
   };
 

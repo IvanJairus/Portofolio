@@ -1889,3 +1889,24 @@ html[data-theme="dark"] .mail-callout { background: #fff8ec; }
   .dg-flow { display: none; }
   .n-gateway rect { animation: none; }
 }
+
+/* ---------- CSP-safe utility classes (menggantikan style="..." di JS & HTML) ---------- */
+.profile-links { display: grid; gap: 6px; }
+.rp-note--plain { border-top: none; }
+.rp-sel--pad { padding-top: 12px; }
+.rp-w190 { flex: 0 0 190px; }
+.rp-or { font-size: 10px; color: var(--ink-faint); }
+.rp-pad { padding: 12px; }
+.rp-meta-r { margin-left: auto; color: var(--ink-faint); }
+.rp-note--ok { border: 1px solid var(--accent-line); background: var(--accent-dim); color: var(--accent); border-radius: 2px; margin-bottom: 14px; }
+.rp-warn-inline { font-size: 10px; color: var(--warn); align-self: center; }
+.rp-mb14 { margin-bottom: 14px; }
+.rp-mt10 { margin-top: 10px; }
+.rp-locked { color: var(--ink-faint); }
+.rp-dimline { font-size: 10.5px; color: var(--ink-dim); }
+.rp-mla { margin-left: auto; }
+.qg-ok { color: var(--accent); }
+.qg-warn { color: var(--warn); }
+.sev-crit { color: var(--danger); }
+.sev-warn { color: var(--warn); }
+.sev-faint { color: var(--ink-faint); }

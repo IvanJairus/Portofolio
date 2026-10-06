@@ -72,3 +72,9 @@
   .flow-stage { border-color: var(--line-strong); background: var(--bg-3); }
   .hero-role .cursor { animation: none; }
 }
+
+/* ---------- delay utility classes (menggantikan style="--d:..."; CSP-safe) ---------- */
+.d1{--d:.08s}   .d2{--d:.1s}    .d3{--d:.16s}  .d4{--d:.2s}   .d5{--d:.24s}
+.d6{--d:.3s}    .d7{--d:.5s}    .d8{--d:.6s}   .d9{--d:.7s}   .d10{--d:.8s}
+.d11{--d:1.3s}  .d12{--d:1.4s}  .d13{--d:1.5s} .d14{--d:2.2s} .d15{--d:2.3s}
+.d16{--d:2.4s}  .d17{--d:2.5s}  .d18{--d:2.6s} .d19{--d:2.7s} .d20{--d:2.8s}

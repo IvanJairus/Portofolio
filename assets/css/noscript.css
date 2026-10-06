@@ -1,0 +1,11 @@
+/* Dimuat hanya saat JavaScript nonaktif (via <noscript><link>). CSP-safe: tanpa inline <style>. */
+[data-reveal] { opacity: 1 !important; transform: none !important; }
+.gate-check .box { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.gate-result { border-color: var(--accent); background: var(--accent-dim); }
+.gate-result .g-state { font-size: 0; color: var(--accent); }
+.gate-result .g-state::before { content: attr(data-ready); font-size: clamp(18px, 2.4vw, 26px); font-weight: 700; letter-spacing: .04em; }
+.rp-view::before, .bd-narr::before { content: "Interactive demo requires JavaScript — the written descriptions and diagrams remain fully readable."; display: block; padding: 16px; font-family: var(--font-mono); font-size: 12px; color: var(--ink-dim); }
+.hero-role .cursor { display: none; }
+/* Toolbox: tanpa JS, semua item tampil (filter tidak aktif) */
+.skill-item { display: block !important; }
+.tier-filter { display: none; }
