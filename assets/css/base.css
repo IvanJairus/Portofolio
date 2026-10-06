@@ -270,8 +270,8 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
 }
 .btn-primary { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px -12px var(--accent-line); }
-.btn-ghost { color: var(--ink); border-color: var(--line-strong); }
-.btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+.btn-ghost { color: var(--ink-dim); border-color: var(--line); background: transparent; }
+.btn-ghost:hover { border-color: var(--accent-line); color: var(--ink); }
 .btn .arr { transition: transform 0.22s var(--ease); }
 .btn:hover .arr { transform: translateX(4px); }
 
