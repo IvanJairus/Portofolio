@@ -125,6 +125,10 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
 .dim { color: var(--ink-dim); }
 
 .section-head { margin-bottom: clamp(40px, 6vw, 68px); }
+/* eyebrow sudah hilang di sebagian besar section: judul mengambil alih posisinya
+   supaya jarak tepi section ke teks pertama tidak berubah */
+.section-head > h2:first-child,
+.hero-id > h1:first-child { margin-top: 0; }
 
 /* ---------- header ---------- */
 .site-header {

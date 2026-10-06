@@ -17,7 +17,6 @@ window.I18N = {
     "hero.flow.note": "// one pipeline serves SIT → UAT → PROD — promotion changes nothing but the URL and the credentials",
     "hero.flow.legend": "<span class=\"lm-scan\" aria-hidden=\"true\">◇</span> scan · <span class=\"lm-gate\" aria-hidden=\"true\">■</span> gate — fail closed",
     "hero.artifacts": "artifacts I ship: jar · image · apk/aab · ipa · web bundle — one standard for all five",
-    "about.kicker": "Who this is",
     "about.title": "Pipelines other people are happy to inherit.",
     "about.lead": "Senior DevOps / DevSecOps Engineer, Jakarta. I design and maintain the release machinery behind banking-grade systems — and I document the trade-offs, not just the wins.",
     "about.p1.text": "repos routed through one gateway",
@@ -40,7 +39,6 @@ window.I18N = {
     "arch.scan.label": "sample output — sanitized",
     "nav.toolbox": "Toolbox",
     "nav.experience": "Experience",
-    "dec.kicker": "Inside the design",
     "dec.title": "Decisions and what they cost",
     "dec.lead": "Each decision, the alternative I rejected, and what it cost.",
     "dec.row.d": "decision",
@@ -67,7 +65,6 @@ window.I18N = {
     "dec.4.a": "Postgres for state, a queue for busy deploys, a bot that clicks merge.",
     "dec.4.w": "State lives inside the ticket; a second deploy while one runs is refused, not queued; the bot reverts the card and waits for a person.",
     "dec.4.c": "Fewer moving parts, fewer ways to be wrong — and occasionally waiting for a human, on purpose.",
-    "tm.kicker": "Threat model",
     "tm.title": "What I was actually defending",
     "tm.lead": "The tool list is what I used — this table is what I was thinking about.",
     "tm.h.asset": "asset",
@@ -196,7 +193,6 @@ window.I18N = {
     "work.demo.platform": "Try the interactive replica",
     "work.demo.architecture": "See the gateway diagram",
 
-    "hero.kicker": "Senior DevSecOps Engineer",
     "hero.role": "I build the machines that build the software.",
     "hero.tagline": "Platform engineer who turns release days into non-events — CI/CD pipelines, security gates and release automation for banking-grade systems.",
     "hero.proof": "40+ repos · 5 artifact types · 3 environments · 1 gateway",
@@ -210,7 +206,6 @@ window.I18N = {
 
 
 
-    "arch.kicker": "Architecture",
     "arch.title": "One gateway, forty repositories",
     "arch.lead": "The idea I keep returning to: developers should never own pipeline plumbing. A four-line include routes every repository to its domain pipeline, and the standard evolves in one place.",
     "arch.node.repos": "40+ service repos",
@@ -245,7 +240,6 @@ window.I18N = {
     "sec.gate.ready": "RELEASE READY",
     "sec.gate.blocked": "BLOCKED",
 
-    "work.kicker": "Selected work",
     "work.title": "Things I built and still maintain",
     "work.lead": "Sanitized descriptions — no hostnames, no tenant names, no internals. The engineering is real; the labels are not.",
     "work.1.title": "ChatOps Release Orchestrator",
@@ -264,7 +258,6 @@ window.I18N = {
     "work.3.i2": "Role-based access: admin / devsecops / developer",
     "work.3.i3": "Live updates over SSE; API-key auth for machine callers",
 
-    "skills.kicker": "Skills",
     "skills.title": "Toolbox, honestly rated",
     "skills.lead": "No percentages — they cannot be falsified. Each skill carries a usage tier and a pointer to the project that proves it. Hover or tap a reference to see where the evidence lives.",
     "tier.daily": "production daily",
@@ -310,10 +303,8 @@ window.I18N = {
     "skills.4.1": "Docker / Registry", "skills.4.2": "OpenShift / Kubernetes", "skills.4.3": "Linux / SSH", "skills.4.4": "Git", "skills.4.5": "Multi-artifact delivery",
     "skills.5.1": "Observability & logging", "skills.5.2": "Incident-driven design", "skills.5.3": "Templating & IaC", "skills.5.4": "Automated testing",
 
-    "exp.kicker": "Experience",
     "exp.title": "One direction, deepened",
 
-    "contact.kicker": "Contact",
     "contact.title": "Let's make releases boring.",
     "contact.lead": "Open to senior DevSecOps, platform engineering and developer-experience roles — on-premise or cloud, banking-grade or startup-speed.",
     "contact.email": "Email",
