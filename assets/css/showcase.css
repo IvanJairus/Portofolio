@@ -343,7 +343,7 @@ html[data-theme="light"] {
   transition: box-shadow 0.3s var(--ease);
 }
 .bd-card.moved { animation: card-pop 0.5s var(--ease); }
-.bd-card.ghost { border-left-color: var(--line-strong); opacity: 0.45; }
+.bd-card.ghost { border-left-color: var(--line-strong); }
 .bd-card.ghost .bc-title { color: var(--ink-dim); font-weight: 500; }
 .bc-top { display: flex; justify-content: space-between; gap: 6px; align-items: center; }
 .bc-iid { font-size: 9.5px; color: var(--ink-faint); }
@@ -1201,7 +1201,10 @@ html[data-theme="light"] .rp-console { background: #101314; color: #b6e88a; }
   padding: 16px;
   min-width: 0;
 }
-.ba-before { opacity: 0.75; }
+/* Sisi "before" dibuat surut lewat warna, bukan opacity: opacity di bawah 1
+   ikut menurunkan kontras teksnya sampai di bawah AA (Lighthouse color-contrast).
+   Teks di dalam blok ini memakai --ink-faint, yang sudah 6.4:1 (gelap) / 5.5:1 (terang). */
+.ba-before { border-color: var(--line); }
 .ba-tag {
   font-size: 12px;
   letter-spacing: 0.16em;
