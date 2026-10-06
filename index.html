@@ -91,6 +91,7 @@
             <div class="hf-node hf-prod" data-hf="6"><i></i><span>PROD</span><em class="hf-sub">release ledger</em></div>
           </div>
           <p class="sr-only">Release pipeline stages: commit (git push), build (maven, gradle, npm), scan (trivy, sonarqube), approval gate (five-layer chain), deploy to SIT, promote to UAT, release to PROD with a release ledger.</p>
+          <p class="hf-legend" data-i18n-html="hero.flow.legend"><span class="lm-scan" aria-hidden="true">◇</span> scan · <span class="lm-gate" aria-hidden="true">■</span> gate — fail closed</p>
           <p class="hf-caption" data-i18n="hero.flow.caption">Every change I ship travels this exact path — across five artifact types, two CI engines and three environments.</p>
           <p class="care-note" data-i18n="hero.flow.note">// one pipeline serves SIT → UAT → PROD — promotion changes nothing but the URL and the credentials</p>
         </div>

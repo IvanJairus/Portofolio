@@ -67,8 +67,31 @@ html[data-theme="light"] {
 }
 .hf-node.lit i { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-dim); }
 .hf-node.lit span { color: var(--ink); }
-.hf-node.hf-scan.lit i, .hf-node.hf-gate.lit i { box-shadow: 0 0 0 4px var(--accent-dim), 0 0 14px var(--accent-line); }
 .hf-node.hf-prod.lit i { background: var(--accent); transform: scale(1.25); }
+
+/* dua tahap yang bisa menghentikan rilis: dibedakan bentuknya, bukan hanya warnanya.
+   lingkaran = tahap biasa, belah ketupat = scan, kotak = gate.
+   warna memakai token status yang sudah ada (--warn, --danger), tidak ada palet baru. */
+.hf-node.hf-scan i {
+  transform: rotate(45deg);
+  border-radius: 2px;
+  border-color: var(--warn);
+}
+.hf-node.hf-gate i {
+  border-radius: 0;
+  border-color: var(--danger);
+}
+.hf-node.hf-scan.lit i { background: var(--warn); border-color: var(--warn); box-shadow: 0 0 0 4px var(--warn-dim), 0 0 14px var(--warn-dim); }
+.hf-node.hf-gate.lit i { background: var(--danger); border-color: var(--danger); box-shadow: 0 0 0 4px var(--danger-dim), 0 0 14px var(--danger-dim); }
+.hf-legend {
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-dim);
+}
+.hf-legend .lm-scan { color: var(--warn); }
+.hf-legend .lm-gate { color: var(--danger); }
 .hf-caption {
   margin-top: 30px;
   font-size: 13.6px;
