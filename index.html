@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ivan Jairus — Senior DevOps / DevSecOps Engineer</title>
+  <meta name="description" content="Portfolio of Ivan Jairus, Senior DevOps / DevSecOps Engineer: CI/CD pipelines as a product, security gates, and release automation for banking-grade systems." />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0b0b0c" />
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Ivan Jairus — Senior DevOps / DevSecOps Engineer" />
+  <meta property="og:description" content="CI/CD pipelines as a product, security gates, and release automation for banking-grade systems. One gateway, forty repositories." />
+  <meta property="og:image" content="assets/img/profile.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Ivan Jairus — Senior DevOps / DevSecOps Engineer" />
+  <meta name="twitter:description" content="CI/CD pipelines as a product, security gates, and release automation for banking-grade systems." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0b0c'/%3E%3Crect x='6' y='6' width='20' height='20' fill='none' stroke='%23c8f04b' stroke-width='2'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="assets/css/base.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/showcase.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="wrap header-in">
+      <a class="brand" href="#top" aria-label="Home">
+        <span class="mark" data-profile="monogram">IJ</span>
+        <span data-profile="brand-name">Ivan Jairus</span>
+        <span class="slash">/</span>
+        <span class="dim">devsecops</span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Primary">
+        <a href="#board" data-i18n="nav.board">Board</a>
+        <a href="#platform" data-i18n="nav.platform">Platform</a>
+        <a href="#architecture" data-i18n="nav.architecture">Architecture</a>
+        <a href="#work" data-i18n="nav.work">Work</a>
+        <a href="#skills" data-i18n="nav.skills">Skills</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+
+      <div class="header-tools">
+        <button class="tool-btn" data-lang-btn="en" aria-pressed="true">EN</button>
+        <button class="tool-btn" data-lang-btn="id" aria-pressed="false">ID</button>
+        <button class="tool-btn" data-theme-btn aria-pressed="false" title="Toggle theme">◐</button>
+        <button class="tool-btn menu-btn" data-menu-btn aria-expanded="false" aria-label="Menu">≡</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="kicker" data-i18n="hero.kicker">Senior DevSecOps Engineer</span>
+          <h1><span data-profile="name">Ivan Jairus</span><span class="accent-dot">.</span></h1>
+          <p class="hero-role"><span data-profile="role">Senior DevOps / DevSecOps Engineer</span><span class="cursor" aria-hidden="true"></span></p>
+          <p class="hero-tag" data-i18n="hero.tagline">Platform engineer who turns release days into non-events.</p>
+
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#work"><span data-i18n="hero.cta.work">Selected work</span> <span class="arr">→</span></a>
+            <a class="btn btn-ghost" href="#contact"><span data-i18n="hero.cta.contact">Get in touch</span></a>
+          </div>
+
+          <div class="terminal" aria-hidden="true">
+            <div class="terminal-bar"><i></i><i></i><i></i><span>~/ivan — zsh</span></div>
+            <div class="terminal-body">
+              <div class="ln cmd" data-i18n="hero.terminal.1">$ whoami</div>
+              <div class="ln out" data-i18n="hero.terminal.2">senior-devsecops-engineer // pipelines-as-a-product</div>
+              <div class="ln cmd" data-i18n="hero.terminal.3">$ status --all</div>
+              <div class="ln out dim-out" data-i18n="hero.terminal.4">gates: enforced   scans: wired   releases: boring</div>
+            </div>
+          </div>
+        </div>
+
+        <figure class="hero-photo" data-reveal>
+          <div class="photo-frame">
+            <span class="photo-tag mono">./profile --grayscale</span>
+            <img src="assets/img/profile.jpg"
+                 srcset="assets/img/profile-480.jpg 480w, assets/img/profile.jpg 800w"
+                 sizes="(max-width: 860px) 72vw, 400px"
+                 alt="Portrait photo" data-i18n-attr="alt:hero.photo.alt"
+                 width="800" height="1000" fetchpriority="high" decoding="async" />
+          </div>
+          <figcaption class="photo-caption" data-i18n="hero.photo.caption">grayscale by default — like my pipelines: no surprises in color</figcaption>
+        </figure>
+      </div>
+
+      <!-- rel pipeline: satu perubahan kode berjalan sampai produksi, berlabel tool -->
+      <div class="wrap hero-flow-wrap">
+        <div class="hero-flow" data-flow="hero" aria-hidden="true">
+          <div class="hf-line"></div>
+          <div class="hf-packet"></div>
+          <div class="hf-node" data-hf="0"><i></i><span>commit</span><em class="hf-sub">git push</em></div>
+          <div class="hf-node" data-hf="1"><i></i><span>build</span><em class="hf-sub">maven · gradle · npm</em></div>
+          <div class="hf-node hf-scan" data-hf="2"><i></i><span>scan</span><em class="hf-sub">trivy · sonar</em></div>
+          <div class="hf-node hf-gate" data-hf="3"><i></i><span>gate</span><em class="hf-sub">5-layer approval</em></div>
+          <div class="hf-node" data-hf="4"><i></i><span>SIT</span><em class="hf-sub">jar · image · bundle</em></div>
+          <div class="hf-node" data-hf="5"><i></i><span>UAT</span><em class="hf-sub">tag &amp; merge</em></div>
+          <div class="hf-node hf-prod" data-hf="6"><i></i><span>PROD</span><em class="hf-sub">release ledger</em></div>
+        </div>
+        <p class="hf-caption" data-i18n="hero.flow.caption">Every change I ship travels this exact path — across five artifact types, two CI engines and three environments.</p>
+        <p class="care-note" data-i18n="hero.flow.note">// one pipeline serves SIT → UAT → PROD — promotion changes nothing but the URL and the credentials</p>
+
+        <div class="tool-chips" data-reveal>
+          <span>GitLab CI</span><span>Jenkins</span><span>Docker</span><span>OpenShift</span><span>Trivy</span><span>SonarQube</span><span>Vault</span><span>Python</span><span>Bash</span><span>Groovy</span><span>Git</span>
+        </div>
+        <p class="artifact-line mono" data-i18n="hero.artifacts">artifacts I ship: jar · image · apk/aab · ipa · web bundle — one standard for all five</p>
+      </div>
+    </section>
+
+    <!-- ================= STATS ================= -->
+    <div class="stats">
+      <div class="wrap stats-in">
+        <div class="stat">
+          <div class="v" data-count="2.5" data-decimals="1" data-suffix-en="+" data-suffix-id="+" data-i18n="stats.years.value">2.5+</div>
+          <div class="l" data-i18n="stats.years.label">years in DevSecOps</div>
+        </div>
+        <div class="stat">
+          <div class="v" data-count="40" data-suffix-en="+" data-suffix-id="+" data-i18n="stats.repos.value">40+</div>
+          <div class="l" data-i18n="stats.repos.label">repos on one pipeline standard</div>
+        </div>
+        <div class="stat">
+          <div class="v" data-count="110" data-suffix-en="k+" data-suffix-id="rb+" data-i18n="stats.loc.value">110k+</div>
+          <div class="l" data-i18n="stats.loc.label">lines of CI/CD code stewarded</div>
+        </div>
+        <div class="stat">
+          <div class="v" data-count="330" data-suffix-en="+" data-suffix-id="+" data-i18n="stats.tests.value">330+</div>
+          <div class="l" data-i18n="stats.tests.label">automated pipeline tests</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= MASTERPIECE I : BOARD ================= -->
+    <section id="board">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <span class="kicker" data-i18n="board.kicker">Masterpiece I — release orchestration</span>
+          <h2 data-i18n="board.title">I turned a bare GitLab board into a release system</h2>
+          <p class="lead" data-i18n="board.lead">GitLab issue boards have almost none of what a regulated release needs: no approval chain, no phase enforcement, no state, no deploy trigger. Instead of buying a tool, I made the board itself drive the pipeline. Engineers move a card; branches, merge requests, scans, approvals, deploys and audit comments all happen by themselves — and every result is written back into the ticket.</p>
+        </div>
+
+        <!-- before / after: terbaca dalam satu tatapan -->
+        <div class="ba" data-reveal>
+          <div class="ba-side ba-before">
+            <div class="ba-tag mono">gitlab <em>out of the box</em></div>
+            <div class="ba-cols">
+              <div class="ba-col"><h5>To do</h5><span class="ba-card"></span><span class="ba-card sm"></span></div>
+              <div class="ba-col"><h5>Doing</h5><span class="ba-card"></span></div>
+              <div class="ba-col"><h5>Done</h5></div>
+            </div>
+            <p class="ba-note" data-i18n="board.ba.before">no approval chain · no phase state · no trigger — just columns</p>
+          </div>
+          <div class="ba-arrow">
+            <span class="ba-arrow-ic" aria-hidden="true">→</span>
+            <span class="ba-arrow-txt" data-i18n="board.ba.arrow">1 card moved → 6 automated actions</span>
+          </div>
+          <div class="ba-side ba-after">
+            <div class="ba-tag mono">the board <em>I built</em></div>
+            <div class="ba-cols five">
+              <div class="ba-col"><h5>To do</h5><span class="ba-card on">#471<i class="ba-badge">Intake</i></span></div>
+              <div class="ba-col"><h5>In Dev</h5><span class="ba-card lit"><i class="ba-dot"></i>branch auto-made</span></div>
+              <div class="ba-col"><h5>In Review</h5><span class="ba-card lit"><i class="ba-dot"></i>MR + scans</span></div>
+              <div class="ba-col"><h5>Merged</h5><span class="ba-card lit"><i class="ba-chips">✓✓✓✓✓</i>5-layer approval</span></div>
+              <div class="ba-col"><h5>Deploy</h5><span class="ba-card lit"><i class="ba-dot"></i>pipeline + audit</span></div>
+            </div>
+            <p class="ba-note" data-i18n="board.ba.after">phase badge · approval chips · bot comments · deploy trigger — the board runs the release</p>
+          </div>
+        </div>
+
+        <!-- storyboard interaktif -->
+        <div class="bd" data-reveal>
+          <div class="bd-bar">
+            <div class="bd-bar-l">
+              <span class="bd-live"><i></i><span data-i18n="board.demo.live">live walkthrough</span></span>
+              <span class="bd-count mono"><b data-bd-cur>1</b> / <span data-bd-total>8</span></span>
+            </div>
+            <div class="bd-bar-r">
+              <button class="bd-btn" data-bd-prev aria-label="Previous step">‹</button>
+              <button class="bd-btn bd-play" data-bd-play aria-label="Play or pause"><span class="ic-pause">❚❚</span><span class="ic-play">▶</span></button>
+              <button class="bd-btn" data-bd-next aria-label="Next step">›</button>
+            </div>
+          </div>
+
+          <div class="bd-dots" role="tablist" aria-label="Release cycle steps">
+            <button class="bd-dot on" data-bd-go="0" role="tab" aria-label="Step 1"></button>
+            <button class="bd-dot" data-bd-go="1" role="tab" aria-label="Step 2"></button>
+            <button class="bd-dot" data-bd-go="2" role="tab" aria-label="Step 3"></button>
+            <button class="bd-dot" data-bd-go="3" role="tab" aria-label="Step 4"></button>
+            <button class="bd-dot" data-bd-go="4" role="tab" aria-label="Step 5"></button>
+            <button class="bd-dot" data-bd-go="5" role="tab" aria-label="Step 6"></button>
+            <button class="bd-dot" data-bd-go="6" role="tab" aria-label="Step 7"></button>
+            <button class="bd-dot" data-bd-go="7" role="tab" aria-label="Step 8"></button>
+          </div>
+
+          <div class="bd-grid">
+            <div class="bd-board">
+              <div class="bd-col" data-col="0"><h4>To do<span class="cc">1</span></h4><div class="bd-colbody"></div></div>
+              <div class="bd-col" data-col="1"><h4>In Dev<span class="cc">1</span></h4><div class="bd-colbody">
+                <div class="bd-card ghost"><div class="bc-top"><span class="bc-iid mono">#468</span></div><div class="bc-title">fix: timeout on statement export</div></div>
+              </div></div>
+              <div class="bd-col" data-col="2"><h4>In Review<span class="cc">0</span></h4><div class="bd-colbody"></div></div>
+              <div class="bd-col" data-col="3"><h4>Merged<span class="cc">1</span></h4><div class="bd-colbody">
+                <div class="bd-card ghost"><div class="bc-top"><span class="bc-iid mono">#465</span></div><div class="bc-title">chore: bump base image</div></div>
+              </div></div>
+              <div class="bd-col" data-col="4"><h4>Deploy<span class="cc">0</span></h4><div class="bd-colbody"></div></div>
+
+              <div class="bd-card" id="bd-card">
+                <div class="bc-top"><span class="bc-iid mono">#471</span><span class="bc-phase mono" data-bd-phase>Intake</span></div>
+                <div class="bc-title">feat: nightly ledger reconciliation</div>
+                <div class="bc-meta">
+                  <span class="bc-lbl">Sprint 24</span>
+                  <span class="bc-lbl sev">severity:2</span>
+                  <span class="bc-lbl">priority:high</span>
+                </div>
+                <div class="bc-approve" data-bd-approve></div>
+                <div class="bc-bot" data-bd-botmark><span class="mono">state</span><code>&lt;!-- PIPELINE_STATE --&gt;</code></div>
+              </div>
+            </div>
+
+            <div class="bd-ticket">
+              <div class="bt-head">
+                <span class="bt-ic">◧</span>
+                <div>
+                  <div class="bt-title">#471 · feat: nightly ledger reconciliation</div>
+                  <div class="bt-sub mono" data-i18n="board.demo.activity">activity — everything below is written by the automation</div>
+                </div>
+              </div>
+              <div class="bt-feed" data-bd-feed aria-live="polite"></div>
+            </div>
+          </div>
+
+          <p class="bd-narr" data-bd-narr></p>
+        </div>
+
+        <!-- gerbang & anti-insiden -->
+        <div class="board-panels">
+          <div class="bpanel" data-reveal>
+            <h3><span class="n">D1</span><span data-i18n="board.p1.title">A five-layer approval chain, enforced by machine</span></h3>
+            <div class="chain">
+              <span class="chain-link" data-i18n="board.chain.1">SM Lead</span><i>→</i>
+              <span class="chain-link" data-i18n="board.chain.2">BA Lead</span><i>→</i>
+              <span class="chain-link" data-i18n="board.chain.3">PO</span><i>→</i>
+              <span class="chain-link" data-i18n="board.chain.4">SA Lead</span><i>→</i>
+              <span class="chain-link" data-i18n="board.chain.5">Dev Lead</span>
+            </div>
+            <ul class="blist">
+              <li data-i18n="board.p1.a">Every phase demands a specific approval field; skip one and the phase is reverted automatically with an explanatory comment.</li>
+              <li data-i18n="board.p1.b">Phase jumps are rejected: the sequential flow allows no leap forward, and one role may only hold one approval state at a time.</li>
+              <li data-i18n="board.p1.c">Fail-closed by default — a missing milestone or an unconfirmed merge stops the job with exit 1 instead of quietly continuing.</li>
+            </ul>
+          </div>
+
+          <div class="bpanel" data-reveal style="--d:.1s">
+            <h3><span class="n">D2</span><span data-i18n="board.p2.title">Designed around a real incident</span></h3>
+            <p class="bp-lead" data-i18n="board.p2.lead">A retry command with substring matching let the bot trigger itself: 824 comments across 8 tickets in one night. The fix is layered, and 25 regression tests keep it fixed.</p>
+            <div class="layers">
+              <div class="layer"><b>L1</b><span data-i18n="board.layer.1">bot accounts excluded at the CI rule level</span></div>
+              <div class="layer"><b>L2</b><span data-i18n="board.layer.2">bot username guard inside the orchestrator</span></div>
+              <div class="layer"><b>L3</b><span data-i18n="board.layer.3">anchored regex — a comment must start with the command</span></div>
+              <div class="layer"><b>L4</b><span data-i18n="board.layer.4">bot replies are written so they can never re-trigger</span></div>
+            </div>
+            <div class="cool">
+              <span class="cool-chip mono">deploy watermark 60s</span>
+              <span class="cool-chip mono">scan cooldown 900s</span>
+              <span class="cool-chip mono">merge dedupe 120s</span>
+              <span class="cool-chip mono">cycle idempotency</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- chatops jadi satu anotasi -->
+        <p class="care-note co-line" data-reveal><span class="mono">chatops //</span> <span data-i18n="board.co.line">/retry · /sonarqube · /diff &lt;domain&gt; · /sync · /follow #iid · /summarypic · /notif — the board doubles as a command line; every command is anchored, gated by ticket status and bot-proof.</span></p>
+      </div>
+    </section>
+
+    <!-- ================= MASTERPIECE II : PLATFORM ================= -->
+    <section id="platform">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <span class="kicker" data-i18n="plat.kicker">Masterpiece II — release control plane</span>
+          <h2 data-i18n="plat.title">The dashboard that replaced five tools and a spreadsheet</h2>
+          <p class="lead" data-i18n="plat.lead">A self-built release management platform: version drift between environments, build and deploy triggering, live console streaming, quality gates, secret changes, mobile test recordings and role-based access — in one page, updated in realtime. Below is an interactive replica with sanitized dummy data. Click anything.</p>
+        </div>
+
+        <div class="rp" data-rp data-reveal>
+          <div class="rp-chrome">
+            <span class="rp-dots"><i></i><i></i><i></i></span>
+            <span class="rp-url mono">release-control-plane <em>/ interactive replica — dummy data</em></span>
+            <span class="rp-sse" data-rp-sse><i></i><span class="mono">live</span></span>
+          </div>
+
+          <div class="rp-body">
+            <aside class="rp-side">
+              <div class="rp-brand"><span class="rp-mark">▤</span><span class="mono">release<span>ctrl</span></span></div>
+              <nav class="rp-nav" data-rp-nav>
+                <button class="rp-ni on" data-view="dashboard"><i>◱</i>Dashboard</button>
+                <button class="rp-ni" data-view="board"><i>▦</i>Board</button>
+                <button class="rp-ni" data-view="deploys"><i>▲</i>Deploys</button>
+                <button class="rp-ni" data-view="preuat"><i>⇪</i>PRE-UAT</button>
+                <button class="rp-ni" data-view="scans"><i>◎</i>Scans</button>
+                <button class="rp-ni" data-view="testing"><i>▷</i>Testing</button>
+                <button class="rp-ni" data-view="secrets"><i>⚿</i>Secrets</button>
+                <button class="rp-ni rp-admin" data-view="settings"><i>⚙</i>Settings</button>
+              </nav>
+              <div class="rp-side-foot">
+                <div class="rp-role">
+                  <label class="mono" for="rp-role">role</label>
+                  <select id="rp-role" data-rp-role>
+                    <option value="admin">admin</option>
+                    <option value="devsecops" selected>devsecops</option>
+                    <option value="developer">developer</option>
+                  </select>
+                </div>
+                <div class="rp-user mono"><span class="av">IJ</span> ivan.j</div>
+              </div>
+            </aside>
+
+            <div class="rp-main">
+              <div class="rp-top">
+                <select class="rp-proj" data-rp-proj aria-label="Project">
+                  <option value="all">All Projects</option>
+                  <option value="core">core-banking</option>
+                  <option value="mobile">mobile-channel</option>
+                  <option value="portal">customer-portal</option>
+                </select>
+                <span class="rp-crumb mono" data-rp-crumb>Dashboard</span>
+                <span class="rp-clock mono" data-rp-clock>--:--:--</span>
+              </div>
+              <div class="rp-view" data-rp-view></div>
+            </div>
+          </div>
+
+          <div class="rp-toasts" data-rp-toasts aria-live="polite"></div>
+        </div>
+
+        <p class="rp-caption" data-i18n="plat.caption">Replica UI is shown in English, exactly like the real product. All names, versions, hashes and paths below are sanitized dummy data — the behaviour, the layout and the numbers describing the platform itself are real.</p>
+
+        <div class="rp-facts" data-reveal>
+          <div class="sf"><b>12</b><span data-i18n="plat.fact.1">views in a single-page app</span></div>
+          <div class="sf"><b>~110</b><span data-i18n="plat.fact.2">route handlers across 7 API modules</span></div>
+          <div class="sf"><b>14</b><span data-i18n="plat.fact.3">realtime event types pushed over SSE</span></div>
+          <div class="sf"><b>3</b><span data-i18n="plat.fact.4">runtime dependencies on the server</span></div>
+          <div class="sf"><b>~9.9k</b><span data-i18n="plat.fact.5">lines written and maintained by me</span></div>
+        </div>
+
+        <div class="points-row four">
+          <div class="point" data-reveal>
+            <h3><span class="n">E1</span><span data-i18n="plat.p1.title">Diff-driven releases</span></h3>
+            <p data-i18n="plat.p1.body">The core question is "what differs between SIT and UAT?" — the release plan is generated only from services whose versions actually diverged, so nothing rides along by accident.</p>
+          </div>
+          <div class="point" data-reveal style="--d:.1s">
+            <h3><span class="n">E2</span><span data-i18n="plat.p2.title">Deploy without leaving the page</span></h3>
+            <p data-i18n="plat.p2.body">Pick services or paste a commit SHA; the platform resolves which services that diff touches, triggers the build, then streams queue, stages and console output back live.</p>
+          </div>
+          <div class="point" data-reveal style="--d:.2s">
+            <h3><span class="n">E3</span><span data-i18n="plat.p3.title">Release notes write themselves</span></h3>
+            <p data-i18n="plat.p3.body">Tag descriptions are composed from grouped tickets — features, bugfixes, hotfixes — plus config and secret changes, then applied to every repository in the group at once.</p>
+          </div>
+          <div class="point" data-reveal style="--d:.3s">
+            <h3><span class="n">E4</span><span data-i18n="plat.p4.title">Accountable by design</span></h3>
+            <p data-i18n="plat.p4.body">Three roles, per-project assignment, API keys for pipelines, an audit log for every destructive action, and a platform-update button that redeploys the dashboard itself.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ARCHITECTURE ================= -->
+    <section id="architecture">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <span class="kicker" data-i18n="arch.kicker">Architecture</span>
+          <h2 data-i18n="arch.title">One gateway, forty repositories</h2>
+          <p class="lead" data-i18n="arch.lead">The idea I keep returning to.</p>
+        </div>
+
+        <div class="diagram-shell" data-diagram="gateway" data-reveal>
+          <svg viewBox="0 0 1080 340" role="img" aria-label="Architecture diagram: many service repositories route through a single gateway to domain pipelines and environments">
+            <text class="col-label" x="20" y="30" data-i18n="arch.node.repos">40+ service repos</text>
+            <text class="col-label" x="650" y="30" data-i18n="arch.node.dom">domain pipelines</text>
+            <text class="col-label" x="930" y="30" data-i18n="arch.node.env">environments</text>
+
+            <!-- links: repos -> gateway -->
+            <path class="dg-link" style="--d:.5s"  d="M170 82 H250 V180 H330" />
+            <path class="dg-link" style="--d:.6s"  d="M170 146 H250 V180 H330" />
+            <path class="dg-link" style="--d:.7s"  d="M170 210 H250 V180 H330" />
+            <path class="dg-link" style="--d:.8s"  d="M170 274 H250 V180 H330" />
+            <!-- gateway -> domains -->
+            <path class="dg-link" style="--d:1.3s" d="M510 180 H580 V100 H650" />
+            <path class="dg-link" style="--d:1.4s" d="M510 180 H580 V190 H650" />
+            <path class="dg-link" style="--d:1.5s" d="M510 180 H580 V280 H650" />
+            <!-- domains -> bus -> envs -->
+            <path class="dg-link" style="--d:2.2s" d="M820 100 H875" />
+            <path class="dg-link" style="--d:2.3s" d="M820 190 H875" />
+            <path class="dg-link" style="--d:2.4s" d="M820 280 H875" />
+            <path class="dg-link" style="--d:2.5s" d="M875 100 V280" />
+            <path class="dg-link" style="--d:2.6s" d="M875 112 H930" />
+            <path class="dg-link" style="--d:2.7s" d="M875 192 H930" />
+            <path class="dg-link" style="--d:2.8s" d="M875 272 H930" />
+
+            <!-- repos -->
+            <g class="dg-node n-repo"><rect x="20" y="60" width="150" height="44" rx="3" /><text class="node-sub" x="95" y="86" text-anchor="middle" data-i18n="arch.node.repo">service repo</text></g>
+            <g class="dg-node n-repo"><rect x="20" y="124" width="150" height="44" rx="3" /><text class="node-sub" x="95" y="150" text-anchor="middle" data-i18n="arch.node.repo">service repo</text></g>
+            <g class="dg-node n-repo"><rect x="20" y="188" width="150" height="44" rx="3" /><text class="node-sub" x="95" y="214" text-anchor="middle" data-i18n="arch.node.repo">service repo</text></g>
+            <g class="dg-node n-repo"><rect x="20" y="252" width="150" height="44" rx="3" /><text class="node-sub" x="95" y="278" text-anchor="middle" data-i18n="arch.node.more">+35 more</text></g>
+
+            <!-- gateway -->
+            <g class="dg-node n-gateway">
+              <rect x="330" y="145" width="180" height="70" rx="3" />
+              <text class="node-title accent-txt" x="420" y="176" text-anchor="middle" data-i18n="arch.node.gateway">gateway.yml</text>
+              <text class="node-sub" x="420" y="196" text-anchor="middle" data-i18n="arch.node.gateway.sub">route by project id</text>
+            </g>
+
+            <!-- domains -->
+            <g class="dg-node n-dom"><rect x="650" y="76" width="170" height="48" rx="3" /><text class="node-title" x="735" y="105" text-anchor="middle" data-i18n="arch.node.dom1">mobile banking</text></g>
+            <g class="dg-node n-dom"><rect x="650" y="166" width="170" height="48" rx="3" /><text class="node-title" x="735" y="195" text-anchor="middle" data-i18n="arch.node.dom2">dashboards</text></g>
+            <g class="dg-node n-dom"><rect x="650" y="256" width="170" height="48" rx="3" /><text class="node-title" x="735" y="285" text-anchor="middle" data-i18n="arch.node.dom3">onboarding</text></g>
+
+            <!-- envs -->
+            <g class="dg-node n-env"><rect x="930" y="90" width="130" height="44" rx="3" /><text class="node-title" x="995" y="117" text-anchor="middle" data-i18n="arch.node.sit">SIT</text></g>
+            <g class="dg-node n-env"><rect x="930" y="170" width="130" height="44" rx="3" /><text class="node-title" x="995" y="197" text-anchor="middle" data-i18n="arch.node.uat">UAT</text></g>
+            <g class="dg-node n-env"><rect x="930" y="250" width="130" height="44" rx="3" /><text class="node-title" x="995" y="277" text-anchor="middle" data-i18n="arch.node.prod">PROD</text></g>
+          </svg>
+        </div>
+
+        <div class="points-row">
+          <div class="point" data-reveal>
+            <h3><span class="n">A1</span><span data-i18n="arch.p1.title">Routing is data, not duplication</span></h3>
+            <p data-i18n="arch.p1.body">Project IDs map to domain pipelines in one config.</p>
+          </div>
+          <div class="point" data-reveal style="--d:.1s">
+            <h3><span class="n">A2</span><span data-i18n="arch.p2.title">Two engines, one contract</span></h3>
+            <p data-i18n="arch.p2.body">GitLab CI and legacy Jenkins coexist.</p>
+          </div>
+          <div class="point" data-reveal style="--d:.2s">
+            <h3><span class="n">A3</span><span data-i18n="arch.p3.title">Promotion is an event</span></h3>
+            <p data-i18n="arch.p3.body">SIT to UAT to PROD moves are tag-and-merge operations.</p>
+          </div>
+        </div>
+
+        <!-- security sebagai gate: cukup satu baris visual, bukan satu section -->
+        <div class="arch-gate" data-reveal>
+          <div class="ag-title mono" data-i18n="arch.gate.title">what "release ready" means on my platform</div>
+          <div class="diagram-shell" data-diagram="gate">
+            <div class="gate">
+              <div class="gate-checks">
+                <div class="gate-check"><span class="box">✓</span><span data-i18n="sec.check.1">Deployment SUCCESS</span></div>
+                <div class="gate-check"><span class="box">✓</span><span data-i18n="sec.check.2">Quality gate PASSED</span></div>
+                <div class="gate-check"><span class="box">✓</span><span data-i18n="sec.check.3">No CRITICAL findings</span></div>
+              </div>
+              <div class="gate-result">
+                <div class="g-label">composite gate</div>
+                <div class="g-state" aria-live="polite" data-ready="RELEASE READY">···</div>
+              </div>
+            </div>
+          </div>
+          <p class="care-note" data-i18n="arch.sec.line">// security is a gate, not a report — SAST on the merge path, SBOM per image, secrets fail closed</p>
+        </div>
+
+        <p class="care-note" data-reveal data-i18n="arch.note1">// the stage orchestrator was designed on paper before a line of code — 40 repos share one contract, so a new team onboards with a four-line include</p>
+        <p class="care-note" data-reveal data-i18n="arch.note2">// every helper ships with permanent debug logs — when production misbehaves, I read, I do not guess</p>
+        <p class="care-note" data-reveal data-i18n="arch.note3">// I hate copy-paste versioning more than I hate writing code: sync groups retag a whole release train consistently, next version suggested</p>
+      </div>
+    </section>
+
+    <!-- ================= WORK ================= -->
+    <section id="work">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <span class="kicker" data-i18n="work.kicker">Selected work</span>
+          <h2 data-i18n="work.title">Things I built and still maintain</h2>
+          <p class="lead" data-i18n="work.lead">Sanitized descriptions.</p>
+        </div>
+
+        <div class="work-grid">
+          <article class="work-card" id="proj-1" data-reveal>
+            <span class="w-idx">/ 01</span>
+            <h3 data-i18n="work.1.title">ChatOps Release Orchestrator</h3>
+            <p class="w-desc" data-i18n="work.1.desc">Webhook-driven orchestrator.</p>
+            <ul class="w-impact">
+              <li data-i18n="work.1.i1">32 pipeline jobs across 18 orchestrators</li>
+              <li data-i18n="work.1.i2">~330 unit tests</li>
+              <li data-i18n="work.1.i3">Anti-loop watermarks</li>
+            </ul>
+            <div class="w-tags">
+              <span class="tag">Python 3</span><span class="tag">GitLab GraphQL</span><span class="tag">Webhooks</span><span class="tag">Vault</span><span class="tag">pytest</span>
+            </div>
+            <a class="w-demo" href="#board"><span data-i18n="work.demo.board">See the interactive walkthrough</span> <span class="arr">→</span></a>
+          </article>
+
+          <article class="work-card" id="proj-2" data-reveal style="--d:.08s">
+            <span class="w-idx">/ 02</span>
+            <h3 data-i18n="work.2.title">Pipeline-as-a-Product Platform</h3>
+            <p class="w-desc" data-i18n="work.2.desc">A single repository holding every CI/CD definition.</p>
+            <ul class="w-impact">
+              <li data-i18n="work.2.i1">40+ repositories onboarded</li>
+              <li data-i18n="work.2.i2">52-rule codified standard</li>
+              <li data-i18n="work.2.i3">Vulnerability scan + SBOM</li>
+            </ul>
+            <div class="w-tags">
+              <span class="tag">GitLab CI</span><span class="tag">Jenkins Groovy</span><span class="tag">Bash</span><span class="tag">Trivy</span><span class="tag">CycloneDX</span>
+            </div>
+          </article>
+
+          <article class="work-card" id="proj-3" data-reveal>
+            <span class="w-idx">/ 03</span>
+            <h3 data-i18n="work.3.title">Release Control Plane</h3>
+            <p class="w-desc" data-i18n="work.3.desc">Self-built release management platform.</p>
+            <ul class="w-impact">
+              <li data-i18n="work.3.i1">Composite quality gate</li>
+              <li data-i18n="work.3.i2">Role-based access</li>
+              <li data-i18n="work.3.i3">Live updates over SSE</li>
+            </ul>
+            <div class="w-tags">
+              <span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">SSE</span><span class="tag">RBAC</span>
+            </div>
+            <a class="w-demo" href="#platform"><span data-i18n="work.demo.platform">Try the interactive replica</span> <span class="arr">→</span></a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section id="skills">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <span class="kicker" data-i18n="skills.kicker">Skills</span>
+          <h2 data-i18n="skills.title">Toolbox, honestly rated</h2>
+          <p class="lead" data-i18n="skills.lead">No percentages — they are unfalsifiable.</p>
+        </div>
+
+        <div class="tier-legend" data-reveal>
+          <div><span class="tier t-daily" data-i18n="tier.daily">production daily</span><span data-i18n="tier.daily.desc">in my hands every week, in production</span></div>
+          <div><span class="tier t-regular" data-i18n="tier.regular">production regular</span><span data-i18n="tier.regular.desc">regular production use, not daily</span></div>
+          <div><span class="tier t-exposure" data-i18n="tier.exposure">project exposure</span><span data-i18n="tier.exposure.desc">used in a specific project, not owned</span></div>
+        </div>
+
+        <div class="skill-grid">
+          <div class="skill-group" data-reveal>
+            <h3><span data-i18n="skills.g1">CI/CD &amp; Automation</span><span>//</span></h3>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.1.1">GitLab CI</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.1.1">gateway include routes 40+ repos.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.1.2">Bash</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.1.2">SSH deploy &amp; rollback tooling.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.1.3">Jenkins / Groovy</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.1.3">29 legacy Groovy pipelines behind one stage contract.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.1.4">Pipeline design</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.1.4">stage contract per artifact type.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+          </div>
+
+          <div class="skill-group" data-reveal style="--d:.08s">
+            <h3><span data-i18n="skills.g2">Languages</span><span>//</span></h3>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.2.1">Python</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.2.1">18 ChatOps orchestrators, ~330 unit tests.</span><a class="ref" href="#proj-1" data-ref="proj-1">proj-01</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.2.2">JavaScript / Node</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.2.2">the release control plane, three dependencies total.</span><a class="ref" href="#proj-3" data-ref="proj-3">proj-03</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.2.3">Groovy</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.2.3">shared pipeline logic and security-scan jobs.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.2.4">SQL / Oracle</span><span class="tier t-exposure" data-i18n="tier.exposure">project exposure</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.2.4">AWR-driven tuning tasks over SSH.</span><a class="ref" href="#proj-1" data-ref="proj-1">proj-01</a></p>
+            </div>
+          </div>
+
+          <div class="skill-group" data-reveal>
+            <h3><span data-i18n="skills.g3">Security</span><span>//</span></h3>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.3.1">SAST / Semgrep</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.3.1">centralized per-domain SAST in the merge path.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.3.2">Container scanning / Trivy</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.3.2">vuln+secret+config scan on every image.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.3.3">Secrets / Vault</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.3.3">KV v2, JWT-scoped pipeline auth, fail-closed.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.3.4">SBOM / CycloneDX</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.3.4">SBOM archived alongside every container build.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+          </div>
+
+          <div class="skill-group" data-reveal style="--d:.08s">
+            <h3><span data-i18n="skills.g4">Infrastructure &amp; Platforms</span><span>//</span></h3>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.4.1">Docker / Registry</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.4.1">image build and push on every backend deploy.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.4.2">OpenShift / Kubernetes</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.4.2">rolling deploys across three namespaces.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.4.3">Linux / SSH</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.4.3">service lifecycle with dated backups and verify retries.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.4.4">Git</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.4.4">append-only release ledger, promotion as tag-and-merge.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.4.5">Multi-artifact delivery</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.4.5">jar, image, apk/aab, ipa and bundle stage contracts behind one gateway.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+          </div>
+
+          <div class="skill-group" data-reveal>
+            <h3><span data-i18n="skills.g5">Practices</span><span>//</span></h3>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.5.1">Observability &amp; logging</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.5.1">permanent debug logs; deploy callbacks stream over SSE.</span><a class="ref" href="#proj-3" data-ref="proj-3">proj-03</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.5.2">Incident-driven design</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.5.2">anti-loop watermarks exist because of a real incident.</span><a class="ref" href="#proj-1" data-ref="proj-1">proj-01</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.5.3">Templating &amp; IaC</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.5.3">per-artifact stage templates and rendered manifests.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.5.4">Automated testing</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.5.4">routing, idempotency and merge-race tests.</span><a class="ref" href="#proj-1" data-ref="proj-1">proj-01</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= EXPERIENCE ================= -->
+    <section id="experience">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <span class="kicker" data-i18n="exp.kicker">Experience</span>
+          <h2 data-i18n="exp.title">2.5 years, one direction</h2>
+        </div>
+        <div class="timeline" data-profile="experience"></div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact">
+      <div class="wrap contact-in">
+        <div data-reveal>
+          <span class="kicker" data-i18n="contact.kicker">Contact</span>
+          <h2 data-i18n="contact.title">Let's make releases boring.</h2>
+          <p class="lead" data-i18n="contact.lead">Open to senior DevSecOps roles.</p>
+
+          <div class="mail-line">
+            <a class="mail-link" data-profile="email-link" href="mailto:Filemonivanjairus@gmail.com">Filemonivanjairus@gmail.com</a>
+            <button class="copy-btn" data-copy-btn data-i18n="contact.cta">Copy email</button>
+          </div>
+        </div>
+
+        <aside class="contact-meta" data-reveal style="--d:.1s">
+          <div class="status-pill"><i></i><span>open to work</span></div>
+          <div class="cm-row">
+            <div class="cm-k" data-i18n="contact.email">Email</div>
+            <div class="cm-v"><span data-profile="email">Filemonivanjairus@gmail.com</span></div>
+          </div>
+          <div class="cm-row">
+            <div class="cm-k" data-i18n="contact.location">Based in</div>
+            <div class="cm-v"><span data-profile="location">Jakarta, Indonesia</span></div>
+          </div>
+          <div class="cm-row">
+            <div class="cm-k">links</div>
+            <div class="cm-v" data-profile="links" style="display:grid;gap:6px"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="wrap footer-in">
+      <span>© <span data-profile="year">2026</span> <span data-profile="brand-name">Ivan Jairus</span> — <span data-i18n="footer.rights">All rights reserved.</span></span>
+      <span data-i18n="footer.built">Hand-built — no templates, no CDN, one accent color.</span>
+    </div>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/diagrams.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/showcase.js"></script>
+</body>
+</html>

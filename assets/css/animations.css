@@ -1,0 +1,74 @@
+/* ============================================================
+   animations.css — reveal on scroll, keyframes, reduced motion
+   ============================================================ */
+
+/* ---------- reveal ---------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+  transition-delay: var(--d, 0s);
+}
+[data-reveal].revealed { opacity: 1; transform: none; }
+
+/* ---------- keyframes ---------- */
+@keyframes blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-line); }
+  50% { box-shadow: 0 0 0 5px transparent; }
+}
+
+/* garis diagram "digambar" dari kiri ke kanan */
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+/* titik data berjalan menyusuri garis lurus (pakai CSS var tx/ty) */
+@keyframes packet {
+  0%   { opacity: 0; transform: translate(0, 0); }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--tx, 0px), var(--ty, 0px)); }
+}
+
+/* titik berjalan menyusuri rail pipeline (lebar penuh) */
+@keyframes travel {
+  0%   { left: 0%;    opacity: 0; }
+  4%   { opacity: 1; }
+  96%  { opacity: 1; }
+  100% { left: calc(100% - 12px); opacity: 0; }
+}
+
+/* gate checks & hasil: urutan dinyalakan oleh diagrams.js via class .ok / .ready */
+.gate-check, .gate-result { transition: all 0.45s var(--ease); }
+
+/* stage pipeline menyala berurutan, sinkron dengan flow-dot (5.6s / 7 stage).
+   .flow-rail dan .flow-dot adalah child 1-2, jadi stage mulai dari child 3. */
+.play .flow-stage:nth-child(3) { animation: stagelit 5.6s linear infinite; animation-delay: 0s; }
+.play .flow-stage:nth-child(4) { animation: stagelit 5.6s linear infinite; animation-delay: 0.8s; }
+.play .flow-stage:nth-child(5) { animation: stagelit 5.6s linear infinite; animation-delay: 1.6s; }
+.play .flow-stage:nth-child(6) { animation: stagelit 5.6s linear infinite; animation-delay: 2.4s; }
+.play .flow-stage:nth-child(7) { animation: stagelit 5.6s linear infinite; animation-delay: 3.2s; }
+.play .flow-stage:nth-child(8) { animation: stagelit 5.6s linear infinite; animation-delay: 4.0s; }
+.play .flow-stage:nth-child(9) { animation: stagelit 5.6s linear infinite; animation-delay: 4.8s; }
+@keyframes stagelit {
+  0%, 2%   { border-color: var(--line-strong); background: var(--bg-3); }
+  6%, 12%  { border-color: var(--accent); background: var(--accent-dim); }
+  18%, 100%{ border-color: var(--line-strong); background: var(--bg-3); }
+}
+.play .flow-stage .s-name { transition: color 0.3s var(--ease); }
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001s !important;
+    transition-delay: 0s !important;
+  }
+  [data-reveal] { opacity: 1; transform: none; }
+  .dg-link { stroke-dashoffset: 0; }
+  .dg-packet, .flow-dot { display: none; }
+  .flow-stage { border-color: var(--line-strong); background: var(--bg-3); }
+  .hero-role .cursor { animation: none; }
+}
