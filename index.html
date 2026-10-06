@@ -42,8 +42,8 @@
       </nav>
 
       <div class="header-tools">
-        <button class="tool-btn" data-theme-btn aria-pressed="false" title="Toggle theme">◐</button>
-        <button class="tool-btn menu-btn" data-menu-btn aria-expanded="false" aria-label="Menu">≡</button>
+        <button type="button" class="tool-btn" data-theme-btn aria-pressed="false" title="Toggle theme">◐</button>
+        <button type="button" class="tool-btn menu-btn" data-menu-btn aria-expanded="false" aria-label="Menu">≡</button>
       </div>
     </div>
   </header>
@@ -262,21 +262,21 @@
               <span class="bd-count mono"><b data-bd-cur>1</b> / <span data-bd-total>8</span></span>
             </div>
             <div class="bd-bar-r">
-              <button class="bd-btn" data-bd-prev aria-label="Previous step">‹</button>
-              <button class="bd-btn bd-play" data-bd-play aria-label="Play or pause"><span class="ic-pause">❚❚</span><span class="ic-play">▶</span></button>
-              <button class="bd-btn" data-bd-next aria-label="Next step">›</button>
+              <button type="button" class="bd-btn" data-bd-prev aria-label="Previous step">‹</button>
+              <button type="button" class="bd-btn bd-play" data-bd-play aria-label="Play or pause"><span class="ic-pause">❚❚</span><span class="ic-play">▶</span></button>
+              <button type="button" class="bd-btn" data-bd-next aria-label="Next step">›</button>
             </div>
           </div>
 
           <div class="bd-dots" role="tablist" aria-label="Release cycle steps">
-            <button class="bd-dot on" data-bd-go="0" role="tab" aria-label="Step 1"></button>
-            <button class="bd-dot" data-bd-go="1" role="tab" aria-label="Step 2"></button>
-            <button class="bd-dot" data-bd-go="2" role="tab" aria-label="Step 3"></button>
-            <button class="bd-dot" data-bd-go="3" role="tab" aria-label="Step 4"></button>
-            <button class="bd-dot" data-bd-go="4" role="tab" aria-label="Step 5"></button>
-            <button class="bd-dot" data-bd-go="5" role="tab" aria-label="Step 6"></button>
-            <button class="bd-dot" data-bd-go="6" role="tab" aria-label="Step 7"></button>
-            <button class="bd-dot" data-bd-go="7" role="tab" aria-label="Step 8"></button>
+            <button type="button" class="bd-dot on" data-bd-go="0" role="tab" aria-label="Step 1"></button>
+            <button type="button" class="bd-dot" data-bd-go="1" role="tab" aria-label="Step 2"></button>
+            <button type="button" class="bd-dot" data-bd-go="2" role="tab" aria-label="Step 3"></button>
+            <button type="button" class="bd-dot" data-bd-go="3" role="tab" aria-label="Step 4"></button>
+            <button type="button" class="bd-dot" data-bd-go="4" role="tab" aria-label="Step 5"></button>
+            <button type="button" class="bd-dot" data-bd-go="5" role="tab" aria-label="Step 6"></button>
+            <button type="button" class="bd-dot" data-bd-go="6" role="tab" aria-label="Step 7"></button>
+            <button type="button" class="bd-dot" data-bd-go="7" role="tab" aria-label="Step 8"></button>
           </div>
 
           <div class="bd-grid">
@@ -378,17 +378,17 @@
           </div>
 
           <div class="rp-body">
-            <aside class="rp-side">
+            <aside class="rp-side" aria-label="Replica navigation">
               <div class="rp-brand"><span class="rp-mark">▤</span><span class="mono">release<span>ctrl</span></span></div>
-              <nav class="rp-nav" data-rp-nav>
-                <button class="rp-ni on" data-view="dashboard"><i>◱</i>Dashboard</button>
-                <button class="rp-ni" data-view="board"><i>▦</i>Board</button>
-                <button class="rp-ni" data-view="deploys"><i>▲</i>Deploys</button>
-                <button class="rp-ni" data-view="preuat"><i>⇪</i>PRE-UAT</button>
-                <button class="rp-ni" data-view="scans"><i>◎</i>Scans</button>
-                <button class="rp-ni" data-view="testing"><i>▷</i>Testing</button>
-                <button class="rp-ni" data-view="secrets"><i>⚿</i>Secrets</button>
-                <button class="rp-ni rp-admin" data-view="settings"><i>⚙</i>Settings</button>
+              <nav class="rp-nav" data-rp-nav aria-label="Replica views">
+                <button type="button" class="rp-ni on" data-view="dashboard"><i>◱</i>Dashboard</button>
+                <button type="button" class="rp-ni" data-view="board"><i>▦</i>Board</button>
+                <button type="button" class="rp-ni" data-view="deploys"><i>▲</i>Deploys</button>
+                <button type="button" class="rp-ni" data-view="preuat"><i>⇪</i>PRE-UAT</button>
+                <button type="button" class="rp-ni" data-view="scans"><i>◎</i>Scans</button>
+                <button type="button" class="rp-ni" data-view="testing"><i>▷</i>Testing</button>
+                <button type="button" class="rp-ni" data-view="secrets"><i>⚿</i>Secrets</button>
+                <button type="button" class="rp-ni rp-admin" data-view="settings"><i>⚙</i>Settings</button>
               </nav>
               <div class="rp-side-foot">
                 <div class="rp-role">
@@ -553,16 +553,16 @@
           <div class="lc-rail" data-lc-rail>
             <div class="lc-line" aria-hidden="true"></div>
             <div class="lc-packet" aria-hidden="true"></div>
-            <button class="lc-node on" data-lc="0"><i></i><span data-i18n="lc.n1">commit</span></button>
-            <button class="lc-node" data-lc="1"><i></i><span data-i18n="lc.n2">branch auto-made</span></button>
-            <button class="lc-node" data-lc="2"><i></i><span data-i18n="lc.n3">MR opened</span></button>
+            <button type="button" class="lc-node on" data-lc="0"><i></i><span data-i18n="lc.n1">commit</span></button>
+            <button type="button" class="lc-node" data-lc="1"><i></i><span data-i18n="lc.n2">branch auto-made</span></button>
+            <button type="button" class="lc-node" data-lc="2"><i></i><span data-i18n="lc.n3">MR opened</span></button>
             <div class="lc-node lc-fan" data-lc="3"><i></i><span data-i18n="lc.n4">parallel checks</span>
               <em>build ✓/✗</em><em>sonarqube</em><em>sast · semgrep</em>
             </div>
-            <button class="lc-node lc-gate" data-lc="4"><i></i><span data-i18n="lc.n5">composite gate</span></button>
-            <button class="lc-node" data-lc="5"><i></i><span data-i18n="lc.n6">merge — by a human</span></button>
-            <button class="lc-node" data-lc="6"><i></i><span data-i18n="lc.n7">deploy SIT</span></button>
-            <button class="lc-node lc-prod" data-lc="7"><i></i><span data-i18n="lc.n8">promote UAT → PROD</span></button>
+            <button type="button" class="lc-node lc-gate" data-lc="4"><i></i><span data-i18n="lc.n5">composite gate</span></button>
+            <button type="button" class="lc-node" data-lc="5"><i></i><span data-i18n="lc.n6">merge — by a human</span></button>
+            <button type="button" class="lc-node" data-lc="6"><i></i><span data-i18n="lc.n7">deploy SIT</span></button>
+            <button type="button" class="lc-node lc-prod" data-lc="7"><i></i><span data-i18n="lc.n8">promote UAT → PROD</span></button>
           </div>
           <p class="lc-detail mono" data-lc-detail></p>
 
@@ -587,9 +587,9 @@
                   <span class="ms-sub" data-i18n="lc.mail.headsub">report emails my pipelines generate — sample data, sanitized</span>
                 </div>
                 <div class="ms-tabs" role="tablist">
-                  <button class="ms-tab on" data-mail="sync" role="tab">branch sync</button>
-                  <button class="ms-tab" data-mail="sast" role="tab">sast report</button>
-                  <button class="ms-tab" data-mail="sonar" role="tab">sonarqube</button>
+                  <button type="button" class="ms-tab on" data-mail="sync" role="tab">branch sync</button>
+                  <button type="button" class="ms-tab" data-mail="sast" role="tab">sast report</button>
+                  <button type="button" class="ms-tab" data-mail="sonar" role="tab">sonarqube</button>
                 </div>
               </div>
 
@@ -615,11 +615,12 @@
                     <div class="ms gray"><b>1</b><span>skipped</span></div>
                   </div>
                   <table class="mail-tbl">
-                    <tr class="th"><td>service</td><td>branch pair</td><td>status</td><td>mr</td></tr>
+<tbody><tr class="th"><td>service</td><td>branch pair</td><td>status</td><td>mr</td></tr>
                     <tr><td>ledger-service</td><td>R1.0 → R1.1</td><td class="ok">✓ MERGED</td><td class="lk">view MR</td></tr>
                     <tr><td>mobile-bff</td><td>R1.1 → R1.2</td><td class="warn">⚠ CONFLICT — REBASE NEEDED</td><td class="lk">view MR</td></tr>
                     <tr><td>scheduler-job</td><td>R1.0 → R1.1</td><td class="dim">— NO CHANGES</td><td></td></tr>
                     <tr><td>auth-gateway</td><td>R1.1 → R1.2</td><td class="bad">✕ APPROVAL FAILED</td><td class="lk">view MR</td></tr>
+</tbody>
                   </table>
                   <div class="mail-note mono">note // one design system, three report types — the run always reports itself</div>
                 </div>
@@ -652,9 +653,10 @@
                   </div>
                   <div class="mail-sect mono">RINGKASAN PER CATEGORY</div>
                   <table class="mail-tbl">
-                    <tr class="th"><td>category</td><td>service</td><td>critical</td><td>high</td><td>medium</td><td>low</td><td>status</td></tr>
+<tbody><tr class="th"><td>category</td><td>service</td><td>critical</td><td>high</td><td>medium</td><td>low</td><td>status</td></tr>
                     <tr><td><b>FE</b></td><td>12</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td><span class="pill ok">BERSIH</span></td></tr>
                     <tr><td><b>BE</b></td><td>19</td><td class="bad">1</td><td class="ok">0</td><td class="warn">5</td><td class="ok">0</td><td><span class="pill bad">TEMUAN</span></td></tr>
+</tbody>
                   </table>
                   <div class="mail-att mono"><span>📎 sast-report-core-fe.html · 17 KB</span><span>📎 sast-report-core-be.html · 70 KB</span></div>
                   <div class="mail-note mono">Laporan detail per category dilampirkan pada email ini dan dapat dibuka langsung di browser.</div>
@@ -685,11 +687,12 @@
                   </div>
                   <div class="mail-sect mono">SCAN RESULTS</div>
                   <table class="mail-tbl">
-                    <tr class="th"><td>service</td><td>branch</td><td>quality gate</td><td>vulns</td><td>coverage</td></tr>
+<tbody><tr class="th"><td>service</td><td>branch</td><td>quality gate</td><td>vulns</td><td>coverage</td></tr>
                     <tr><td>ledger-service</td><td>R1.1</td><td><span class="pill ok">PASSED</span></td><td class="ok">0</td><td>78.4%</td></tr>
                     <tr><td>mobile-bff</td><td>R1.1</td><td><span class="pill bad">NOT PASSED</span></td><td class="bad">2</td><td>61.2%</td></tr>
                     <tr><td>auth-gateway</td><td>R1.1</td><td><span class="pill ok">PASSED</span></td><td class="ok">0</td><td>83.0%</td></tr>
                     <tr><td class="dim">scheduler-job</td><td>R1.1</td><td><span class="pill dim">NO ANALYSIS</span></td><td>—</td><td>—</td></tr>
+</tbody>
                   </table>
                   <div class="mail-note mono">note // each service's own Sonar pipeline is triggered in batches, then polled round-robin until every one is done</div>
                 </div>
@@ -741,7 +744,7 @@
               </div>
             </div>
           </div>
-          <div class="scan-card" aria-label="Sample scan summary">
+          <div class="scan-card" role="img" aria-label="Sample scan summary">
             <div class="sc-head mono"><span>◎ sonarqube · ledger-service · release/sprint-24</span><span class="sc-tag" data-i18n="arch.scan.label">sample output — sanitized</span></div>
             <div class="sc-rows mono">
               <div><span>quality gate</span><b class="ok">PASSED</b></div>
@@ -820,9 +823,9 @@
         <div class="tm-wrap" data-reveal>
           <table class="tm-tbl">
             <thead><tr>
-              <th data-i18n="tm.h.asset">asset</th>
-              <th data-i18n="tm.h.threat">threat</th>
-              <th data-i18n="tm.h.gate">the gate that closes it</th>
+              <th scope="col" data-i18n="tm.h.asset">asset</th>
+              <th scope="col" data-i18n="tm.h.threat">threat</th>
+              <th scope="col" data-i18n="tm.h.gate">the gate that closes it</th>
             </tr></thead>
             <tbody>
               <tr><td data-i18n="tm.1a">release integrity</td><td data-i18n="tm.1t">merge without approval · phase skip</td><td data-i18n="tm.1g">5-layer chain + machine revert with an explanatory comment</td></tr>
@@ -1011,12 +1014,12 @@
 
           <div class="mail-line">
             <a class="mail-link" data-profile="email-link" href="mailto:Filemonivanjairus@gmail.com">Filemonivanjairus@gmail.com</a>
-            <button class="copy-btn" data-copy-btn data-i18n="contact.cta">Copy email</button>
+            <button type="button" class="copy-btn" data-copy-btn data-i18n="contact.cta">Copy email</button>
             <a class="copy-btn" href="assets/cv/cv-ivan-jairus.pdf" download data-i18n="contact.cv">Download CV</a>
           </div>
         </div>
 
-        <aside class="contact-meta d2" data-reveal>
+        <aside class="contact-meta d2" data-reveal aria-label="Contact details">
           <div class="status-pill"><i></i><span data-i18n="contact.open">open to work</span></div>
           <div class="cm-row">
             <div class="cm-k" data-i18n="contact.email">Email</div>
@@ -1028,7 +1031,7 @@
           </div>
           <div class="cm-row">
             <div class="cm-k" data-i18n="contact.links">links</div>
-            <div class="cm-v" data-profile="links" class="profile-links">
+            <div class="cm-v profile-links" data-profile="links">
             <a href="https://www.linkedin.com/in/ivan-jairus/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
             <a href="https://github.com/IvanJairus" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
           </div>
