@@ -5,13 +5,11 @@
 (function () {
   "use strict";
 
-  const LS_LANG = "pf.lang";
   const LS_THEME = "pf.theme";
   /* localStorage bisa diblokir browser — situs harus tetap jalan dengan default */
   const lsGet = (k, d) => { try { return localStorage.getItem(k) || d; } catch (e) { return d; } };
   const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
-  let lang = lsGet(LS_LANG, "en");
-  if (!window.I18N[lang]) lang = "en";
+  const lang = "en"; /* situs ditetapkan English-only */
 
   const t = (key) => (window.I18N[lang] && window.I18N[lang][key]) || (window.I18N.en[key] || key);
   const pick = (obj) => (obj && (obj[lang] || obj.en)) || "";
@@ -46,9 +44,6 @@
       if (el.closest(".gate-result").classList.contains("ready")) {
         el.textContent = t("sec.gate.ready");
       }
-    });
-    document.querySelectorAll("[data-lang-btn]").forEach((b) => {
-      b.setAttribute("aria-pressed", String(b.dataset.langBtn === lang));
     });
   }
 
@@ -300,15 +295,6 @@
     initNav();
     initSkillRefs();
     initCopy();
-
-    document.querySelectorAll("[data-lang-btn]").forEach((b) => {
-      b.addEventListener("click", () => {
-        lang = b.dataset.langBtn;
-        lsSet(LS_LANG, lang);
-        applyI18n();
-        document.dispatchEvent(new CustomEvent("pf:langchange", { detail: { lang: lang } }));
-      });
-    });
 
     const themeBtn = document.querySelector("[data-theme-btn]");
     if (themeBtn) {

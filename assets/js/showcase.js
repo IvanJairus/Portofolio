@@ -1052,7 +1052,6 @@
         }, { rootMargin: "120px" }).observe(wrap);
       } else { start(); }
     }
-    document.addEventListener("pf:langchange", function () { show(cur); });
   }
 
   /* ============================================================
@@ -1067,12 +1066,5 @@
     initSubnav();
     initLifecycle();
     initMailTabs();
-
-    /* render ulang komponen JS saat bahasa berganti */
-    document.addEventListener("pf:langchange", function () {
-      if (bd) go(bd.idx);
-      var chips = document.querySelector("[data-co-chips]");
-      if (chips && chips._refresh) chips._refresh();
-    });
   });
 })();
