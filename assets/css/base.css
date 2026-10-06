@@ -11,7 +11,7 @@
   --bg-3: #17171a;
   --ink: #f4f4f2;
   --ink-dim: #a4a4aa;
-  --ink-faint: #6e6e75;
+  --ink-faint: #96969e;  /* >=4.5:1 di semua bg gelap (audit v2 #5) */
   --line: rgba(244, 244, 242, 0.10);
   --line-strong: rgba(244, 244, 242, 0.22);
 
@@ -39,7 +39,7 @@ html[data-theme="light"] {
   --bg-3: #ecece7;
   --ink: #101013;
   --ink-dim: #54545a;
-  --ink-faint: #8b8b91;
+  --ink-faint: #68686f;  /* >=4.5:1 di semua bg terang (audit v2 #5) */
   --line: rgba(16, 16, 19, 0.12);
   --line-strong: rgba(16, 16, 19, 0.28);
   --accent: #4d7c0f;
