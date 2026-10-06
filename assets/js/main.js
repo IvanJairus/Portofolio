@@ -217,15 +217,15 @@
       const sec = document.querySelector(a.getAttribute("href"));
       if (sec) map.set(sec, a);
     });
+    const visible = new Set();
     const io = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
-        const a = map.get(en.target);
-        if (!a) return;
-        if (en.isIntersecting) {
-          links.forEach((l) => l.classList.remove("active"));
-          a.classList.add("active");
-        }
+        if (en.isIntersecting) visible.add(en.target); else visible.delete(en.target);
       });
+      links.forEach((l) => l.classList.remove("active"));
+      let best = null;
+      visible.forEach((sec) => { if (!best || sec.offsetTop < best.offsetTop) best = sec; });
+      if (best) map.get(best).classList.add("active"); /* di hero: tidak ada yang aktif */
     }, { rootMargin: "-45% 0px -50% 0px" });
     map.forEach((_, sec) => io.observe(sec));
 
