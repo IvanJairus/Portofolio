@@ -160,7 +160,6 @@
 
         <div class="work-grid">
           <article class="work-card" id="proj-1">
-            <span class="w-idx">/ 01</span>
             <h3 data-i18n="work.1.title">ChatOps Release Orchestrator</h3>
             <p class="w-desc" data-i18n="work.1.desc">Webhook-driven orchestrator.</p>
             <ul class="w-impact">
@@ -175,7 +174,6 @@
           </article>
 
           <article class="work-card" id="proj-2">
-            <span class="w-idx">/ 02</span>
             <h3 data-i18n="work.2.title">Pipeline-as-a-Product Platform</h3>
             <p class="w-desc" data-i18n="work.2.desc">A single repository holding every CI/CD definition.</p>
             <ul class="w-impact">
@@ -190,7 +188,6 @@
           </article>
 
           <article class="work-card" id="proj-3">
-            <span class="w-idx">/ 03</span>
             <h3 data-i18n="work.3.title">Release Control Plane</h3>
             <p class="w-desc" data-i18n="work.3.desc">Self-built release management platform.</p>
             <ul class="w-impact">
@@ -434,19 +431,19 @@
 
         <div class="points-row four">
           <div class="point">
-            <h3><span class="n">E1</span><span data-i18n="plat.p1.title">Diff-driven releases</span></h3>
+            <h3><span data-i18n="plat.p1.title">Diff-driven releases</span></h3>
             <p data-i18n="plat.p1.body">The core question is "what differs between SIT and UAT?" — the release plan is generated only from services whose versions actually diverged, so nothing rides along by accident.</p>
           </div>
           <div class="point">
-            <h3><span class="n">E2</span><span data-i18n="plat.p2.title">Deploy without leaving the page</span></h3>
+            <h3><span data-i18n="plat.p2.title">Deploy without leaving the page</span></h3>
             <p data-i18n="plat.p2.body">Pick services or paste a commit SHA; the platform resolves which services that diff touches, triggers the build, then streams queue, stages and console output back live.</p>
           </div>
           <div class="point">
-            <h3><span class="n">E3</span><span data-i18n="plat.p3.title">Release notes write themselves</span></h3>
+            <h3><span data-i18n="plat.p3.title">Release notes write themselves</span></h3>
             <p data-i18n="plat.p3.body">Tag descriptions are composed from grouped tickets — features, bugfixes, hotfixes — plus config and secret changes, then applied to every repository in the group at once.</p>
           </div>
           <div class="point">
-            <h3><span class="n">E4</span><span data-i18n="plat.p4.title">Accountable by design</span></h3>
+            <h3><span data-i18n="plat.p4.title">Accountable by design</span></h3>
             <p data-i18n="plat.p4.body">Three roles, per-project assignment, API keys for pipelines, an audit log for every destructive action, and a platform-update button that redeploys the dashboard itself.</p>
           </div>
         </div>
@@ -530,15 +527,15 @@
 
         <div class="points-row">
           <div class="point">
-            <h3><span class="n">A1</span><span data-i18n="arch.p1.title">Routing is data, not duplication</span></h3>
+            <h3><span data-i18n="arch.p1.title">Routing is data, not duplication</span></h3>
             <p data-i18n="arch.p1.body">Project IDs map to domain pipelines in one config.</p>
           </div>
           <div class="point">
-            <h3><span class="n">A2</span><span data-i18n="arch.p2.title">Two engines, one contract</span></h3>
+            <h3><span data-i18n="arch.p2.title">Two engines, one contract</span></h3>
             <p data-i18n="arch.p2.body">GitLab CI and legacy Jenkins coexist.</p>
           </div>
           <div class="point">
-            <h3><span class="n">A3</span><span data-i18n="arch.p3.title">Promotion is an event</span></h3>
+            <h3><span data-i18n="arch.p3.title">Promotion is an event</span></h3>
             <p data-i18n="arch.p3.body">SIT to UAT to PROD moves are tag-and-merge operations.</p>
           </div>
         </div>
