@@ -1309,23 +1309,24 @@ html[data-theme="light"] .rp-console { background: #101314; color: #b6e88a; }
    ============================================================ */
 
 /* --- proof cards (About) --- */
+/* satu strip dengan garis pemisah, bukan empat kotak */
 .pf-strip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+  gap: 0;
   margin: 10px 0 34px;
 }
 .pf-card {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--bg-2);
+  border: none;
+  border-left: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
   padding: 18px 16px;
-  transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
 }
-.pf-card:hover { border-color: var(--accent-line); transform: translateY(-2px); }
+.pf-card:first-child { border-left: none; }
 .pf-card b {
   font-family: var(--font-mono);
   font-size: 30px;
@@ -1335,8 +1336,15 @@ html[data-theme="light"] .rp-console { background: #101314; color: #b6e88a; }
 .pf-card span { font-size: 13px; color: var(--ink-dim); line-height: 1.45; flex: 1; }
 .pf-card em { font-style: normal; font-size: 12px; letter-spacing: 0.08em; color: var(--ink-faint); }
 .pf-card:hover em { color: var(--accent); }
-@media (max-width: 900px) { .pf-strip { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 520px) { .pf-strip { grid-template-columns: 1fr; } }
+@media (max-width: 900px) {
+  .pf-strip { grid-template-columns: repeat(2, 1fr); }
+  .pf-card:nth-child(odd) { border-left: none; }
+}
+@media (max-width: 520px) {
+  .pf-strip { grid-template-columns: 1fr; }
+  .pf-card { border-left: none; border-top: 1px solid var(--line); }
+  .pf-card:first-child { border-top: none; }
+}
 
 .chips-label {
   font-size: 12px;
