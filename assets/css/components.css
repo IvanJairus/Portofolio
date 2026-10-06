@@ -288,7 +288,6 @@
   display: flex; justify-content: space-between;
 }
 .skill-group h3 span { color: var(--ink); }
-.skill-group h3 span:last-child { color: var(--accent); }
 .skill-item { padding: 15px 0; border-bottom: 1px solid var(--line); }
 .skill-item:last-child { border-bottom: none; }
 .si-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
