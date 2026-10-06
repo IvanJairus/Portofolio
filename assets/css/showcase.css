@@ -29,14 +29,14 @@ html[data-theme="light"] {
   padding-top: 26px;
 }.hf-line {
   position: absolute;
-  left: 0; right: 0; top: 32px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--line-strong) 6%, var(--line-strong) 94%, transparent);
+  left: 0; right: 0; top: 33px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--ink-faint) 5%, var(--ink-faint) 95%, transparent);
 }
 .hf-packet {
   position: absolute;
   top: 28px; left: 0;
-  width: 9px; height: 9px;
+  width: 11px; height: 11px;
   border-radius: 50%;
   background: var(--accent);
   box-shadow: 0 0 0 4px var(--accent-dim), 0 0 16px var(--accent-line);
@@ -50,19 +50,19 @@ html[data-theme="light"] {
   gap: 10px;
 }
 .hf-node i {
-  width: 11px; height: 11px;
+  width: 16px; height: 16px;
   border-radius: 50%;
   background: var(--bg);
-  border: 1px solid var(--line-strong);
+  border: 2px solid var(--line-strong);
   transition: all 0.35s var(--ease);
   z-index: 1;
 }
 .hf-node span {
   font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.14em;
+  font-size: 14px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: var(--ink-dim);
   transition: color 0.35s var(--ease);
 }
 .hf-node.lit i { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-dim); }
