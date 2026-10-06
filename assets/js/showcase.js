@@ -1006,6 +1006,34 @@
     });
   }
 
+  /* ---------- toolbox tier filter ---------- */
+  function initToolboxFilter() {
+    var grid = document.querySelector(".skill-grid");
+    var bar = document.querySelector(".tier-filter");
+    if (!grid || !bar) return;
+    var items = [].slice.call(grid.querySelectorAll(".skill-item"));
+    var groups = [].slice.call(grid.querySelectorAll(".skill-group"));
+    var btns = [].slice.call(bar.querySelectorAll("[data-filter]"));
+    function tierOf(it) {
+      var t = it.querySelector(".tier");
+      if (!t) return "";
+      if (t.classList.contains("t-daily")) return "daily";
+      if (t.classList.contains("t-regular")) return "regular";
+      if (t.classList.contains("t-exposure")) return "exposure";
+      return "";
+    }
+    function apply(tier) {
+      items.forEach(function (it) { it.style.display = (tier === "all" || tierOf(it) === tier) ? "" : "none"; });
+      groups.forEach(function (g) {
+        var any = [].slice.call(g.querySelectorAll(".skill-item")).some(function (it) { return it.style.display !== "none"; });
+        g.style.display = any ? "" : "none";
+      });
+      btns.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.filter === tier)); });
+    }
+    btns.forEach(function (b) { b.addEventListener("click", function () { apply(b.dataset.filter); }); });
+    apply("daily"); /* default saat JS aktif; tanpa JS semua tampil (noscript.css menyembunyikan bar) */
+  }
+
   /* ---------- mail preview tabs ---------- */
   function initMailTabs() {
     var box = document.querySelector(".mailshow");
@@ -1067,5 +1095,6 @@
     initSubnav();
     initLifecycle();
     initMailTabs();
+    initToolboxFilter();
   });
 })();

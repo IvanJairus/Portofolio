@@ -266,7 +266,7 @@
 }
 .t-daily { color: var(--accent); border-color: var(--accent-line); background: var(--accent-dim); }
 .t-regular { color: var(--ink-dim); border-color: var(--line-strong); }
-.t-exposure { color: var(--ink-faint); border-color: var(--line); border-style: dashed; }
+.t-exposure { color: var(--ink-dim); border-color: var(--line-strong); border-style: dashed; }
 
 .tier-legend {
   display: flex;
