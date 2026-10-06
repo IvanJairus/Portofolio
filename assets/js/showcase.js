@@ -986,6 +986,25 @@
     return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
   }
 
+  /* ---------- sub-nav scroll spy (Work) ---------- */
+  function initSubnav() {
+    var bar = document.querySelector("[data-subnav]");
+    if (!bar || !("IntersectionObserver" in window)) return;
+    var links = {};
+    bar.querySelectorAll(".wsn").forEach(function (a) { links[a.dataset.wsn] = a; });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var id = e.target.id;
+        for (var k in links) links[k].classList.toggle("on", k === id);
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    Object.keys(links).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+  }
+
   /* ============================================================
      BOOT
      ============================================================ */
@@ -995,6 +1014,7 @@
     initBoard();
     initChatops();
     initPlatform();
+    initSubnav();
 
     /* render ulang komponen JS saat bahasa berganti */
     document.addEventListener("pf:langchange", function () {
