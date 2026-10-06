@@ -1005,6 +1005,21 @@
     });
   }
 
+  /* ---------- mail preview tabs ---------- */
+  function initMailTabs() {
+    var box = document.querySelector(".mailshow");
+    if (!box) return;
+    var tabs = box.querySelectorAll(".ms-tab");
+    tabs.forEach(function (t) {
+      t.addEventListener("click", function () {
+        tabs.forEach(function (x) { x.classList.toggle("on", x === t); });
+        box.querySelectorAll("[data-mail-pane]").forEach(function (p) {
+          p.hidden = p.dataset.mailPane !== t.dataset.mail;
+        });
+      });
+    });
+  }
+
   /* ---------- lifecycle rail (Architecture) ---------- */
   function initLifecycle() {
     var wrap = document.querySelector(".lc");
@@ -1051,6 +1066,7 @@
     initPlatform();
     initSubnav();
     initLifecycle();
+    initMailTabs();
 
     /* render ulang komponen JS saat bahasa berganti */
     document.addEventListener("pf:langchange", function () {

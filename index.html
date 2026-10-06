@@ -560,39 +560,123 @@
             <div class="lc-chip lc-mail-chip" data-lc="12"><b data-i18n="lc.n13">email summary per domain</b><span data-i18n="lc.s4">the run reports itself ↓</span></div>
           </div>
 
-          <!-- preview email: direplikasi dari template HTML asli, disanitasi -->
+          <!-- preview email: 3 laporan nyata, direplikasi dari template HTML asli, disanitasi -->
           <div class="lc-mailgrid" data-reveal>
-            <div class="mail-card" role="img" aria-label="Email summary preview">
-              <div class="mail-top mono">
-                <span class="mail-av">IJ</span>
+            <div class="mailshow">
+              <div class="mailshow-head">
                 <div>
-                  <div class="mail-from">devops-platform &lt;noreply@…&gt;</div>
-                  <div class="mail-subj" data-i18n="lc.mail.subject">[board] Branch Auto Sync Summary — Thu 02:14 WIB</div>
+                  <span class="ms-title mono">email reports //</span>
+                  <span class="ms-sub" data-i18n="lc.mail.headsub">what the weekly runs deliver to the team inbox — sample, sanitized</span>
+                </div>
+                <div class="ms-tabs" role="tablist">
+                  <button class="ms-tab on" data-mail="sync" role="tab">branch sync</button>
+                  <button class="ms-tab" data-mail="sast" role="tab">sast report</button>
+                  <button class="ms-tab" data-mail="sonar" role="tab">sonarqube</button>
                 </div>
               </div>
-              <div class="mail-body">
-                <div class="mail-head">
-                  <span class="mono">BRANCH AUTO SYNC REPORT</span><span class="mono mail-wm">DEVOPS&nbsp;PLATFORM</span>
+
+              <!-- 1. BRANCH SYNC -->
+              <div class="mail-card" data-mail-pane="sync">
+                <div class="mail-top mono">
+                  <span class="mail-av">IJ</span>
+                  <div>
+                    <div class="mail-from">devops-platform &lt;noreply@…&gt;</div>
+                    <div class="mail-subj">[board] Branch Auto Sync Summary — Thu 02:14 WIB</div>
+                  </div>
                 </div>
-                <div class="mail-meta mono"><span>2026-10-01 · 02:14 WIB</span><span>domain: core</span><span>12 branch pairs · 9 MR</span></div>
-                <div class="mail-stats">
-                  <div class="ms ok"><b>6</b><span>merged</span></div>
-                  <div class="ms dim"><b>3</b><span>no changes</span></div>
-                  <div class="ms warn"><b>1</b><span>conflict</span></div>
-                  <div class="ms bad"><b>1</b><span>approval failed</span></div>
-                  <div class="ms gray"><b>1</b><span>skipped</span></div>
+                <div class="mail-body">
+                  <div class="mail-head">
+                    <span class="mono">BRANCH AUTO SYNC REPORT</span><span class="mono mail-wm">DEVOPS&nbsp;PLATFORM</span>
+                  </div>
+                  <div class="mail-meta mono"><span>2026-10-01 · 02:14 WIB</span><span>domain: core</span><span>12 branch pairs · 9 MR</span></div>
+                  <div class="mail-stats">
+                    <div class="ms ok"><b>6</b><span>merged</span></div>
+                    <div class="ms dim"><b>3</b><span>no changes</span></div>
+                    <div class="ms warn"><b>1</b><span>conflict</span></div>
+                    <div class="ms bad"><b>1</b><span>approval failed</span></div>
+                    <div class="ms gray"><b>1</b><span>skipped</span></div>
+                  </div>
+                  <table class="mail-tbl">
+                    <tr class="th"><td>service</td><td>branch pair</td><td>status</td><td>mr</td></tr>
+                    <tr><td>ledger-service</td><td>R1.0 → R1.1</td><td class="ok">✓ MERGED</td><td class="lk">view MR</td></tr>
+                    <tr><td>mobile-bff</td><td>R1.1 → R1.2</td><td class="warn">⚠ CONFLICT — REBASE NEEDED</td><td class="lk">view MR</td></tr>
+                    <tr><td>scheduler-job</td><td>R1.0 → R1.1</td><td class="dim">— NO CHANGES</td><td></td></tr>
+                    <tr><td>auth-gateway</td><td>R1.1 → R1.2</td><td class="bad">✕ APPROVAL FAILED</td><td class="lk">view MR</td></tr>
+                  </table>
+                  <div class="mail-note mono">note // one design system, three report types — the run always reports itself</div>
                 </div>
-                <table class="mail-tbl">
-                  <tr class="th"><td>service</td><td>branch pair</td><td>status</td><td>mr</td></tr>
-                  <tr><td>ledger-service</td><td>R1.0 → R1.1</td><td class="ok">✓ MERGED</td><td class="lk">view MR</td></tr>
-                  <tr><td>mobile-bff</td><td>R1.1 → R1.2</td><td class="warn">⚠ CONFLICT — REBASE NEEDED</td><td class="lk">view MR</td></tr>
-                  <tr><td>scheduler-job</td><td>R1.0 → R1.1</td><td class="dim">— NO CHANGES</td><td></td></tr>
-                  <tr><td>auth-gateway</td><td>R1.1 → R1.2</td><td class="bad">✕ APPROVAL FAILED</td><td class="lk">view MR</td></tr>
-                </table>
-                <div class="mail-note mono">note // same design system reused for SAST + SonarQube weekly reports</div>
+              </div>
+
+              <!-- 2. SAST (direplikasi dari laporan asli, disanitasi) -->
+              <div class="mail-card" data-mail-pane="sast" hidden>
+                <div class="mail-top mono">
+                  <span class="mail-av">IJ</span>
+                  <div>
+                    <div class="mail-from">devops-platform &lt;noreply@…&gt;</div>
+                    <div class="mail-subj">[SAST Report] core · BE — ⚠ 1 critical | 5 medium | 01 Oct</div>
+                  </div>
+                </div>
+                <div class="mail-body">
+                  <div class="mail-head">
+                    <span class="mono">SAST SECURITY SCAN REPORT</span><span class="mono mail-wm">DEVOPS&nbsp;PLATFORM</span>
+                  </div>
+                  <div class="mail-callout">
+                    <b>ⓘ Catatan Penting — Keterbatasan Alat SAST Ini</b>
+                    <p>Hasil pemindaian ini dihasilkan oleh <b>Semgrep</b> yang dijalankan otomatis melalui pipeline DevOps, dan <b>berbeda dari alat SAST yang digunakan Tim Security / CISO</b>. Temuan bersifat indikatif dan dapat mengandung <i>false positive</i>. Laporan ini <b>ditujukan sebagai bahan analisis awal bagi developer</b> — bukan hasil audit keamanan resmi.</p>
+                  </div>
+                  <div class="mail-meta mono"><span>Generated: 01 Oct 2026 01:31 WIB</span><span>31 service</span><span>Scanner: Semgrep</span><span class="mail-branches">development ✓ · R1.0 ✓ · R1.1 ✓ · R1.2 ✓</span></div>
+                  <div class="mail-stats ms2">
+                    <div class="ms t"><b>6</b><span>total</span></div>
+                    <div class="ms c"><b>1</b><span>critical</span></div>
+                    <div class="ms h"><b>0</b><span>high</span></div>
+                    <div class="ms m"><b>5</b><span>medium</span></div>
+                    <div class="ms l"><b>0</b><span>low</span></div>
+                  </div>
+                  <div class="mail-sect mono">RINGKASAN PER CATEGORY</div>
+                  <table class="mail-tbl">
+                    <tr class="th"><td>category</td><td>service</td><td>critical</td><td>high</td><td>medium</td><td>low</td><td>status</td></tr>
+                    <tr><td><b>FE</b></td><td>12</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td><span class="pill ok">BERSIH</span></td></tr>
+                    <tr><td><b>BE</b></td><td>19</td><td class="bad">1</td><td class="ok">0</td><td class="warn">5</td><td class="ok">0</td><td><span class="pill bad">TEMUAN</span></td></tr>
+                  </table>
+                  <div class="mail-att mono"><span>📎 sast-report-core-fe.html · 17 KB</span><span>📎 sast-report-core-be.html · 70 KB</span></div>
+                  <div class="mail-note mono">Laporan detail per category dilampirkan pada email ini dan dapat dibuka langsung di browser.</div>
+                </div>
+              </div>
+
+              <!-- 3. SONARQUBE -->
+              <div class="mail-card" data-mail-pane="sonar" hidden>
+                <div class="mail-top mono">
+                  <span class="mail-av">IJ</span>
+                  <div>
+                    <div class="mail-from">devops-platform &lt;noreply@…&gt;</div>
+                    <div class="mail-subj">[board] SonarQube Scan Summary — CORE — 01 Oct (30 scanned, 2 not passed, 1 tanpa analysis)</div>
+                  </div>
+                </div>
+                <div class="mail-body">
+                  <div class="mail-head">
+                    <span class="mono">SONARQUBE SCAN REPORT</span><span class="mono mail-wm">DEVOPS&nbsp;PLATFORM</span>
+                  </div>
+                  <div class="mail-meta mono"><span>Domain: core</span><span>Date: 01 Oct 2026 WIB</span><span class="mail-branches">Branches: development · R1.0 · R1.1 · R1.2</span></div>
+                  <div class="mail-stats ms2">
+                    <div class="ms t"><b>31</b><span>total scan</span></div>
+                    <div class="ms ok2"><b>30</b><span>scanned</span></div>
+                    <div class="ms p"><b>28</b><span>passed</span></div>
+                    <div class="ms c"><b>2</b><span>not passed</span></div>
+                    <div class="ms n"><b>1</b><span>no analysis</span></div>
+                  </div>
+                  <div class="mail-sect mono">SCAN RESULTS</div>
+                  <table class="mail-tbl">
+                    <tr class="th"><td>service</td><td>branch</td><td>quality gate</td><td>vulns</td><td>coverage</td></tr>
+                    <tr><td>ledger-service</td><td>R1.1</td><td><span class="pill ok">PASSED</span></td><td class="ok">0</td><td>78.4%</td></tr>
+                    <tr><td>mobile-bff</td><td>R1.1</td><td><span class="pill bad">NOT PASSED</span></td><td class="bad">2</td><td>61.2%</td></tr>
+                    <tr><td>auth-gateway</td><td>R1.1</td><td><span class="pill ok">PASSED</span></td><td class="ok">0</td><td>83.0%</td></tr>
+                    <tr><td class="dim">scheduler-job</td><td>R1.1</td><td><span class="pill dim">NO ANALYSIS</span></td><td>—</td><td>—</td></tr>
+                  </table>
+                  <div class="mail-note mono">note // each service's own Sonar pipeline is triggered in batches, then polled round-robin until every one is done</div>
+                </div>
               </div>
             </div>
-            <p class="care-note lc-mailcap" data-i18n="lc.mail.caption">// this is a faithful copy of the real HTML email my pipelines send every week — names, domains and links are sanitized; the layout, statuses and colors are exactly what the team receives</p>
+            <p class="care-note lc-mailcap" data-i18n="lc.mail.caption">// faithful copies of the real HTML emails my pipelines send every week — names, domains and links are sanitized; the layout, statuses and colors are exactly what the team receives. The amber disclaimer is deliberate: a scanner that overclaims is worse than no scanner</p>
           </div>
         </div>
 
