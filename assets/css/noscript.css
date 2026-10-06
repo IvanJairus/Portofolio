@@ -1,5 +1,6 @@
-/* Dimuat hanya saat JavaScript nonaktif (via <noscript><link>). CSP-safe: tanpa inline <style>. */
-[data-reveal] { opacity: 1 !important; transform: none !important; }
+/* Dimuat hanya saat JavaScript nonaktif (via <noscript><link>). CSP-safe: tanpa inline <style>.
+   Batch D: reveal global sudah hilang, jadi isi file ini hanya keadaan akhir untuk
+   widget yang masih beranimasi. */
 .gate-check .box { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .gate-result { border-color: var(--accent); background: var(--accent-dim); }
 .gate-result .g-state { font-size: 0; color: var(--accent); }
@@ -9,3 +10,5 @@
 /* Toolbox: tanpa JS, semua item tampil (filter tidak aktif) */
 .skill-item { display: block !important; }
 .tier-filter { display: none; }
+/* Diagram gateway: garis "digambar" oleh animasi; tanpa JS garis harus tetap ada */
+.dg-link { stroke-dashoffset: 0 !important; }

@@ -1,15 +1,10 @@
 /* ============================================================
-   animations.css — reveal on scroll, keyframes, reduced motion
+   animations.css — keyframes animasi bermakna, reduced motion
+   Catatan Batch D: reveal-on-scroll global sudah dihapus; konten
+   tampil langsung. Yang tersisa hanya animasi yang mengomunikasikan
+   sesuatu: rel hero, diagram yang digambar berurutan, dan respons
+   atas aksi pengunjung.
    ============================================================ */
-
-/* ---------- reveal ---------- */
-[data-reveal] {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
-  transition-delay: var(--d, 0s);
-}
-[data-reveal].revealed { opacity: 1; transform: none; }
 
 /* ---------- keyframes ---------- */
 @keyframes blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
@@ -66,7 +61,6 @@
     transition-duration: 0.001s !important;
     transition-delay: 0s !important;
   }
-  [data-reveal] { opacity: 1; transform: none; }
   .dg-link { stroke-dashoffset: 0; }
   .dg-packet, .flow-dot { display: none; }
   .flow-stage { border-color: var(--line-strong); background: var(--bg-3); }

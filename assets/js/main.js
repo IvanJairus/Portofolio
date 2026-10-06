@@ -1,5 +1,5 @@
 /* ============================================================
-   main.js — i18n, profil, tema, navigasi, reveal, counter, terminal
+   main.js — i18n, profil, tema, navigasi, counter, terminal
    ============================================================ */
 
 (function () {
@@ -90,7 +90,6 @@
       (P.experience || []).forEach((e) => {
         const item = document.createElement("div");
         item.className = "tl-item";
-        item.setAttribute("data-reveal", "");
         const pts = (pick(e.points) || []).map((p) => "<li>" + escapeHtml(p) + "</li>").join("");
         item.innerHTML =
           '<div class="tl-period">' + escapeHtml(pick(e.period)) + "</div>" +
@@ -116,24 +115,6 @@
     document.documentElement.dataset.theme = theme;
     const btn = document.querySelector("[data-theme-btn]");
     if (btn) btn.setAttribute("aria-pressed", String(theme === "light"));
-  }
-
-  /* ---------- reveal on scroll ---------- */
-  function initReveal() {
-    const els = document.querySelectorAll("[data-reveal]");
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
-      els.forEach((el) => el.classList.add("revealed"));
-      return;
-    }
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
-        if (en.isIntersecting) {
-          en.target.classList.add("revealed");
-          io.unobserve(en.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
-    els.forEach((el) => io.observe(el));
   }
 
   /* ---------- counter statistik ---------- */
@@ -289,7 +270,6 @@
     applyTheme(lsGet(LS_THEME, "dark"));
     renderProfile();
     applyI18n();
-    initReveal();
     initCounters();
     initTerminal();
     initNav();

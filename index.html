@@ -67,7 +67,7 @@
           </div>
         </div>
 
-        <figure class="hero-photo" data-reveal>
+        <figure class="hero-photo">
           <div class="photo-frame">
             <img src="assets/img/profile.jpg"
                  srcset="assets/img/profile-480.jpg 480w, assets/img/profile.jpg 800w"
@@ -113,13 +113,13 @@
     <!-- ================= ABOUT ================= -->
     <section id="about">
       <div class="wrap">
-        <div class="section-head" data-reveal>
+        <div class="section-head">
           <span class="kicker" data-i18n="about.kicker">Who this is</span>
           <h2 data-i18n="about.title">Pipelines other people are happy to inherit.</h2>
           <p class="lead" data-i18n="about.lead">Senior DevOps / DevSecOps Engineer, Jakarta. I design and maintain the release machinery behind banking-grade systems — and I document the trade-offs, not just the wins.</p>
         </div>
 
-        <div class="pf-strip" data-reveal>
+        <div class="pf-strip">
           <a class="pf-card" href="#architecture">
             <b>40+</b>
             <span data-i18n="about.p1.text">repos routed through one gateway</span>
@@ -142,11 +142,11 @@
           </a>
         </div>
 
-        <div class="chips-label mono" data-reveal><span data-i18n="about.chips.label">stack I work in daily //</span></div>
-        <div class="tool-chips" data-reveal>
+        <div class="chips-label mono"><span data-i18n="about.chips.label">stack I work in daily //</span></div>
+        <div class="tool-chips">
           <span>GitLab CI</span><span>Jenkins</span><span>Docker</span><span>OpenShift</span><span>Trivy</span><span>SonarQube</span><span>Vault</span><span>Python</span><span>Bash</span><span>Groovy</span><span>Git</span>
         </div>
-        <p class="artifact-line mono" data-reveal data-i18n="hero.artifacts">artifacts I ship: jar · image · apk/aab · ipa · web bundle — one standard for all five</p>
+        <p class="artifact-line mono" data-i18n="hero.artifacts">artifacts I ship: jar · image · apk/aab · ipa · web bundle — one standard for all five</p>
       </div>
     </section>
 
@@ -155,14 +155,14 @@
     <!-- ================= WORK ================= -->
     <section class="work-intro">
       <div class="wrap">
-        <div class="section-head" data-reveal>
+        <div class="section-head">
           <span class="kicker" data-i18n="work.kicker">Selected work</span>
           <h2 data-i18n="work.title">Things I built and still maintain</h2>
           <p class="lead" data-i18n="work.lead">Sanitized descriptions.</p>
         </div>
 
         <div class="work-grid">
-          <article class="work-card" id="proj-1" data-reveal>
+          <article class="work-card" id="proj-1">
             <span class="w-idx">/ 01</span>
             <h3 data-i18n="work.1.title">ChatOps Release Orchestrator</h3>
             <p class="w-desc" data-i18n="work.1.desc">Webhook-driven orchestrator.</p>
@@ -177,7 +177,7 @@
             <a class="w-demo" href="#board"><span data-i18n="work.demo.board">See the interactive walkthrough</span> <span class="arr">→</span></a>
           </article>
 
-          <article class="work-card d1" id="proj-2" data-reveal>
+          <article class="work-card" id="proj-2">
             <span class="w-idx">/ 02</span>
             <h3 data-i18n="work.2.title">Pipeline-as-a-Product Platform</h3>
             <p class="w-desc" data-i18n="work.2.desc">A single repository holding every CI/CD definition.</p>
@@ -192,7 +192,7 @@
             <a class="w-demo" href="#architecture"><span data-i18n="work.demo.architecture">See the gateway diagram</span> <span class="arr">→</span></a>
           </article>
 
-          <article class="work-card" id="proj-3" data-reveal>
+          <article class="work-card" id="proj-3">
             <span class="w-idx">/ 03</span>
             <h3 data-i18n="work.3.title">Release Control Plane</h3>
             <p class="w-desc" data-i18n="work.3.desc">Self-built release management platform.</p>
@@ -223,7 +223,7 @@
     <!-- ================= MASTERPIECE I : BOARD ================= -->
     <section id="board">
       <div class="wrap">
-        <div class="section-head" data-reveal>
+        <div class="section-head">
           <span class="kicker" data-i18n="board.kicker">Case study I — release orchestration</span>
           <h2 data-i18n="board.title">I turned a bare GitLab board into a release system</h2>
           <p class="lead" data-i18n="board.lead">GitLab issue boards have almost none of what a regulated release needs: no approval chain, no phase enforcement, no state, no deploy trigger. Instead of buying a tool, I made the board itself drive the pipeline. Engineers move a card; branches, merge requests, scans, approvals, deploys and audit comments all happen by themselves — and every result is written back into the ticket.</p>
@@ -231,7 +231,7 @@
         </div>
 
         <!-- before / after: terbaca dalam satu tatapan -->
-        <div class="ba" data-reveal>
+        <div class="ba">
           <div class="ba-side ba-before">
             <div class="ba-tag mono">gitlab <em>out of the box</em></div>
             <div class="ba-cols">
@@ -259,7 +259,7 @@
         </div>
 
         <!-- storyboard interaktif -->
-        <div class="bd" data-reveal>
+        <div class="bd">
           <div class="bd-bar">
             <div class="bd-bar-l">
               <span class="bd-live"><i></i><span data-i18n="board.demo.live">live walkthrough</span></span>
@@ -325,7 +325,7 @@
 
         <!-- gerbang & anti-insiden -->
         <div class="board-panels">
-          <div class="bpanel" data-reveal>
+          <div class="bpanel">
             <h3><span class="n">D1</span><span data-i18n="board.p1.title">A five-layer approval chain, enforced by machine</span></h3>
             <div class="chain">
               <span class="chain-link" data-i18n="board.chain.1">team</span><i>→</i>
@@ -341,7 +341,7 @@
             </ul>
           </div>
 
-          <div class="bpanel d2" data-reveal>
+          <div class="bpanel">
             <h3><span class="n">D2</span><span data-i18n="board.p2.title">Designed around a real incident</span></h3>
             <p class="bp-lead" data-i18n="board.p2.lead">A retry command with substring matching let the bot trigger itself: hundreds of runaway comments across multiple tickets in one night. The fix is layered — four guards — and 25 regression tests keep it from recurring.</p>
             <div class="layers">
@@ -360,21 +360,21 @@
         </div>
 
         <!-- chatops jadi satu anotasi -->
-        <p class="care-note co-line" data-reveal><span class="mono">chatops //</span> <span data-i18n="board.co.line">/retry · /sonarqube · /diff &lt;domain&gt; · /sync · /follow #iid · /summarypic · /notif — the board doubles as a command line; every command is anchored, gated by ticket status and bot-proof.</span></p>
+        <p class="care-note co-line"><span class="mono">chatops //</span> <span data-i18n="board.co.line">/retry · /sonarqube · /diff &lt;domain&gt; · /sync · /follow #iid · /summarypic · /notif — the board doubles as a command line; every command is anchored, gated by ticket status and bot-proof.</span></p>
       </div>
     </section>
 
     <!-- ================= MASTERPIECE II : PLATFORM ================= -->
     <section id="platform">
       <div class="wrap">
-        <div class="section-head" data-reveal>
+        <div class="section-head">
           <span class="kicker" data-i18n="plat.kicker">Case study II — release control plane</span>
           <h2 data-i18n="plat.title">The dashboard that replaced five tools and a spreadsheet</h2>
           <p class="lead" data-i18n="plat.lead">A self-built release management platform: version drift between environments, build and deploy triggering, live console streaming, quality gates, secret changes, mobile test recordings and role-based access — in one page, updated in realtime. Below is an interactive replica with sanitized dummy data. Click anything.</p>
           <p class="before-line mono"><span>before:</span> <span data-i18n="plat.before">five tools and one spreadsheet to answer "what runs in UAT right now?"</span></p>
         </div>
 
-        <div class="rp" data-rp data-reveal>
+        <div class="rp" data-rp>
           <div class="rp-chrome">
             <span class="rp-dots"><i></i><i></i><i></i></span>
             <span class="rp-url mono">release-control-plane <em>/ interactive replica — dummy data</em></span>
@@ -427,7 +427,7 @@
 
         <p class="rp-caption" data-i18n="plat.caption">Replica UI is shown in English, exactly like the real product. All names, versions, hashes and paths below are sanitized dummy data — the behaviour, the layout and the numbers describing the platform itself are real.</p>
 
-        <div class="rp-facts" data-reveal>
+        <div class="rp-facts">
           <div class="sf"><b>12</b><span data-i18n="plat.fact.1">views in a single-page app</span></div>
           <div class="sf"><b>~110</b><span data-i18n="plat.fact.2">route handlers across 7 API modules</span></div>
           <div class="sf"><b>14</b><span data-i18n="plat.fact.3">realtime event types pushed over SSE</span></div>
@@ -436,19 +436,19 @@
         </div>
 
         <div class="points-row four">
-          <div class="point" data-reveal>
+          <div class="point">
             <h3><span class="n">E1</span><span data-i18n="plat.p1.title">Diff-driven releases</span></h3>
             <p data-i18n="plat.p1.body">The core question is "what differs between SIT and UAT?" — the release plan is generated only from services whose versions actually diverged, so nothing rides along by accident.</p>
           </div>
-          <div class="point d2" data-reveal>
+          <div class="point">
             <h3><span class="n">E2</span><span data-i18n="plat.p2.title">Deploy without leaving the page</span></h3>
             <p data-i18n="plat.p2.body">Pick services or paste a commit SHA; the platform resolves which services that diff touches, triggers the build, then streams queue, stages and console output back live.</p>
           </div>
-          <div class="point d4" data-reveal>
+          <div class="point">
             <h3><span class="n">E3</span><span data-i18n="plat.p3.title">Release notes write themselves</span></h3>
             <p data-i18n="plat.p3.body">Tag descriptions are composed from grouped tickets — features, bugfixes, hotfixes — plus config and secret changes, then applied to every repository in the group at once.</p>
           </div>
-          <div class="point d6" data-reveal>
+          <div class="point">
             <h3><span class="n">E4</span><span data-i18n="plat.p4.title">Accountable by design</span></h3>
             <p data-i18n="plat.p4.body">Three roles, per-project assignment, API keys for pipelines, an audit log for every destructive action, and a platform-update button that redeploys the dashboard itself.</p>
           </div>
@@ -459,14 +459,14 @@
     <!-- ================= ARCHITECTURE ================= -->
     <section id="architecture">
       <div class="wrap">
-        <div class="section-head" data-reveal>
+        <div class="section-head">
           <span class="kicker" data-i18n="arch.kicker">Architecture</span>
           <h2 data-i18n="arch.title">One gateway, forty repositories</h2>
           <p class="lead" data-i18n="arch.lead">The idea I keep returning to.</p>
           <p class="before-line mono"><span>before:</span> <span data-i18n="arch.before">every repo kept its own copy of the pipeline — fixing the standard meant editing 40 files</span></p>
         </div>
 
-        <div class="diagram-shell" data-diagram="gateway" data-reveal>
+        <div class="diagram-shell" data-diagram="gateway">
           <svg viewBox="0 0 1080 340" role="img" aria-label="Architecture diagram: many service repositories route through a single gateway to domain pipelines and environments">
             <text class="col-label" x="20" y="30" data-i18n="arch.node.repos">40+ service repos</text>
             <text class="col-label" x="650" y="30" data-i18n="arch.node.dom">domain pipelines</text>
@@ -533,22 +533,22 @@
         </div>
 
         <div class="points-row">
-          <div class="point" data-reveal>
+          <div class="point">
             <h3><span class="n">A1</span><span data-i18n="arch.p1.title">Routing is data, not duplication</span></h3>
             <p data-i18n="arch.p1.body">Project IDs map to domain pipelines in one config.</p>
           </div>
-          <div class="point d2" data-reveal>
+          <div class="point">
             <h3><span class="n">A2</span><span data-i18n="arch.p2.title">Two engines, one contract</span></h3>
             <p data-i18n="arch.p2.body">GitLab CI and legacy Jenkins coexist.</p>
           </div>
-          <div class="point d4" data-reveal>
+          <div class="point">
             <h3><span class="n">A3</span><span data-i18n="arch.p3.title">Promotion is an event</span></h3>
             <p data-i18n="arch.p3.body">SIT to UAT to PROD moves are tag-and-merge operations.</p>
           </div>
         </div>
 
         <!-- lifecycle: apa yang terjadi pada SATU perubahan, dan apa yang terjadi tiap minggu -->
-        <div class="lc" data-reveal>
+        <div class="lc">
           <div class="section-head lc-head">
             <h3 data-i18n="lc.title">The lifecycle of one change</h3>
             <p class="mono lc-sub" data-i18n="lc.sub">click any node — the detail appears below the rail</p>
@@ -583,7 +583,7 @@
           </div>
 
           <!-- preview email: 3 laporan nyata, direplikasi dari template HTML asli, disanitasi -->
-          <div class="lc-mailgrid" data-reveal>
+          <div class="lc-mailgrid">
             <div class="mailshow">
               <div class="mailshow-head">
                 <div>
@@ -707,7 +707,7 @@
         </div>
 
         <!-- dua ekosistem: Jira+Jenkins dulu, GitLab board+CI sekarang -->
-        <div class="eco" data-reveal>
+        <div class="eco">
           <div class="eco-card eco-old">
             <div class="eco-tag mono">then — jira + jenkins</div>
             <ul>
@@ -733,7 +733,7 @@
         </div>
 
         <!-- security sebagai gate: cukup satu baris visual, bukan satu section -->
-        <div class="arch-gate" data-reveal>
+        <div class="arch-gate">
           <div class="ag-title mono" data-i18n="arch.gate.title">what "release ready" means on my platform</div>
           <div class="diagram-shell" data-diagram="gate">
             <div class="gate">
@@ -761,22 +761,22 @@
           <p class="care-note" data-i18n="arch.sec.line">// security is a gate, not a report — SAST on the merge path, SBOM per image, secrets fail closed</p>
         </div>
 
-        <p class="care-note" data-reveal data-i18n="arch.note1">// the stage orchestrator was designed on paper before a line of code — 40 repos share one contract, so a new team onboards with a four-line include</p>
-        <p class="care-note" data-reveal data-i18n="arch.note2">// every helper ships with permanent debug logs — when production misbehaves, I read, I do not guess</p>
-        <p class="care-note" data-reveal data-i18n="arch.note3">// I hate copy-paste versioning more than I hate writing code: sync groups retag a whole release train consistently, next version suggested</p>
+        <p class="care-note" data-i18n="arch.note1">// the stage orchestrator was designed on paper before a line of code — 40 repos share one contract, so a new team onboards with a four-line include</p>
+        <p class="care-note" data-i18n="arch.note2">// every helper ships with permanent debug logs — when production misbehaves, I read, I do not guess</p>
+        <p class="care-note" data-i18n="arch.note3">// I hate copy-paste versioning more than I hate writing code: sync groups retag a whole release train consistently, next version suggested</p>
       </div>
     </section>
 
     <!-- ================= DECISIONS ================= -->
     <section id="decisions">
       <div class="wrap">
-        <div class="section-head" data-reveal>
+        <div class="section-head">
           <span class="kicker" data-i18n="dec.kicker">Inside the design</span>
           <h2 data-i18n="dec.title">Decisions and what they cost</h2>
           <p class="lead" data-i18n="dec.lead">Senior is not the tool list — it is being able to defend the trade-offs, including the price paid.</p>
         </div>
         <div class="dec-grid">
-          <article class="dec-card" data-reveal>
+          <article class="dec-card">
             <h3 data-i18n="dec.1.title">One gateway, not per-repo templates</h3>
             <dl>
               <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="dec.1.d">A single gateway.yml include routes every repo to its domain pipeline.</dd>
@@ -785,7 +785,7 @@
               <dt data-i18n="dec.row.c">cost</dt><dd data-i18n="dec.1.c">The gateway is critical path — one bad merge affects everyone. Paid for by versioning it with the same pipeline that protects releases.</dd>
             </dl>
           </article>
-          <article class="dec-card d1" data-reveal>
+          <article class="dec-card">
             <h3 data-i18n="dec.2.title">Gates fail closed</h3>
             <dl>
               <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="dec.2.d">A missing secret or unconfirmed merge stops the job with exit 1.</dd>
@@ -794,7 +794,7 @@
               <dt data-i18n="dec.row.c">cost</dt><dd data-i18n="dec.2.c">Builds fail when config is missing — the team cursed it for a week, then config drift stopped shipping. Availability traded for correctness, deliberately.</dd>
             </dl>
           </article>
-          <article class="dec-card d3" data-reveal>
+          <article class="dec-card">
             <h3 data-i18n="dec.3.title">Two CI engines, no big-bang migration</h3>
             <dl>
               <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="dec.3.d">GitLab CI and legacy Jenkins kept running side by side.</dd>
@@ -803,7 +803,7 @@
               <dt data-i18n="dec.row.c">cost</dt><dd data-i18n="dec.3.c">Dual maintenance plus the contract abstraction itself — invisible to teams, which was the point.</dd>
             </dl>
           </article>
-          <article class="dec-card d5" data-reveal>
+          <article class="dec-card">
             <h3 data-i18n="dec.4.title">What I deliberately did NOT build</h3>
             <dl>
               <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="dec.4.d">No state database for the board; no deploy queue; no auto-merge on a human's behalf.</dd>
@@ -819,12 +819,12 @@
     <!-- ================= THREAT MODEL ================= -->
     <section id="threat">
       <div class="wrap">
-        <div class="section-head" data-reveal>
+        <div class="section-head">
           <span class="kicker" data-i18n="tm.kicker">Threat model</span>
           <h2 data-i18n="tm.title">What I was actually defending</h2>
           <p class="lead" data-i18n="tm.lead">The tool list is what I used — this table is what I was thinking about.</p>
         </div>
-        <div class="tm-wrap" data-reveal>
+        <div class="tm-wrap">
           <table class="tm-tbl">
             <thead><tr>
               <th scope="col" data-i18n="tm.h.asset">asset</th>
@@ -848,13 +848,13 @@
     <!-- ================= SKILLS ================= -->
     <section id="toolbox">
       <div class="wrap">
-        <div class="section-head" data-reveal>
+        <div class="section-head">
           <span class="kicker" data-i18n="skills.kicker">Skills</span>
           <h2 data-i18n="skills.title">Toolbox, honestly rated</h2>
           <p class="lead" data-i18n="skills.lead">No percentages — they are unfalsifiable.</p>
         </div>
 
-        <div class="tier-legend" data-reveal>
+        <div class="tier-legend">
           <div><span class="tier t-daily" data-i18n="tier.daily">production daily</span><span data-i18n="tier.daily.desc">in my hands every week, in production</span></div>
           <div><span class="tier t-regular" data-i18n="tier.regular">production regular</span><span data-i18n="tier.regular.desc">regular production use, not daily</span></div>
           <div><span class="tier t-exposure" data-i18n="tier.exposure">project exposure</span><span data-i18n="tier.exposure.desc">used in a specific project, not owned</span></div>
@@ -869,7 +869,7 @@
         </div>
 
         <div class="skill-grid">
-          <div class="skill-group" data-reveal>
+          <div class="skill-group">
             <h3><span data-i18n="skills.g1">CI/CD &amp; Automation</span><span>//</span></h3>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.1.1">GitLab CI</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
@@ -889,7 +889,7 @@
             </div>
           </div>
 
-          <div class="skill-group d1" data-reveal>
+          <div class="skill-group">
             <h3><span data-i18n="skills.g2">Languages</span><span>//</span></h3>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.2.1">Python</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
@@ -909,7 +909,7 @@
             </div>
           </div>
 
-          <div class="skill-group" data-reveal>
+          <div class="skill-group">
             <h3><span data-i18n="skills.g3">Security</span><span>//</span></h3>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.3.1">SAST / Semgrep</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
@@ -929,7 +929,7 @@
             </div>
           </div>
 
-          <div class="skill-group d1" data-reveal>
+          <div class="skill-group">
             <h3><span data-i18n="skills.g4">Infrastructure &amp; Platforms</span><span>//</span></h3>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.4.1">Docker / Registry</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
@@ -953,7 +953,7 @@
             </div>
           </div>
 
-          <div class="skill-group" data-reveal>
+          <div class="skill-group">
             <h3><span data-i18n="skills.g5">Practices</span><span>//</span></h3>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.5.1">Observability &amp; logging</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
@@ -979,7 +979,7 @@
     <!-- ================= EXPERIENCE ================= -->
     <section id="experience">
       <div class="wrap">
-        <div class="section-head" data-reveal>
+        <div class="section-head">
           <span class="kicker" data-i18n="exp.kicker">Experience</span>
           <h2 data-i18n="exp.title">One direction, deepened</h2>
         </div>
@@ -998,17 +998,17 @@
             </ul>
           </div>
         </div>
-        <p class="exp-edu mono" data-reveal><span data-i18n="exp.edu.label">education //</span> <span data-i18n="exp.edu">S1 Informatics — Universitas Tarumanagara</span></p>
+        <p class="exp-edu mono"><span data-i18n="exp.edu.label">education //</span> <span data-i18n="exp.edu">S1 Informatics — Universitas Tarumanagara</span></p>
         <div class="exp-signals">
-          <div class="sig" data-reveal>
+          <div class="sig">
             <span class="sig-ic">◇</span>
             <p data-i18n="exp.s1">I design the architecture and the workflow — the diagram is drawn before the YAML is written.</p>
           </div>
-          <div class="sig d1" data-reveal>
+          <div class="sig">
             <span class="sig-ic">◆</span>
             <p data-i18n="exp.s2">I onboard and mentor engineers onto pipelines they now run without me.</p>
           </div>
-          <div class="sig d3" data-reveal>
+          <div class="sig">
             <span class="sig-ic">▣</span>
             <p data-i18n="exp.s3">Four projects I owned have been handed over — documented well enough to survive the handover.</p>
           </div>
@@ -1019,7 +1019,7 @@
     <!-- ================= CONTACT ================= -->
     <section id="contact">
       <div class="wrap contact-in">
-        <div data-reveal>
+        <div>
           <span class="kicker" data-i18n="contact.kicker">Contact</span>
           <h2 data-i18n="contact.title">Let's make releases boring.</h2>
           <p class="lead" data-i18n="contact.lead">Open to senior DevSecOps roles.</p>
@@ -1031,7 +1031,7 @@
           </div>
         </div>
 
-        <aside class="contact-meta d2" data-reveal aria-label="Contact details">
+        <aside class="contact-meta" aria-label="Contact details">
           <div class="status-pill"><i></i><span data-i18n="contact.open">open to work</span></div>
           <div class="cm-row">
             <div class="cm-k" data-i18n="contact.email">Email</div>

@@ -420,12 +420,12 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
 
 /* ---------- print: semua konten & status akhir widget (audit v2 #10) ---------- */
 @media print {
-  [data-reveal] { opacity: 1 !important; transform: none !important; }
   .gate-check .box { background: #2d7d46 !important; border-color: #2d7d46 !important; color: #fff !important; }
   .gate-result { border-color: #2d7d46 !important; background: #eaf6ee !important; }
   .gate-result .g-state { font-size: 0; color: #2d7d46 !important; }
   .gate-result .g-state::before { content: attr(data-ready); font-size: 22px; font-weight: 700; }
   .hero-role .cursor, .hf-packet, .lc-packet, .rp-sse i, .bd-live i { display: none !important; }
   .rp-view::before, .bd-narr::before { content: "Interactive demo — see written description."; font-family: var(--font-mono); font-size: 12px; color: #555; }
+  .dg-link { stroke-dashoffset: 0 !important; } /* animasi dimatikan di cetak: garis diagram harus tetap terlihat */
   * { animation: none !important; transition: none !important; }
 }
