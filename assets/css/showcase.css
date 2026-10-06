@@ -1972,3 +1972,28 @@ html[data-theme="dark"] .mail-callout { background: #fff8ec; }
 }
 .tf-btn:hover { color: var(--ink); border-color: var(--accent-line); }
 .tf-btn[aria-pressed="true"] { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
+
+/* ============================================================
+   12. CHROME SITUS MEMAKAI SANS (Batch D #9)
+   Mono dipertahankan untuk kode, perintah, versi dan nilai teknis
+   (rail hero, chip tool, nomor, artefak, periode, ID proyek) serta
+   untuk seluruh isi replika (.rp-*), storyboard board (.bd-*, .ba-*,
+   .bt-*), diagram (.lc-*, .eco-*, .ag-*) dan mockup email (.mail-*,
+   .ms-*). Blok ini berada di akhir berkas supaya menang atas kelas
+   utilitas .mono dari base.css tanpa mengubah kelas tersebut.
+   ============================================================ */
+.kicker,
+.brand, .nav a, .tool-btn,
+.btn,
+.hero-role,
+.wsn-label, .wsn,
+.chips-label,
+.tf-label, .tf-btn,
+.cm-row .cm-k, .copy-btn,
+.footer-in,
+.w-demo,
+.pf-card em,
+.dec-card dt,
+.skill-group h3,
+.tier,
+.exp-edu { font-family: var(--font-sans); }
