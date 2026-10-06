@@ -40,8 +40,12 @@ html[data-theme="light"] {
   border-radius: 50%;
   background: var(--accent);
   box-shadow: 0 0 0 4px var(--accent-dim), 0 0 16px var(--accent-line);
-  animation: hf-travel 7s linear infinite;
+  /* satu putaran lalu diam: animasi hanya ada saat rel punya kelas .run,
+     jadi melepas kelas itu benar-benar menyiapkan ulang perjalanan paket */
+  opacity: 0;
+  animation: none;
 }
+.hero-flow.run .hf-packet { animation: hf-travel 7s linear 1 both; }
 .hf-node {
   position: relative;
   display: flex;

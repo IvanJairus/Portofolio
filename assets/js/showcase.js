@@ -23,9 +23,13 @@
     var rail = document.querySelector('[data-flow="hero"]');
     if (!rail) return;
     var nodes = rail.querySelectorAll(".hf-node");
+    /* tanpa gerak: semua tahap menyala, informasi tetap lengkap tanpa animasi */
     if (RM) { nodes.forEach(function (n) { n.classList.add("lit"); }); return; }
 
     var period = 7000;
+    var busy = false;   /* satu putaran berjalan */
+    var started = false;/* putaran pertama sudah pernah dipicu */
+
     function cycle() {
       nodes.forEach(function (n, i) {
         var at = period * ((i + 0.5) / nodes.length);
@@ -35,10 +39,38 @@
         }, at);
       });
     }
-    cycle();
-    setInterval(function () {
-      if (!document.hidden) cycle();
-    }, period);
+
+    /* satu putaran: paket melintas sekali lalu diam di ujung */
+    function run() {
+      if (busy) return;
+      busy = true;
+      rail.classList.remove("run");
+      void rail.offsetWidth; /* reflow paksa agar animasi bisa diulang */
+      rail.classList.add("run");
+      cycle();
+      setTimeout(function () { busy = false; }, period);
+    }
+
+    function maybeStart() {
+      if (started || document.hidden) return;
+      var r = rail.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        started = true;
+        if (io) io.disconnect();
+        run();
+      }
+    }
+
+    var io = "IntersectionObserver" in window
+      ? new IntersectionObserver(maybeStart, { threshold: 0.4 })
+      : null;
+    if (io) { io.observe(rail); } else { started = true; run(); }
+    /* tab yang dibuka di latar belakang: jalankan saat pertama kali terlihat */
+    document.addEventListener("visibilitychange", maybeStart);
+
+    /* pengulangan hanya atas interaksi pengunjung, bukan loop tak berujung */
+    rail.addEventListener("pointerenter", run);
+    rail.addEventListener("focusin", run);
   }
 
   /* ============================================================
