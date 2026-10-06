@@ -7,8 +7,6 @@
    ============================================================ */
 
 /* ---------- keyframes ---------- */
-@keyframes blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
-
 @keyframes pulse {
   0%, 100% { box-shadow: 0 0 0 0 var(--accent-line); }
   50% { box-shadow: 0 0 0 5px transparent; }
@@ -64,7 +62,6 @@
   .dg-link { stroke-dashoffset: 0; }
   .dg-packet, .flow-dot { display: none; }
   .flow-stage { border-color: var(--line-strong); background: var(--bg-3); }
-  .hero-role .cursor { animation: none; }
 }
 
 /* ---------- delay utility classes (menggantikan style="--d:..."; CSP-safe) ---------- */

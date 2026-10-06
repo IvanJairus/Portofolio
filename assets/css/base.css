@@ -243,21 +243,12 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
   margin-top: 22px;
   letter-spacing: -0.035em;
 }
-.hero h1 .accent-dot { color: var(--accent); }
 .hero-role {
   font-family: var(--font-mono);
   font-size: clamp(14px, 1.7vw, 17px);
   color: var(--ink);
   margin-top: 16px;
   letter-spacing: 0.01em;
-}
-.hero-role .cursor {
-  display: inline-block;
-  width: 9px; height: 1.05em;
-  background: var(--accent);
-  vertical-align: text-bottom;
-  margin-left: 4px;
-  animation: blink 1.05s steps(1) infinite;
 }
 .hero-tag {
   color: var(--ink-dim);
@@ -426,7 +417,7 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
   .gate-result { border-color: #2d7d46 !important; background: #eaf6ee !important; }
   .gate-result .g-state { font-size: 0; color: #2d7d46 !important; }
   .gate-result .g-state::before { content: attr(data-ready); font-size: 22px; font-weight: 700; }
-  .hero-role .cursor, .hf-packet, .lc-packet, .rp-sse i, .bd-live i { display: none !important; }
+  .hf-packet, .lc-packet, .rp-sse i, .bd-live i { display: none !important; }
   .rp-view::before, .bd-narr::before { content: "Interactive demo — see written description."; font-family: var(--font-mono); font-size: 12px; color: #555; }
   .dg-link { stroke-dashoffset: 0 !important; } /* animasi dimatikan di cetak: garis diagram harus tetap terlihat */
   * { animation: none !important; transition: none !important; }
