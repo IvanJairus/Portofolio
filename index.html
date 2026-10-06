@@ -468,22 +468,22 @@
             <text class="col-label" x="930" y="30" data-i18n="arch.node.env">environments</text>
 
             <!-- links: repos -> gateway -->
-            <path class="dg-link" style="--d:.5s"  d="M170 82 H250 V180 H330" />
-            <path class="dg-link" style="--d:.6s"  d="M170 146 H250 V180 H330" />
-            <path class="dg-link" style="--d:.7s"  d="M170 210 H250 V180 H330" />
-            <path class="dg-link" style="--d:.8s"  d="M170 274 H250 V180 H330" />
+            <path class="dg-link" id="rp1" style="--d:.5s"  d="M170 82 H250 V180 H330" />
+            <path class="dg-link" id="rp2" style="--d:.6s"  d="M170 146 H250 V180 H330" />
+            <path class="dg-link" id="rp3" style="--d:.7s"  d="M170 210 H250 V180 H330" />
+            <path class="dg-link" id="rp4" style="--d:.8s"  d="M170 274 H250 V180 H330" />
             <!-- gateway -> domains -->
-            <path class="dg-link" style="--d:1.3s" d="M510 180 H580 V100 H650" />
-            <path class="dg-link" style="--d:1.4s" d="M510 180 H580 V190 H650" />
-            <path class="dg-link" style="--d:1.5s" d="M510 180 H580 V280 H650" />
+            <path class="dg-link" id="gd1" style="--d:1.3s" d="M510 180 H580 V100 H650" />
+            <path class="dg-link" id="gd2" style="--d:1.4s" d="M510 180 H580 V190 H650" />
+            <path class="dg-link" id="gd3" style="--d:1.5s" d="M510 180 H580 V280 H650" />
             <!-- domains -> bus -> envs -->
-            <path class="dg-link" style="--d:2.2s" d="M820 100 H875" />
-            <path class="dg-link" style="--d:2.3s" d="M820 190 H875" />
-            <path class="dg-link" style="--d:2.4s" d="M820 280 H875" />
-            <path class="dg-link" style="--d:2.5s" d="M875 100 V280" />
-            <path class="dg-link" style="--d:2.6s" d="M875 112 H930" />
-            <path class="dg-link" style="--d:2.7s" d="M875 192 H930" />
-            <path class="dg-link" style="--d:2.8s" d="M875 272 H930" />
+            <path class="dg-link" id="dm1" style="--d:2.2s" d="M820 100 H875" />
+            <path class="dg-link" id="dm2" style="--d:2.3s" d="M820 190 H875" />
+            <path class="dg-link" id="dm3" style="--d:2.4s" d="M820 280 H875" />
+            <path class="dg-link" id="busv" style="--d:2.5s" d="M875 100 V280" />
+            <path class="dg-link" id="be1" style="--d:2.6s" d="M875 112 H930" />
+            <path class="dg-link" id="be2" style="--d:2.7s" d="M875 192 H930" />
+            <path class="dg-link" id="be3" style="--d:2.8s" d="M875 272 H930" />
 
             <!-- repos -->
             <g class="dg-node n-repo"><rect x="20" y="60" width="150" height="44" rx="3" /><text class="node-sub" x="95" y="86" text-anchor="middle" data-i18n="arch.node.repo">service repo</text></g>
@@ -507,6 +507,23 @@
             <g class="dg-node n-env"><rect x="930" y="90" width="130" height="44" rx="3" /><text class="node-title" x="995" y="117" text-anchor="middle" data-i18n="arch.node.sit">SIT</text></g>
             <g class="dg-node n-env"><rect x="930" y="170" width="130" height="44" rx="3" /><text class="node-title" x="995" y="197" text-anchor="middle" data-i18n="arch.node.uat">UAT</text></g>
             <g class="dg-node n-env"><rect x="930" y="250" width="130" height="44" rx="3" /><text class="node-title" x="995" y="277" text-anchor="middle" data-i18n="arch.node.prod">PROD</text></g>
+            <!-- arus permanen: paket mengalir repos -> gateway -> domain -> env -->
+            <g class="dg-flow" aria-hidden="true">
+              <circle class="dgfp" r="3.5"><animateMotion dur="1.6s" begin="0s" repeatCount="indefinite"><mpath href="#rp1"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1.6s" begin="0.4s" repeatCount="indefinite"><mpath href="#rp2"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1.6s" begin="0.8s" repeatCount="indefinite"><mpath href="#rp3"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1.6s" begin="1.2s" repeatCount="indefinite"><mpath href="#rp4"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1.2s" begin="1.7s" repeatCount="indefinite"><mpath href="#gd1"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1.2s" begin="2.0s" repeatCount="indefinite"><mpath href="#gd2"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1.2s" begin="2.3s" repeatCount="indefinite"><mpath href="#gd3"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="0.9s" begin="3.1s" repeatCount="indefinite"><mpath href="#dm1"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="0.9s" begin="3.4s" repeatCount="indefinite"><mpath href="#dm2"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="0.9s" begin="3.7s" repeatCount="indefinite"><mpath href="#dm3"/></animateMotion></circle>
+              <circle class="dgfp" r="3"><animateMotion dur="1.6s" begin="4.2s" repeatCount="indefinite"><mpath href="#busv"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1s" begin="4.6s" repeatCount="indefinite"><mpath href="#be1"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1s" begin="4.9s" repeatCount="indefinite"><mpath href="#be2"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1s" begin="5.2s" repeatCount="indefinite"><mpath href="#be3"/></animateMotion></circle>
+            </g>
           </svg>
         </div>
 
