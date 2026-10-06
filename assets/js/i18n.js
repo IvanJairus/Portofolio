@@ -198,6 +198,7 @@ window.I18N = {
     "hero.kicker": "Senior DevSecOps Engineer",
     "hero.role": "I build the machines that build the software.",
     "hero.tagline": "Platform engineer who turns release days into non-events — CI/CD pipelines, security gates and release automation for banking-grade systems.",
+    "hero.proof": "40+ repos · 5 artifact types · 3 environments · 1 gateway",
     "hero.cta.work": "Selected work",
     "hero.cta.contact": "Get in touch",
     "hero.terminal.1": "$ whoami",

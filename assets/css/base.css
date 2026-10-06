@@ -254,6 +254,13 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
   max-width: 52ch;
   margin-top: 18px;
 }
+/* baris bukti skala: angka yang sama dipakai di seluruh situs, tidak ada klaim baru */
+.hero-proof {
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--ink-dim);
+  margin-top: 14px;
+}
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 
 .btn {
