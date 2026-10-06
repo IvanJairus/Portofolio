@@ -21,7 +21,7 @@ html[data-theme="light"] {
 /* ============================================================
    1. HERO — rel pipeline
    ============================================================ */
-.hero-flow-wrap { margin-top: clamp(48px, 7vw, 84px); }
+.hero-flow-wrap { grid-area: flow; margin-top: 0; }
 .hero-flow {
   position: relative;
   display: grid;

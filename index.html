@@ -53,7 +53,7 @@
     <!-- ================= HERO ================= -->
     <section class="hero">
       <div class="wrap hero-grid">
-        <div>
+        <div class="hero-id">
           <span class="kicker" data-i18n="hero.kicker">Senior DevSecOps Engineer</span>
           <h1><span data-profile="name">Ivan Jairus</span><span class="accent-dot">.</span></h1>
           <p class="hero-role"><span data-profile="role">Senior DevOps / DevSecOps Engineer</span><span class="cursor" aria-hidden="true"></span></p>
@@ -65,7 +65,37 @@
             <a class="btn btn-ghost" href="#contact"><span data-i18n="hero.cta.contact">Get in touch</span></a>
             <a class="btn btn-ghost" href="assets/cv/cv-ivan-jairus.pdf" download><span data-i18n="hero.cta.cv">CV (PDF)</span> <span class="arr">↓</span></a>
           </div>
+        </div>
 
+        <figure class="hero-photo" data-reveal>
+          <div class="photo-frame">
+            <img src="assets/img/profile.jpg"
+                 srcset="assets/img/profile-480.jpg 480w, assets/img/profile.jpg 800w"
+                 sizes="(max-width: 860px) 40vw, 240px"
+                 alt="Ivan Jairus — Senior DevOps / DevSecOps Engineer" data-i18n-attr="alt:hero.photo.alt"
+                 width="800" height="1000" fetchpriority="high" decoding="async" />
+          </div>
+        </figure>
+
+        <!-- rel pipeline: tepat di bawah nama + tombol, selebar kolom -->
+        <div class="hero-flow-wrap">
+          <div class="hero-flow" data-flow="hero" aria-hidden="true">
+            <div class="hf-line"></div>
+            <div class="hf-packet"></div>
+            <div class="hf-node" data-hf="0"><i></i><span>commit</span><em class="hf-sub">git push</em></div>
+            <div class="hf-node" data-hf="1"><i></i><span>build</span><em class="hf-sub">maven · gradle · npm</em></div>
+            <div class="hf-node hf-scan" data-hf="2"><i></i><span>scan</span><em class="hf-sub">trivy · sonar</em></div>
+            <div class="hf-node hf-gate" data-hf="3"><i></i><span>gate</span><em class="hf-sub">5-layer approval</em></div>
+            <div class="hf-node" data-hf="4"><i></i><span>SIT</span><em class="hf-sub">jar · image · bundle</em></div>
+            <div class="hf-node" data-hf="5"><i></i><span>UAT</span><em class="hf-sub">tag &amp; merge</em></div>
+            <div class="hf-node hf-prod" data-hf="6"><i></i><span>PROD</span><em class="hf-sub">release ledger</em></div>
+          </div>
+          <p class="sr-only">Release pipeline stages: commit (git push), build (maven, gradle, npm), scan (trivy, sonarqube), approval gate (five-layer chain), deploy to SIT, promote to UAT, release to PROD with a release ledger.</p>
+          <p class="hf-caption" data-i18n="hero.flow.caption">Every change I ship travels this exact path — across five artifact types, two CI engines and three environments.</p>
+          <p class="care-note" data-i18n="hero.flow.note">// one pipeline serves SIT → UAT → PROD — promotion changes nothing but the URL and the credentials</p>
+        </div>
+
+        <div class="hero-after">
           <div class="terminal" aria-hidden="true">
             <div class="terminal-bar"><i></i><i></i><i></i><span>~/ivan — zsh</span></div>
             <div class="terminal-body">
@@ -76,34 +106,6 @@
             </div>
           </div>
         </div>
-
-        <figure class="hero-photo" data-reveal>
-          <div class="photo-frame">
-            <img src="assets/img/profile.jpg"
-                 srcset="assets/img/profile-480.jpg 480w, assets/img/profile.jpg 800w"
-                 sizes="(max-width: 860px) 72vw, 400px"
-                 alt="Ivan Jairus — Senior DevOps / DevSecOps Engineer" data-i18n-attr="alt:hero.photo.alt"
-                 width="800" height="1000" fetchpriority="high" decoding="async" />
-          </div>
-        </figure>
-      </div>
-
-      <!-- rel pipeline: satu perubahan kode berjalan sampai produksi, berlabel tool -->
-      <div class="wrap hero-flow-wrap">
-        <div class="hero-flow" data-flow="hero" aria-hidden="true">
-          <div class="hf-line"></div>
-          <div class="hf-packet"></div>
-          <div class="hf-node" data-hf="0"><i></i><span>commit</span><em class="hf-sub">git push</em></div>
-          <div class="hf-node" data-hf="1"><i></i><span>build</span><em class="hf-sub">maven · gradle · npm</em></div>
-          <div class="hf-node hf-scan" data-hf="2"><i></i><span>scan</span><em class="hf-sub">trivy · sonar</em></div>
-          <div class="hf-node hf-gate" data-hf="3"><i></i><span>gate</span><em class="hf-sub">5-layer approval</em></div>
-          <div class="hf-node" data-hf="4"><i></i><span>SIT</span><em class="hf-sub">jar · image · bundle</em></div>
-          <div class="hf-node" data-hf="5"><i></i><span>UAT</span><em class="hf-sub">tag &amp; merge</em></div>
-          <div class="hf-node hf-prod" data-hf="6"><i></i><span>PROD</span><em class="hf-sub">release ledger</em></div>
-        </div>
-        <p class="sr-only">Release pipeline stages: commit (git push), build (maven, gradle, npm), scan (trivy, sonarqube), approval gate (five-layer chain), deploy to SIT, promote to UAT, release to PROD with a release ledger.</p>
-        <p class="hf-caption" data-i18n="hero.flow.caption">Every change I ship travels this exact path — across five artifact types, two CI engines and three environments.</p>
-        <p class="care-note" data-i18n="hero.flow.note">// one pipeline serves SIT → UAT → PROD — promotion changes nothing but the URL and the credentials</p>
       </div>
     </section>
 
