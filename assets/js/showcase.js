@@ -1005,6 +1005,41 @@
     });
   }
 
+  /* ---------- lifecycle rail (Architecture) ---------- */
+  function initLifecycle() {
+    var wrap = document.querySelector(".lc");
+    if (!wrap) return;
+    var nodes = [].slice.call(wrap.querySelectorAll("[data-lc]"));
+    var detail = wrap.querySelector("[data-lc-detail]");
+    var cur = 0, timer = null;
+    function show(i) {
+      cur = i;
+      nodes.forEach(function (n) { n.classList.toggle("on", +n.dataset.lc === i); });
+      if (detail) detail.textContent = T("lc.d" + (i + 1));
+    }
+    function start() {
+      if (RM || timer) return;
+      timer = setInterval(function () { if (!document.hidden) show((cur + 1) % nodes.length); }, 3800);
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    nodes.forEach(function (n) {
+      if (n.tagName === "DIV" && !n.classList.contains("lc-chip")) n.setAttribute("role", "button");
+      n.addEventListener("click", function () { stop(); show(+n.dataset.lc); });
+    });
+    if (RM) {
+      nodes.forEach(function (n) { n.classList.add("lit"); });
+      show(0);
+    } else {
+      show(0);
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (en) {
+          en.forEach(function (e) { e.isIntersecting ? start() : stop(); });
+        }, { rootMargin: "120px" }).observe(wrap);
+      } else { start(); }
+    }
+    document.addEventListener("pf:langchange", function () { show(cur); });
+  }
+
   /* ============================================================
      BOOT
      ============================================================ */
@@ -1015,6 +1050,7 @@
     initChatops();
     initPlatform();
     initSubnav();
+    initLifecycle();
 
     /* render ulang komponen JS saat bahasa berganti */
     document.addEventListener("pf:langchange", function () {

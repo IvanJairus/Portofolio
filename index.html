@@ -525,6 +525,103 @@
           </div>
         </div>
 
+        <!-- lifecycle: apa yang terjadi pada SATU perubahan, dan apa yang terjadi tiap minggu -->
+        <div class="lc" data-reveal>
+          <div class="section-head lc-head">
+            <h3 data-i18n="lc.title">The lifecycle of one change</h3>
+            <p class="mono lc-sub" data-i18n="lc.sub">click any node — the detail appears below the rail</p>
+          </div>
+
+          <div class="lc-rail" data-lc-rail>
+            <div class="lc-line" aria-hidden="true"></div>
+            <div class="lc-packet" aria-hidden="true"></div>
+            <button class="lc-node on" data-lc="0"><i></i><span data-i18n="lc.n1">commit</span></button>
+            <button class="lc-node" data-lc="1"><i></i><span data-i18n="lc.n2">branch auto-made</span></button>
+            <button class="lc-node" data-lc="2"><i></i><span data-i18n="lc.n3">MR opened</span></button>
+            <div class="lc-node lc-fan" data-lc="3"><i></i><span data-i18n="lc.n4">parallel checks</span>
+              <em>build ✓/✗</em><em>sonarqube</em><em>sast · semgrep</em>
+            </div>
+            <button class="lc-node lc-gate" data-lc="4"><i></i><span data-i18n="lc.n5">composite gate</span></button>
+            <button class="lc-node" data-lc="5"><i></i><span data-i18n="lc.n6">merge — by a human</span></button>
+            <button class="lc-node" data-lc="6"><i></i><span data-i18n="lc.n7">deploy SIT</span></button>
+            <button class="lc-node lc-prod" data-lc="7"><i></i><span data-i18n="lc.n8">promote UAT → PROD</span></button>
+          </div>
+          <p class="lc-detail mono" data-lc-detail></p>
+
+          <div class="lc-rail lc-sched" data-lc-sched>
+            <div class="lc-chip" data-lc="8"><b data-i18n="lc.n9">weekly schedule</b><span data-i18n="lc.s0">// no human present</span></div>
+            <span class="lc-sep">→</span>
+            <div class="lc-chip" data-lc="9"><b data-i18n="lc.n10">branch auto-sync</b><span data-i18n="lc.s1">cascade MRs · approver ≠ author</span></div>
+            <span class="lc-sep">→</span>
+            <div class="lc-chip" data-lc="10"><b data-i18n="lc.n11">SAST · all services</b><span data-i18n="lc.s2">semgrep in docker · 30-day artifacts</span></div>
+            <span class="lc-sep">→</span>
+            <div class="lc-chip" data-lc="11"><b data-i18n="lc.n12">SonarQube · all services</b><span data-i18n="lc.s3">triggered in batches · polled to done</span></div>
+            <span class="lc-sep">→</span>
+            <div class="lc-chip lc-mail-chip" data-lc="12"><b data-i18n="lc.n13">email summary per domain</b><span data-i18n="lc.s4">the run reports itself ↓</span></div>
+          </div>
+
+          <!-- preview email: direplikasi dari template HTML asli, disanitasi -->
+          <div class="lc-mailgrid" data-reveal>
+            <div class="mail-card" role="img" aria-label="Email summary preview">
+              <div class="mail-top mono">
+                <span class="mail-av">IJ</span>
+                <div>
+                  <div class="mail-from">devops-platform &lt;noreply@…&gt;</div>
+                  <div class="mail-subj" data-i18n="lc.mail.subject">[board] Branch Auto Sync Summary — Thu 02:14 WIB</div>
+                </div>
+              </div>
+              <div class="mail-body">
+                <div class="mail-head">
+                  <span class="mono">BRANCH AUTO SYNC REPORT</span><span class="mono mail-wm">DEVOPS&nbsp;PLATFORM</span>
+                </div>
+                <div class="mail-meta mono"><span>2026-10-01 · 02:14 WIB</span><span>domain: core</span><span>12 branch pairs · 9 MR</span></div>
+                <div class="mail-stats">
+                  <div class="ms ok"><b>6</b><span>merged</span></div>
+                  <div class="ms dim"><b>3</b><span>no changes</span></div>
+                  <div class="ms warn"><b>1</b><span>conflict</span></div>
+                  <div class="ms bad"><b>1</b><span>approval failed</span></div>
+                  <div class="ms gray"><b>1</b><span>skipped</span></div>
+                </div>
+                <table class="mail-tbl">
+                  <tr class="th"><td>service</td><td>branch pair</td><td>status</td><td>mr</td></tr>
+                  <tr><td>ledger-service</td><td>R1.0 → R1.1</td><td class="ok">✓ MERGED</td><td class="lk">view MR</td></tr>
+                  <tr><td>mobile-bff</td><td>R1.1 → R1.2</td><td class="warn">⚠ CONFLICT — REBASE NEEDED</td><td class="lk">view MR</td></tr>
+                  <tr><td>scheduler-job</td><td>R1.0 → R1.1</td><td class="dim">— NO CHANGES</td><td></td></tr>
+                  <tr><td>auth-gateway</td><td>R1.1 → R1.2</td><td class="bad">✕ APPROVAL FAILED</td><td class="lk">view MR</td></tr>
+                </table>
+                <div class="mail-note mono">note // same design system reused for SAST + SonarQube weekly reports</div>
+              </div>
+            </div>
+            <p class="care-note lc-mailcap" data-i18n="lc.mail.caption">// this is a faithful copy of the real HTML email my pipelines send every week — names, domains and links are sanitized; the layout, statuses and colors are exactly what the team receives</p>
+          </div>
+        </div>
+
+        <!-- dua ekosistem: Jira+Jenkins dulu, GitLab board+CI sekarang -->
+        <div class="eco" data-reveal>
+          <div class="eco-card eco-old">
+            <div class="eco-tag mono">then — jira + jenkins</div>
+            <ul>
+              <li data-i18n="eco.o1">46 shared-library steps; 34 touch Jira, 31 drive GitLab REST directly</li>
+              <li data-i18n="eco.o2">Jira webhook → gateway job parses the changelog and dispatches sibling Jenkins jobs</li>
+              <li data-i18n="eco.o3">those jobs create branches, open MRs, approve, merge and deploy across SIT / UAT / PROD</li>
+              <li data-i18n="eco.o4">secrets from Vault, email reports before any dashboard existed</li>
+            </ul>
+          </div>
+          <div class="eco-arrow">
+            <span class="ea-ic" aria-hidden="true">⇒</span>
+            <span class="ea-txt mono" data-i18n="eco.arrow">migrated the standard, not just the tools</span>
+          </div>
+          <div class="eco-card eco-new">
+            <div class="eco-tag mono">now — gitlab board + gitlab ci</div>
+            <ul>
+              <li data-i18n="eco.n1">the issue board is the trigger — no second tracker, no gateway fan-out</li>
+              <li data-i18n="eco.n2">one webhook → workflow.rules routes to 18 orchestrators, one module per job</li>
+              <li data-i18n="eco.n3">state lives inside the ticket; watermarks in notes — no database to drift</li>
+              <li data-i18n="eco.n4">the same gates survived the move: approval chain, scans, fail-closed</li>
+            </ul>
+          </div>
+        </div>
+
         <!-- security sebagai gate: cukup satu baris visual, bukan satu section -->
         <div class="arch-gate" data-reveal>
           <div class="ag-title mono" data-i18n="arch.gate.title">what "release ready" means on my platform</div>
