@@ -13,8 +13,6 @@ window.I18N = {
     "nav.contact": "Contact",
 
     /* ---- hero flow rail ---- */
-    "hero.flow.caption": "Every change I ship travels this exact path — across five artifact types, two CI engines and three environments.",
-    "hero.flow.note": "// one pipeline serves SIT → UAT → PROD — promotion changes nothing but the URL and the credentials",
     "hero.flow.legend": "<span class=\"lm-scan\" aria-hidden=\"true\">◇</span> scan · <span class=\"lm-gate\" aria-hidden=\"true\">■</span> gate — fail closed",
     "hero.artifacts": "artifacts I ship: jar · image · apk/aab · ipa · web bundle — one standard for all five",
     "about.title": "Pipelines other people are happy to inherit.",

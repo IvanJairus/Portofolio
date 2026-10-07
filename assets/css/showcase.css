@@ -94,14 +94,6 @@
 }
 .hf-legend .lm-scan { color: var(--warn); }
 .hf-legend .lm-gate { color: var(--danger); }
-.hf-caption {
-  margin-top: 30px;
-  font-size: 13.6px;
-  color: var(--ink-dim);
-  max-width: 76ch;
-  border-left: 1px solid var(--accent-line);
-  padding-left: 14px;
-}
 @media (max-width: 620px) {
   .hero-flow { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 26px; column-gap: 14px; }
   .hf-line, .hf-packet { display: none; }
