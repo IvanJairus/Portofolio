@@ -1138,24 +1138,41 @@
 }
 @media (max-width: 620px) { .hf-sub { text-align: left; } }
 
-/* --- tool chips strip --- */
-.tool-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 22px;
-}
-.tool-chips span {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--ink-dim);
+/* --- panel "stack I work in daily" ---
+   Dulu sebelas chip abu-abu rata; sekarang satu panel berbidang, dikelompokkan
+   per wilayah kerja, dan tiap chip memakai warna tier yang sama dengan Toolbox.
+   Kelas .t-daily/.t-regular/.t-exposure dari components.css yang memberi warna. */
+.stack-panel {
+  margin: 6px 0 34px;
   border: 1px solid var(--line);
+  border-top: 2px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--bg-3);
+  padding: 22px clamp(18px, 3vw, 28px) 24px;
+}
+.sp-title { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
+.sp-note { margin-top: 6px; font-size: 13px; line-height: 1.6; color: var(--ink-dim); max-width: 68ch; }
+.sp-rows { margin-top: 18px; display: grid; gap: 12px; }
+.sp-row {
+  display: grid;
+  grid-template-columns: 176px minmax(0, 1fr);
+  gap: 8px 18px;
+  align-items: baseline;
+}
+.sp-cat { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
+.sp-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.sc {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  border-width: 1px;         /* longhand, supaya border-color dari .t-* tidak tertimpa */
+  border-style: solid;
   border-radius: 2px;
-  padding: 4px 10px;
-  background: var(--bg-2);
+  padding: 5px 11px;
   white-space: nowrap;
 }
-.tool-chips span:hover { border-color: var(--accent-line); color: var(--ink); }
+@media (max-width: 620px) {
+  .sp-row { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+}
 
 /* --- artifact line --- */
 .artifact-line {
@@ -1345,14 +1362,6 @@
   .pf-strip { grid-template-columns: 1fr; }
   .pf-card { border-left: none; border-top: 1px solid var(--line); }
   .pf-card:first-child { border-top: none; }
-}
-
-.chips-label {
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  margin: 6px 0 10px;
 }
 
 /* --- before-line --- */
@@ -1985,7 +1994,7 @@
 .btn,
 .hero-role,
 .wsn-label, .wsn,
-.chips-label,
+.sp-title, .sp-note, .sp-cat,
 .tf-label, .tf-btn,
 .cm-row .cm-k, .copy-btn,
 .footer-in,
