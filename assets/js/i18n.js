@@ -334,7 +334,7 @@ window.I18N = {
     "skills.2.1": "Python", "skills.2.2": "JavaScript / Node", "skills.2.3": "Groovy", "skills.2.4": "SQL / Oracle",
     "skills.3.1": "SAST / Semgrep", "skills.3.2": "Container scanning / Trivy", "skills.3.3": "Secrets / Vault", "skills.3.4": "SBOM / CycloneDX",
     "skills.4.1": "Docker / Registry", "skills.4.2": "OpenShift / Kubernetes", "skills.4.3": "Linux / SSH", "skills.4.4": "Git", "skills.4.5": "Multi-artifact delivery",
-    "skills.5.1": "Observability & logging", "skills.5.2": "Incident-driven design", "skills.5.3": "Templating & IaC", "skills.5.4": "Automated testing",
+    "skills.5.1": "Logging & debuggability", "skills.5.2": "Incident-driven design", "skills.5.3": "Templating & rendered manifests", "skills.5.4": "Automated testing",
 
     "exp.title": "One direction, deepened",
 
