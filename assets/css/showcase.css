@@ -1664,7 +1664,7 @@ html[data-theme="dark"] .mail-body { background: #f6f6f3; }
   color: #16181d;
 }
 .mail-head > span:first-child { font-size: 12px; letter-spacing: 0.12em; font-weight: 700; }
-.mail-wm { font-size: 10px; letter-spacing: 0.2em; color: #8b8b91; border-bottom: 2px solid #f37021; }
+.mail-wm { font-size: 10px; letter-spacing: 0.2em; color: #6e6e75; border-bottom: 2px solid #f37021; }
 .mail-meta {
   display: flex;
   flex-wrap: wrap;
@@ -1688,7 +1688,7 @@ html[data-theme="dark"] .mail-body { background: #f6f6f3; }
 .ms.bad { border-top-color: #b91c1c; } .ms.dim { border-top-color: #9ca3af; } .ms.gray { border-top-color: #d1d5db; }
 .mail-tbl { width: 100%; border-collapse: collapse; font-size: 10.5px; color: #3f3f46; }
 .mail-tbl .th td {
-  background: #f37021;
+  background: #b4480f;
   color: #fff;
   font-family: var(--font-mono);
   font-size: 9px;
@@ -1702,9 +1702,9 @@ html[data-theme="dark"] .mail-body { background: #f6f6f3; }
 .mail-tbl .ok { color: #2d7d46; font-weight: 600; }
 .mail-tbl .warn { color: #b45309; font-weight: 600; }
 .mail-tbl .bad { color: #b91c1c; font-weight: 600; }
-.mail-tbl .dim { color: #9ca3af; }
-.mail-tbl .lk { color: #f37021; text-decoration: underline; cursor: default; }
-.mail-note { margin-top: 10px; font-size: 9.5px; color: #8b8b91; }
+.mail-tbl .dim { color: #6b7280; }
+.mail-tbl .lk { color: #b4480f; text-decoration: underline; cursor: default; }
+.mail-note { margin-top: 10px; font-size: 9.5px; color: #6e6e75; }
 .lc-mailcap { margin-top: 14px; }
 @media (max-width: 700px) {
   .mail-stats { grid-template-columns: repeat(3, 1fr); }
@@ -1851,7 +1851,7 @@ html[data-theme="dark"] .mail-callout { background: #fff8ec; }
 .pill.ok { color: #2d7d46; border-color: #2d7d46; background: #eaf6ee; }
 .pill.bad { color: #b91c1c; border-color: #b91c1c; background: #fdecec; }
 .pill.dim { color: #6e6e75; border-color: #9ca3af; background: #f1f1ef; }
-.mail-tbl td.dim { color: #9ca3af; }
+.mail-tbl td.dim { color: #6b7280; }
 .mail-tbl td b { color: #16181d; }
 .mail-branches { color: #2d7d46; }
 .mail-att {
