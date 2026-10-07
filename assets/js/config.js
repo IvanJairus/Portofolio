@@ -60,13 +60,19 @@ window.PROFILE = {
       }
     },
     {
-      /* Periode sebelum peran saat ini. points sengaja kosong:
-         butir dampak belum diisi pemiliknya, dan situs ini tidak boleh
-         mengarang klaim. Isi array en() di bawah bila sudah tersedia. */
+      /* Periode sebelum peran saat ini. Ketiga butir di bawah diambil dari
+         CV pemiliknya (Backend Developer, Januari 2022 - Januari 2024), hanya
+         disalin ke bahasa situs; nama perusahaan tetap disanitasi seperti peran di atas. */
       period: { en: "2022 — 2024" },
       title: { en: "Backend Developer" },
       company: { en: "State-owned banking group, Indonesia" },
-      points: { en: [] }
+      points: {
+        en: [
+          "Built backend services in Java Spring Boot and Python, with the design patterns and framework knowledge that keep microservice APIs robust.",
+          "Ran deployments on OpenShift and OpenFaaS with a continuous-deployment approach, cutting downtime and shortening the path from code to running service.",
+          "Pushed code quality through testing and SonarQube on the merge path, leaving cleaner codebases and less technical debt behind."
+        ]
+      }
     }
   ]
 };
