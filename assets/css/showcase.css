@@ -1200,7 +1200,7 @@
 /* --- board before/after --- */
 .ba {
   display: grid;
-  grid-template-columns: 1fr auto 1.25fr;
+  grid-template-columns: 0.8fr auto 1.5fr;
   gap: 18px;
   align-items: stretch;
   margin: 8px 0 34px;
@@ -1226,6 +1226,9 @@
 .ba-tag em { font-style: normal; color: var(--ink-dim); }
 .ba-after .ba-tag em { color: var(--accent); }
 .ba-cols { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 8px; }
+/* tanpa min-width:0, satu kolom memaksa dirinya lebih lebar dari yang lain
+   (terukur 40px vs 67px dalam lima kolom yang seharusnya rata) */
+.ba-col { min-width: 0; }
 .ba-col h3 {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -1247,14 +1250,16 @@
   border: 1px solid var(--line);
   border-radius: 2px;
   background: var(--bg-3);
-  height: 34px;
+  /* min-height, bukan height: dengan height tetap, teks yang membungkus
+     keluar dari garis kotak (terukur 4-20px di 1440, sampai 36px di 390) */
+  min-height: 34px;
   margin-bottom: 6px;
   padding: 5px 7px;
   font-family: var(--font-mono);
   font-size: 9.5px;
   color: var(--ink-faint);
 }
-.ba-card.sm { height: 22px; }
+.ba-card.sm { min-height: 22px; }
 .ba-before .ba-card { border-style: dashed; }
 .ba-card.on { border-left: 2px solid var(--accent); color: var(--ink); }
 .ba-card.lit { border-color: var(--line-strong); color: var(--ink-dim); background: var(--bg-2); }
@@ -1283,6 +1288,9 @@
   color: var(--accent);
   letter-spacing: 0.12em;
   margin-right: 5px;
+  /* lima tanda centang ini satu "kata" yang tidak bisa putus; di kolom 57px
+     ia mendorong keluar kotak 2px. Boleh putus antar-tanda. */
+  word-break: break-all;
 }
 .ba-note { font-size: 12px; color: var(--ink-faint); margin-top: 12px; line-height: 1.5; }
 .ba-arrow {
