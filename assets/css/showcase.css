@@ -289,7 +289,9 @@
 
 .bd-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  /* papan 5 kolom butuh ruang lebih dari panel tiket: dengan 1.05/0.95 tiap
+     kolom cuma 97px dan badge "Dev Planning" keluar kartu sampai 36px */
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
   gap: 1px;
   background: var(--line);
   border-top: 1px solid var(--line);
@@ -340,7 +342,7 @@
 .bd-card.moved { animation: card-pop 0.5s var(--ease); }
 .bd-card.ghost { border-left-color: var(--line-strong); }
 .bd-card.ghost .bc-title { color: var(--ink-dim); font-weight: 500; }
-.bc-top { display: flex; justify-content: space-between; gap: 6px; align-items: center; }
+.bc-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; align-items: center; }
 .bc-iid { font-size: 9.5px; color: var(--ink-faint); }
 .bc-phase {
   font-size: 8.5px;
