@@ -622,7 +622,9 @@
   transition: all 0.3s var(--ease);
 }
 .rp-sse i { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-faint); transition: background 0.3s var(--ease); }
-.rp-sse.on { color: var(--accent); border-color: var(--accent-line); background: var(--accent-dim); }
+/* teks terpilih di atas tint: accent #C2410C diukur 4,32:1 di atas accent-dim + bg-3,
+   jadi memakai --accent-strong (5,49:1) yang memang token untuk kasus ini */
+.rp-sse.on { color: var(--accent-strong); border-color: var(--accent-line); background: var(--accent-dim); }
 .rp-sse.on i { background: var(--accent); animation: pulse 1.6s var(--ease) infinite; }
 
 .rp-body { display: grid; grid-template-columns: 176px minmax(0, 1fr); min-height: 520px; }
@@ -719,7 +721,7 @@
   transition: all 0.2s var(--ease);
 }
 .rp-tab:hover { border-color: var(--accent-line); color: var(--accent); }
-.rp-tab.on { background: var(--accent-dim); border-color: var(--accent-line); color: var(--accent); }
+.rp-tab.on { background: var(--accent-dim); border-color: var(--accent-line); color: var(--accent-strong); }
 
 .rp-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 16px; }
 @media (max-width: 620px) { .rp-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -985,7 +987,7 @@
   text-align: left;
 }
 .rp-path:hover { border-color: var(--accent-line); color: var(--accent); }
-.rp-path.on { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); }
+.rp-path.on { border-color: var(--accent); background: var(--accent-dim); color: var(--accent-strong); }
 .rp-kv { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 14px; padding: 12px; font-family: var(--font-mono); font-size: 10.5px; }
 .rp-kv dt { color: var(--ink-faint); }
 .rp-kv dd { color: var(--ink); letter-spacing: 0.08em; }
@@ -1663,6 +1665,10 @@
 }
 .lc-chip:hover, .lc-chip.on { border-color: var(--accent-line); border-style: solid; }
 .lc-chip.on { background: var(--accent-dim); }
+/* sublabel chip terpilih: --ink-faint di atas accent-dim + bg-3 terukur 4,34:1 (axe,
+   dan Lighthouse tidak menemukannya karena state ini butuh klik). Naikkan ke
+   --ink-dim = 6,30:1; penanda terpilih tetap garis tepi + latar, bukan warna teks. */
+.lc-chip.on span { color: var(--ink-dim); }
 .lc-chip b { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--ink); }
 .lc-chip span { font-size: 12px; color: var(--ink-faint); }
 .lc-sep { align-self: center; color: var(--ink-faint); font-size: 13px; }
@@ -1939,7 +1945,9 @@
   padding: 2px 8px;
   border-left: 3px solid;
 }
-.pill.ok { color: var(--pass); border-color: var(--pass); background: var(--pass-dim); }
+/* sama: pass #2E7D32 di atas pass-dim + bg-3 = 4,33:1; --pass-strong = 5,58:1.
+   Garis tepi tetap --pass supaya warna status tidak berubah makna */
+.pill.ok { color: var(--pass-strong); border-color: var(--pass); background: var(--pass-dim); }
 .pill.bad { color: var(--danger); border-color: var(--danger); background: var(--danger-dim); }
 .pill.dim { color: var(--ink-faint); border-color: var(--line-strong); background: var(--bg-3); }
 .mail-tbl td.dim { color: var(--ink-faint); }
