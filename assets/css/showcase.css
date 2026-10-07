@@ -1217,14 +1217,18 @@ html[data-theme="light"] .rp-console { background: #101314; color: #b6e88a; }
 .ba-cols { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 8px; }
 .ba-col h3 {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 400;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--ink-faint);
   padding-bottom: 6px;
   margin-bottom: 8px;
   border-bottom: 1px solid var(--line);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .ba-card {
   display: block;
