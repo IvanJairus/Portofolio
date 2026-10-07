@@ -1376,6 +1376,11 @@
   .pf-strip { grid-template-columns: 1fr; }
   .pf-card { border-left: none; border-top: 1px solid var(--line); }
   .pf-card:first-child { border-top: none; }
+  /* kolom 57px: header tidak boleh dipotong jadi "IN REV…" (12px mono = 65px,
+     10px = 54px masih satu baris, sama seperti label papan walkthrough 9.5px),
+     dan badge Intake yang di-position absolute menimpa teks "#471" */
+  .ba-col h3 { font-size: 10px; }
+  .ba-card .ba-badge { position: static; display: inline-block; margin-left: 4px; }
 }
 
 /* --- before-line --- */
