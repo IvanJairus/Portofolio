@@ -284,8 +284,8 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
 /* terminal: dua baris visual (perintah + keluaran berdampingan) */
 .terminal {
   margin-top: 0;
-  background: var(--bg-2);
-  border: 1px solid var(--line);
+  background: var(--surface-dark);
+  border: 1px solid rgba(250, 247, 242, 0.14);
   border-radius: var(--radius);
   overflow: hidden;
   max-width: 560px;
@@ -293,15 +293,15 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
 .terminal-bar {
   display: flex; align-items: center; gap: 7px;
   padding: 8px 14px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid rgba(250, 247, 242, 0.14);
 }
-.terminal-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--line-strong); }
-.terminal-bar i:first-child { background: var(--accent); }
+.terminal-bar i { width: 9px; height: 9px; border-radius: 50%; background: rgba(250, 247, 242, 0.28); }
+.terminal-bar i:first-child { background: var(--accent-bright); }
 .terminal-bar span {
   margin-left: auto;
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--ink-faint);
+  color: #a9a29a;
   letter-spacing: 0.08em;
 }
 .terminal-body {
@@ -316,9 +316,9 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
 }
 /* min-height menjaga tinggi blok tetap saat teks diketik (tanpa CLS) */
 .terminal-body .ln { white-space: pre-wrap; min-height: 1.6em; }
-.terminal-body .cmd { color: var(--ink); }
-.terminal-body .out { color: var(--accent); }
-.terminal-body .out.dim-out { color: var(--ink-dim); }
+.terminal-body .cmd { color: var(--on-dark); }
+.terminal-body .out { color: var(--accent-bright); }   /* 5.87:1 di atas bidang gelap */
+.terminal-body .out.dim-out { color: #a9a29a; }               /* 6.64:1 */
 
 /* foto */
 .hero-photo { position: relative; justify-self: end; width: min(100%, 240px); grid-area: photo; }
@@ -412,9 +412,9 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
 
 /* ---------- print: semua konten & status akhir widget (audit v2 #10) ---------- */
 @media print {
-  .gate-check .box { background: #2d7d46 !important; border-color: #2d7d46 !important; color: #fff !important; }
-  .gate-result { border-color: #2d7d46 !important; background: #eaf6ee !important; }
-  .gate-result .g-state { font-size: 0; color: #2d7d46 !important; }
+  .gate-check .box { background: #2e7d32 !important; border-color: #2e7d32 !important; color: #fff !important; }
+  .gate-result { border-color: #2e7d32 !important; background: #e7f2e6 !important; }
+  .gate-result .g-state { font-size: 0; color: #2e7d32 !important; }
   .gate-result .g-state::before { content: attr(data-ready); font-size: 22px; font-weight: 700; }
   .hf-packet, .lc-packet, .rp-sse i, .bd-live i { display: none !important; }
   .rp-view::before, .bd-narr::before { content: "Interactive demo — see written description."; font-family: var(--font-mono); font-size: 12px; color: #555; }

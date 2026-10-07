@@ -894,24 +894,24 @@
 
 /* console */
 .rp-console {
-  background: #07090a;
+  background: var(--surface-dark);
   border: 1px solid var(--line);
   border-radius: 2px;
   padding: 12px 14px;
   font-family: var(--font-mono);
   font-size: 10.8px;
   line-height: 1.75;
-  color: #9fe870;
+  color: var(--pass-brand);
   height: 220px;
   overflow-y: auto;
   white-space: pre-wrap;
   word-break: break-word;
 }
-.rp-console .c-dim { color: #5f7a52; }
-.rp-console .c-ok { color: #c8f04b; }
-.rp-console .c-warn { color: #e8b23a; }
+.rp-console .c-dim { color: #a9a29a; }
+.rp-console .c-ok { color: var(--pass-brand); }
+.rp-console .c-warn { color: var(--warn-brand); }
 .rp-console::-webkit-scrollbar { width: 5px; }
-.rp-console::-webkit-scrollbar-thumb { background: #24331f; border-radius: 3px; }
+.rp-console::-webkit-scrollbar-thumb { background: #3a2f27; border-radius: 3px; }
 .rp-stages { display: flex; gap: 5px; flex-wrap: wrap; padding: 12px 12px 0; }
 .rp-stage {
   font-family: var(--font-mono);
@@ -1651,42 +1651,42 @@
 }
 .mail-from { font-size: 11px; color: var(--ink-faint); }
 .mail-subj { font-size: 12.5px; color: var(--ink); margin-top: 2px; }
-.mail-body { padding: 18px 18px 14px; background: #ffffff; }
+.mail-body { padding: 18px 18px 14px; background: var(--bg-2); }
 .mail-head {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  border-top: 4px solid #f37021;
+  border-top: 4px solid var(--accent-bright);
   padding-top: 10px;
-  color: #16181d;
+  color: var(--ink);
 }
 .mail-head > span:first-child { font-size: 12px; letter-spacing: 0.12em; font-weight: 700; }
-.mail-wm { font-size: 10px; letter-spacing: 0.2em; color: #6e6e75; border-bottom: 2px solid #f37021; }
+.mail-wm { font-size: 10px; letter-spacing: 0.2em; color: var(--ink-faint); border-bottom: 2px solid var(--accent-bright); }
 .mail-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
   font-size: 10px;
-  color: #6e6e75;
+  color: var(--ink-faint);
   padding: 8px 0 12px;
 }
 .mail-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 12px; }
 .ms {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--line);
   border-top-width: 3px;
   border-radius: 3px;
-  background: #fff;
+  background: var(--bg-2);
   padding: 8px 6px;
   text-align: center;
 }
-.ms b { display: block; font-size: 17px; color: #16181d; }
-.ms span { font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.08em; color: #6e6e75; font-family: var(--font-mono); }
-.ms.ok { border-top-color: #2d7d46; } .ms.warn { border-top-color: #b45309; }
-.ms.bad { border-top-color: #b91c1c; } .ms.dim { border-top-color: #9ca3af; } .ms.gray { border-top-color: #d1d5db; }
-.mail-tbl { width: 100%; border-collapse: collapse; font-size: 10.5px; color: #3f3f46; }
+.ms b { display: block; font-size: 17px; color: var(--ink); }
+.ms span { font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); font-family: var(--font-mono); }
+.ms.ok { border-top-color: var(--pass); } .ms.warn { border-top-color: var(--warn); }
+.ms.bad { border-top-color: var(--danger); } .ms.dim { border-top-color: var(--line-strong); } .ms.gray { border-top-color: var(--line-strong); }
+.mail-tbl { width: 100%; border-collapse: collapse; font-size: 10.5px; color: var(--ink); }
 .mail-tbl .th td {
-  background: #b4480f;
-  color: #fff;
+  background: var(--accent);
+  color: var(--accent-ink);
   font-family: var(--font-mono);
   font-size: 9px;
   text-transform: uppercase;
@@ -1694,14 +1694,14 @@
   padding: 7px 9px;
   border: 0;
 }
-.mail-tbl td { padding: 7px 9px; border-bottom: 1px solid #ecece7; }
-.mail-tbl tr:nth-child(even) td { background: #fafafa; }
-.mail-tbl .ok { color: #2d7d46; font-weight: 600; }
-.mail-tbl .warn { color: #b45309; font-weight: 600; }
-.mail-tbl .bad { color: #b91c1c; font-weight: 600; }
-.mail-tbl .dim { color: #6b7280; }
-.mail-tbl .lk { color: #b4480f; text-decoration: underline; cursor: default; }
-.mail-note { margin-top: 10px; font-size: 9.5px; color: #6e6e75; }
+.mail-tbl td { padding: 7px 9px; border-bottom: 1px solid var(--line); }
+.mail-tbl tr:nth-child(even) td { background: var(--bg-3); }
+.mail-tbl .ok { color: var(--pass); font-weight: 600; }
+.mail-tbl .warn { color: var(--warn); font-weight: 600; }
+.mail-tbl .bad { color: var(--danger); font-weight: 600; }
+.mail-tbl .dim { color: var(--ink-faint); }
+.mail-tbl .lk { color: var(--accent); text-decoration: underline; cursor: default; }
+.mail-note { margin-top: 10px; font-size: 9.5px; color: var(--ink-faint); }
 .lc-mailcap { margin-top: 14px; }
 @media (max-width: 700px) {
   .mail-stats { grid-template-columns: repeat(3, 1fr); }
@@ -1807,32 +1807,32 @@
 
 /* --- amber disclaimer callout (faithful to the real report) --- */
 .mail-callout {
-  border: 1px solid #f0c57a;
-  border-left: 4px solid #d99a2b;
-  background: #fff8ec;
+  border: 1px solid rgba(217, 151, 6, 0.45);
+  border-left: 4px solid var(--warn-brand);
+  background: #fdf3e3;
   border-radius: 4px;
   padding: 12px 14px;
   margin: 12px 0 14px;
 }
-.mail-callout b { color: #9a6511; font-size: 12px; }
-.mail-callout p { color: #4a3a21; font-size: 12px; line-height: 1.6; margin-top: 5px; }
-.mail-callout p b { color: #7a4e0d; font-size: 12px; }
+.mail-callout b { color: var(--warn); font-size: 12px; }
+.mail-callout p { color: var(--ink); font-size: 12px; line-height: 1.6; margin-top: 5px; }
+.mail-callout p b { color: var(--warn); font-size: 12px; }
 
 /* --- ms2 stats (SAST/Sonar color system) --- */
 .ms2 { grid-template-columns: repeat(5, 1fr); }
-.ms.t { border-top-color: #16181d; }
-.ms.c { border-top-color: #b91c1c; }
-.ms.h { border-top-color: #d97706; }
-.ms.m { border-top-color: #7c3aed; }
-.ms.l { border-top-color: #2563eb; }
-.ms.ok2 { border-top-color: #2d7d46; }
-.ms.p { border-top-color: #2d7d46; }
-.ms.n { border-top-color: #9ca3af; }
+.ms.t { border-top-color: var(--ink); }
+.ms.c { border-top-color: var(--danger); }
+.ms.h { border-top-color: var(--warn-brand); }
+.ms.m { border-top-color: var(--warn); }   /* ungu Terraform dicoret -> amber */
+.ms.l { border-top-color: var(--info-brand); }   /* Docker blue */
+.ms.ok2 { border-top-color: var(--pass); }
+.ms.p { border-top-color: var(--pass); }
+.ms.n { border-top-color: var(--line-strong); }
 
 .mail-sect {
   font-size: 9.5px;
   letter-spacing: 0.14em;
-  color: #8b8b91;
+  color: var(--ink-faint);
   margin: 12px 0 6px;
 }
 .pill {
@@ -1844,12 +1844,12 @@
   padding: 2px 8px;
   border-left: 3px solid;
 }
-.pill.ok { color: #2d7d46; border-color: #2d7d46; background: #eaf6ee; }
-.pill.bad { color: #b91c1c; border-color: #b91c1c; background: #fdecec; }
-.pill.dim { color: #6e6e75; border-color: #9ca3af; background: #f1f1ef; }
-.mail-tbl td.dim { color: #6b7280; }
-.mail-tbl td b { color: #16181d; }
-.mail-branches { color: #2d7d46; }
+.pill.ok { color: var(--pass); border-color: var(--pass); background: var(--pass-dim); }
+.pill.bad { color: var(--danger); border-color: var(--danger); background: var(--danger-dim); }
+.pill.dim { color: var(--ink-faint); border-color: var(--line-strong); background: var(--bg-3); }
+.mail-tbl td.dim { color: var(--ink-faint); }
+.mail-tbl td b { color: var(--ink); }
+.mail-branches { color: var(--pass); }
 .mail-att {
   display: flex;
   flex-wrap: wrap;
@@ -1858,10 +1858,10 @@
 }
 .mail-att span {
   font-size: 10px;
-  color: #3f3f46;
-  border: 1px solid #e5e7eb;
+  color: var(--ink);
+  border: 1px solid var(--line);
   border-radius: 4px;
-  background: #f6f6f3;
+  background: var(--bg-3);
   padding: 6px 10px;
 }
 @media (max-width: 700px) { .ms2 { grid-template-columns: repeat(3, 1fr); } }
