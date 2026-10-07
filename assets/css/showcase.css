@@ -1449,6 +1449,14 @@
   padding-top: 3px;
 }
 .dec-card dd { font-size: 13.5px; line-height: 1.55; color: var(--ink-dim); }
+/* kartu build-vs-buy: empat baris penuh lebarnya jadi paragraf 1.100px. Dibelah dua
+   kolom (decision|alternative, why|cost) sehingga tetap satu baris per pasangan.
+   Urutan DOM dt tidak berubah, jadi pewarnaan nth-child di bawah tetap berlaku. */
+.dec-wide { grid-column: 1 / -1; }
+.dec-wide dl { grid-template-columns: 98px minmax(0, 1fr) 98px minmax(0, 1fr); }
+@media (max-width: 860px) {
+  .dec-wide dl { grid-template-columns: 98px minmax(0, 1fr); }
+}
 .dec-card dt:nth-child(4n+1) { color: var(--accent); }
 .dec-card dt:nth-child(4n+3) { color: var(--warn); }
 /* kartu penutup runtime: satu paragraf, tanpa baris decision/alternative/why/cost */

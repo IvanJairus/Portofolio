@@ -884,6 +884,15 @@
               <dt data-i18n="dec.row.c">cost</dt><dd data-i18n="dec.4.c">Fewer moving parts, fewer ways to be wrong — and occasionally waiting for a human, on purpose.</dd>
             </dl>
           </article>
+          <article class="dec-card dec-wide">
+            <h3 data-i18n="dec.5.title">Built the control plane, did not buy one</h3>
+            <dl>
+              <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="dec.5.d">A release board, an append-only ledger and generated reports, written by me on top of Jira and GitLab.</dd>
+              <dt data-i18n="dec.row.a">alternative</dt><dd data-i18n="dec.5.a">ArgoCD for deploys, GitLab Environments for promotion, Backstage as the read layer.</dd>
+              <dt data-i18n="dec.row.w">why</dt><dd data-i18n="dec.5.w">The source of truth here is the issue board, not a git repository: a release is the set of services that diverged between environments, and each stage is approved by a different group. Argo reconciles one application from one repo, and Environments assume one approver per environment. On-prem OpenShift, no cloud tenancy to attach either to.</dd>
+              <dt data-i18n="dec.row.c">cost</dt><dd data-i18n="dec.5.c">I own a UI that Argo ships for free, every feature costs me, and the bus factor is smaller than a mainstream tool's. If this moved to a public cloud with git-driven deploys, I would retire it and run the standard — it exists because it fits more shops than a bespoke one does.</dd>
+            </dl>
+          </article>
         </div>
       </div>
     </section>
