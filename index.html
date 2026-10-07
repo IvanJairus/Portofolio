@@ -803,6 +803,15 @@
               <dt data-i18n="dec.row.c">cost</dt><dd data-i18n="rt.1.c">A wrong default is amplified into every repo that includes it, and an override can outlive the reason it was written for — so the contract is versioned, and an override has to be justified in the merge request that adds it rather than in a later incident review.</dd>
             </dl>
           </article>
+          <article class="dec-card">
+            <h3 data-i18n="rt.2.title">One rollout rule, and no two deploys at once.</h3>
+            <dl>
+              <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="rt.2.d">The update strategy is set in the contract rather than per team, so every repo rolls the same way — and the deploy job refuses a second run while one is still going.</dd>
+              <dt data-i18n="dec.row.a">alternative</dt><dd data-i18n="rt.2.a">Each service picks its own strategy, including stop-then-start, usually at the moment someone is in a hurry.</dd>
+              <dt data-i18n="dec.row.w">why</dt><dd data-i18n="rt.2.w">A release that interrupts traffic is an incident with a ticket number attached, and two releases racing for the same route turn a rollback into a guess. The board already knows which services moved; the platform should not be the thing that surprises anyone.</dd>
+              <dt data-i18n="dec.row.c">cost</dt><dd data-i18n="rt.2.c">One rule for everything means a service that genuinely needs different behaviour asks for an override — the same exception path as capacity, reviewed where it is added. And refusing to queue means someone waits for a free slot, on purpose.</dd>
+            </dl>
+          </article>
         </div>
       </div>
     </section>
