@@ -1099,7 +1099,8 @@
     }
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
     nodes.forEach(function (n) {
-      if (n.tagName === "DIV" && !n.classList.contains("lc-chip")) n.setAttribute("role", "button");
+      /* tidak ada lagi div berpura-pura tombol: .lc-node dan .lc-chip sama-sama
+         <button type="button">, jadi Tab/Enter bekerja tanpa role tambahan */
       n.addEventListener("click", function () { stop(); show(+n.dataset.lc); });
     });
     if (RM) {

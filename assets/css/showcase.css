@@ -1645,6 +1645,15 @@
   padding: 10px 14px;
   cursor: pointer;
   flex: 1 1 150px;
+  /* chip sekarang <button> sungguhan supaya bisa di-Tab dan di-Enter:
+       buang gaya bawaan tombol, pertahankan tampilan yang lama */
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  min-width: 0;
   transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
 }
 .lc-chip:hover, .lc-chip.on { border-color: var(--accent-line); border-style: solid; }
