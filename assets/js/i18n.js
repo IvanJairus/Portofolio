@@ -338,8 +338,7 @@ window.I18N = {
     "exp.edu.label": "education",
     "exp.edu": "S1 Informatics — Universitas Tarumanagara",
 
-    "footer.built": "Hand-built — no templates, no CDN, one accent color.",
-    "footer.rights": "All rights reserved."
+    "footer.built": "Hand-built — no templates, no CDN, one accent color."
   }
 
 };
