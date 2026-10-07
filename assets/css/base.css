@@ -260,7 +260,6 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
   flex: none;
 }
 .hs-row { display: flex; flex-wrap: wrap; gap: 8px 18px; }
-.hs-legend { font-size: 11.5px; color: var(--ink-faint); }
 @media (max-width: 860px) {
   .hero-stack { gap: 8px; }
   .hs-row { gap: 6px 16px; }

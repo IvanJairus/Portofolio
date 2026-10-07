@@ -28,7 +28,6 @@ window.I18N = {
     "about.p4.text": "defense layers born from a bot that woke itself up — in one night",
     "about.p4.link": "see Board · D2 →",
     "hero.stack.title": "Stack I work in daily",
-    "hero.stack.legend": "colour = usage tier — green production daily, blue production regular",
     "work.sub.board": "Board",
     "work.sub.platform": "Platform",
     "work.sub.architecture": "Architecture",
