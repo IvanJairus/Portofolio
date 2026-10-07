@@ -1,0 +1,42 @@
+# Local verification harness
+#
+# Every throwaway probe, measure, render-check and screenshot file produced
+# while working on this site lives at the repo root and is prefixed with an
+# underscore. They were previously hidden by .git/info/exclude, which is NOT
+# shared with clones, so a fresh checkout would offer them to `git add -A`.
+# Patterns that start with / anchor to the repo root and never touch assets/.
+/_*
+
+# macOS metadata written next to any file a previewer has opened
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Editors and shells
+.idea/
+.vscode/*
+!.vscode/settings.json
+*.swp
+*~
+
+# Python bytecode from ad-hoc helper scripts. The site itself has no Python;
+# `python3 -m http.server 8731` only serves files, it creates nothing here.
+__pycache__/
+*.py[cod]
+
+# Vercel CLI state if the project is ever linked from a terminal instead of
+# through the GitHub app.
+.vercel/
+
+# Local-only Lighthouse output. CI writes its report inside the runner's temp
+# workspace, so a tracked report here would be a stale copy of a measurement.
+lighthouse-report*.json
+.report*.json
+.reports/
+.lighthouseci/
+
+# Safety net, not an admission: this site has no package.json and no
+# dependencies. A node_modules/ appearing here means local tooling leaked into
+# the repo root and it must be removed, not vendored.
+node_modules/
