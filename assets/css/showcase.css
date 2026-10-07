@@ -1660,6 +1660,50 @@
 .lc-sep { align-self: center; color: var(--ink-faint); font-size: 13px; }
 .lc-mail-chip b { color: var(--accent); }
 
+/* --- enam aturan baku (std-band) ---
+   Sinyal senior yang sebelumnya hanya muncul setelah klik di rel lifecycle atau
+   kartu board. Bidang cekung yang sama dipakai .mailshow supaya section ini punya
+   satu bahasa visual; angka aksen adalah ornamen, teks tetap --ink-dim (7,05:1 di atas --bg-3). */
+.std-band {
+  margin-top: 30px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-3);
+  padding: clamp(18px, 2.4vw, 26px);
+}
+.std-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 14px; }
+.std-title { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); }
+.std-note { font-size: 12px; color: var(--ink-faint); }
+.std-list {
+  list-style: none;
+  counter-reset: std;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 28px;
+}
+.std-list li {
+  counter-increment: std;
+  position: relative;
+  padding-left: 28px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink-dim);
+}
+.std-list li::before {
+  content: counter(std, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent);
+}
+@media (max-width: 760px) {
+  .std-list { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+}
+
 /* --- email preview --- */
 .lc-mailgrid { margin-top: 22px; }
 .mail-card {

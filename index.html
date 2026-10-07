@@ -593,6 +593,24 @@
             <button type="button" class="lc-chip lc-mail-chip" data-lc="12"><b data-i18n="lc.n13">email summary per domain</b><span data-i18n="lc.s4">the run reports itself ↓</span></button>
           </div>
 
+          <!-- Enam aturan baku. Sebelumnya hanya terbaca setelah orang mengklik titik
+               lifecycle atau kartu board (kunci lc.d*), jadi tidak ada di HTML yang
+               disajikan: tercetak, di-crawl, dan dibaca 60 detik tidak menampilkannya. -->
+          <div class="std-band">
+            <div class="std-head">
+              <span class="std-title mono" data-i18n="std.title">What the standard enforces</span>
+              <span class="std-note" data-i18n="std.note">six rules a service cannot opt out of — the same ones the lifecycle above applies</span>
+            </div>
+            <ol class="std-list">
+              <li data-i18n="std.1">A branch is created from the milestone release branch and named after the ticket, so a wrong name cannot be produced.</li>
+              <li data-i18n="std.2">The merge request opens against the correct target for that release line — nobody picks a branch.</li>
+              <li data-i18n="std.3">Deploy, quality gate and zero critical findings must agree, or the release is blocked rather than queued.</li>
+              <li data-i18n="std.4">The merge stays human: the bot prepares, records and waits; a person clicks merge.</li>
+              <li data-i18n="std.5">Promotion between environments is tag-and-merge — same pipeline, same artefact, only the target changes.</li>
+              <li data-i18n="std.6">A fix cascades forward through merge requests between release branches, so it never misses an older line.</li>
+            </ol>
+          </div>
+
           <!-- preview email: 3 laporan nyata, direplikasi dari template HTML asli, disanitasi -->
           <div class="lc-mailgrid">
             <div class="mailshow">
