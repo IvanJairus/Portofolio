@@ -62,6 +62,8 @@ window.I18N = {
     "rt.3.a": "Back up once, keep everything, delete by hand when the volume complains.",
     "rt.3.w": "\"We have backups\" without an expiry rule becomes an outage months later when the storage fills up — and a folder nobody is allowed to clean eventually stops being inspected at all.",
     "rt.3.c": "A cleanup rule that is wrong deletes the evidence you would have wanted, so the date lives in the filename and removals are logged. The window itself is the bank's to publish, not mine; the rule and the routine are what I am claiming.",
+    "rt.4.title": "What I would do differently",
+    "rt.4.body": "Resource values started out copied from whatever service shipped last, because nothing measured them and nobody was asked for a number. If I set this up again, the contract would carry a measured baseline per artifact type, so the decision starts from an observation instead of an estimate — and the list of overrides stays short enough to read in one sitting.",
     "dec.title": "Decisions and what they cost",
     "dec.lead": "Each decision, the alternative I rejected, and what it cost.",
     "dec.row.d": "decision",

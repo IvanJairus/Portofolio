@@ -1430,6 +1430,8 @@
 .dec-card dd { font-size: 13.5px; line-height: 1.55; color: var(--ink-dim); }
 .dec-card dt:nth-child(4n+1) { color: var(--accent); }
 .dec-card dt:nth-child(4n+3) { color: var(--warn); }
+/* kartu penutup runtime: satu paragraf, tanpa baris decision/alternative/why/cost */
+.rt-body { font-size: 13.5px; line-height: 1.6; color: var(--ink-dim); margin: 0; }
 
 /* --- threat model --- */
 .tm-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); }
