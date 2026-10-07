@@ -278,17 +278,33 @@
 .bd-play.paused .ic-play { display: inline; }
 .bd-play.paused .ic-pause { display: none; }
 
-.bd-dots { display: flex; gap: 6px; padding: 12px 16px 0; flex-wrap: wrap; }
+.bd-dots { display: flex; gap: 6px; padding: 6px 16px 0; flex-wrap: wrap; }
 .bd-dot {
   flex: 1;
   min-width: 26px;
-  height: 3px;
-  background: var(--line-strong);
-  border-radius: 2px;
+  /* tombolnya setinggi 24px (target sentuh minimum WCAG 2.2 AA); bar 3px yang
+     lama digambar oleh ::after supaya tampilannya tidak berubah sedikit pun */
+  position: relative;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
   transition: background 0.3s var(--ease);
 }
-.bd-dot.done { background: var(--accent-line); }
-.bd-dot.on { background: var(--accent); }
+.bd-dot::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 50%;
+  height: 3px;
+  margin-top: -1.5px;
+  border-radius: 2px;
+  background: var(--line-strong);
+  transition: background 0.3s var(--ease);
+}
+.bd-dot.done::after { background: var(--accent-line); }
+.bd-dot.on::after { background: var(--accent); }
 
 .bd-grid {
   display: grid;
