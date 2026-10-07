@@ -1164,33 +1164,12 @@
 }
 @media (max-width: 620px) { .hf-sub { text-align: left; } }
 
-/* --- panel "stack I work in daily" ---
-   Dulu sebelas chip abu-abu rata; sekarang satu panel berbidang, dikelompokkan
-   per wilayah kerja, dan tiap chip memakai warna tier yang sama dengan Toolbox.
-   Kelas .t-daily/.t-regular/.t-exposure dari components.css yang memberi warna. */
-.stack-panel {
-  margin: 6px 0 34px;
-  border: 1px solid var(--line);
-  border-top: 2px solid var(--accent);
-  border-radius: var(--radius);
-  background: var(--bg-3);
-  padding: 22px clamp(18px, 3vw, 28px) 24px;
-}
-.sp-title { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
-.sp-note { margin-top: 6px; font-size: 13px; line-height: 1.6; color: var(--ink-dim); max-width: 68ch; }
-.sp-rows { margin-top: 18px; display: grid; gap: 12px; }
-.sp-row {
-  display: grid;
-  grid-template-columns: 176px minmax(0, 1fr);
-  gap: 8px 18px;
-  align-items: baseline;
-}
-.sp-cat { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
-.sp-chips { display: flex; flex-wrap: wrap; gap: 8px 18px; }
-/* chip di panel stack: tanpa kotak. Warna teks (dan mark yang ikut currentColor)
-   tetap membawa tier hijau/biru, jadi informasinya tidak hilang - hanya wadahnya
-   yang dibuang. showcase.css dimuat setelah components.css, jadi .sc mengalahkan
-   border-color/background dari .t-* yang masih dipakai Toolbox. */
+/* --- chip stack di hero ---
+   Kelas .t-daily/.t-regular dari components.css yang memberi warna teks.
+   /* Tanpa kotak: warna teks (dan mark yang ikut currentColor) tetap membawa tier
+   hijau/biru, jadi informasinya tidak hilang - hanya wadahnya yang dibuang.
+   showcase.css dimuat setelah components.css, jadi .sc mengalahkan border-color
+   dan background dari .t-* yang masih dipakai Toolbox. */
 .sc {
   font-family: var(--font-mono);
   font-size: 12.5px;
@@ -1205,10 +1184,6 @@
 /* mark alat ikut warna teks chip (= warna tier), jadi hierarki hijau/biru
    tetap yang paling dulu terbaca, bukan warna brand */
 .sc-ic { width: 14px; height: 14px; flex: none; fill: currentColor; }
-@media (max-width: 620px) {
-  .sp-row { grid-template-columns: minmax(0, 1fr); gap: 6px; }
-}
-
 /* --- artifact line --- */
 .artifact-line {
   margin-top: 14px;
@@ -2062,7 +2037,6 @@
 .btn,
 .hero-role,
 .wsn-label, .wsn,
-.sp-title, .sp-note, .sp-cat,
 .tf-label, .tf-btn,
 .cm-row .cm-k, .copy-btn,
 .footer-in,
