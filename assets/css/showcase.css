@@ -3,20 +3,9 @@
    dan replika UI release control plane.
    Semua komponen di sini bersifat aditif: tidak menimpa base.css
    maupun components.css, hanya menambahkan blok baru.
+   Token warna (--accent, --pass, --warn, --info, --danger, dst.)
+   dimilik oleh base.css; berkas ini tidak mendeklarasikannya lagi.
    ============================================================ */
-
-:root {
-  --warn: #e8b23a;
-  --warn-dim: rgba(232, 178, 58, 0.14);
-  --info: #5aa9e6;
-  --info-dim: rgba(90, 169, 230, 0.14);
-}
-html[data-theme="light"] {
-  --warn: #9a6b00;
-  --warn-dim: rgba(154, 107, 0, 0.10);
-  --info: #1c6ca8;
-  --info-dim: rgba(28, 108, 168, 0.10);
-}
 
 /* ============================================================
    1. HERO — rel pipeline
