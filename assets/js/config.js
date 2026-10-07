@@ -9,8 +9,8 @@ window.PROFILE = {
   name: "Ivan Jairus",
   monogram: "IJ",
   role: {
-    en: "Senior DevOps / DevSecOps Engineer",
-    id: "Senior DevOps / DevSecOps Engineer"
+    en: "DevSecOps",
+    id: "DevSecOps"
   },
   location: "Jakarta, Indonesia",
   email: "Filemonivanjairus@gmail.com",
@@ -33,8 +33,8 @@ window.PROFILE = {
     {
       period: { en: "2024 — Present", id: "2024 — Sekarang" },
       title: {
-        en: "Senior DevOps / DevSecOps Engineer",
-        id: "Senior DevOps / DevSecOps Engineer"
+        en: "DevSecOps",
+        id: "DevSecOps"
       },
       company: {
         en: "State-owned banking group, Indonesia",

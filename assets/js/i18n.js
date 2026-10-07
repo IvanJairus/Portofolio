@@ -18,7 +18,7 @@ window.I18N = {
     "hero.flow.legend": "<span class=\"lm-scan\" aria-hidden=\"true\">◇</span> scan · <span class=\"lm-gate\" aria-hidden=\"true\">■</span> gate — fail closed",
     "hero.artifacts": "artifacts I ship: jar · image · apk/aab · ipa · web bundle — one standard for all five",
     "about.title": "Pipelines other people are happy to inherit.",
-    "about.lead": "Senior DevOps / DevSecOps Engineer, Jakarta. I design and maintain the release machinery behind banking-grade systems — and I document the trade-offs, not just the wins.",
+    "about.lead": "DevSecOps, Jakarta. I design and maintain the release machinery behind banking-grade systems — and I document the trade-offs, not just the wins.",
     "about.p1.text": "repos routed through one gateway",
     "about.p1.link": "see Architecture →",
     "about.p2.text": "tests written after the incident, not before",
@@ -199,10 +199,10 @@ window.I18N = {
     "hero.cta.work": "Selected work",
     "hero.cta.contact": "Get in touch",
     "hero.terminal.1": "$ whoami",
-    "hero.terminal.2": "senior-devsecops-engineer // pipelines-as-a-product",
+    "hero.terminal.2": "devsecops // pipelines-as-a-product",
     "hero.terminal.3": "$ status --all",
     "hero.terminal.4": "gates: enforced   scans: wired   releases: boring",
-    "hero.photo.alt": "Ivan Jairus — Senior DevOps / DevSecOps Engineer",
+    "hero.photo.alt": "Ivan Jairus — DevSecOps",
 
 
 
@@ -306,7 +306,7 @@ window.I18N = {
     "exp.title": "One direction, deepened",
 
     "contact.title": "Let's make releases boring.",
-    "contact.lead": "Open to senior DevSecOps, platform engineering and developer-experience roles — on-premise or cloud, banking-grade or startup-speed.",
+    "contact.lead": "Open to DevSecOps, platform engineering and developer-experience roles — on-premise or cloud, banking-grade or startup-speed.",
     "contact.email": "Email",
     "contact.location": "Based in",
     "contact.cta": "Copy email",
