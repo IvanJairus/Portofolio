@@ -400,6 +400,13 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
   outline-offset: 2px;
   border-radius: 2px;
 }
+/* situs ini punya hover dan focus ring, tapi tidak pernah punya state tertekan
+   (0 aturan :active sebelumnya) — sentuh/klik tidak memberi umpan balik sama sekali.
+   Hanya kontrol nyata; rel hero (.hf-node) sengaja tidak ikut, sesuai veto Anda. */
+.btn:active, .wsn:active, .ms-tab:active, .tf-btn:active, .bd-btn:active, .bd-dot:active,
+.tool-btn:active, .lc-node:active, .lc-chip:active, .copy-btn:active, [data-act]:active {
+  transform: translateY(1px);
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
