@@ -63,7 +63,7 @@
         <div class="hero-id">
           <h1><span data-profile="name">Ivan Jairus</span></h1>
           <p class="hero-role"><span data-profile="role">DevSecOps</span></p>
-          <p class="hero-tag" data-i18n="hero.tagline">Platform engineer who turns release days into non-events.</p>
+          <p class="hero-tag" data-i18n="hero.tagline">Platform engineer who turns release days into non-events — CI/CD pipelines, security gates and release automation for banking-grade systems.</p>
           <p class="hero-proof mono" data-i18n="hero.proof">40+ repos · 5 artifact types · 3 environments · 1 gateway</p>
 
           <div class="hero-cta">
@@ -162,17 +162,17 @@
       <div class="wrap">
         <div class="section-head">
           <h2 data-i18n="work.title">Things I built and still maintain</h2>
-          <p class="lead" data-i18n="work.lead">Sanitized descriptions.</p>
+          <p class="lead" data-i18n="work.lead">Sanitized descriptions — no hostnames, no tenant names, no internals. The engineering is real; the labels are not.</p>
         </div>
 
         <div class="work-grid">
           <article class="work-card" id="proj-1">
             <h3 data-i18n="work.1.title">ChatOps Release Orchestrator</h3>
-            <p class="w-desc" data-i18n="work.1.desc">Webhook-driven orchestrator.</p>
+            <p class="w-desc" data-i18n="work.1.desc">Webhook-driven orchestrator that turns issue-board movements into action: branch creation, merge requests, approval validation, deploy triggers and scan scheduling, with a state machine persisted in the issue itself.</p>
             <ul class="w-impact">
               <li data-i18n="work.1.i1">32 pipeline jobs across 18 orchestrators</li>
-              <li data-i18n="work.1.i2">~330 unit tests</li>
-              <li data-i18n="work.1.i3">Anti-loop watermarks</li>
+              <li data-i18n="work.1.i2">~330 unit tests covering routing, idempotency and merge races</li>
+              <li data-i18n="work.1.i3">Anti-loop watermarks added after a real infinite-webhook incident</li>
             </ul>
             <div class="w-tags">
               <span class="tag">Python 3</span><span class="tag">GitLab GraphQL</span><span class="tag">Webhooks</span><span class="tag">Vault</span><span class="tag">pytest</span>
@@ -182,11 +182,11 @@
 
           <article class="work-card" id="proj-2">
             <h3 data-i18n="work.2.title">Pipeline-as-a-Product Platform</h3>
-            <p class="w-desc" data-i18n="work.2.desc">A single repository holding every CI/CD definition.</p>
+            <p class="w-desc" data-i18n="work.2.desc">A single repository holding every CI/CD definition: a gateway include that routes 40+ service repos to domain pipelines, shared stage templates per artifact type, and a codified rulebook the whole organization deploys by.</p>
             <ul class="w-impact">
-              <li data-i18n="work.2.i1">40+ repositories onboarded</li>
-              <li data-i18n="work.2.i2">52-rule codified standard</li>
-              <li data-i18n="work.2.i3">Vulnerability scan + SBOM</li>
+              <li data-i18n="work.2.i1">40+ repositories onboarded via a four-line include</li>
+              <li data-i18n="work.2.i2">52-rule codified standard, versioned with the pipelines</li>
+              <li data-i18n="work.2.i3">Vulnerability scan + SBOM on every container image</li>
             </ul>
             <div class="w-tags">
               <span class="tag">GitLab CI</span><span class="tag">Jenkins Groovy</span><span class="tag">Bash</span><span class="tag">Trivy</span><span class="tag">CycloneDX</span>
@@ -196,11 +196,11 @@
 
           <article class="work-card" id="proj-3">
             <h3 data-i18n="work.3.title">Release Control Plane</h3>
-            <p class="w-desc" data-i18n="work.3.desc">Self-built release management platform.</p>
+            <p class="w-desc" data-i18n="work.3.desc">Self-built release management platform: deployment history, build and deploy triggering, scan results, environment promotion, secrets and audit in one UI — fed live by pipeline callbacks over server-sent events.</p>
             <ul class="w-impact">
-              <li data-i18n="work.3.i1">Composite quality gate</li>
-              <li data-i18n="work.3.i2">Role-based access</li>
-              <li data-i18n="work.3.i3">Live updates over SSE</li>
+              <li data-i18n="work.3.i1">Composite quality gate: deploy + code quality + vulnerabilities</li>
+              <li data-i18n="work.3.i2">Role-based access: admin / devsecops / developer</li>
+              <li data-i18n="work.3.i3">Live updates over SSE; API-key auth for machine callers</li>
             </ul>
             <div class="w-tags">
               <span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">SSE</span><span class="tag">RBAC</span>
@@ -227,7 +227,7 @@
         <div class="section-head">
           <span class="kicker" data-i18n="board.kicker">Case study I — release orchestration</span>
           <h2 data-i18n="board.title">I turned a bare GitLab board into a release system</h2>
-          <p class="lead" data-i18n="board.lead">GitLab issue boards have almost none of what a regulated release needs: no approval chain, no phase enforcement, no state, no deploy trigger. Instead of buying a tool, I made the board itself drive the pipeline. Engineers move a card; branches, merge requests, scans, approvals, deploys and audit comments all happen by themselves — and every result is written back into the ticket.</p>
+          <p class="lead" data-i18n="board.lead">A GitLab issue board has almost none of what a regulated release needs: no approval chain, no phase enforcement, no persistent state, no deploy trigger. Instead of buying a tool, I made the board itself drive the pipeline. Engineers move a card; branches, merge requests, scans, approvals, deploys and audit comments happen by themselves — and every result is written back into the ticket.</p>
           <p class="before-line mono"><span>before:</span> <span data-i18n="board.before">approvals lived in chat, release state lived in one person's head, deploys were triggered from a terminal</span></p>
         </div>
 
@@ -336,9 +336,9 @@
               <span class="chain-link" data-i18n="board.chain.5">engineering</span>
             </div>
             <ul class="blist">
-              <li data-i18n="board.p1.a">Every phase demands a specific approval field; skip one and the phase is reverted automatically with an explanatory comment.</li>
-              <li data-i18n="board.p1.b">Phase jumps are rejected: the sequential flow allows no leap forward, and one role may only hold one approval state at a time.</li>
-              <li data-i18n="board.p1.c">Fail-closed by default — a missing milestone or an unconfirmed merge stops the job with exit 1 instead of quietly continuing.</li>
+              <li data-i18n="board.p1.a">Every phase demands a specific approval field. Skip one and the phase is reverted automatically with an explanatory comment.</li>
+              <li data-i18n="board.p1.b">Phase jumps are rejected: the sequential flow allows no leap forward, and one role may hold only one approval state at a time — a contradictory second value clears both.</li>
+              <li data-i18n="board.p1.c">Fail-closed by default: a missing milestone or an unconfirmed merge stops the job with exit 1 instead of quietly continuing with a guess.</li>
             </ul>
           </div>
 
@@ -371,7 +371,7 @@
         <div class="section-head">
           <span class="kicker" data-i18n="plat.kicker">Case study II — release control plane</span>
           <h2 data-i18n="plat.title">The dashboard that replaced five tools and a spreadsheet</h2>
-          <p class="lead" data-i18n="plat.lead">A self-built release management platform: version drift between environments, build and deploy triggering, live console streaming, quality gates, secret changes, mobile test recordings and role-based access — in one page, updated in realtime. Below is an interactive replica with sanitized dummy data. Click anything.</p>
+          <p class="lead" data-i18n="plat.lead">A release management platform I built and maintain: version drift between environments, build and deploy triggering, live console streaming, quality gates, secret changes, mobile test recordings and role-based access — on one page, updated in realtime. Below is an interactive replica with sanitized dummy data. Click anything.</p>
           <p class="before-line mono"><span>before:</span> <span data-i18n="plat.before">five tools and one spreadsheet to answer "what runs in UAT right now?"</span></p>
         </div>
 
@@ -426,7 +426,7 @@
           <div class="rp-toasts" data-rp-toasts aria-live="polite"></div>
         </div>
 
-        <p class="rp-caption" data-i18n="plat.caption">Replica UI is shown in English, exactly like the real product. All names, versions, hashes and paths below are sanitized dummy data — the behaviour, the layout and the numbers describing the platform itself are real.</p>
+        <p class="rp-caption" data-i18n="plat.caption">The replica UI is shown in English, exactly like the real product. Names, versions, hashes and paths below are sanitized dummy data — the behaviour, the layout and the numbers describing the platform itself are real.</p>
 
         <div class="rp-facts">
           <div class="sf"><b>12</b><span data-i18n="plat.fact.1">views in a single-page app</span></div>
@@ -451,7 +451,7 @@
           </div>
           <div class="point">
             <h3><span data-i18n="plat.p4.title">Accountable by design</span></h3>
-            <p data-i18n="plat.p4.body">Three roles, per-project assignment, API keys for pipelines, an audit log for every destructive action, and a platform-update button that redeploys the dashboard itself.</p>
+            <p data-i18n="plat.p4.body">Three roles, per-project assignment, revocable API keys for pipelines, an audit log for every destructive action, and a platform-update button that redeploys the dashboard itself.</p>
           </div>
         </div>
       </div>
@@ -462,7 +462,7 @@
       <div class="wrap">
         <div class="section-head">
           <h2 data-i18n="arch.title">One gateway, forty repositories</h2>
-          <p class="lead" data-i18n="arch.lead">The idea I keep returning to.</p>
+          <p class="lead" data-i18n="arch.lead">The idea I keep returning to: developers should never own pipeline plumbing. A four-line include routes every repository to its domain pipeline, and the standard evolves in one place.</p>
           <p class="before-line mono"><span>before:</span> <span data-i18n="arch.before">every repo kept its own copy of the pipeline — fixing the standard meant editing 40 files</span></p>
         </div>
 
@@ -535,15 +535,15 @@
         <div class="points-row">
           <div class="point">
             <h3><span data-i18n="arch.p1.title">Routing is data, not duplication</span></h3>
-            <p data-i18n="arch.p1.body">Project IDs map to domain pipelines in one config.</p>
+            <p data-i18n="arch.p1.body">Project IDs map to domain pipelines in one config. Onboarding a new team means changing one include, not forking a pipeline.</p>
           </div>
           <div class="point">
             <h3><span data-i18n="arch.p2.title">Two engines, one contract</span></h3>
-            <p data-i18n="arch.p2.body">GitLab CI and legacy Jenkins coexist.</p>
+            <p data-i18n="arch.p2.body">GitLab CI and legacy Jenkins coexist behind the same stage contract and callback format, so migration is incremental instead of a big bang.</p>
           </div>
           <div class="point">
             <h3><span data-i18n="arch.p3.title">Promotion is an event</span></h3>
-            <p data-i18n="arch.p3.body">SIT to UAT to PROD moves are tag-and-merge operations.</p>
+            <p data-i18n="arch.p3.body">SIT → UAT → PROD moves are tag-and-merge operations with an append-only release ledger as the source of truth for what runs where.</p>
           </div>
         </div>
 
@@ -664,7 +664,7 @@
                   </table>
                   <div class="mail-att mono"><span>📎 sast-report-core-fe.html · 17 KB</span><span>📎 sast-report-core-be.html · 70 KB</span></div>
                   <div class="mail-note mono">Laporan detail per category dilampirkan pada email ini dan dapat dibuka langsung di browser.</div>
-                  <div class="mail-note mono" data-i18n="lc.mail.artifact">// the report text stays in Indonesian — it is the actual artifact my team receives, not a translation</div>
+                  <div class="mail-note mono" data-i18n="lc.mail.artifact">// the report text stays in Indonesian — that is how the team reads it</div>
                 </div>
               </div>
 
@@ -772,7 +772,7 @@
       <div class="wrap">
         <div class="section-head">
           <h2 data-i18n="dec.title">Decisions and what they cost</h2>
-          <p class="lead" data-i18n="dec.lead">Senior is not the tool list — it is being able to defend the trade-offs, including the price paid.</p>
+          <p class="lead" data-i18n="dec.lead">Each decision, the alternative I rejected, and what it cost.</p>
         </div>
         <div class="dec-grid">
           <article class="dec-card">
@@ -790,7 +790,7 @@
               <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="dec.2.d">A missing secret or unconfirmed merge stops the job with exit 1.</dd>
               <dt data-i18n="dec.row.a">alternative</dt><dd data-i18n="dec.2.a">Warn and continue — keep builds green.</dd>
               <dt data-i18n="dec.row.w">why</dt><dd data-i18n="dec.2.w">A silently-falling-back secret is a compliance incident with a head start.</dd>
-              <dt data-i18n="dec.row.c">cost</dt><dd data-i18n="dec.2.c">Builds fail when config is missing — the team cursed it for a week, then config drift stopped shipping. Availability traded for correctness, deliberately.</dd>
+              <dt data-i18n="dec.row.c">cost</dt><dd data-i18n="dec.2.c">Builds fail when config is missing — the team cursed it for a week, then config drift stopped shipping. Availability traded for correctness, deliberately — and plan B is honest: a manual run from the GitLab UI, same pipeline, same gates.</dd>
             </dl>
           </article>
           <article class="dec-card">
@@ -848,7 +848,7 @@
       <div class="wrap">
         <div class="section-head">
           <h2 data-i18n="skills.title">Toolbox, honestly rated</h2>
-          <p class="lead" data-i18n="skills.lead">No percentages — they are unfalsifiable.</p>
+          <p class="lead" data-i18n="skills.lead">No percentages — they cannot be falsified. Each skill carries a usage tier and a pointer to the project that proves it. Hover or tap a reference to see where the evidence lives.</p>
         </div>
 
         <div class="tier-legend">
@@ -870,19 +870,19 @@
             <h3><span data-i18n="skills.g1">CI/CD &amp; Automation</span></h3>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.1.1">GitLab CI</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.1.1">gateway include routes 40+ repos.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.1.1">gateway include routes 40+ repos; the 52-rule standard is versioned with the pipelines.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.1.2">Bash</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.1.2">SSH deploy &amp; rollback tooling.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.1.2">SSH deploy and rollback tooling for JAR and image paths.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.1.3">Jenkins / Groovy</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.1.3">29 legacy Groovy pipelines behind one stage contract.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.1.3">29 legacy Groovy pipelines kept alive behind one stage contract during the dual-engine migration.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.1.4">Pipeline design</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.1.4">stage contract per artifact type.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.1.4">stage contract per artifact type; onboarding a team is one include, not a fork.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
           </div>
 
@@ -890,19 +890,19 @@
             <h3><span data-i18n="skills.g2">Languages</span></h3>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.2.1">Python</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.2.1">18 ChatOps orchestrators, ~330 unit tests.</span><a class="ref" href="#proj-1" data-ref="proj-1">proj-01</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.2.1">18 ChatOps orchestrators and ~330 unit tests, stdlib-only by constraint.</span><a class="ref" href="#proj-1" data-ref="proj-1">proj-01</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.2.2">JavaScript / Node</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.2.2">the release control plane, three dependencies total.</span><a class="ref" href="#proj-3" data-ref="proj-3">proj-03</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.2.2">the release control plane: Express, SSE event bus, RBAC — three dependencies total.</span><a class="ref" href="#proj-3" data-ref="proj-3">proj-03</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.2.3">Groovy</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.2.3">shared pipeline logic and security-scan jobs.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.2.3">shared pipeline logic and security-scan jobs as declarative Groovy.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.2.4">SQL / Oracle</span><span class="tier t-exposure" data-i18n="tier.exposure">project exposure</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.2.4">AWR-driven tuning tasks over SSH.</span><a class="ref" href="#proj-1" data-ref="proj-1">proj-01</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.2.4">AWR tuning tasks shipped from the same orchestrator repo that drives the board.</span><a class="ref" href="#proj-1" data-ref="proj-1">proj-01</a></p>
             </div>
           </div>
 
@@ -910,19 +910,19 @@
             <h3><span data-i18n="skills.g3">Security</span></h3>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.3.1">SAST / Semgrep</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.3.1">centralized per-domain SAST in the merge path.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.3.1">centralized per-domain SAST in the merge path, results commented back on the MR.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.3.2">Container scanning / Trivy</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.3.2">vuln+secret+config scan on every image.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.3.2">vuln+secret+config scanning on every image, HIGH/CRITICAL summarized in the build.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.3.3">Secrets / Vault</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.3.3">KV v2, JWT-scoped pipeline auth, fail-closed.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.3.3">KV v2 with JWT-scoped pipeline auth; missing secrets abort the job, fail-closed.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.3.4">SBOM / CycloneDX</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.3.4">SBOM archived alongside every container build.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.3.4">CycloneDX SBOM archived alongside every container build.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
           </div>
 
@@ -930,23 +930,23 @@
             <h3><span data-i18n="skills.g4">Infrastructure &amp; Platforms</span></h3>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.4.1">Docker / Registry</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.4.1">image build and push on every backend deploy.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.4.1">image build and push on every backend deploy, incremental tags.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.4.2">OpenShift / Kubernetes</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.4.2">rolling deploys across three namespaces.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.4.2">rolling deploys via rendered deployment manifests across three namespaces.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.4.3">Linux / SSH</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.4.3">service lifecycle with dated backups and verify retries.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.4.3">service lifecycle over SSH with dated backups and 5×10s verify retries.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.4.4">Git</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.4.4">append-only release ledger, promotion as tag-and-merge.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.4.4">append-only release ledger; promotion is tag-and-merge, reviewable in a diff.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.4.5">Multi-artifact delivery</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.4.5">jar, image, apk/aab, ipa and bundle stage contracts behind one gateway.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.4.5">five artifact types — jar, image, apk/aab, ipa and web bundle — each with its own stage contract behind one gateway.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
           </div>
 
@@ -954,19 +954,19 @@
             <h3><span data-i18n="skills.g5">Practices</span></h3>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.5.1">Observability &amp; logging</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.5.1">permanent debug logs; deploy callbacks stream over SSE.</span><a class="ref" href="#proj-3" data-ref="proj-3">proj-03</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.5.1">permanent debug logs in every helper; deploy callbacks stream into the dashboard over SSE.</span><a class="ref" href="#proj-3" data-ref="proj-3">proj-03</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.5.2">Incident-driven design</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.5.2">anti-loop watermarks exist because of a real incident.</span><a class="ref" href="#proj-1" data-ref="proj-1">proj-01</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.5.2">anti-loop watermarks and the scan-fails=fails rule both exist because of real incidents.</span><a class="ref" href="#proj-1" data-ref="proj-1">proj-01</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.5.3">Templating &amp; IaC</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.5.3">per-artifact stage templates and rendered manifests.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.5.3">per-artifact stage templates and rendered OpenShift manifests from one service map.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.5.4">Automated testing</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.5.4">routing, idempotency and merge-race tests.</span><a class="ref" href="#proj-1" data-ref="proj-1">proj-01</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.5.4">~330 tests covering routing, idempotency and merge races — written after incidents, not before.</span><a class="ref" href="#proj-1" data-ref="proj-1">proj-01</a></p>
             </div>
           </div>
         </div>
