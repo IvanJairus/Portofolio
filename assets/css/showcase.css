@@ -15,6 +15,9 @@
   position: relative;
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
+  /* tanpa celah antar kolom, sublabel yang lebih lebar dari selnya menempel
+     ke tetangga (terukur 10px jaraknya di 1440, 0px di 390) */
+  column-gap: 10px;
   padding-top: 26px;
 }.hf-line {
   position: absolute;
@@ -100,7 +103,7 @@
   padding-left: 14px;
 }
 @media (max-width: 620px) {
-  .hero-flow { grid-template-columns: repeat(4, 1fr); row-gap: 26px; }
+  .hero-flow { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 26px; column-gap: 14px; }
   .hf-line, .hf-packet { display: none; }
   .hf-node { align-items: flex-start; }
 }
@@ -1136,7 +1139,9 @@
   color: var(--ink-faint);
   margin-top: -4px;
   text-align: center;
-  white-space: nowrap;
+  /* nowrap membuat sublabel yang lebih lebar dari kolomnya meluber ke
+     tetangga; biarkan membungkus di dalam kolom sendiri */
+  white-space: normal;
 }
 @media (max-width: 620px) { .hf-sub { text-align: left; } }
 
