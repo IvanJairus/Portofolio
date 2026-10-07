@@ -58,6 +58,15 @@ window.PROFILE = {
           "Membangun dan merawat lapisan delivery sebelum otomasi GitLab-native: puluhan step Jenkins shared-library yang menyambungkan webhook Jira ke GitLab (branch, MR, approve, merge, deploy) di SIT, UAT, dan PROD — yang kemudian dilebur ke satu standar GitLab board + GitLab CI."
         ]
       }
+    },
+    {
+      /* Periode sebelum peran saat ini. points sengaja kosong:
+         butir dampak belum diisi pemiliknya, dan situs ini tidak boleh
+         mengarang klaim. Isi array en() di bawah bila sudah tersedia. */
+      period: { en: "2022 — 2024" },
+      title: { en: "Backend Developer" },
+      company: { en: "State-owned banking group, Indonesia" },
+      points: { en: [] }
     }
   ]
 };

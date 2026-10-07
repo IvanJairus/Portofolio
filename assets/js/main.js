@@ -95,7 +95,8 @@
           '<div class="tl-period">' + escapeHtml(pick(e.period)) + "</div>" +
           '<h3 class="tl-title">' + escapeHtml(pick(e.title)) + "</h3>" +
           '<div class="tl-company">' + escapeHtml(pick(e.company)) + "</div>" +
-          '<ul class="tl-points">' + pts + "</ul>";
+          /* jangan buang <ul> kosong supaya tidak ada jarak hantu di timeline */
+          (pts ? '<ul class="tl-points">' + pts + "</ul>" : "");
         tl.appendChild(item);
       });
     }
