@@ -1231,6 +1231,10 @@
 /* tanpa min-width:0, satu kolom memaksa dirinya lebih lebar dari yang lain
    (terukur 40px vs 67px dalam lima kolom yang seharusnya rata) */
 .ba-col { min-width: 0; }
+/* setelah .ba-card boleh membesar, tinggi kotak dalam satu baris jadi tidak rata
+   (34/43/34/43/43); biarkan kotak non-placeholder mengisi tinggi kolomnya */
+.ba-col { display: flex; flex-direction: column; }
+.ba-col > .ba-card:not(.sm) { flex: 1; }
 .ba-col h3 {
   font-family: var(--font-mono);
   font-size: 12px;
