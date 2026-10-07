@@ -1875,7 +1875,7 @@
 @media (max-width: 700px) { .ms2 { grid-template-columns: repeat(3, 1fr); } }
 
 /* anchor jump tidak tertutup sub-nav sticky */
-#board, #platform, #architecture, #decisions, #threat, #about, #work, #toolbox, #experience, #contact {
+#board, #platform, #architecture, #runtime, #decisions, #threat, #about, #work, #toolbox, #experience, #contact {
   scroll-margin-top: 118px;
 }
 

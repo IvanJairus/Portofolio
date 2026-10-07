@@ -234,6 +234,7 @@
       <a href="#board" class="wsn" data-wsn="board" data-i18n="work.sub.board">Board</a>
       <a href="#platform" class="wsn" data-wsn="platform" data-i18n="work.sub.platform">Platform</a>
       <a href="#architecture" class="wsn" data-wsn="architecture" data-i18n="work.sub.architecture">Architecture</a>
+      <a href="#runtime" class="wsn" data-wsn="runtime" data-i18n="work.sub.runtime">Runtime</a>
       <a href="#decisions" class="wsn" data-wsn="decisions" data-i18n="work.sub.decisions">Decisions</a>
       <a href="#threat" class="wsn" data-wsn="threat" data-i18n="work.sub.threat">Threat model</a>
     </div>
@@ -781,6 +782,16 @@
         <p class="care-note" data-i18n="arch.note1">// the stage orchestrator was designed on paper before a line of code — 40 repos share one contract, so a new team onboards with a four-line include</p>
         <p class="care-note" data-i18n="arch.note2">// every helper ships with permanent debug logs — when production misbehaves, I read, I do not guess</p>
         <p class="care-note" data-i18n="arch.note3">// I hate copy-paste versioning more than I hate writing code: sync groups retag a whole release train consistently, next version suggested</p>
+      </div>
+    </section>
+
+    <!-- ================= RUNTIME ================= -->
+    <section id="runtime">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 data-i18n="rt.title">Running it in production</h2>
+          <p class="lead" data-i18n="rt.lead">The pipeline is only half of it. These are the settings that decide whether a service keeps running after it ships — and my part in them is not choosing the numbers. It is making sure the number that was agreed is the number that runs, in every repo, without drift.</p>
+        </div>
       </div>
     </section>
 
