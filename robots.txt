@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://portofolio-six-delta-18.vercel.app/sitemap.xml
