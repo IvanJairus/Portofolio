@@ -266,7 +266,7 @@
 }
 /* tiga tingkat keahlian = tiga warna alat, bukan tiga tingkat abu-abu.
    Semua pasangan teks/latar >= 4.5:1 di atas tint-nya masing-masing. */
-.t-daily { color: var(--pass); border-color: rgba(99, 169, 85, 0.55); background: var(--pass-dim); }        /* Jenkins */
+.t-daily { color: var(--pass-strong); border-color: rgba(99, 169, 85, 0.55); background: var(--pass-dim); }        /* Jenkins */
 .t-regular { color: var(--info); border-color: rgba(0, 82, 204, 0.42); background: var(--info-dim); }        /* Jira */
 .t-exposure { color: var(--warn); border-color: rgba(169, 78, 9, 0.45); background: var(--warn-dim); border-style: dashed; } /* amber */
 
@@ -377,7 +377,7 @@
 .status-pill {
   display: inline-flex; align-items: center; gap: 9px;
   font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
-  border: 1px solid var(--accent-line); color: var(--accent);
+  border: 1px solid var(--accent-line); color: var(--accent-strong);
   background: var(--accent-dim);
   border-radius: 999px; padding: 7px 14px;
 }

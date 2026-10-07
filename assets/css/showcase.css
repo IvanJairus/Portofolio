@@ -346,7 +346,7 @@
   font-size: 8.5px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-strong);
   border: 1px solid var(--accent-line);
   background: var(--accent-dim);
   border-radius: 2px;
@@ -374,7 +374,7 @@
   padding: 1px 5px;
   color: var(--ink-faint);
 }
-.ap-chip.ok { color: var(--accent); border-color: var(--accent-line); background: var(--accent-dim); }
+.ap-chip.ok { color: var(--accent-strong); border-color: var(--accent-line); background: var(--accent-dim); }
 .bc-bot { margin-top: 8px; display: none; }
 .bc-bot.on { display: block; }
 .bc-bot span {
@@ -493,7 +493,7 @@
   letter-spacing: 0.06em;
   border: 1px solid var(--accent-line);
   background: var(--accent-dim);
-  color: var(--accent);
+  color: var(--accent-strong);
   border-radius: 2px;
   padding: 4px 9px;
 }
@@ -647,8 +647,8 @@
 }
 .rp-ni i { font-style: normal; color: var(--ink-faint); font-size: 11px; width: 13px; text-align: center; }
 .rp-ni:hover { color: var(--ink); background: var(--bg-3); }
-.rp-ni.on { color: var(--accent); background: var(--accent-dim); border-color: var(--accent-line); }
-.rp-ni.on i { color: var(--accent); }
+.rp-ni.on { color: var(--accent-strong); background: var(--accent-dim); border-color: var(--accent-line); }
+.rp-ni.on i { color: var(--accent-strong); }
 .rp-ni[hidden] { display: none; }
 .rp-side-foot { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); display: grid; gap: 10px; }
 .rp-role { display: grid; gap: 5px; }
@@ -668,7 +668,7 @@
   width: 22px; height: 22px;
   display: grid; place-items: center;
   border: 1px solid var(--accent-line);
-  color: var(--accent);
+  color: var(--accent-strong);
   background: var(--accent-dim);
   border-radius: 2px;
   font-size: 9px;
@@ -1364,7 +1364,6 @@
 }
 .before-line > span:first-child {
   color: var(--danger);
-  opacity: 0.8;
   text-decoration: line-through;
   text-decoration-color: var(--line-strong);
   margin-right: 8px;
@@ -1725,10 +1724,10 @@
   background: var(--bg-2);
   padding: 20px;
 }
-.eco-old { opacity: 0.85; }
+.eco-old { background: var(--bg-3); }
 .eco-old .eco-tag { color: var(--ink-faint); }
 .eco-new { border-color: var(--accent-line); }
-.eco-new .eco-tag { color: var(--accent); }
+.eco-new .eco-tag { color: var(--accent-strong); }
 .eco-tag {
   font-size: 12px;
   letter-spacing: 0.16em;
