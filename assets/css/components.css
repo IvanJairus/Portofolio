@@ -388,3 +388,6 @@
 .site-footer { border-top: 1px solid var(--line); padding: 30px 0 40px; }
 .footer-in { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 12px; color: var(--ink-faint); letter-spacing: 0.04em; }
 .footer-in a:hover { color: var(--accent); }
+/* kalimat penutup ini milik sendiri, jadi tidak perlu tanda kutip atau atribusi;
+   bedanya hanya tinta - satu baris paling gelap di footer, tanpa ornamen baru */
+.ftr-creed { color: var(--ink); }
