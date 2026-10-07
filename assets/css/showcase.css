@@ -901,7 +901,6 @@
   white-space: pre-wrap;
   word-break: break-word;
 }
-html[data-theme="light"] .rp-console { background: #101314; color: #b6e88a; }
 .rp-console .c-dim { color: #5f7a52; }
 .rp-console .c-ok { color: #c8f04b; }
 .rp-console .c-warn { color: #e8b23a; }
@@ -1647,7 +1646,6 @@ html[data-theme="light"] .rp-console { background: #101314; color: #b6e88a; }
 .mail-from { font-size: 11px; color: var(--ink-faint); }
 .mail-subj { font-size: 12.5px; color: var(--ink); margin-top: 2px; }
 .mail-body { padding: 18px 18px 14px; background: #ffffff; }
-html[data-theme="dark"] .mail-body { background: #f6f6f3; }
 .mail-head {
   display: flex;
   justify-content: space-between;
@@ -1810,7 +1808,6 @@ html[data-theme="dark"] .mail-body { background: #f6f6f3; }
   padding: 12px 14px;
   margin: 12px 0 14px;
 }
-html[data-theme="dark"] .mail-callout { background: #fff8ec; }
 .mail-callout b { color: #9a6511; font-size: 12px; }
 .mail-callout p { color: #4a3a21; font-size: 12px; line-height: 1.6; margin-top: 5px; }
 .mail-callout p b { color: #7a4e0d; font-size: 12px; }

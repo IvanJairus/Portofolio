@@ -1,14 +1,10 @@
 /* ============================================================
-   main.js — i18n, profil, tema, navigasi, counter, terminal
+   main.js — i18n, profil, navigasi, counter, terminal
    ============================================================ */
 
 (function () {
   "use strict";
 
-  const LS_THEME = "pf.theme";
-  /* localStorage bisa diblokir browser — situs harus tetap jalan dengan default */
-  const lsGet = (k, d) => { try { return localStorage.getItem(k) || d; } catch (e) { return d; } };
-  const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
   const lang = "en"; /* situs ditetapkan English-only */
 
   const t = (key) => (window.I18N[lang] && window.I18N[lang][key]) || (window.I18N.en[key] || key);
@@ -109,13 +105,6 @@
     return String(s).replace(/[&<>"']/g, (c) => (
       { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
     ));
-  }
-
-  /* ---------- tema ---------- */
-  function applyTheme(theme) {
-    document.documentElement.dataset.theme = theme;
-    const btn = document.querySelector("[data-theme-btn]");
-    if (btn) btn.setAttribute("aria-pressed", String(theme === "light"));
   }
 
   /* ---------- counter statistik ---------- */
@@ -268,7 +257,6 @@
 
   /* ---------- boot ---------- */
   document.addEventListener("DOMContentLoaded", () => {
-    applyTheme(lsGet(LS_THEME, "dark"));
     renderProfile();
     applyI18n();
     initCounters();
@@ -277,13 +265,5 @@
     initSkillRefs();
     initCopy();
 
-    const themeBtn = document.querySelector("[data-theme-btn]");
-    if (themeBtn) {
-      themeBtn.addEventListener("click", () => {
-        const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
-        lsSet(LS_THEME, next);
-        applyTheme(next);
-      });
-    }
   });
 })();
