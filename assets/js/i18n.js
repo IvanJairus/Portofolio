@@ -13,6 +13,8 @@ window.I18N = {
     "nav.contact": "Contact",
 
     /* ---- hero flow rail ---- */
+    "hero.yml.where": "the whole file, in every service repo",
+    "hero.yml.foot": "sample in the real format — project name sanitized, no internal links",
     "hero.flow.legend": "<span class=\"lm-scan\" aria-hidden=\"true\">◇</span> scan · <span class=\"lm-gate\" aria-hidden=\"true\">■</span> gate — fail closed",
     "hero.artifacts": "artifacts I ship: jar · image · apk/aab · ipa · web bundle — one standard for all five",
     "about.title": "Pipelines other people are happy to inherit.",

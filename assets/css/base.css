@@ -240,6 +240,57 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
 }
 .hero-id { grid-area: id; }
 .hero-after { grid-area: after; }
+/* terminal dan kartu include berdampingan; di layar sempit mereka menumpuk */
+.hero-after { display: flex; flex-wrap: wrap; gap: 22px; align-items: stretch; }
+
+/* kartu include: bentuk nyata file pipeline sebuah service repo.
+   Sengaja terang - hero hanya boleh punya satu blok gelap, yaitu terminal. */
+.hero-yml {
+  flex: 1 1 400px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg-2);
+  overflow: hidden;
+}
+.hy-head {
+  display: flex; align-items: baseline; gap: 10px;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-3);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-faint);
+}
+.hy-file { color: var(--ink); font-weight: 600; }
+.hy-where { margin-left: auto; }
+.hy-code {
+  margin: 0;
+  padding: 11px 14px 13px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: var(--ink-dim);
+  white-space: pre;
+}
+.hy-k { color: var(--accent); }
+.hy-v { color: var(--ink); }
+.hy-c { color: var(--ink-faint); }
+@media (max-width: 520px) {
+  /* nama file dan keterangan tidak saling mendorong di kepala kartu */
+  .hy-head { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .hy-where { margin-left: 0; }
+}
+.hy-foot {
+  margin-top: auto;
+  padding: 8px 14px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--ink-faint);
+}
 
 /* strip stack di bawah tombol hero: satu baris mark + nama, tanpa wadah.
    Di 390 strip ikut di atas rel — Anda menerima bahwa rel terdorong turun. */
@@ -311,6 +362,8 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
 /* terminal: dua baris visual (perintah + keluaran berdampingan) */
 .terminal {
   margin-top: 0;
+  flex: 1 1 420px;
+  min-width: 0;
   background: var(--surface-dark);
   border: 1px solid rgba(250, 247, 242, 0.14);
   border-radius: var(--radius);

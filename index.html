@@ -116,6 +116,16 @@
               <div class="ln out dim-out" data-i18n="hero.terminal.4">gates: enforced   scans: wired   releases: boring</div>
             </div>
           </div>
+
+          <!-- bentuk file pipeline sebuah service repo: hanya sebuah include -->
+          <div class="hero-yml">
+            <div class="hy-head"><span class="hy-file">.gitlab-ci.yml</span><span class="hy-where" data-i18n="hero.yml.where">the whole file, in every service repo</span></div>
+            <pre class="hy-code"><span class="hy-c"># this is all a service repo carries</span>
+<span class="hy-k">include</span>:
+  - <span class="hy-k">project</span>: <span class="hy-v">'core/pipeline-gateway'</span>
+    <span class="hy-k">file</span>: <span class="hy-v">'/gateway.yml'</span></pre>
+            <div class="hy-foot" data-i18n="hero.yml.foot">sample in the real format — project name sanitized, no internal links</div>
+          </div>
         </div>
       </div>
     </section>
