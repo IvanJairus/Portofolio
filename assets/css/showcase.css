@@ -20,7 +20,7 @@
   position: absolute;
   left: 0; right: 0; top: 33px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--ink-faint) 5%, var(--ink-faint) 95%, transparent);
+  background: linear-gradient(90deg, transparent, var(--accent-bright) 5%, var(--accent-bright) 95%, transparent);
 }
 .hf-packet {
   position: absolute;
@@ -41,12 +41,21 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  /* tiap tahap diwarnai oleh alat yang mengerjakannya, bukan sebagai hiasan */
+  --node: var(--ink-dim);
 }
+.hf-node[data-hf="0"] { --node: var(--tool-ink); }      /* commit - GitHub */
+.hf-node[data-hf="1"] { --node: var(--pass-brand); }    /* build  - Jenkins */
+.hf-node[data-hf="2"] { --node: var(--warn); }          /* scan   - Trivy/Sonar */
+.hf-node[data-hf="3"] { --node: var(--danger-brand); }  /* gate   - OpenShift */
+.hf-node[data-hf="4"] { --node: var(--info-brand); }    /* SIT    - Docker */
+.hf-node[data-hf="5"] { --node: var(--info); }          /* UAT    - Jira */
+.hf-node[data-hf="6"] { --node: var(--accent); }        /* PROD   - GitLab */
 .hf-node i {
   width: 16px; height: 16px;
   border-radius: 50%;
   background: var(--bg);
-  border: 2px solid var(--line-strong);
+  border: 2px solid var(--node);
   transition: all 0.35s var(--ease);
   z-index: 1;
 }
@@ -58,24 +67,21 @@
   color: var(--ink-dim);
   transition: color 0.35s var(--ease);
 }
-.hf-node.lit i { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-dim); }
+.hf-node.lit i {
+  background: var(--node);
+  border-color: var(--node);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--node) 16%, transparent);
+}
 .hf-node.lit span { color: var(--ink); }
-.hf-node.hf-prod.lit i { background: var(--accent); transform: scale(1.25); }
+.hf-node.hf-prod.lit i { transform: scale(1.25); }
 
 /* dua tahap yang bisa menghentikan rilis: dibedakan bentuknya, bukan hanya warnanya.
-   lingkaran = tahap biasa, belah ketupat = scan, kotak = gate.
-   warna memakai token status yang sudah ada (--warn, --danger), tidak ada palet baru. */
+   lingkaran = tahap biasa, belah ketupat = scan, kotak = gate. */
 .hf-node.hf-scan i {
   transform: rotate(45deg);
   border-radius: 2px;
-  border-color: var(--warn);
 }
-.hf-node.hf-gate i {
-  border-radius: 0;
-  border-color: var(--danger);
-}
-.hf-node.hf-scan.lit i { background: var(--warn); border-color: var(--warn); box-shadow: 0 0 0 4px var(--warn-dim), 0 0 14px var(--warn-dim); }
-.hf-node.hf-gate.lit i { background: var(--danger); border-color: var(--danger); box-shadow: 0 0 0 4px var(--danger-dim), 0 0 14px var(--danger-dim); }
+.hf-node.hf-gate i { border-radius: 0; }
 .hf-legend {
   margin-top: 16px;
   font-family: var(--font-mono);
