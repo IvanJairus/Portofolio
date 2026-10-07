@@ -176,8 +176,8 @@
   color: transparent;
   transition: all 0.35s var(--ease);
 }
-.gate-check.ok { border-color: var(--accent-line); color: var(--ink); background: var(--accent-dim); }
-.gate-check.ok .box { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.gate-check.ok { border-color: rgba(99, 169, 85, 0.55); color: var(--ink); background: var(--pass-dim); }
+.gate-check.ok .box { background: var(--pass); border-color: var(--pass); color: var(--bg-2); }
 .gate-result {
   min-width: 210px;
   border: 1px solid var(--line-strong);
@@ -203,8 +203,8 @@
   color: var(--ink-faint);
   transition: color 0.4s var(--ease);
 }
-.gate-result.ready { border-color: var(--accent); background: var(--accent-dim); box-shadow: 0 0 40px -18px var(--accent-line); }
-.gate-result.ready .g-state { color: var(--accent); }
+.gate-result.ready { border-color: var(--pass); background: var(--pass-dim); box-shadow: 0 0 40px -18px rgba(99, 169, 85, 0.6); }
+.gate-result.ready .g-state { color: var(--pass); }
 
 /* ---------- proyek ---------- */
 .work-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 2.6vw, 28px); }
@@ -264,9 +264,11 @@
   white-space: nowrap;
   color: var(--ink-dim);
 }
-.t-daily { color: var(--accent); border-color: var(--accent-line); background: var(--accent-dim); }
-.t-regular { color: var(--ink-dim); border-color: var(--line-strong); }
-.t-exposure { color: var(--ink-dim); border-color: var(--line-strong); border-style: dashed; }
+/* tiga tingkat keahlian = tiga warna alat, bukan tiga tingkat abu-abu.
+   Semua pasangan teks/latar >= 4.5:1 di atas tint-nya masing-masing. */
+.t-daily { color: var(--pass); border-color: rgba(99, 169, 85, 0.55); background: var(--pass-dim); }        /* Jenkins */
+.t-regular { color: var(--info); border-color: rgba(0, 82, 204, 0.42); background: var(--info-dim); }        /* Jira */
+.t-exposure { color: var(--warn); border-color: rgba(169, 78, 9, 0.45); background: var(--warn-dim); border-style: dashed; } /* amber */
 
 .tier-legend {
   display: flex;
