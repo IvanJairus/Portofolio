@@ -1,0 +1,151 @@
+name: quality
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    # Cek header produksi sekali sehari. Ini bukan pemeriksaan kode, tapi
+    # pemeriksaan apa yang benar-benar dikirim ke pengunjung: kalau Vercel
+    # suatu hari mengabaikan vercel.json, temuan ini muncul di sini, bukan di
+    # laporan audit tahun depan.
+    - cron: "17 6 * * *"
+permissions:
+  contents: read
+
+# Halaman ini dijual dengan klaim "gates enforced", dan halaman itu sendiri
+# menerbitkan angka Lighthouse. Angka itu sampai sekarang tidak ditegakkan oleh
+# CI mana pun: security.yml menjalankan gitleaks, lychee dan html-validate, tapi
+# tidak ada satu job pun yang mengukur performa atau aksesibilitas. Workflow ini
+# menutup celah itu tanpa menyentuh security.yml dan tanpa menambah dependency ke
+# repo (tetap tidak ada package.json, tidak ada bundler, tidak ada CDN).
+jobs:
+  lighthouse:
+    name: Lighthouse gate (mobile)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 20
+
+      # Situs diukur persis seperti cara ia dijalankan secara lokal: file statis
+      # yang disajikan python3 -m http.server, bukan lewat domain produksi, supaya
+      # hasil ini tidak bergantung pada jaringan atau pada status deploy.
+      # Server, pengukuran dan gerbang berada dalam satu step agar server tidak
+      # bisa hidup lebih panjang daripada pengukuran, dan 127.0.0.1 ditulis apa
+      # adanya - bukan "localhost" - karena nama itu bisa resolve ke ::1 sementara
+      # http.server di sini hanya bind ke IPv4.
+      # Batas jujur dari gerbang ini: Lighthouse mengukur halaman seperti yang
+      # disajikan saat dimuat. State yang butuh interaksi - tab replica terpilih,
+      # chip lifecycle, langkah walkthrough - tidak pernah dibuka, jadi temuan
+      # kontras di state itu lolos dari pemeriksaan color-contrast di bawah dan
+      # harus tetap dicari dengan sapuan kontras manual, bukan dianggap aman.
+      - name: Serve locally, measure, assert
+        run: |
+          python3 -m http.server 8731 --bind 127.0.0.1 >/tmp/httpd.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null' EXIT
+
+          ready=0
+          for attempt in $(seq 1 20); do
+            if curl -fsS -o /dev/null http://127.0.0.1:8731/; then
+              ready=1
+              break
+            fi
+            sleep 1
+          done
+          if [ "$ready" != 1 ]; then
+            echo "server lokal tidak menjawab di 127.0.0.1:8731" >&2
+            cat /tmp/httpd.log >&2
+            exit 1
+          fi
+
+          # Versi di-pin persis ke 13.5.0, angka yang sama yang dipakai untuk
+          # mengukur baseline di laporan ini (FCP 2.1s, LCP 2.9s, 345 KiB).
+          # npx mengambil tooling saat CI berjalan - sama seperti job
+          # html-validate di security.yml - jadi tidak ada dependency yang masuk
+          # ke repo.
+          npx --yes lighthouse@13.5.0 http://127.0.0.1:8731/ \
+            --only-categories=performance,accessibility,best-practices,seo \
+            --form-factor=mobile \
+            --screenEmulation.mobile \
+            --chrome-flags="--headless=new --no-sandbox --disable-dev-shm-usage" \
+            --output=json \
+            --output-path=/tmp/lighthouse-report.json \
+            --quiet
+
+          node .github/scripts/assert-lighthouse.mjs /tmp/lighthouse-report.json
+
+      # Kalau gerbang jatuh, laporan mentahnya harus bisa dibaca, bukan hanya
+      # satu baris "exit 1".
+      - name: Upload the Lighthouse report
+        if: ${{ always() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: lighthouse-mobile
+          path: /tmp/lighthouse-report.json
+          retention-days: 14
+
+  headers:
+    name: Published headers check
+    # Hanya di main (deploy produksi benar-benar terjadi di sana), atau lewat
+    # tombol Run workflow / jadwal harian. Pada pull request job ini dilewati:
+    # URL yang diperiksa adalah situs produksi, bukan cabang yang sedang di-review.
+    if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
+    runs-on: ubuntu-latest
+    steps:
+      # Push ke main memicu build Vercel; pemeriksaan ini bisa tiba beberapa detik
+      # sebelum deploy selesai. Karena itu header diperiksa ulang sampai 12 kali
+      # dengan jeda 15 detik: yang diulang adalah kesempatan, bukan hasilnya -
+      # langkah ini tetap gagal kalau setelah 3 menit header-nya masih salah.
+      #
+      # style-src 'self' dan tanpa unsafe-inline adalah dua hal berbeda: yang
+      # pertama harus ada, yang kedua tidak boleh ada di header mana pun. Cek
+      # dilakukan per baris, jadi pola 'unsafe-inline' hanya bisa dipicu oleh
+      # baris CSP itu sendiri.
+      - name: Assert the live response headers
+        run: |
+          url="https://portofolio-six-delta-18.vercel.app"
+          raw=/tmp/live-headers.txt
+          last_status=000
+
+          check() {
+            if [ "$1" = "-" ]; then
+              grep -qi "$2" "$raw"
+            else
+              ! grep -qi "$2" "$raw"
+            fi
+          }
+
+          compliant=0
+          for attempt in $(seq 1 12); do
+            last_status=$(curl -sS -o /dev/null -D "$raw" -w '%{http_code}' "$url/" || echo "000")
+            ok=1
+            [ "$last_status" = "200" ] || ok=0
+            check -  "^content-security-policy:.*style-src 'self'" || ok=0
+            check x  "^content-security-policy:.*unsafe-inline"    || ok=0
+            check -  "^content-security-policy:.*default-src 'self'" || ok=0
+            check -  "^strict-transport-security:.*max-age="       || ok=0
+            check -  "^strict-transport-security:.*includeSubDomains" || ok=0
+            check -  "^x-content-type-options: *nosniff"           || ok=0
+            check -  "^permissions-policy:.*camera=()"             || ok=0
+            check -  "^permissions-policy:.*payment=()"            || ok=0
+            # clipboard-write di-izinkan ke self dengan sengaja: tombol saldi
+            # email dan tombol copy di halaman ini memakai
+            # navigator.clipboard.writeText, jadi menolaknya akan merusak fitur.
+            check -  "^permissions-policy:.*clipboard-write=(self)" || ok=0
+
+            if [ "$ok" = "1" ]; then
+              compliant=1
+              echo "header produksi patuh (percobaan $attempt, HTTP $last_status)"
+              break
+            fi
+            echo "percobaan $attempt: header belum sesuai, HTTP $last_status" >&2
+            sleep 15
+          done
+
+          if [ "$compliant" != "1" ]; then
+            echo "header produksi gagal memenuhi kebijakan setelah 12 percobaan (HTTP $last_status)" >&2
+            cat "$raw" >&2
+            exit 1
+          fi
