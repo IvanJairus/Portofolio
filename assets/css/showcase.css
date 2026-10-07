@@ -1784,6 +1784,9 @@
    ============================================================ */
 .mailshow {
   max-width: 720px;
+  /* wadahnya 1044px di desktop: tanpa ini panel duduk di kiri dengan sisa 324px
+     di kanan (terukur gapLeft 0 / gapRight 324) */
+  margin-inline: auto;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
   background: var(--bg-2);
