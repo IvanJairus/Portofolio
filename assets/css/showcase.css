@@ -1186,14 +1186,17 @@
   align-items: baseline;
 }
 .sp-cat { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
-.sp-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.sp-chips { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+/* chip di panel stack: tanpa kotak. Warna teks (dan mark yang ikut currentColor)
+   tetap membawa tier hijau/biru, jadi informasinya tidak hilang - hanya wadahnya
+   yang dibuang. showcase.css dimuat setelah components.css, jadi .sc mengalahkan
+   border-color/background dari .t-* yang masih dipakai Toolbox. */
 .sc {
   font-family: var(--font-mono);
   font-size: 12.5px;
-  border-width: 1px;         /* longhand, supaya border-color dari .t-* tidak tertimpa */
-  border-style: solid;
-  border-radius: 2px;
-  padding: 5px 11px;
+  border: 0;
+  background: transparent;
+  padding: 0;
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
