@@ -9,11 +9,12 @@
 :root {
   color-scheme: light;
 
-  /* bidang — bg-3 sengaja hanya 1,04:1 lebih gelap dari bg,
-     pemisah antar blok tetap pakai garis supaya teks tidak turun kontras */
-  --bg: #faf7f2;
-  --bg-2: #fffdf9;
-  --bg-3: #f7f2ea;
+  /* bidang — halaman putih; warna hangat bertahan hanya sebagai tint cekung.
+     bg-2 sengaja sama dengan bg: pemisah kartu/blok selalu garis, bukan warna,
+     jadi tidak ada pasangan yang kehilangan pemisahnya di atas putih. */
+  --bg: #ffffff;
+  --bg-2: #ffffff;
+  --bg-3: #faf7f2;
   --surface-dark: #241c17; /* satu-satunya bidang gelap: terminal & cuplikan kode */
 
   /* teks — semua >= 4.5:1 di bg, bg-2, maupun bg-3 */
@@ -34,9 +35,9 @@
 
   /* status = alat nyata. Versi "teks" selalu >= 4.5:1, versi brand untuk dekor */
   --pass: #2e7d32; --pass-strong: #256a2b;  --pass-brand: #63a955;  --pass-dim: rgba(99, 169, 85, 0.12); /* Jenkins */
-  --danger: #b42318;      --danger-brand: #da291c; --danger-dim: rgba(218, 41, 28, 0.10); /* OpenShift */
+  --danger: #b42318;      --danger-brand: #da291c; --danger-dim: rgba(218, 41, 28, 0.07); /* OpenShift */
   --warn: #a94e09;        --warn-brand: #d97706;   --warn-dim: rgba(180, 83, 9, 0.08);    /* amber */
-  --info: #0052cc;        --info-brand: #2496ed;   --info-dim: rgba(0, 82, 204, 0.10);    /* Jira + Docker */
+  --info: #0052cc;        --info-brand: #2496ed;   --info-dim: rgba(0, 82, 204, 0.07);    /* Jira + Docker */
   --tool-ink: #24292f;                                                                            /* GitHub */
   --on-dark: #faf7f2;
 
