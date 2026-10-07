@@ -1461,7 +1461,9 @@
   padding: 20px 20px 14px;
 }
 .dec-card h3 { font-size: 16.5px; letter-spacing: -0.01em; margin-bottom: 14px; }
-.dec-card dl { display: grid; grid-template-columns: 86px 1fr; gap: 6px 14px; }
+/* kolom label 86px, padahal "ALTERNATIVE" pada 12px mono + tracking 0.14em
+   lebarnya 97px: label menumpang 11px ke gap 14px, sisa 3px sebelum isinya */
+.dec-card dl { display: grid; grid-template-columns: 98px minmax(0, 1fr); gap: 6px 14px; }
 .dec-card dt {
   font-family: var(--font-mono);
   font-size: 12px;
