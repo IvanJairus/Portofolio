@@ -81,7 +81,7 @@
           <h1><span data-profile="name">Ivan Jairus</span></h1>
           <p class="hero-role"><span data-profile="role">DevSecOps</span></p>
           <p class="hero-tag" data-i18n="hero.tagline">Platform engineer who turns release days into non-events — CI/CD pipelines, security gates and release automation for banking-grade systems.</p>
-          <p class="hero-proof mono" data-i18n="hero.proof">40+ repos · 5 artifact types · 3 environments · 1 gateway</p>
+          <p class="hero-proof mono" data-i18n="hero.proof">53 services · 5 artifact types · 3 environments · 1 gateway</p>
 
           <div class="hero-cta">
             <a class="btn btn-primary" href="#work"><span data-i18n="hero.cta.work">Selected work</span></a>
@@ -137,12 +137,12 @@
 
           <!-- bentuk file pipeline sebuah service repo: hanya sebuah include -->
           <div class="hero-yml">
-            <div class="hy-head"><span class="hy-file">.gitlab-ci.yml</span><span class="hy-where" data-i18n="hero.yml.where">the whole file, in every service repo</span></div>
+            <div class="hy-head"><span class="hy-file">.gitlab-ci.yml</span><span class="hy-where" data-i18n="hero.yml.where">the whole file, in a GitLab-native repo</span></div>
             <pre class="hy-code"><span class="hy-c"># this is all a service repo carries</span>
 <span class="hy-k">include</span>:
   - <span class="hy-k">project</span>: <span class="hy-v">'core/pipeline-gateway'</span>
     <span class="hy-k">file</span>: <span class="hy-v">'/gateway.yml'</span></pre>
-            <div class="hy-foot" data-i18n="hero.yml.foot">sample in the real format — project name sanitized, no internal links</div>
+            <div class="hy-foot" data-i18n="hero.yml.foot">real format, project name sanitized. Most services carry no CI file at all — the board runs them from the pipeline repository</div>
           </div>
         </div>
       </div>
@@ -158,8 +158,8 @@
 
         <div class="pf-strip">
           <a class="pf-card" href="#architecture">
-            <b>40+</b>
-            <span data-i18n="about.p1.text">repos routed through one gateway</span>
+            <b>53</b>
+            <span data-i18n="about.p1.text">services delivered from one pipeline repository</span>
             <em class="mono" data-i18n="about.p1.link">see Architecture →</em>
           </a>
           <a class="pf-card" href="#board">
@@ -210,9 +210,9 @@
 
           <article class="work-card" id="proj-2">
             <h3 data-i18n="work.2.title">Pipeline-as-a-Product Platform</h3>
-            <p class="w-desc" data-i18n="work.2.desc">A single repository holding every CI/CD definition: a gateway include that routes 40+ service repos to domain pipelines, shared stage templates per artifact type, and a codified rulebook the whole organization deploys by.</p>
+            <p class="w-desc" data-i18n="work.2.desc">A single repository holding every CI/CD definition: a gateway that routes 53 services to their domain pipelines, shared stage templates per artifact type, and a codified rulebook the whole organization deploys by.</p>
             <ul class="w-impact">
-              <li data-i18n="work.2.i1">40+ repositories onboarded via a four-line include</li>
+              <li data-i18n="work.2.i1">53 services onboarded; source repositories carry no CI file at all</li>
               <li data-i18n="work.2.i2">52-rule codified standard, versioned with the pipelines</li>
               <li data-i18n="work.2.i3">Vulnerability scan + SBOM on every container image</li>
             </ul>
@@ -497,7 +497,7 @@
 
         <div class="diagram-shell" data-diagram="gateway">
           <svg viewBox="0 0 1080 340" role="img" aria-label="Architecture diagram: many service repositories route through a single gateway to domain pipelines and environments">
-            <text class="col-label" x="20" y="30" data-i18n="arch.node.repos">40+ service repos</text>
+            <text class="col-label" x="20" y="30" data-i18n="arch.node.repos">53 services</text>
             <text class="col-label" x="650" y="30" data-i18n="arch.node.dom">domain pipelines</text>
             <text class="col-label" x="930" y="30" data-i18n="arch.node.env">environments</text>
 
@@ -828,7 +828,7 @@
             <dl>
               <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="rt.1.d">Requests, limits and the autoscaler range default from the shared stage contract. A service that genuinely needs different numbers carries that override in its own manifest, with the reason written beside it.</dd>
               <dt data-i18n="dec.row.a">alternative</dt><dd data-i18n="rt.1.a">Every team copies a deployment manifest and edits the numbers by hand.</dd>
-              <dt data-i18n="dec.row.w">why</dt><dd data-i18n="rt.1.w">The capacity target is the system analyst's decision, not mine. My job is that the agreed target reaches production unchanged, that 40+ repositories start from the same default, and that an exception reads as an exception instead of a silent fork.</dd>
+              <dt data-i18n="dec.row.w">why</dt><dd data-i18n="rt.1.w">The capacity target is the system analyst's decision, not mine. My job is that the agreed target reaches production unchanged, that all 53 services start from the same default, and that an exception reads as an exception instead of a silent fork.</dd>
               <dt data-i18n="dec.row.c">cost</dt><dd data-i18n="rt.1.c">A wrong default is amplified into every repo that includes it, and an override can outlive the reason it was written for — so the contract is versioned, and an override has to be justified in the merge request that adds it rather than in a later incident review.</dd>
             </dl>
           </article>
@@ -970,7 +970,7 @@
             <h3><span data-i18n="skills.g1">CI/CD &amp; Automation</span></h3>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.1.1">GitLab CI</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
-              <p class="si-ev"><span data-i18n="skills.e.1.1">gateway include routes 40+ repos; the 52-rule standard is versioned with the pipelines.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+              <p class="si-ev"><span data-i18n="skills.e.1.1">the gateway routes 53 services; the 52-rule standard is versioned with the pipelines.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.1.2">Bash</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
@@ -1093,7 +1093,7 @@
             <h3 class="tl-title">DevSecOps</h3>
             <div class="tl-company">State-owned banking group, Indonesia</div>
             <ul class="tl-points">
-              <li>Own CI/CD for a wholesale banking platform: one pipeline standard shared by 40+ repositories across two CI engines.</li>
+              <li>Own CI/CD for a wholesale banking platform: one pipeline standard shared by 53 services across two CI engines.</li>
               <li>Built the release control plane and the ChatOps orchestrator that drives branch, merge, deploy and scan workflows from issue boards.</li>
               <li>Codified a 52-rule pipeline standard and the security gates (SAST, container scan, SBOM, quality gate) enforced on every merge.</li>
               <li>Designed the platform architecture and delivery workflows end-to-end: gateway routing, stage contracts, environment promotion and the release ledger.</li>

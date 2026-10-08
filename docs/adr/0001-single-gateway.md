@@ -12,10 +12,13 @@ version changes.
 
 ## Decision
 
-Repositories do not carry pipeline definitions. Each carries a four-line
-`include` pointing at one shared gateway, and the gateway routes the repo to its
-domain pipeline based on a service map. The standard - 52 rules - lives in the
-shared library and is versioned with the same pipeline that enforces it.
+Pipeline definitions live in one repository group, not in the source
+repositories. Most services carry no CI file at all: the release board resolves
+the service, the gateway runs its stage set, and a service map of 53 entries
+decides what that stage set is. Where a repository is GitLab-native and wants
+its own pipeline, it attaches with a four-line `include` pointing at the same
+gateway. The standard - 52 rules - lives in the shared library and is versioned
+with the same pipeline that enforces it.
 
 ## Alternatives rejected
 
@@ -30,9 +33,9 @@ shared library and is versioned with the same pipeline that enforces it.
 ## Consequences
 
 - A gate change or a fix lands once and reaches every repository the same day.
-- Onboarding a team is a four-line include, not a fork of a template.
+- Onboarding a service is a service-map entry, not a fork of a template.
 - **Cost, and it is the real one:** the gateway is critical path. One bad merge
-  to it affects every service at once. Mitigated by running the gateway through
+  to it reaches all 53 services at once. Mitigated by running the gateway through
   the same gates it enforces on others, and by keeping the include surface small
   enough that a service owner can read it.
 - A second cost: teams blame the gateway rather than their own config, so
