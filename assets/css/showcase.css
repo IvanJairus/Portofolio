@@ -1384,6 +1384,11 @@
   .ba-col h3 { font-size: 10px; }
   .ba-card .ba-badge { position: static; display: inline-block; margin-left: 4px; }
 }
+@media (max-width: 380px) {
+  /* lima kolom tinggal 51px sempitnya: "IN REVIEW" 56px pada 10px, jadi lebih
+     baik pindah baris daripada terpotong jadi "IN REV…" */
+  .ba-col h3 { white-space: normal; line-height: 1.25; }
+}
 
 /* --- before-line --- */
 .before-line {
@@ -2204,4 +2209,25 @@ html:not([data-js]) .dec-fold { display: none; }
   .hero-flow { padding-top: 16px; column-gap: 6px; }
   .hf-node { gap: 6px; }
   .hf-sub { display: none; }
+}
+
+/* ---------- B1: lantai ukuran teks di layar sempit ----------
+   Teks kecil di replica dashboard itu disengaja: ia meniru UI aslinya. Tapi di
+   390px ada label yang turun sampai 8,5px dan itu bukan "real UI", itu tidak
+   terbaca. Yang dinaikkan di sini hanya label yang membawa makna; penanda
+   dekoratif (::after pada bingkai jendela, sumbu bar, watermark, inisial avatar)
+   dibiarkan sesuai desainnya. */
+@media (max-width: 620px) {
+  .bc-iid, .bc-phase, .bc-lbl, .ap-chip, .bc-bot span, .bc-bot code,
+  .act-who, .mini-tbl, .mini-tbl th, .bd-col h3,
+  .rp-sse, .rp-role label, .rp-h .sub, .rp-metric .k, .rp-panel > h5,
+  .rp-tbl th, .rp-badge, .rp-kcol h6, .rp-kcard .id, .rp-kcard .qg,
+  .rp-cat, .rp-stage, .rp-building, .rp-chg .s, .rp-suite-h .sp,
+  .rp-or, .rp-warn-inline,
+  .mail-meta, .ms span, .mail-tbl .th td, .mail-note, .mail-sect, .pill,
+  .mail-att span, .sc-tags span, .ba-card, .ba-badge {
+    font-size: 10.5px;
+  }
+  /* .ba-col h3 sengaja tidak ikut: kolomnya 57px dan "In Review" sudah 59px
+     pada 10,5px — dipotong jadi "IN REV…" (aturan di atas menahan 10px) */
 }
