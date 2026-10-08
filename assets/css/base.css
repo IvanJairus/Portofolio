@@ -71,7 +71,12 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* clip, bukan hidden: hidden membuat body jadi scroll container dan bisa
+     merusak position:sticky di dalamnya. Nilai hidden dibiarkan di depan
+     sebagai fallback untuk browser yang belum mengenal clip.
+     Bukan untuk menutupi overflow - sapuan overflow adalah bagian dari CI. */
   overflow-x: hidden;
+  overflow-x: clip;
 }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
@@ -253,7 +258,7 @@ html[data-depth="skim"] [data-deep] { display: none; }
   }
   .nav.open { transform: none; opacity: 1; visibility: visible; }
   .nav a { padding: 12px 10px; font-size: 14px; border-bottom: 1px solid var(--line); }
-  .menu-btn { display: inline-flex; }
+  .menu-btn { display: inline-flex; justify-content: center; align-items: center; padding: 7px 0; }
 }
 
 /* ---------- hero ---------- */
@@ -326,7 +331,7 @@ html[data-depth="skim"] [data-deep] { display: none; }
 .hy-k { color: var(--accent); }
 .hy-v { color: var(--ink); }
 .hy-c { color: var(--ink-faint); }
-@media (max-width: 520px) {
+@media (max-width: 620px) {
   /* nama file dan keterangan tidak saling mendorong di kepala kartu */
   .hy-head { flex-direction: column; align-items: flex-start; gap: 2px; }
   .hy-where { margin-left: 0; }
@@ -512,6 +517,14 @@ html[data-depth="skim"] [data-deep] { display: none; }
   border-left: 1px solid var(--accent-line);
 }
 
+/* Di ponsel potret 161px di ujung hero menyisakan ruang kosong yang lebih lebar
+   dari fotonya sendiri. Ia tidak dibuang: dipindah ke kartu kontak oleh main.js,
+   tempat wajah memang diharapkan. Tanpa JS ia tetap di hero, hanya tersembunyi. */
+@media (max-width: 860px) {
+  .hero-photo { display: none; }
+  .contact-meta .hero-photo { display: block; width: 116px; margin: 0 0 14px; }
+}
+
 @media (max-width: 860px) {
   .hero-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -558,7 +571,7 @@ html[data-depth="skim"] [data-deep] { display: none; }
   letter-spacing: 0.02em;
 }
 @media (max-width: 760px) {
-  .stats-in { grid-template-columns: repeat(2, 1fr); }
+  .stats-in { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stat:nth-child(3) { border-left: none; }
   .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
 }

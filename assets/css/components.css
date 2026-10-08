@@ -39,7 +39,7 @@
   transform: rotate(45deg);
 }
 .cap p { margin-top: 12px; color: var(--ink-dim); font-size: 14.6px; }
-@media (max-width: 760px) { .cap-grid { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .cap-grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- diagram ---------- */
 .diagram-shell {
@@ -87,7 +87,7 @@
 
 .points-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(20px, 3vw, 40px);
   margin-top: clamp(28px, 4vw, 44px);
 }
@@ -96,8 +96,8 @@
 .point h3 { font-size: 15px; letter-spacing: -0.01em; }
 .point h3 .n { font-family: var(--font-mono); color: var(--accent); font-size: 12px; margin-right: 8px; }
 .point p { margin-top: 8px; font-size: 13.6px; color: var(--ink-dim); }
-@media (max-width: 900px) { .points-row, .points-row.four { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 560px) { .points-row, .points-row.four { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .points-row, .points-row.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .points-row, .points-row.four { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- pipeline stages (diagram 2) ---------- */
 .flow {
@@ -248,7 +248,7 @@
   padding: 4px 9px;
   background: var(--bg);
 }
-@media (max-width: 820px) { .work-grid { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .work-grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- skill: tier + bukti ---------- */
 .tier {
@@ -306,7 +306,7 @@
   transition: all 0.2s var(--ease);
 }
 .ref:hover, .ref:focus-visible { background: var(--accent); color: var(--accent-ink); }
-@media (max-width: 760px) { .skill-grid { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .skill-grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- timeline ---------- */
 .timeline { position: relative; padding-left: 28px; }
@@ -380,7 +380,7 @@
   border-radius: 999px; padding: 7px 14px;
 }
 .status-pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s var(--ease) infinite; }
-@media (max-width: 820px) { .contact-in { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .contact-in { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- footer ---------- */
 .site-footer { border-top: 1px solid var(--line); padding: 30px 0 40px; }
@@ -411,3 +411,9 @@
   max-width: 88ch;
 }
 .ftr-gate a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-line); }
+
+/* alamat email panjangnya 196px; di 320px ia mendorong kartu. Biarkan putus,
+   jangan biarkan halaman melebar */
+@media (max-width: 360px) {
+  .cm-row .cm-v, .mail-link { overflow-wrap: anywhere; }
+}

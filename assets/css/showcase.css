@@ -183,8 +183,8 @@
   border-radius: 2px;
   padding: 2px 6px;
 }
-@media (max-width: 1000px) { .stack-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .cv-rail { display: none; } }
-@media (max-width: 560px) { .stack-grid { grid-template-columns: 1fr; } }
+@media (max-width: 1080px) { .stack-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .cv-rail { display: none; } }
+@media (max-width: 620px) { .stack-grid { grid-template-columns: minmax(0, 1fr); } }
 
 .stack-facts, .rp-facts {
   display: grid;
@@ -213,7 +213,7 @@
   line-height: 1;
 }
 .sf span { font-size: 12.2px; color: var(--ink-dim); line-height: 1.5; }
-@media (max-width: 860px) { .stack-facts, .rp-facts { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 860px) { .stack-facts, .rp-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
 .stack-note {
   margin-top: 22px;
@@ -244,6 +244,9 @@
   padding: 12px 16px;
   border-bottom: 1px solid var(--line);
   background: var(--bg-3);
+
+  flex-wrap: wrap;
+  row-gap: 8px;
 }
 .bd-bar-l, .bd-bar-r { display: flex; align-items: center; gap: 12px; }
 .bd-live {
@@ -255,6 +258,7 @@
 
 /* kontrol "break the gate": tombol kecil, hasilnya besar */
 .bd-break {
+  white-space: nowrap;
   font-family: var(--font-mono);
   font-size: 11.5px;
   letter-spacing: 0.06em;
@@ -337,7 +341,7 @@ html:not([data-js]) .bd-break { display: none; }
   border-top: 1px solid var(--line);
   margin-top: 12px;
 }
-@media (max-width: 900px) { .bd-grid { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .bd-grid { grid-template-columns: minmax(0, 1fr); } }
 
 .bd-board {
   background: var(--bg-2);
@@ -521,7 +525,7 @@ html:not([data-js]) .bd-break { display: none; }
   gap: clamp(18px, 2.6vw, 28px);
   margin-top: clamp(26px, 3.6vw, 40px);
 }
-@media (max-width: 860px) { .board-panels { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .board-panels { grid-template-columns: minmax(0, 1fr); } }
 .bpanel {
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -656,7 +660,7 @@ html:not([data-js]) .bd-break { display: none; }
 .rp-sse.on i { background: var(--accent); animation: pulse 1.6s var(--ease) infinite; }
 
 .rp-body { display: grid; grid-template-columns: 176px minmax(0, 1fr); min-height: 520px; }
-@media (max-width: 760px) { .rp-body { grid-template-columns: 1fr; } .rp-side { flex-direction: row; overflow-x: auto; } .rp-side-foot { display: none; } }
+@media (max-width: 760px) { .rp-body { grid-template-columns: minmax(0, 1fr); } .rp-side { flex-direction: row; overflow-x: auto; } .rp-side-foot { display: none; } }
 
 .rp-side {
   border-right: 1px solid var(--line);
@@ -995,7 +999,7 @@ html:not([data-js]) .bd-break { display: none; }
 
 /* secrets */
 .rp-secrets { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 12px; }
-@media (max-width: 700px) { .rp-secrets { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .rp-secrets { grid-template-columns: minmax(0, 1fr); } }
 .rp-path {
   font-family: var(--font-mono);
   font-size: 10.5px;
@@ -1360,7 +1364,7 @@ html:not([data-js]) .bd-break { display: none; }
 }
 .arch-gate .gate { min-width: 0; }
 .arch-gate .diagram-shell { overflow: visible; }
-@media (max-width: 700px) { .arch-gate .gate { min-width: 0; } }
+@media (max-width: 760px) { .arch-gate .gate { min-width: 0; } }
 
 /* ============================================================
    8. TAHAP 6: proof cards, subnav, decisions, threat, scan
@@ -1398,7 +1402,7 @@ html:not([data-js]) .bd-break { display: none; }
   .pf-strip { grid-template-columns: repeat(2, 1fr); }
   .pf-card:nth-child(odd) { border-left: none; }
 }
-@media (max-width: 520px) {
+@media (max-width: 620px) {
   .pf-strip { grid-template-columns: 1fr; }
   .pf-card { border-left: none; border-top: 1px solid var(--line); }
   .pf-card:first-child { border-top: none; }
@@ -1408,8 +1412,8 @@ html:not([data-js]) .bd-break { display: none; }
   .ba-col h3 { font-size: 10px; }
   .ba-card .ba-badge { position: static; display: inline-block; margin-left: 4px; }
 }
-@media (max-width: 380px) {
-  /* lima kolom tinggal 51px sempitnya: "IN REVIEW" 56px pada 10px, jadi lebih
+@media (max-width: 480px) {
+  /* lima kolom tinggal 51-75px sempitnya: "IN REVIEW" 56px pada 10px, jadi lebih
      baik pindah baris daripada terpotong jadi "IN REV…" */
   .ba-col h3 { white-space: normal; line-height: 1.25; }
 }
@@ -1463,7 +1467,11 @@ html:not([data-js]) .bd-break { display: none; }
       linear-gradient(to left,  var(--bg) 30%, rgba(255, 255, 255, 0)) right center / 30px 100% no-repeat local,
       color-mix(in srgb, var(--bg) 82%, transparent);
   }
-  .work-subnav::-webkit-scrollbar { display: none; }
+  .work-subnav::-webkit-scrollbar { display: none;
+    /* dua lapis backdrop-filter yang menumpuk itu murah di desktop dan mahal
+       di Android kelas bawah; header saja yang tetap blur */
+  }
+  .work-subnav { backdrop-filter: none; -webkit-backdrop-filter: none; }
   .work-subnav > * { flex: 0 0 auto; }
   .wsn { min-height: 44px; display: inline-flex; align-items: center; }
 }
@@ -1583,6 +1591,12 @@ html:not([data-js]) .dec-fold { display: none; }
   font-size: 12px;
   color: var(--ink-dim);
 }
+@media (max-width: 620px) {
+  /* label + judul panjang saling mendorong; biarkan turun baris, bukan terpotong */
+  .sc-head { flex-wrap: wrap; align-items: flex-start; gap: 8px; }
+  .sc-tag { margin-left: 0; }
+}
+
 .sc-tag {
   font-size: 12px;
   letter-spacing: 0.1em;
@@ -1881,7 +1895,7 @@ html:not([data-js]) .dec-fold { display: none; }
 .mail-tbl .lk { color: var(--accent); text-decoration: underline; cursor: default; }
 .mail-note { margin-top: 10px; font-size: 9.5px; color: var(--ink-faint); }
 .lc-mailcap { margin-top: 14px; }
-@media (max-width: 700px) {
+@media (max-width: 760px) {
   .mail-stats { grid-template-columns: repeat(3, 1fr); }
   .lc-node { flex: 0 0 calc(33% - 12px); margin-bottom: 10px; }
   .lc-line, .lc-packet { display: none; }
@@ -2047,7 +2061,7 @@ html:not([data-js]) .dec-fold { display: none; }
   background: var(--bg-3);
   padding: 6px 10px;
 }
-@media (max-width: 700px) { .ms2 { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px) { .ms2 { grid-template-columns: repeat(3, 1fr); } }
 
 /* anchor jump tidak tertutup chrome lengket. Dua aturan, bukan satu:
    hanya seksi di dalam Work yang punya sub-nav sticky, jadi sisanya cukup
@@ -2091,7 +2105,7 @@ html:not([data-js]) .dec-fold { display: none; }
 }
 
 /* papan walkthrough: geser horizontal, bukan saling menimpa */
-@media (max-width: 700px) {
+@media (max-width: 760px) {
   .bd-board { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; }
   .bd-col { flex: 0 0 130px; }
   .bd-colbody { min-height: 200px; }
@@ -2100,7 +2114,7 @@ html:not([data-js]) .dec-fold { display: none; }
 }
 
 /* gate: tumpuk vertikal di layar sempit */
-@media (max-width: 700px) {
+@media (max-width: 760px) {
   .arch-gate .gate { grid-template-columns: 1fr; }
   .arch-gate .gate-result { min-width: 0; width: 100%; }
   .mailshow-head { flex-direction: column; align-items: flex-start; }
@@ -2207,6 +2221,7 @@ html:not([data-js]) .dec-fold { display: none; }
      tetap di atas area itu */
   .rp-hint { position: static; padding: 0 16px; margin: 0 0 2px; }
   .rp-hint[hidden] { display: none; }
+  .bd-hint { position: static; padding: 0; margin: 0 0 10px; }
 }
 /* bayangan tepi: sinyal visual kedua bahwa tepi kanan bukan batas konten */
 @media (max-width: 620px) {
@@ -2345,3 +2360,15 @@ html:not([data-js]) .dec-fold { display: none; }
 @media (hover: none) {
   .diagram-shell.focusing .dg-link { opacity: 0.35; }
 }
+
+/* ---------- B8: content-visibility diuji lalu ditolak, dengan angka ----------
+   Kandidatnya #runtime, #decisions, #threat, #toolbox, #experience, #contact.
+   Diukur pada 390px dengan CPU 6x throttle, menggulir seluruh halaman:
+     tanpa CV : 1229ms, 0 long frame, tinggi 25.743px
+     dengan CV: 1128ms, 0 long frame, tinggi 23.200px
+   Hemat 101ms pada gulir scripted, tidak menghilangkan satu long frame pun
+   (halaman ini memang tidak memblok), dan membuat tinggi halaman salah 2.543px
+   - yang berarti scroll indicator, read-progress, dan jarak anchor ikut
+   berbohong selama section belum ter-layout. Tidak ada keuntungan yang bisa
+   dilihat pengguna; yang bisa dilihat pengguna justru kerugiannya. Jangan
+   dipasang ulang tanpa angka yang lebih baik dari ini. */
