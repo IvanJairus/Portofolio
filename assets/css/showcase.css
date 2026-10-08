@@ -2400,3 +2400,19 @@ html:not([data-js]) .dec-fold { display: none; }
   .lc-sep { display: none; }
   .lc-detail { margin-top: 10px; }
 }
+/* ---------- papan before/after di ponsel: lima kolom jadi lima baris ----------
+   Terukur 51px per kolom di 360px: "approval" dan "pipeline + audit" tidak muat
+   bahkan pada 10,5px, dan mengecilkannya lagi berarti kembali ke teks yang tidak
+   terbaca. Jadi papannya berputar: nama kolom di kiri, isinya di kanan.
+   Tidak ada scroll horizontal, tidak ada tipe yang dikecilkan. */
+@media (max-width: 620px) {
+  .ba-cols { display: flex; flex-direction: column; gap: 6px; }
+  .ba-col { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: start; gap: 10px; min-height: 0; }
+  .ba-col h3 {
+    border-bottom: none; margin: 4px 0 0; padding: 0;
+    white-space: normal; font-size: 10.5px; line-height: 1.3;
+  }
+  .ba-col > .ba-card:not(.sm) { flex: none; }
+  .ba-card { padding: 8px 9px; }
+  .ba-card .ba-badge { margin-left: 0; }
+}
