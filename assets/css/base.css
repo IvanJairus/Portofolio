@@ -238,6 +238,18 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
   row-gap: clamp(26px, 3.6vw, 40px);
   align-items: center;
 }
+/* Laptop 1280x720 (target F1): rel didahulukan di atas strip stack, supaya
+   terminal naik ke layar pertama. Di <=860px aturan satu kolom di bawah yang
+   menang, jadi mobile tidak berubah. */
+@media (max-width: 1300px) {
+  .hero-grid {
+    grid-template-areas:
+      "id    photo"
+      "flow  flow"
+      "stack stack"
+      "after after";
+  }
+}
 .hero-id { grid-area: id; }
 .hero-after { grid-area: after; }
 /* terminal dan kartu include berdampingan; di layar sempit mereka menumpuk */
@@ -311,9 +323,28 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
   flex: none;
 }
 .hs-row { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+/* Hero compact di layar sempit (audit F1, P0). Terukur di 390x844: strip stack
+   172px karena 16 chip membungkus jadi 5 baris, sehingga rel pipeline mulai di
+   y=731 dan NOL dari 7 node utuh di atas fold. Strip dijadikan satu baris yang
+   bisa digeser (hemat ~120px) supaya rel - gambar yang menjual pekerjaan ini -
+   benar-benar terlihat. Bayangan tepi kanan adalah petunjuk bahwa baris
+   berlanjut; labelnya tetap di kiri. */
 @media (max-width: 860px) {
-  .hero-stack { gap: 8px; }
-  .hs-row { gap: 6px 16px; }
+  /* min-width: 0 wajib: tanpa ini ukuran minimum otomatis item grid sebesar
+     isi baris chip (terukur 1315px) dan seluruh halaman ikut melebar */
+  .hero-stack { flex-direction: column; align-items: stretch; gap: 8px; min-width: 0; }
+  .hs-row { width: 100%; max-width: 100%; min-width: 0; }
+  .hs-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    gap: 6px 12px;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+    background: linear-gradient(to left, var(--bg) 0, rgba(255, 255, 255, 0) 34px) right center / 44px 100% no-repeat local;
+  }
+  .hs-row::-webkit-scrollbar { display: none; }
+  .hs-row > .sc { flex: 0 0 auto; scroll-snap-align: start; }
 }
 .hero h1 {
   font-size: clamp(42px, 7.4vw, 84px);
@@ -341,6 +372,12 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
   margin-top: 14px;
 }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+@media (max-width: 430px) {
+  .hero h1 { margin-top: 14px; }
+  .hero-role { margin-top: 10px; }
+  .hero-tag { margin-top: 12px; }
+  .hero-cta { margin-top: 20px; }
+}
 
 .btn {
   display: inline-flex;

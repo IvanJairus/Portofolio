@@ -2135,3 +2135,15 @@
 @media (pointer: coarse) {
   .lc-pause { min-height: 44px; }
 }
+
+/* F1, bagian kedua: di <=430px rel harus muat seluruhnya. Sublabel alat
+   (git push / maven · gradle / trivy · sonar ...) sengaja disembunyikan di lebar
+   itu - keenam alat yang sama sudah tertulis di strip "Stack I work in daily"
+   tepat di atasnya, jadi tidak ada informasi yang hilang, hanya duplikasi yang
+   dibuang. Hasil terukur: tinggi node 114px -> 46px, dan 7 dari 7 tahap utuh di
+   atas fold 390x844 (sebelumnya 0). */
+@media (max-width: 430px) {
+  .hero-flow { padding-top: 16px; column-gap: 6px; }
+  .hf-node { gap: 6px; }
+  .hf-sub { display: none; }
+}
