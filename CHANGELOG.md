@@ -9,10 +9,10 @@ All notable changes to this repository are documented here. The format follows
   2026-10-07 (`git log --format='%h %ad %s' --date=short`). That is the whole
   recorded history of this repository; it is a compressed build, not a
   long-running project, and the numbers here should be read that way.
-- **The headings are dates, not versions.** No tag and no release exist yet, so
-  there is nothing to map onto semantic versioning. The `2026-10-06` and
-  `2026-10-07` headings stand in for the first two releases until the owner cuts
-  them; the audit finding "no tag/release" is still open.
+- **The headings below `1.0.0` are dates, not versions.** The first 82 commits
+  were built before any tag existed; `2026-10-06` and `2026-10-07` stand in for
+  releases the owner had not cut yet. `v1.0.0` was tagged on 2026-10-08 at
+  `66d63ad`, and the `2026-10-06` / `2026-10-07` sections are its contents.
 - **Four of the 82 commits are Dependabot bumps**, collected under
   *Dependencies* rather than being presented as authored work.
 - **On "rebuilt from an earlier private draft": not asserted.** That framing was
@@ -24,6 +24,100 @@ All notable changes to this repository are documented here. The format follows
   commit `4c112ee`) — that is a review process, not evidence of another
   repository. The claim is therefore omitted.
 - Short hashes are given so every line can be checked with `git show`.
+
+## [Unreleased]
+
+Twenty-nine commits after `v1.0.0`, all on 2026-10-08. The tag was cut at
+`66d63ad`; everything below is after it and has not been tagged yet.
+
+### Domain
+
+- `84ec20d` — every absolute URL moves to `https://www.ivanjairus.xyz`
+  (canonical, `og:url`, `og:image`, `twitter:image`, JSON-LD `url`, sitemap,
+  robots, security.txt). `919b0f0` adds a `308` from the old
+  `portofolio-six-delta-18.vercel.app` hostname to `www`, verified in
+  production. Vercel's own apex→www redirect is what makes `www` canonical.
+
+### The first screen
+
+- `d2ddd66` — a 2px read-progress line under the header, pure
+  `animation-timeline: scroll()`, removed under `prefers-reduced-motion`.
+  `52b5993` undoes a regression that commit introduced: it also set the
+  header to `sticky` while it is already `fixed`, which pushed the hero down
+  65px. Found by re-measuring, not by reading the diff.
+- `75d36fd` — the pipeline rail now fits the first screen at every width
+  measured: 7 of 7 nodes fully above the fold at 360x740, 390x844, 412x915,
+  1024x768, 1280x720 and 1440x900. It was 0 of 7 at 390 and 1280.
+- `ec0982b` — the hero states years in delivery, the role and the city, the
+  three facts a recruiter scans for. The rail order was re-compensated so
+  this costs nothing above the fold.
+
+### Two reading depths
+
+- `6bb0c6f` — a "Highlights only" toggle and `?view=skim` hide the six case
+  studies by CSS only; the default remains deep so crawlers and a Tech Lead
+  still get everything. A link into a hidden section returns to deep before
+  jumping. At 390px the page is 24.814px deep and 9.644px skimmed.
+- Same commit: the ten Runtime and Decisions cards fold at ≤760px, first card
+  of each section left open. Runtime + Decisions went from 5.807px to
+  2.671px. Without JavaScript both controls disappear rather than sitting
+  there dead (`html[data-js]`), verified with scripting off.
+
+### Mobile correctness
+
+- `2ddd5da` — three "swipe sideways to see the rest" labels plus edge
+  shadows on the boxes that were silently cutting 46-49% of their content,
+  and a pause control for the lifecycle rail (WCAG 2.2.2; it rotates every
+  3.8s).
+- `810eb27` — the work sub-nav was 93px tall at 390px (three wrapped rows),
+  and all six Work anchors landed 39px behind it. One scrollable row, 56px,
+  with the chrome heights in `--header-h` / `--subnav-h` and the scroll
+  margins split so sections outside Work do not inherit a sub-nav they do
+  not have. Every anchor now lands 8px below the chrome.
+- `f2e7474` — one contact pill on phones, appearing after the hero and
+  retiring at Contact.
+- `e39df39` — 37 labels that were drawn at 8-9px get a 10,5px floor at
+  ≤620px; decorative marks stay as drawn. A clipping probe over all 37
+  selectors returns zero truncated text.
+- `836755e` — hover effects that move or recolour are gated behind
+  `@media (hover: hover)` (on touch `:hover` sticks until the next tap); the
+  hero photo, whose colour was a hover state, is now colour wherever hover
+  does not exist; twelve controls reach 44px under a coarse pointer; the header
+  gets a plain `rgba()` fallback before its `color-mix()`.
+- `7b3e6a0` — the replica's swipe hint appears only when the view currently
+  open actually overflows. Measured: 1 of 8 views overflows at 390px, so a
+  permanent hint would have been wrong seven times out of eight.
+- `25b7a86` — the phone portrait is 60% of the column instead of 46%, and its
+  `sizes` hint was updated to match.
+
+### Proof and consistency
+
+- `e81673a` — a Runtime card carrying the measured numbers with their sample
+  sizes (53 services, 99 repositories, 7.550 pipelines, deploy median 93s
+  n=13, scan median 80s n=30) and an explicit statement that none of them are
+  reproducible by a visitor.
+- `eaf2a60`, `f0d4f7f` — "40+ repos with an include" becomes "53 services from
+  one pipeline repository", which is what the platform actually does.
+- `3192a31` — finishes that change: the Architecture headline, its
+  `og:description`, two care notes and the diagram's overflow box still said
+  forty, while the diagram's own label said 53.
+- `63548d4`, `eddc0d4` — link the published reference implementation
+  (`IvanJairus/Pipeline`, public, tagged `v0.1.0`) from Contact and from the
+  gateway card it describes.
+- `7e6781d` — the footer links the CI gate that enforces this page's budgets,
+  instead of publishing scores that would rot.
+- `a9cbc76` — the Open Graph cover is rebuilt from a source now committed at
+  `assets/og/cover-source.html`. The card still showed `40+ repos` and the
+  old vercel.app hostname; the previous fix was a pixel recomposite because
+  the generator had been thrown away.
+
+### Corrections
+
+- `2ddd5da` and `ec0982b` retract two of my own earlier claims: "7 of 7 rail
+  nodes above the fold at 360px" had been measured at a different viewport
+  height (at 360x740 it was 4 of 7 even before the change), and the hero fact
+  line dropped its start year because two accounts of it disagree and a public
+  number that cannot be reconciled is worse than a slightly vaguer one.
 
 ## [1.0.0] - 2026-10-08
 
