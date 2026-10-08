@@ -27,7 +27,7 @@ All notable changes to this repository are documented here. The format follows
 
 ## [Unreleased]
 
-Twenty-nine commits after `v1.0.0`, all on 2026-10-08. The tag was cut at
+Forty-four commits after `v1.0.0`, all on 2026-10-08. The tag was cut at
 `66d63ad`; everything below is after it and has not been tagged yet.
 
 ### Domain
@@ -111,6 +111,95 @@ Twenty-nine commits after `v1.0.0`, all on 2026-10-08. The tag was cut at
   old vercel.app hostname; the previous fix was a pixel recomposite because
   the generator had been thrown away.
 
+### What the delivery path does with AI
+
+- `e2786cc` — three things that were happening every week and appeared nowhere:
+  a coding agent drafting `gateway.yml`, Groovy and shell; a hosted model
+  turning scan output into the note on the merge request; natural language
+  mapped onto the ChatOps commands that already existed. Written as a Decisions
+  card (agents draft, nothing they draft merges itself), a threat-model row for
+  the model itself, and a sample summary in the Scans view. Every figure in
+  that summary is arithmetic on the table above it (3 bugs + 4 vulns + 96
+  smells = 103). No model vendor is named.
+- `1f32d6e` — the internal artifact store and the hardened mobile build join
+  the page: every service resolves Maven and npm through one Nexus instance
+  (proxy, hosted, group), and `/deploy-secure` on the ticket switches a build
+  from the plain standard to DexGuard / iXGuard inside the same stage contract.
+  Each gets a Toolbox tier and a threat-model row.
+- `b7af6bb`, `db09afb` — evidence rows for two names that sat in the hero strip
+  with nothing under them (Firebase / TestFlight, on-prem VM provisioning). The
+  first was tiered "production regular" by inference and corrected to
+  "production daily" by the owner.
+
+### Proof instead of promise
+
+- `8ad2f18` — the board gained "break the gate": a card is pushed to Merged
+  with no merge request behind it, then 1.4s later is visibly returned to In
+  Review while the revert and the exit-1 land in the activity feed. It is a
+  mode, not a ninth step (the counter still reads 1 / 8 and a red
+  COUNTER-EXAMPLE flag names it), any navigation leaves it, and every beat
+  restates something already claimed elsewhere on the page.
+
+### Motion that carries information
+
+- `e0484db` — the replica's views swap with a 260ms move instead of a hard cut,
+  and touching a repository in the gateway diagram lights its own path while
+  the other lines drop to 0.22 opacity. Parallax was the obvious alternative
+  and was not used: the connector lines are separate SVG elements from the
+  boxes, so a shifted column would detach from its own cable. Cost recorded:
+  394.8 → 406.8 KiB.
+- `c0b25b7`, `67a61c5`, `d5f6648` — three attempts at the same problem, that a
+  single-line strip at 390px holds 1315px of content in a 350px box and gives
+  no cue. A one-pass nudge, then a repeating one, then the owner's phone
+  screenshot settled it: a continuous loop at a constant 26px/s (1327px of
+  chips over 51s), paused on hover, on keyboard focus, on screen exit and by a
+  pause button, with the duplicate set `aria-hidden`. Under
+  `prefers-reduced-motion` or without JavaScript the marquee is never built and
+  the row keeps its original swipe.
+
+### Phone review, from the owner's screenshots
+
+- `d9e5c78` — thirteen breakpoints become nine, and `overflow-x: hidden` on
+  body becomes `clip`. That second change is the finding: hidden makes body a
+  scroll container and hides the sin, and with clip the page measured 372px
+  wide at a 360px viewport. Cause: fourteen grid tracks written as `1fr`, which
+  is `minmax(auto, 1fr)`, so one unbreakable string widens the track past its
+  container. All fourteen are now `minmax(0, 1fr)`.
+- `8ab6b72` — the lifecycle rail below 620px is a vertical stepper: one step
+  per row, connector down the left through the dot centres, 44px rows, fan-out
+  chips indented. It had been wrapping thirteen nodes into three rows with the
+  connector switched off, which is a grid of unlabeled dots. The travelling
+  packet is hidden there rather than rotated.
+- `050ee79` — the mini before/after board turns its five columns into five rows
+  at ≤620px. Type was not shrunk: 51px columns clipped three cards even at the
+  10,5px floor this round set.
+- `d0d5b65`, `b016bac` — the portrait that moved into the contact card landed
+  in the card's second column (it still carried `grid-area: photo`, which in a
+  grid with no such area creates a phantom track), then sat alone on a row of
+  its own. It is now 104px beside the "open to work" pill, and the pill drops
+  to its own row whole at 320px rather than wrapping.
+- `e336b7e` — the header's menu control draws an 18px SVG instead of the
+  `≡` glyph.
+
+### Records and hygiene
+
+- `704cbae` — this file catches up to the 29 commits that had landed behind the
+  tag, including a "how to read" bullet the tag itself had made false.
+- `1fd7120` — the page-weight budget moves to 512 KiB by owner decision, with
+  the measured local-vs-wire difference written into the gate and every other
+  budget left where it was.
+- `a5e17d1` — the licence memo is deleted once the decision is in `LICENSE.md`,
+  the README stops describing an Indonesian dictionary that no longer exists,
+  and SECURITY.md stops shipping a section that announces it is not ready.
+- `2db02e7` — five ADRs in `docs/`, reconstructed from what the page already
+  claims, labelled as reconstructions, with 0005 ending on its own weakness.
+- `4e3a859` — schema.org Person built only from facts on the page, and a
+  `theme-color` still painted in a palette the design left weeks ago.
+- `9eaa50e` — Trusted Types recorded as tried, measured and declined: the
+  directive breaks the one string-to-DOM path that renders translated text, and
+  the policy needed to work around it would enforce nothing.
+- `866456e` — CODEOWNERS says one owner, because that is who owns it.
+
 ### Corrections
 
 - `2ddd5da` and `ec0982b` retract two of my own earlier claims: "7 of 7 rail
@@ -118,6 +207,17 @@ Twenty-nine commits after `v1.0.0`, all on 2026-10-08. The tag was cut at
   height (at 360x740 it was 4 of 7 even before the change), and the hero fact
   line dropped its start year because two accounts of it disagree and a public
   number that cannot be reconciled is worse than a slightly vaguer one.
+- `d5f6648` overturns the reasoning written into `c0b25b7`, which rejected a
+  looping marquee as decoration and shipped a one-pass nudge instead. The
+  owner's phone screenshot settled it: one pass is missed by anyone still
+  reading the headline. The loop is now the mechanism, and WCAG 2.2.2 is why it
+  ships with four ways to stop.
+- `b016bac` corrects `d0d5b65`, which reported the portrait as fixed after
+  measuring only its left edge: it was no longer in the wrong column, but it
+  was alone on a row of its own, which is the complaint it was meant to solve.
+- `e336b7e` is a correction of a report, not of code: the menu glyph was said
+  to sit off-centre, and measured it did not (offX 0, offY -0.4px inside
+  44x44). What was actually wrong was the glyph's own optical centre.
 
 ## [1.0.0] - 2026-10-08
 
