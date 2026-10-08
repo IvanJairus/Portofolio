@@ -2372,3 +2372,31 @@ html:not([data-js]) .dec-fold { display: none; }
    berbohong selama section belum ter-layout. Tidak ada keuntungan yang bisa
    dilihat pengguna; yang bisa dilihat pengguna justru kerugiannya. Jangan
    dipasang ulang tanpa angka yang lebih baik dari ini. */
+/* ---------- rail lifecycle di ponsel: stepper vertikal ----------
+   Di atas 620px rail ini satu baris dengan garis dan paket yang melintas.
+   Di ponsel 13 node membungkus jadi tiga baris dan garis itu kehilangan
+   artinya: urutan tidak terbaca lagi, padahal urutan justru satu-satunya
+   hal yang ditunjukkan komponen ini. Jadi di bawah 620px ia jadi kolom:
+   satu node per baris, garis di kiri, detail node aktif tetap di bawah.
+   Paket horizontal disembunyikan, bukan dipindah - animasi menyamping untuk
+   alur yang sekarang vertikal justru membingungkan. */
+@media (max-width: 620px) {
+  .lc-rail { flex-direction: column; align-items: stretch; gap: 0; padding-top: 6px; }
+  .lc-line {
+    display: block;
+    left: 5px; right: auto; top: 10px; bottom: 10px;
+    width: 1px; height: auto;
+    background: linear-gradient(180deg, transparent, var(--line-strong) 4%, var(--line-strong) 96%, transparent);
+  }
+  .lc-packet { display: none; }
+  .lc-node {
+    flex: none; min-width: 0; flex-direction: row; align-items: baseline;
+    gap: 10px; text-align: left; padding: 10px 0;
+  }
+  .lc-node > i { order: -1; margin-right: 2px; }
+  .lc-node > span { font-size: 13.5px; letter-spacing: 0; text-transform: none; }
+  .lc-fan { flex-wrap: wrap; }
+  .lc-fan em { margin-left: 21px; }
+  .lc-sep { display: none; }
+  .lc-detail { margin-top: 10px; }
+}
