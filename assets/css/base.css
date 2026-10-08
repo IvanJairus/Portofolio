@@ -364,6 +364,13 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
   max-width: 52ch;
   margin-top: 18px;
 }
+/* baris fakta untuk pemindai cepat (HR): total tahun, peran sekarang, lokasi */
+.hero-facts {
+  font-size: 13px;
+  color: var(--ink);
+  margin-top: 12px;
+  letter-spacing: 0.01em;
+}
 /* baris bukti skala: angka yang sama dipakai di seluruh situs, tidak ada klaim baru */
 .hero-proof {
   font-size: 13px;
@@ -376,6 +383,7 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
   .hero h1 { margin-top: 14px; }
   .hero-role { margin-top: 10px; }
   .hero-tag { margin-top: 12px; }
+  .hero-facts { margin-top: 8px; }
   .hero-cta { margin-top: 20px; }
 }
 
@@ -468,7 +476,7 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
 @media (max-width: 860px) {
   .hero-grid {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "id" "stack" "flow" "after" "photo";
+    grid-template-areas: "id" "flow" "stack" "after" "photo";
     row-gap: 24px;
   }
   /* rel naik ke bawah kolom nama; foto turun ke paling bawah agar rel muat di layar pertama */
