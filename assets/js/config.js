@@ -43,7 +43,7 @@ window.PROFILE = {
       },
       points: {
         en: [
-          "Own CI/CD for a wholesale banking platform: one pipeline standard shared by 40+ repositories across two CI engines.",
+          "Own CI/CD for a wholesale banking platform: one pipeline standard shared by 53 services across two CI engines.",
           "Built the release control plane and the ChatOps orchestrator that drives branch, merge, deploy and scan workflows from issue boards.",
           "Codified a 52-rule pipeline standard and the security gates (SAST, container scan, SBOM, quality gate) enforced on every merge.",
           "Designed the platform architecture and delivery workflows end-to-end: gateway routing, stage contracts, environment promotion and the release ledger.",
@@ -51,7 +51,7 @@ window.PROFILE = {
           "Built and maintained the delivery layer that came before GitLab-native automation: dozens of Jenkins shared-library steps wiring Jira webhooks to GitLab (branch, MR, approve, merge, deploy) across SIT, UAT and PROD — later consolidated into one GitLab board + GitLab CI standard."
         ],
         id: [
-          "Memegang CI/CD platform perbankan wholesale: satu standar pipeline dipakai 40+ repositori di dua CI engine.",
+          "Memegang CI/CD platform perbankan wholesale: satu standar pipeline dipakai 53 service di dua CI engine.",
           "Membangun release control plane dan orchestrator ChatOps yang menjalankan alur branch, merge, deploy, dan scan dari issue board.",
           "Mengodifikasi standar pipeline 52 aturan beserta security gate (SAST, container scan, SBOM, quality gate) yang wajib lolos di setiap merge.",
           "Mendesain arsitektur platform dan workflow delivery end-to-end: routing gateway, kontrak stage, promosi environment, dan ledger rilis.",
