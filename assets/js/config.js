@@ -17,7 +17,8 @@ window.PROFILE = {
   links: [
     { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/ivan-jairus/" },
     { id: "github", label: "GitHub", href: "https://github.com/IvanJairus" },
-    { id: "pipeline", label: "Pipeline reference", href: "https://github.com/IvanJairus/Pipeline" }
+    { id: "pipeline", label: "Pipeline reference", href: "https://github.com/IvanJairus/Pipeline" },
+    { id: "dashboard", label: "Release board reference", href: "https://github.com/IvanJairus/release-dashboard" }
   ],
 
   /* Riwayat kerja — tambah objek baru bila perlu.
