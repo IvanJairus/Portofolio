@@ -13,6 +13,8 @@ All notable changes to this repository are documented here. The format follows
   were built before any tag existed; `2026-10-06` and `2026-10-07` stand in for
   releases the owner had not cut yet. `v1.0.0` was tagged on 2026-10-08 at
   `66d63ad`, and the `2026-10-06` / `2026-10-07` sections are its contents.
+  **`v1.1.0`** was tagged on 2026-10-08 as well, one day of work later: 58
+  commits, two new evidence repositories linked, and the tab mark changed.
 - **Four of the 82 commits are Dependabot bumps**, collected under
   *Dependencies* rather than being presented as authored work.
 - **On "rebuilt from an earlier private draft": not asserted.** That framing was
@@ -27,8 +29,19 @@ All notable changes to this repository are documented here. The format follows
 
 ## [Unreleased]
 
-Fifty-four commits after `v1.0.0`, all on 2026-10-08. The tag was cut at
-`66d63ad`; everything below is after it and has not been tagged yet.
+Nothing since `v1.1.0`.
+
+## [1.1.0] - 2026-10-08
+
+Fifty-eight commits after `v1.0.0` (`66d63ad`), all on 2026-10-08, this
+file's own commit included. Two evidence
+repositories were published during this round - `IvanJairus/release-dashboard`
+and `shared-library/` inside `IvanJairus/Pipeline` - and the page links both.
+
+Measured at this tag, Lighthouse mobile with `prefers-reduced-motion`:
+**89 / 99 / 100 / 100**, FCP 2.41s, LCP 3.31s, TBT 0, CLS 0, contrast findings 0,
+console errors 0, 416 KiB served uncompressed by a local server. CI: 5 checks
+green.
 
 ### Domain
 
@@ -249,6 +262,26 @@ Fifty-four commits after `v1.0.0`, all on 2026-10-08. The tag was cut at
 - `c69a65d` — CI caught what my local check could not: the workflow pins
   `html-validate@8`, which rejects `aria-label` on `<ul>`; I had validated with
   11.16.2. The label is gone rather than worked around.
+
+### Evidence links and the tab mark
+
+- `c882d2c` — the Release Control Plane card and the contact links now point at
+  `github.com/IvanJairus/release-dashboard`, the reference implementation added
+  tonight. Its README says in its own words that it is a reconstruction with
+  synthetic data, so the link does not overstate what it is.
+- `6f0ebdc` — the stack strip gained **Sonatype Nexus** (production daily) and
+  **Guardsquare** (production regular), 16 chips to 18. Both already had an
+  evidence row in the Toolbox, which is the rule the last audit made for strip
+  names. Guardsquare carries no mark: Simple Icons has no Guardsquare asset, and
+  inventing one is not the same as having one - the row follows the existing
+  "Servers / VMs" precedent and stays text-only.
+- The tab icon is no longer a box. It is a filled accent disc with a square
+  cut-out - the site's own gate geometry, the shape it already uses to mean
+  "a gate inside the pipeline". Served as `favicon.svg` plus a 32px PNG and a
+  180px `apple-touch-icon.png`, because iOS Safari does not read SVG favicons and
+  the old inline `data:` URI could not be a touch icon at all. The Toolbox row
+  `DexGuard / iXGuard` is renamed `Guardsquare (DexGuard / iXGuard)` so the strip
+  label and its evidence row are the same name.
 
 ### Corrections
 
