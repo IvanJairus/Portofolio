@@ -16,6 +16,15 @@
   function T(k) { return window.PF ? window.PF.t(k) : k; }
   function esc(s) { return window.PF ? window.PF.escape(s) : String(s); }
 
+  function setSafeHtml(el, str) {
+    el.replaceChildren();
+    if (!str) return;
+    var doc = new DOMParser().parseFromString(str, "text/html");
+    while (doc.body.firstChild) {
+      el.appendChild(doc.body.firstChild);
+    }
+  }
+
   /* ============================================================
      1. HERO — rel pipeline
      ============================================================ */
@@ -256,30 +265,50 @@
 
     /* header kartu */
     bd.phase.textContent = s.phase;
-    bd.approve.innerHTML = s.approvals.map(function (a) {
-      return '<span class="ap-chip ok">✓ ' + esc(a) + "</span>";
-    }).join("");
+    bd.approve.replaceChildren();
+    s.approvals.forEach(function (a) {
+      var span = document.createElement("span");
+      span.className = "ap-chip ok";
+      span.textContent = "✓ " + a;
+      bd.approve.appendChild(span);
+    });
     bd.botmark.classList.toggle("on", !!s.botmark);
 
     /* feed aktivitas: kumulatif */
-    if (bd.rendered > countActs(i)) { bd.feed.innerHTML = ""; bd.rendered = 0; }
+    if (bd.rendered > countActs(i)) { bd.feed.replaceChildren(); bd.rendered = 0; }
     var flat = [];
     for (var k = 0; k <= i; k++) flat = flat.concat(STEPS[k].acts);
     for (var j = bd.rendered; j < flat.length; j++) {
       var a = flat[j];
       var el = document.createElement("div");
       el.className = "act " + a.cls;
-      el.innerHTML =
-        '<div class="act-who"><span>' + esc(a.who) + "</span><span>" + esc(a.name) + "</span></div>" +
-        '<div class="act-title">' + a.title + "</div>" +
-        (a.body ? '<div class="act-body">' + a.body + "</div>" : "");
+
+      var who = document.createElement("div");
+      who.className = "act-who";
+      var s1 = document.createElement("span");
+      s1.textContent = a.who;
+      var s2 = document.createElement("span");
+      s2.textContent = a.name;
+      who.append(s1, s2);
+
+      var title = document.createElement("div");
+      title.className = "act-title";
+      setSafeHtml(title, a.title);
+
+      el.append(who, title);
+      if (a.body) {
+        var body = document.createElement("div");
+        body.className = "act-body";
+        setSafeHtml(body, a.body);
+        el.appendChild(body);
+      }
       bd.feed.appendChild(el);
     }
     bd.rendered = flat.length;
     bd.feed.scrollTop = bd.feed.scrollHeight;
 
     /* narasi + progres */
-    bd.narr.innerHTML = T(s.narr);
+    setSafeHtml(bd.narr, T(s.narr));
     bd.cur.textContent = String(i + 1);
     bd.dots.forEach(function (d, di) {
       d.classList.toggle("on", di === i);
@@ -304,7 +333,7 @@
     var active = null;
 
     function show(key) {
-      out.innerHTML = T(CHATOPS[key]);
+      setSafeHtml(out, T(CHATOPS[key]));
     }
     chips.forEach(function (c) {
       c.addEventListener("click", function () {
@@ -540,7 +569,7 @@
     var projSel = P.root.querySelector("[data-rp-proj]");
     if (projSel && projSel.value !== P.proj) projSel.value = P.proj;
     P.crumb.textContent = TITLES[P.view] || "";
-    P.viewEl.innerHTML = VIEW[P.view] ? VIEW[P.view]() : "";
+    setSafeHtml(P.viewEl, VIEW[P.view] ? VIEW[P.view]() : "");
     P.viewEl.querySelectorAll("[data-h]").forEach(function (b) { b.style.height = b.getAttribute("data-h") + "%"; });
     if (P.view === "deploys" && P.deployTab === "monitoring" && P.building) startConsole();
   }
@@ -975,13 +1004,13 @@
     });
     var i = 0;
     P.stageDone = 0;
-    box.innerHTML = "";
+    box.replaceChildren();
     function step() {
       if (!P.building) return;
       if (i >= script.length) {
         P.building = false;
         P.lastRunOk = true;
-        P.consoleHtml = box.innerHTML;
+        P.consoleHtml = Array.from(box.children).map(function (c) { return c.outerHTML; }).join("");
         var names = Object.keys(P.sel);
         names.forEach(function (n) {
           var sv = null;

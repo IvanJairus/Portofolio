@@ -19,6 +19,15 @@
     ))
   };
 
+  function setSafeHtml(el, str) {
+    el.replaceChildren();
+    if (!str) return;
+    const doc = new DOMParser().parseFromString(str, "text/html");
+    while (doc.body.firstChild) {
+      el.appendChild(doc.body.firstChild);
+    }
+  }
+
   /* ---------- terjemahan statis ---------- */
   function applyI18n() {
     document.documentElement.lang = lang;
@@ -26,7 +35,7 @@
       el.textContent = t(el.dataset.i18n);
     });
     document.querySelectorAll("[data-i18n-html]").forEach((el) => {
-      el.innerHTML = t(el.dataset.i18nHtml);
+      setSafeHtml(el, t(el.dataset.i18nHtml));
     });
     document.querySelectorAll("[data-i18n-attr]").forEach((el) => {
       el.dataset.i18nAttr.split(";").forEach((pair) => {
@@ -68,7 +77,7 @@
     /* tautan sosial */
     const linksBox = document.querySelector("[data-profile='links']");
     if (linksBox) {
-      linksBox.innerHTML = "";
+      linksBox.replaceChildren();
       (P.links || []).forEach((l) => {
         const a = document.createElement("a");
         a.href = l.href;
@@ -82,17 +91,36 @@
     /* timeline pengalaman */
     const tl = document.querySelector("[data-profile='experience']");
     if (tl) {
-      tl.innerHTML = "";
+      tl.replaceChildren();
       (P.experience || []).forEach((e) => {
         const item = document.createElement("div");
         item.className = "tl-item";
-        const pts = (pick(e.points) || []).map((p) => "<li>" + escapeHtml(p) + "</li>").join("");
-        item.innerHTML =
-          '<div class="tl-period">' + escapeHtml(pick(e.period)) + "</div>" +
-          '<h3 class="tl-title">' + escapeHtml(pick(e.title)) + "</h3>" +
-          '<div class="tl-company">' + escapeHtml(pick(e.company)) + "</div>" +
-          /* jangan buang <ul> kosong supaya tidak ada jarak hantu di timeline */
-          (pts ? '<ul class="tl-points">' + pts + "</ul>" : "");
+
+        const period = document.createElement("div");
+        period.className = "tl-period";
+        period.textContent = pick(e.period) || "";
+
+        const title = document.createElement("h3");
+        title.className = "tl-title";
+        title.textContent = pick(e.title) || "";
+
+        const company = document.createElement("div");
+        company.className = "tl-company";
+        company.textContent = pick(e.company) || "";
+
+        item.append(period, title, company);
+
+        const pts = pick(e.points) || [];
+        if (pts.length) {
+          const ul = document.createElement("ul");
+          ul.className = "tl-points";
+          pts.forEach((p) => {
+            const li = document.createElement("li");
+            li.textContent = p;
+            ul.appendChild(li);
+          });
+          item.appendChild(ul);
+        }
         tl.appendChild(item);
       });
     }

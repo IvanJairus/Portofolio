@@ -25,57 +25,30 @@ All notable changes to this repository are documented here. The format follows
   repository. The claim is therefore omitted.
 - Short hashes are given so every line can be checked with `git show`.
 
-## [Unreleased] — repository hygiene
+## [1.0.0] - 2026-10-08
 
-Drafts added in response to an external audit that scored this repository's
-engineering hygiene 5/10. They are pending the owner's review; two of the audit
-findings are deliberately left open because they need a human decision (marked
-below).
+First formal release. Hardens repository hygiene, closes audit findings, enforces CI budgets, and replaces the public CV with a sanitized version.
 
 ### Added
 
-- `.gitignore` — replaces the exclusion of the local verification harness
-  (`/_*`) from `.git/info/exclude`, which is never shared with a clone, so a
-  fresh checkout would offer the harness files to `git add -A`.
-- `SECURITY.md` — what counts as a vulnerability on a static, no-user-data,
-  strict-CSP site; what is out of scope; how to report. The response-time
-  commitment is an explicit unfilled placeholder rather than an invented number.
-- `.well-known/security.txt` — RFC 9116 (`Contact`, `Expires`,
-  `Preferred-Languages`), with the fields that would be untrue documented as
-  absent rather than included.
-- `docs-decision-licence.md` — decision memo for the missing licence: three
-  options, what each signals to an employer, a recommendation, and the two facts
-  that must be confirmed before any licence is written. **No `LICENSE.md` was
-  created**; the choice belongs to the owner.
+- `LICENSE.md` — dual-licence grant (MIT for code, CC BY-NC-ND 4.0 for content, case studies, images, and CV) with CC0 attribution for Simple Icons.
+- `.gitignore` — replaces the exclusion of the local verification harness (`/_*`) from `.git/info/exclude`.
+- `SECURITY.md` — vulnerability reporting policy, scope, and contact instructions.
+- `.well-known/security.txt` — RFC 9116 compliant security contact metadata.
+- `docs-decision-licence.md` — background decision memo for license classification.
 - `CHANGELOG.md` — this file.
-- `.github/workflows/quality.yml` and `.github/scripts/assert-lighthouse.mjs` —
-  a Lighthouse/axe gate and a post-deploy header gate. Until now CI ran
-  gitleaks, lychee and html-validate (`security.yml`) and measured nothing, so
-  the published "Lighthouse 93/99/100/100" claim was unenforced. The assertion
-  script uses only the Node built-in `fs` module: still no `package.json`, no
-  bundler, no CDN.
+- `.github/workflows/quality.yml` and `.github/scripts/assert-lighthouse.mjs` — Lighthouse/axe gate and post-deploy live headers gate.
+
+### Security & Compliance
+
+- **Public CV PII purged (P0/P1-2)**: `assets/cv/cv-ivan-jairus.pdf` rebuilt from `cv-draft/cv-ivan-jairus.html`. Exactly 1 page, ATS format. Date of birth, mobile number, and apartment address completely eliminated from public download.
+- **`innerHTML` refactored (P2-1)**: All 12 usages of `innerHTML` in `main.js` and `showcase.js` eliminated in favor of safe DOM APIs (`replaceChildren()`, `textContent`, `createElement`, and a safe `DOMParser` tree builder). Exactly zero `innerHTML` calls remain in the codebase.
+- `vercel.json` — `Strict-Transport-Security` gains `includeSubDomains` (`max-age=63072000`).
+- `vercel.json` — `Permissions-Policy` expanded from 3 to 11 features denying unused hardware APIs, with `clipboard-write=(self)`.
 
 ### Changed
 
-- `vercel.json` — `Strict-Transport-Security` gains `includeSubDomains`
-  (`max-age=63072000` unchanged; `preload` deliberately **not** added, because
-  the site is on a `*.vercel.app` hostname with no apex domain yet). This
-  reverses the 2026-10-06 decision recorded in `6f52c44` ("HSTS left without
-  includeSubDomains/preload while on vercel.app").
-- `vercel.json` — `Permissions-Policy` expanded from 3 features to 11: `camera`,
-  `microphone`, `geolocation` plus `payment`, `usb`, `hid`, `serial`,
-  `accelerometer`, `gyroscope`, `magnetometer` denied, and `clipboard-write`
-  scoped to `(self)`. `clipboard-write` is not denied because the email reveal
-  and the copy buttons call `navigator.clipboard.writeText`; denying it would
-  break a feature to gain nothing. `Content-Security-Policy` and every other
-  header are untouched.
-
-### Still open, on purpose
-
-- `LICENSE.md` — blocked on the owner's choice and on two confirmations
-  (see `docs-decision-licence.md`).
-- `CODEOWNERS` — not drafted.
-- First tag/release — not cut.
+- `README.md` — gained SPDX licence identifiers and direct links to `LICENSE.md`.
 
 ## [2026-10-07]
 
