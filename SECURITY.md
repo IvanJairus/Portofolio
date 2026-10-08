@@ -57,6 +57,24 @@ There is no bug bounty and no safe-harbour statement to offer beyond this: a
 good-faith report sent to the address above will not be reported, and the
 reporter's identity will not be disclosed.
 
+## What this site does not claim
+
+Trusted Types is not enforced, and that is a decision rather than an oversight.
+`require-trusted-types-for 'script'` was tried and measured: Chrome rejects
+`DOMParser.parseFromString(..., "text/html")` under that directive, which is the
+single string-to-DOM path left in `assets/js/` after `innerHTML` was removed - so
+the header would have blanked the translated text it was meant to protect. The
+alternative, a policy whose `createHTML` returns its input unchanged, buys a
+stricter-looking header and no actual restriction, and a security claim that is
+decorative is worse on a page that sells security gates than no claim at all.
+
+What is true instead: every string that reaches the DOM parser comes from
+`assets/js/i18n.js` in this repository, no user input is rendered anywhere, and
+`script-src 'self'` with no `unsafe-inline` already blocks injected script. If
+the page ever takes input from outside the repo, this decision has to be revisited
+before that ships - that is the condition, and it is written here so it can be
+found later.
+
 ## Response commitment
 
 No SLA is promised. This is a personal site maintained by one engineer in his
