@@ -928,6 +928,15 @@
               <dt data-i18n="dec.row.c">cost</dt><dd data-i18n="dec.5.c">I own a UI that Argo ships for free, every feature costs me, and the bus factor is smaller than a mainstream tool's. If this moved to a public cloud with git-driven deploys, I would retire it and run the standard — it exists because it fits more shops than a bespoke one does.</dd>
             </dl>
           </article>
+          <article class="dec-card dec-wide">
+            <h3><span data-i18n="dec.6.title">Agents write the pipeline. Nothing they write merges itself.</span><button type="button" class="dec-fold" aria-expanded="true"><span data-i18n="dec.fold.hide">hide</span></button></h3>
+            <dl>
+              <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="dec.6.d">Coding agents draft and edit gateway.yml, Groovy and shell; a hosted model behind a config value turns scan output into the summary that lands on the merge request.</dd>
+              <dt data-i18n="dec.row.a">alternative</dt><dd data-i18n="dec.6.a">Ban models from the delivery path, or let them act on the board directly.</dd>
+              <dt data-i18n="dec.row.w">why</dt><dd data-i18n="dec.6.w">A draft is cheap and a wrong draft is cheap too, as long as it arrives in front of the same gate a human commit arrives in front of. The summary is a convenience layer over findings the scanner already produced; the gate underneath it is arithmetic, and arithmetic stays out of the model.</dd>
+              <dt data-i18n="dec.row.c">cost</dt><dd data-i18n="dec.6.c">More diffs to read, and a confident wrong summary is worse than none. So the figures in it point back at the scan rows, never the other way round, and no approval is ever worded as a model's opinion.</dd>
+            </dl>
+          </article>
         </div>
       </div>
     </section>
@@ -955,6 +964,7 @@
               <tr><td data-i18n="tm.5a">release record</td><td data-i18n="tm.5t">"what runs where" disputes</td><td data-i18n="tm.5g">append-only ledger + pipeline callbacks written back to the ticket</td></tr>
               <tr><td data-i18n="tm.6a">mobile binaries</td><td data-i18n="tm.6t">a released app repackaged or reverse-engineered</td><td data-i18n-html="tm.6g">one pipeline, two build standards: plain by default, <code>/deploy-secure</code> puts Android through DexGuard and iOS through iXGuard</td></tr>
               <tr><td data-i18n="tm.7a">dependencies</td><td data-i18n="tm.7t">a poisoned or unpinned package reaching a build</td><td data-i18n="tm.7g">every Maven and npm resolution is required to pass through one internal store — proxy, hosted and group repositories I administer</td></tr>
+              <tr><td data-i18n="tm.8a">the model itself</td><td data-i18n="tm.8t">an agent writing a secret, a credential or an approval into a pipeline</td><td data-i18n="tm.8g">its output is a diff: same 52-rule standard, same secret scan, same human merge. Nothing an agent produces reaches a runner without passing through a person</td></tr>
             </tbody>
           </table>
         </div>

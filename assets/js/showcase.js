@@ -880,7 +880,13 @@
       "</div>" +
       panel("Per-repository results", "live",
         "<table class='rp-tbl'><tr><th>repo</th><th>gate</th><th>rating</th><th>bugs</th><th>vulns</th><th>smells</th><th>coverage</th><th>dupl.</th><th>trivy C/H/M</th><th></th></tr>" + rows + "</table>",
-        "Container scanning covers vulnerabilities, embedded secrets and misconfiguration, and a CycloneDX SBOM is archived beside every image.");
+        "Container scanning covers vulnerabilities, embedded secrets and misconfiguration, and a CycloneDX SBOM is archived beside every image.") +
+      /* Ringkasan ini turunan murni dari tabel di atasnya: 3 + 4 + 96 = 103,
+         satu trivy critical, coverage terendah dan duplikasi tertinggi dari
+         enam baris. Tidak ada angka di luar tabel. */
+      '<div class="rp-ai"><div class="rp-ai-h"><span class="rp-ai-tag mono">written by the pipeline</span><span class="rp-ai-b mono">a note on the merge request</span></div>' +
+      "<p>notification-worker is the only failed gate in this run. Of its 103 findings, 96 are maintainability smells and 4 are vulnerabilities; the single critical trivy result is the one blocking promotion. Its coverage, 41.2%, is the lowest of the six and its duplication, 6.8%, the highest.</p>" +
+      "<p class=\"rp-ai-n\">The gate below this paragraph is arithmetic. It does not read the paragraph.</p></div>";
   };
 
   /* ---------- view: testing ---------- */

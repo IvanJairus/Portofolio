@@ -2300,3 +2300,23 @@ html:not([data-js]) .dec-fold { display: none; }
 @media (pointer: coarse) and (min-width: 761px) {
   :root { --subnav-h: 64px; }
 }
+
+/* --- ringkasan hasil scan yang ditulis pipeline ---
+   Bidang cekung + garis kiri amber (warna scan di tempat lain di situs ini),
+   supaya ia terlihat seperti output mesin, bukan seperti pesan manusia. */
+.rp-ai {
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--warn);
+  border-radius: var(--radius);
+  background: var(--bg-3);
+  padding: 12px 14px;
+  animation: rp-ai-in 0.5s var(--ease) both;
+}
+.rp-ai-h { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; margin-bottom: 8px; }
+.rp-ai-tag { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warn); }
+.rp-ai-b { font-size: 11px; letter-spacing: 0.04em; color: var(--ink-faint); }
+.rp-ai p { font-size: 13px; line-height: 1.6; color: var(--ink-dim); }
+.rp-ai-n { margin-top: 8px; font-size: 11.5px; color: var(--ink-faint); }
+@keyframes rp-ai-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .rp-ai { animation: none; } }
