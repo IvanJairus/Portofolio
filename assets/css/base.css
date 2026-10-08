@@ -198,6 +198,33 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
 .tool-btn:hover { border-color: var(--accent); color: var(--accent); }
 .tool-btn[aria-pressed="true"] { background: var(--accent-dim); border-color: var(--accent-line); color: var(--accent); }
 
+/* ---------- C2: dua kedalaman baca ----------
+   Default = deep: semua section ada di DOM dan terbaca crawler maupun Tech Lead.
+   Skim hanya menyembunyikan case study, tidak menghapus kontennya. */
+.depth-row {
+  display: none;
+  align-items: baseline;
+  gap: 10px 14px;
+  margin-top: 22px;
+}
+/* tanpanya kontrolnya cuma tombol mati, jadi tidak ditampilkan */
+html[data-js] .depth-row { display: flex; flex-wrap: wrap; }
+.depth-hint {
+  font-size: 12px;
+  color: var(--ink-faint);
+  max-width: 46ch;
+}
+.depth-state::after { content: " \00b7 off"; color: var(--ink-faint); }
+.depth-btn[aria-pressed="true"] .depth-state::after { content: " \00b7 on"; }
+@media (pointer: coarse) {
+  .depth-btn { min-height: 44px; display: inline-flex; align-items: center; }
+}
+html[data-depth="skim"] [data-deep] { display: none; }
+/* cetak = dokumen lengkap, apa pun mode di layar */
+@media print {
+  html[data-depth="skim"] [data-deep] { display: block; }
+}
+
 .menu-btn { display: none; }
 
 @media (max-width: 900px) {

@@ -7,6 +7,9 @@
 
   const lang = "en"; /* situs ditetapkan English-only */
 
+  /* penanda: kontrol yang butuh JS tidak boleh tampil sebagai tombol mati tanpa JS */
+  document.documentElement.dataset.js = "1";
+
   const t = (key) => (window.I18N[lang] && window.I18N[lang][key]) || (window.I18N.en[key] || key);
   const pick = (obj) => (obj && (obj[lang] || obj.en)) || "";
 
@@ -257,6 +260,59 @@
     });
   }
 
+  /* ---------- dua kedalaman baca (Skim / Deep) ---------- */
+  function initDepth() {
+    const root = document.documentElement;
+    const btn = document.querySelector("[data-depth-btn]");
+    const skim = () => root.dataset.depth === "skim";
+    const set = (on) => {
+      root.dataset.depth = on ? "skim" : "deep";
+      if (btn) btn.setAttribute("aria-pressed", String(on));
+    };
+    if (btn) btn.addEventListener("click", () => set(!skim()));
+    if (new URLSearchParams(location.search).get("view") === "skim") set(true);
+    /* tautan ke section yang sedang disembunyikan: buka dulu, baru lompat */
+    document.addEventListener("click", (e) => {
+      const a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+      if (!a || !skim()) return;
+      const target = document.getElementById(a.getAttribute("href").slice(1));
+      if (target && target.matches("[data-deep]")) set(false);
+    });
+  }
+
+  /* ---------- accordeon Runtime + Decisions (C2) ---------- */
+  function initFold() {
+    const narrow = window.matchMedia("(max-width: 760px)");
+    const cards = document.querySelectorAll("#runtime .dec-card, #decisions .dec-card");
+    cards.forEach((card) => {
+      const btn = card.querySelector(".dec-fold");
+      if (!btn) return;
+      const label = btn.querySelector("span");
+      const setOpen = (on) => {
+        if (on) delete card.dataset.fold; else card.dataset.fold = "closed";
+        btn.setAttribute("aria-expanded", String(on));
+        if (label) label.textContent = t(on ? "dec.fold.hide" : "dec.fold.show");
+      };
+      /* kartu pertama tiap seksi tetap terbuka supaya pembaca tahu isinya bisa dibuka */
+      setOpen(!(narrow.matches && card.previousElementSibling));
+      btn.addEventListener("click", () => setOpen(card.dataset.fold === "closed"));
+    });
+    /* layar melebar: status tersembunyi tidak berlaku lagi, label disamakan */
+    narrow.addEventListener("change", (e) => {
+      if (!e.matches) {
+        cards.forEach((c) => {
+          delete c.dataset.fold;
+          const b = c.querySelector(".dec-fold");
+          if (b) {
+            b.setAttribute("aria-expanded", "true");
+            const l = b.querySelector("span");
+            if (l) l.textContent = t("dec.fold.hide");
+          }
+        });
+      }
+    });
+  }
+
   /* ---------- salin email ---------- */
   function initCopy() {
     const btn = document.querySelector("[data-copy-btn]");
@@ -291,6 +347,8 @@
     initTerminal();
     initNav();
     initSkillRefs();
+    initDepth();
+    initFold();
     initCopy();
 
   });

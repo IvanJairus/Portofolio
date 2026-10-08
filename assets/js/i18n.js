@@ -63,6 +63,8 @@ window.I18N = {
     "rt.5.body": "Measured from the platform's own GitLab API on 8 October 2026: 53 services declared across the service maps, 99 source repositories carrying no CI file at all (46 of them with pipeline history), and 10 pipeline projects that have run 7.550 pipelines between them. On one backend service: a deploy to an app-server VM takes a median 93 seconds (n = 13 successful jobs, p90 162 s, range 19\u2013199 s), and the SonarQube gate a median 80 seconds (n = 30, p90 140 s). Nobody reading this page can reproduce those numbers \u2014 they come from a private instance. That is exactly why each one carries its sample size: a figure you cannot interrogate is worth nothing, and a figure you can is worth the space it takes.",
     "dec.title": "Decisions and what they cost",
     "dec.lead": "Each decision, the alternative I rejected, and what it cost.",
+    "dec.fold.hide": "hide",
+    "dec.fold.show": "show",
     "dec.row.d": "decision",
     "dec.row.a": "alternative",
     "dec.row.w": "why",
@@ -282,6 +284,8 @@ window.I18N = {
 
     "work.title": "Things I built and still maintain",
     "work.lead": "Sanitized descriptions — no hostnames, no tenant names, no internals. The engineering is real; the labels are not.",
+    "depth.skim": "Highlights only",
+    "depth.hint": "shortens this page for a sixty-second read: the summary cards above stay, the six case studies below fold away",
     "work.1.title": "ChatOps Release Orchestrator",
     "work.1.desc": "Webhook-driven orchestrator that turns issue-board movements into action: branch creation, merge requests, approval validation, deploy triggers and scan scheduling, with a state machine persisted in the issue itself.",
     "work.1.i1": "32 pipeline jobs across 18 orchestrators",

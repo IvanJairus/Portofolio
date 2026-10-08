@@ -1464,6 +1464,35 @@
 /* kartu penutup runtime: satu paragraf, tanpa baris decision/alternative/why/cost */
 .rt-body { font-size: 13.5px; line-height: 1.6; color: var(--ink-dim); margin: 0; }
 
+/* --- C2: accordeon untuk sepuluh kartu Runtime + Decisions ---
+   Hanya berlaku di layar sempit; tanpa JS semua kartu tetap terbuka. */
+.dec-card h3 { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.dec-fold {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  background: none;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  padding: 4px 8px;
+}
+.dec-fold:hover { color: var(--accent); border-color: var(--accent); }
+html:not([data-js]) .dec-fold { display: none; }
+@media (max-width: 760px) {
+  .dec-card[data-fold="closed"] > :not(h3) { display: none; }
+  .dec-card[data-fold="closed"] { padding-bottom: 20px; }
+}
+@media (min-width: 761px) {
+  .dec-fold { display: none; }
+}
+/* di layar sentuh yang sempit, labelnya jadi target sentuh 44px */
+@media (max-width: 760px) and (pointer: coarse) {
+  .dec-fold { min-height: 44px; display: inline-flex; align-items: center; }
+}
+
 /* --- threat model --- */
 .tm-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); }
 .tm-tbl { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 640px; }

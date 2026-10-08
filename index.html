@@ -192,6 +192,11 @@
         <div class="section-head">
           <h2 data-i18n="work.title">Things I built and still maintain</h2>
           <p class="lead" data-i18n="work.lead">Sanitized descriptions — no hostnames, no tenant names, no internals. The engineering is real; the labels are not.</p>
+
+          <div class="depth-row">
+            <button type="button" class="tool-btn depth-btn" data-depth-btn aria-pressed="false" aria-describedby="depth-hint"><span data-i18n="depth.skim">Highlights only</span><span class="depth-state" aria-hidden="true"></span></button>
+            <p class="depth-hint mono" id="depth-hint" data-i18n="depth.hint">shortens this page for a sixty-second read: the summary cards above stay, the six case studies below fold away</p>
+          </div>
         </div>
 
         <div class="work-grid">
@@ -253,7 +258,7 @@
     </div>
 
     <!-- ================= MASTERPIECE I : BOARD ================= -->
-    <section id="board">
+    <section id="board" data-deep>
       <div class="wrap">
         <div class="section-head">
           <span class="kicker" data-i18n="board.kicker">Case study I — release orchestration</span>
@@ -397,7 +402,7 @@
     </section>
 
     <!-- ================= MASTERPIECE II : PLATFORM ================= -->
-    <section id="platform">
+    <section id="platform" data-deep>
       <div class="wrap">
         <div class="section-head">
           <span class="kicker" data-i18n="plat.kicker">Case study II — release control plane</span>
@@ -489,7 +494,7 @@
     </section>
 
     <!-- ================= ARCHITECTURE ================= -->
-    <section id="architecture">
+    <section id="architecture" data-deep>
       <div class="wrap">
         <div class="section-head">
           <h2 data-i18n="arch.title">One gateway, forty repositories</h2>
@@ -820,7 +825,7 @@
     </section>
 
     <!-- ================= RUNTIME ================= -->
-    <section id="runtime">
+    <section id="runtime" data-deep>
       <div class="wrap">
         <div class="section-head">
           <h2 data-i18n="rt.title">Running it in production</h2>
@@ -829,7 +834,7 @@
 
         <div class="dec-grid">
           <article class="dec-card">
-            <h3 data-i18n="rt.1.title">Capacity is decided upstream. I make it stick.</h3>
+            <h3><span data-i18n="rt.1.title">Capacity is decided upstream. I make it stick.</span><button type="button" class="dec-fold" aria-expanded="true"><span data-i18n="dec.fold.hide">hide</span></button></h3>
             <dl>
               <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="rt.1.d">Requests, limits and the autoscaler range default from the shared stage contract. A service that genuinely needs different numbers carries that override in its own manifest, with the reason written beside it.</dd>
               <dt data-i18n="dec.row.a">alternative</dt><dd data-i18n="rt.1.a">Every team copies a deployment manifest and edits the numbers by hand.</dd>
@@ -838,7 +843,7 @@
             </dl>
           </article>
           <article class="dec-card">
-            <h3 data-i18n="rt.2.title">One rollout rule, and no two deploys at once.</h3>
+            <h3><span data-i18n="rt.2.title">One rollout rule, and no two deploys at once.</span><button type="button" class="dec-fold" aria-expanded="true"><span data-i18n="dec.fold.hide">hide</span></button></h3>
             <dl>
               <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="rt.2.d">The update strategy is set in the contract rather than per team, so every repo rolls the same way — and the deploy job refuses a second run while one is still going.</dd>
               <dt data-i18n="dec.row.a">alternative</dt><dd data-i18n="rt.2.a">Each service picks its own strategy, including stop-then-start, usually at the moment someone is in a hurry.</dd>
@@ -847,7 +852,7 @@
             </dl>
           </article>
           <article class="dec-card">
-            <h3 data-i18n="rt.3.title">A backup is only real if it expires.</h3>
+            <h3><span data-i18n="rt.3.title">A backup is only real if it expires.</span><button type="button" class="dec-fold" aria-expanded="true"><span data-i18n="dec.fold.hide">hide</span></button></h3>
             <dl>
               <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="rt.3.d">Nothing destructive runs without a dated backup taken first, and nothing is kept forever — anything past the retention date is removed on a routine, not when someone notices the disk.</dd>
               <dt data-i18n="dec.row.a">alternative</dt><dd data-i18n="rt.3.a">Back up once, keep everything, delete by hand when the volume complains.</dd>
@@ -856,11 +861,11 @@
             </dl>
           </article>
           <article class="dec-card">
-            <h3 data-i18n="rt.4.title">What I would do differently</h3>
+            <h3><span data-i18n="rt.4.title">What I would do differently</span><button type="button" class="dec-fold" aria-expanded="true"><span data-i18n="dec.fold.hide">hide</span></button></h3>
             <p class="rt-body" data-i18n="rt.4.body">Resource values started out copied from whatever service shipped last, because nothing measured them and nobody was asked for a number. If I set this up again, the contract would carry a measured baseline per artifact type, so the decision starts from an observation instead of an estimate — and the list of overrides stays short enough to read in one sitting.</p>
           </article>
           <article class="dec-card dec-wide">
-            <h3 data-i18n="rt.5.title">Numbers, with the sample size attached</h3>
+            <h3><span data-i18n="rt.5.title">Numbers, with the sample size attached</span><button type="button" class="dec-fold" aria-expanded="true"><span data-i18n="dec.fold.hide">hide</span></button></h3>
             <p class="rt-body" data-i18n="rt.5.body">Measured from the platform's own GitLab API on 8 October 2026: 53 services declared across the service maps, 99 source repositories carrying no CI file at all (46 of them with pipeline history), and 10 pipeline projects that have run 7.550 pipelines between them. On one backend service: a deploy to an app-server VM takes a median 93 seconds (n = 13 successful jobs, p90 162 s, range 19–199 s), and the SonarQube gate a median 80 seconds (n = 30, p90 140 s). Nobody reading this page can reproduce those numbers — they come from a private instance. That is exactly why each one carries its sample size: a figure you cannot interrogate is worth nothing, and a figure you can is worth the space it takes.</p>
           </article>
         </div>
@@ -868,7 +873,7 @@
     </section>
 
     <!-- ================= DECISIONS ================= -->
-    <section id="decisions">
+    <section id="decisions" data-deep>
       <div class="wrap">
         <div class="section-head">
           <h2 data-i18n="dec.title">Decisions and what they cost</h2>
@@ -876,7 +881,7 @@
         </div>
         <div class="dec-grid">
           <article class="dec-card">
-            <h3 data-i18n="dec.1.title">One gateway, not per-repo templates</h3>
+            <h3><span data-i18n="dec.1.title">One gateway, not per-repo templates</span><button type="button" class="dec-fold" aria-expanded="true"><span data-i18n="dec.fold.hide">hide</span></button></h3>
             <dl>
               <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="dec.1.d">A single gateway.yml include routes every repo to its domain pipeline.</dd>
               <dt data-i18n="dec.row.a">alternative</dt><dd data-i18n="dec.1.a">Copy-paste a template into each repository.</dd>
@@ -885,7 +890,7 @@
             </dl>
           </article>
           <article class="dec-card">
-            <h3 data-i18n="dec.2.title">Gates fail closed</h3>
+            <h3><span data-i18n="dec.2.title">Gates fail closed</span><button type="button" class="dec-fold" aria-expanded="true"><span data-i18n="dec.fold.hide">hide</span></button></h3>
             <dl>
               <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="dec.2.d">A missing secret or unconfirmed merge stops the job with exit 1.</dd>
               <dt data-i18n="dec.row.a">alternative</dt><dd data-i18n="dec.2.a">Warn and continue — keep builds green.</dd>
@@ -894,7 +899,7 @@
             </dl>
           </article>
           <article class="dec-card">
-            <h3 data-i18n="dec.3.title">Two CI engines, no big-bang migration</h3>
+            <h3><span data-i18n="dec.3.title">Two CI engines, no big-bang migration</span><button type="button" class="dec-fold" aria-expanded="true"><span data-i18n="dec.fold.hide">hide</span></button></h3>
             <dl>
               <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="dec.3.d">GitLab CI and legacy Jenkins kept running side by side.</dd>
               <dt data-i18n="dec.row.a">alternative</dt><dd data-i18n="dec.3.a">Force every pipeline onto one engine now.</dd>
@@ -903,7 +908,7 @@
             </dl>
           </article>
           <article class="dec-card">
-            <h3 data-i18n="dec.4.title">What I deliberately did NOT build</h3>
+            <h3><span data-i18n="dec.4.title">What I deliberately did NOT build</span><button type="button" class="dec-fold" aria-expanded="true"><span data-i18n="dec.fold.hide">hide</span></button></h3>
             <dl>
               <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="dec.4.d">No state database for the board; no deploy queue; no auto-merge on a human's behalf.</dd>
               <dt data-i18n="dec.row.a">alternative</dt><dd data-i18n="dec.4.a">Postgres for state, a queue for busy deploys, a bot that clicks merge.</dd>
@@ -912,7 +917,7 @@
             </dl>
           </article>
           <article class="dec-card dec-wide">
-            <h3 data-i18n="dec.5.title">Built the control plane, did not buy one</h3>
+            <h3><span data-i18n="dec.5.title">Built the control plane, did not buy one</span><button type="button" class="dec-fold" aria-expanded="true"><span data-i18n="dec.fold.hide">hide</span></button></h3>
             <dl>
               <dt data-i18n="dec.row.d">decision</dt><dd data-i18n="dec.5.d">A release board, an append-only ledger and generated reports, written by me on top of Jira and GitLab.</dd>
               <dt data-i18n="dec.row.a">alternative</dt><dd data-i18n="dec.5.a">ArgoCD for deploys, GitLab Environments for promotion, Backstage as the read layer.</dd>
@@ -925,7 +930,7 @@
     </section>
 
     <!-- ================= THREAT MODEL ================= -->
-    <section id="threat">
+    <section id="threat" data-deep>
       <div class="wrap">
         <div class="section-head">
           <h2 data-i18n="tm.title">What I was actually defending</h2>
