@@ -1,6 +1,6 @@
 # Architecture decision records
 
-Five decisions from the delivery platform described on [the site](https://portofolio-six-delta-18.vercel.app),
+Five decisions from the delivery platform described on [the site](https://www.ivanjairus.xyz),
 written down as ADRs. They are the same decisions the "Decisions and what they
 cost" section makes, in the form a reviewer can hold me to: context, decision,
 what I rejected, what it costs, and status.

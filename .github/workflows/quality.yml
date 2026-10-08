@@ -138,7 +138,7 @@ jobs:
       # baris CSP itu sendiri.
       - name: Assert the live response headers
         run: |
-          url="https://portofolio-six-delta-18.vercel.app"
+          url="https://www.ivanjairus.xyz"
           raw=/tmp/live-headers.txt
           last_status=000
 

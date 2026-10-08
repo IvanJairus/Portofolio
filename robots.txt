@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://portofolio-six-delta-18.vercel.app/sitemap.xml
+Sitemap: https://www.ivanjairus.xyz/sitemap.xml

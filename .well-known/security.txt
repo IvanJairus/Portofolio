@@ -1,4 +1,4 @@
-# security.txt for https://portofolio-six-delta-18.vercel.app/
+# security.txt for https://www.ivanjairus.xyz/
 # Conforms to RFC 9116. Fields are limited to what is true for this site.
 #
 # Absent on purpose:
