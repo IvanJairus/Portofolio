@@ -1,0 +1,5 @@
+# One maintainer, deliberately: this is a personal portfolio, not a team repository.
+# A CODEOWNERS file that lists four reviewers nobody has would be decoration.
+# If a second contributor ever lands here, replace this with real per-area owners.
+
+* @IvanJairus
