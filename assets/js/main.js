@@ -295,47 +295,58 @@
     mq.addEventListener("change", (e) => place(e.matches));
   }
 
-  /* ---------- strip stack: satu geseran, lalu diam ----------
-     Di ponsel barisnya satu lajur yang bisa digeser, dan "bisa digeser" itu
-     tidak terlihat dari luar. Sekali saja, hanya saat strip pertama kali
-     muncul, dan berhenti begitu jari menyentuhnya. */
-  function initStackNudge() {
+  /* ---------- strip stack: berjalan pelan seperti papan nama ----------
+     Sekali geser ternyata masih terlewat. Jadi lajurnya berjalan terus, pelan,
+     dan bisa dihentikan - konten yang bergerak otomatis lebih dari 5 detik
+     wajib punya cara berhenti (WCAG 2.2.2). Isinya diduplikasi sekali supaya
+     putarannya mulus; salinan itu aria-hidden sehingga pembaca layar hanya
+     menyebut setiap alat satu kali. Tanpa JS atau dengan reduced-motion: tidak
+     ada kloning, barisnya tetap bisa digeser seperti semula. */
+  function initStackMarquee() {
     const row = document.querySelector(".hs-row");
-    if (!row || !("IntersectionObserver" in window)) return;
+    const stack = document.querySelector(".hero-stack");
+    if (!row || !stack) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let touched = false;
-    ["touchstart", "wheel", "keydown"].forEach((ev) =>
-      row.addEventListener(ev, () => { touched = true; }, { passive: true })
-    );
-    const run = () => {
-      if (touched) return;
-      const max = row.scrollWidth - row.clientWidth;
-      if (max <= 8) return;
-      const out = Math.min(max, 190);
-      const dur = 2400;
-      const t0 = performance.now();
-      row.style.scrollSnapType = "none";
-      const step = (now) => {
-        if (touched) { row.scrollLeft = 0; row.style.scrollSnapType = ""; return; }
-        const k = Math.min(1, (now - t0) / dur);
-        row.scrollLeft = out * Math.sin(Math.PI * k);
-        if (k < 1) {
-          requestAnimationFrame(step);
-        } else {
-          row.scrollLeft = 0;
-          row.style.scrollSnapType = "";
-          if (visible) setTimeout(run, 4200);   /* ulangi selama strip masih dibaca */
-        }
-      };
-      requestAnimationFrame(step);
-    };
-    let visible = false;
-    const io = new IntersectionObserver((entries) => {
-      const was = visible;
-      visible = entries[0].isIntersecting;
-      if (visible && !was) setTimeout(run, 650);
-    }, { threshold: 0.5 });
-    io.observe(row);
+    const chips = [].slice.call(row.children);
+    if (chips.length < 2) return;
+    if (row.scrollWidth <= row.clientWidth + 8) return;   /* muat seluruhnya: tidak perlu berjalan */
+
+    const set = document.createElement("div");
+    set.className = "hs-set";
+    chips.forEach((c) => set.appendChild(c));
+    const track = document.createElement("div");
+    track.className = "hs-track";
+    const clone = set.cloneNode(true);
+    clone.classList.add("hs-clone");
+    clone.setAttribute("aria-hidden", "true");
+    track.append(set, clone);
+    row.appendChild(track);
+    row.classList.add("hs-marquee");
+
+    /* durasi mengikuti panjang isi: kecepatannya yang tetap, bukan putarannya */
+    const width = set.getBoundingClientRect().width;
+    track.style.setProperty("--hs-dur", Math.round(width / 26) + "s");
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "tool-btn hs-pause";
+    btn.setAttribute("aria-pressed", "false");
+    const lbl = document.createElement("span");
+    lbl.textContent = t("lc.pause");
+    btn.appendChild(lbl);
+    btn.addEventListener("click", () => {
+      const on = row.classList.toggle("hs-stopped");
+      btn.setAttribute("aria-pressed", String(on));
+      lbl.textContent = t(on ? "lc.resume" : "lc.pause");
+    });
+    const label = stack.querySelector(".hs-label");
+    if (label) label.appendChild(btn);
+    /* jangan membakar baterai ponsel di bawah layar: berhenti saat strip tidak terlihat */
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((es) => {
+        row.classList.toggle("hs-off", !es[0].isIntersecting);
+      }, { threshold: 0 }).observe(row);
+    }
   }
 
   /* ---------- accordeon Runtime + Decisions (C2) ---------- */
@@ -419,7 +430,7 @@
     initSkillRefs();
     initDepth();
     initFold();
-    initStackNudge();
+    initStackMarquee();
     initPhotoSlot();
     initMobileCta();
     initCopy();
