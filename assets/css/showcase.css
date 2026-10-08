@@ -225,6 +225,10 @@
 }
 .sf span { font-size: 12.2px; color: var(--ink-dim); line-height: 1.5; }
 @media (max-width: 860px) { .stack-facts, .rp-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* lima fakta tidak genap di grid dua kolom: sel keenam bukan elemen, ia lubang
+   tempat background garis grid itu sendiri terlihat. Sel terakhir membentang
+   penuh supaya genap - tanpa mengarang angka keenam. */
+@media (max-width: 860px) { .rp-facts .sf:last-child { grid-column: 1 / -1; } }
 
 .stack-note {
   margin-top: 22px;
