@@ -321,7 +321,7 @@ window.I18N = {
     "skills.e.4.3": "service lifecycle over SSH with dated backups and 5×10s verify retries.",
     "skills.e.4.4": "append-only release ledger; promotion is tag-and-merge, reviewable in a diff.",
     "skills.e.4.5": "five artifact types — jar, image, apk/aab, ipa and web bundle — each with its own stage contract behind one gateway.",
-    "skills.e.4.6": "where the mobile artifact types land: the pipeline's apk/aab and ipa outputs are distributed through them — the deploy target for iOS and Android.",
+    "skills.e.4.6": "where every mobile build lands: apk/aab and ipa produced by the pipeline are distributed through them for SIT and UAT testing.",
     "skills.e.4.7": "built the platform's own machines from an empty image — Jenkins node, GitLab runner, app server, web server: install, configure, keep updated.",
     "skills.e.5.1": "permanent debug logs in every helper; deploy callbacks stream into the dashboard over SSE.",
     "skills.e.5.2": "anti-loop watermarks and the scan-fails=fails rule both exist because of real incidents.",
