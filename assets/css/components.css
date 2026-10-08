@@ -382,17 +382,19 @@
 .status-pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s var(--ease) infinite; }
 @media (max-width: 760px) { .contact-in { grid-template-columns: minmax(0, 1fr); } }
 
-/* Di ponsel kartu kontak menerima potret (dipindah oleh main.js). Baris
-   pertamanya potret + penanda status; kalau sempitnya tidak cukup, penanda itu
-   turun utuh ke baris sendiri - white-space dijaga supaya tidak pernah jadi
-   dua baris teks. Baris detail tetap selebar kartu. Aturan ini ada di sini,
-   bukan di base.css, karena .contact-meta di atas memakai display: grid dengan
-   spesifisitas sama: di base.css ia tidak akan pernah menang. */
+/* Di ponsel kartu kontak menerima potret (dipindah oleh main.js): potret di
+   atas, penanda status tepat di bawahnya, lalu detailnya. justify-items:start
+   supaya pil tidak direntangkan selebar kartu - sebagai gantinya ia tetap
+   selebar teksnya dan white-space menjaga teksnya satu baris. Aturan ini ada
+   di sini, bukan di base.css, karena .contact-meta di atas memakai
+   display: grid dengan spesifisitas sama: di base.css ia tidak pernah menang. */
 @media (max-width: 860px) {
-  .contact-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 16px; }
-  .contact-meta .hero-photo { display: block; width: 104px; margin: 0; flex: 0 0 auto; }
-  .contact-meta .status-pill { flex: 0 0 auto; white-space: nowrap; }
-  .contact-meta .cm-row { flex: 1 0 100%; }
+  .contact-meta { gap: 16px; }
+  /* grid-area: auto wajib: .hero-photo masih membawa grid-area: photo dari hero
+     grid, dan nama area yang tidak ada di grid ini membuat track hantu kedua -
+     potret pindah ke kolom kanan dan baris label ikut menyempit */
+  .contact-meta .hero-photo { display: block; grid-area: auto; width: 104px; margin: 0; }
+  .contact-meta .status-pill { justify-self: start; white-space: nowrap; }
 }
 
 /* ---------- footer ---------- */

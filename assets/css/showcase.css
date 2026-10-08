@@ -249,6 +249,10 @@
   row-gap: 8px;
 }
 .bd-bar-l, .bd-bar-r { display: flex; align-items: center; gap: 12px; }
+/* Kiri memuat live + penghitung + tombol + bendera "counter-example": di 360px
+   keempatnya tidak muat satu baris dan benderanya terpotong 19px di luar
+   viewport. Yang kanan tetap satu baris - cuma tiga tombol kecil. */
+.bd-bar-l { flex-wrap: wrap; row-gap: 6px; }
 .bd-live {
   display: inline-flex; align-items: center; gap: 8px;
   font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
@@ -2400,19 +2404,22 @@ html:not([data-js]) .dec-fold { display: none; }
   .lc-sep { display: none; }
   .lc-detail { margin-top: 10px; }
 }
-/* ---------- papan before/after di ponsel: lima kolom jadi lima baris ----------
+/* ---------- papan before/after di ponsel: LIMA kolom jadi lima baris ----------
    Terukur 51px per kolom di 360px: "approval" dan "pipeline + audit" tidak muat
    bahkan pada 10,5px, dan mengecilkannya lagi berarti kembali ke teks yang tidak
    terbaca. Jadi papannya berputar: nama kolom di kiri, isinya di kanan.
-   Tidak ada scroll horizontal, tidak ada tipe yang dikecilkan. */
+   Tidak ada scroll horizontal, tidak ada tipe yang dikecilkan.
+   HANYA papan ".five". Panel "out of the box" punya tiga kolom kosong dan
+   placeholder bergaris - di situ justru tiga kolom berdampingan yang bercerita
+   ("just columns"), dan versi baris membuatnya tampak rusak. */
 @media (max-width: 620px) {
-  .ba-cols { display: flex; flex-direction: column; gap: 6px; }
-  .ba-col { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: start; gap: 10px; min-height: 0; }
-  .ba-col h3 {
+  .ba-cols.five { display: flex; flex-direction: column; gap: 6px; }
+  .ba-cols.five .ba-col { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: start; gap: 10px; min-height: 0; }
+  .ba-cols.five .ba-col h3 {
     border-bottom: none; margin: 4px 0 0; padding: 0;
     white-space: normal; font-size: 10.5px; line-height: 1.3;
   }
-  .ba-col > .ba-card:not(.sm) { flex: none; }
-  .ba-card { padding: 8px 9px; }
-  .ba-card .ba-badge { margin-left: 0; }
+  .ba-cols.five .ba-col > .ba-card:not(.sm) { flex: none; }
+  .ba-cols.five .ba-card { padding: 8px 9px; }
+  .ba-cols.five .ba-card .ba-badge { margin-left: 0; }
 }
