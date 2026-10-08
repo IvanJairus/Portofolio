@@ -1127,9 +1127,25 @@
       timer = setInterval(function () { if (!document.hidden) show((cur + 1) % nodes.length); }, 3800);
     }
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    var pauseBtn = wrap.querySelector("[data-lc-pause]");
+    var paused = false;
+    function setPaused(on) {
+      paused = on;
+      if (on) { stop(); } else { start(); }
+      if (pauseBtn) {
+        pauseBtn.setAttribute("aria-pressed", String(on));
+        var lbl = pauseBtn.querySelector("span");
+        if (lbl) lbl.textContent = T(on ? "lc.resume" : "lc.pause");
+      }
+    }
+    if (pauseBtn) {
+      pauseBtn.addEventListener("click", function () { setPaused(!paused); });
+      if (RM) { pauseBtn.disabled = true; }
+    }
     nodes.forEach(function (n) {
       /* tidak ada lagi div berpura-pura tombol: .lc-node dan .lc-chip sama-sama
-         <button type="button">, jadi Tab/Enter bekerja tanpa role tambahan */
+         <button type="button">, jadi Tab/Enter bekerja tanpa role tambahan.
+         Klik menghentikan rotasi; tombol jeda memberi kontrol eksplisit (2.2.2). */
       n.addEventListener("click", function () { stop(); show(+n.dataset.lc); });
     });
     if (RM) {

@@ -2098,3 +2098,40 @@
 .skill-group h3,
 .tier,
 .exp-edu { font-family: var(--font-sans); }
+
+/* --- petunjuk konten yang bisa digeser (audit B3, P0) ---
+   Terukur di 390px: diagram gateway menyembunyikan 49% isinya dan tabel threat
+   model 46%, tanpa tanda apa pun bahwa ada sisa di luar layar. Petunjuk ini teks
+   sungguhan (bukan hanya bayangan), di-stick ke kiri supaya tetap terbaca saat
+   kontainer digeser, dan hanya muncul di lebar sentuh. */
+.scroll-hint { display: none; }
+@media (max-width: 620px) {
+  .scroll-hint {
+    display: block;
+    position: sticky;
+    left: 0;
+    margin: 0 0 8px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+  }
+  .scroll-hint::before { content: "↔ "; color: var(--accent); }
+}
+/* bayangan tepi: sinyal visual kedua bahwa tepi kanan bukan batas konten */
+@media (max-width: 620px) {
+  .diagram-shell, .tm-wrap {
+    background:
+      linear-gradient(to right, var(--bg-2) 30%, rgba(255, 255, 255, 0)) left center / 36px 100% no-repeat local,
+      linear-gradient(to left,  var(--bg-2) 30%, rgba(255, 255, 255, 0)) right center / 36px 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%,    rgba(28, 25, 23, 0.16), transparent) left center  / 12px 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%, rgba(28, 25, 23, 0.16), transparent) right center / 12px 100% no-repeat scroll,
+      var(--bg-2);
+  }
+}
+/* tombol jeda untuk rail lifecycle (WCAG 2.2.2: konten yang bergerak otomatis
+   lebih dari 5 detik harus bisa dijeda; rotasi ini 3,8 detik per node) */
+.lc-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 16px; }
+.lc-pause { min-height: 30px; }
+@media (pointer: coarse) {
+  .lc-pause { min-height: 44px; }
+}

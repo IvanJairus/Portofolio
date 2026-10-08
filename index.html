@@ -497,6 +497,7 @@
         </div>
 
         <div class="diagram-shell" data-diagram="gateway">
+            <p class="scroll-hint mono" data-i18n="scroll.hint">swipe sideways to see the rest</p>
           <svg viewBox="0 0 1080 340" role="img" aria-label="Architecture diagram: many service repositories route through a single gateway to domain pipelines and environments">
             <text class="col-label" x="20" y="30" data-i18n="arch.node.repos">53 services</text>
             <text class="col-label" x="650" y="30" data-i18n="arch.node.dom">domain pipelines</text>
@@ -582,6 +583,7 @@
           <div class="section-head lc-head">
             <h3 data-i18n="lc.title">The lifecycle of one change</h3>
             <p class="mono lc-sub" data-i18n="lc.sub">click any node — the detail appears below the rail</p>
+            <button type="button" class="tool-btn lc-pause" data-lc-pause aria-pressed="false"><span data-i18n="lc.pause">pause</span></button>
           </div>
 
           <div class="lc-rail" data-lc-rail>
@@ -784,6 +786,7 @@
         <div class="arch-gate">
           <div class="ag-title mono" data-i18n="arch.gate.title">what "release ready" means on my platform</div>
           <div class="diagram-shell" data-diagram="gate">
+            <p class="scroll-hint mono" data-i18n="scroll.hint">swipe sideways to see the rest</p>
             <div class="gate">
               <div class="gate-checks">
                 <div class="gate-check"><span class="box">✓</span><span data-i18n="sec.check.1">Deployment SUCCESS</span></div>
@@ -928,6 +931,7 @@
           <p class="lead" data-i18n="tm.lead">The tool list is what I used — this table is what I was thinking about.</p>
         </div>
         <div class="tm-wrap">
+            <p class="scroll-hint mono" data-i18n="scroll.hint">swipe sideways to see the rest</p>
           <table class="tm-tbl">
             <thead><tr>
               <th scope="col" data-i18n="tm.h.asset">asset</th>
