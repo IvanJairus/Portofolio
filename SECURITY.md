@@ -59,12 +59,14 @@ reporter's identity will not be disclosed.
 
 ## Response commitment
 
-> **TO BE CONFIRMED BY THE OWNER — do not publish this section until filled in.**
->
-> - First response: _[hours/business days the owner can actually keep]_
-> - Status update cadence while a report is open: _[interval]_
-> - Publication of a fix or advisory: _[condition, if any]_
+No SLA is promised. This is a personal site maintained by one engineer in his
+own time, and a number written here that nobody can keep is worse than no
+number: I read every report that reaches the address above, I reply myself, and
+a confirmed finding is fixed in a commit that says what it was. If a report
+needs coordination before disclosure, say so in the first message and I will
+hold to your timeline.
 
-An honest, unmet-able number is better than an aspirational one. Until these
-lines are filled in, treat the commitment as unpublished rather than as a
-default.
+If you want a commitment you can hold me to, ask for one in your report and I
+will either agree to it or explain why not - which is the same conversation this
+section was going to start anyway.
+

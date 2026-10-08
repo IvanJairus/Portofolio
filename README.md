@@ -18,7 +18,7 @@ Push to `main` — Vercel serves the repo statically; `vercel.json` sets CSP and
 ## Notes
 
 - All figures, names, hosts and screenshots on the site are sanitized dummy data; the engineering described is real.
-- Translations live in `assets/js/i18n.js` (EN + ID kept in sync); identity data in `assets/js/config.js`.
+- All page text lives in `assets/js/i18n.js` (English only) and every value is duplicated as the HTML fallback in `index.html` - change both or the parity check complains. Identity data lives in `assets/js/config.js`.
 
 ## Licence
 
