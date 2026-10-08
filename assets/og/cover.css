@@ -1,0 +1,58 @@
+/* ============================================================
+   Tata letak sampul OG. Sengaja kecil: satu kanvas 1200x630, tanpa responsif,
+   tanpa state. Warna, tipografi, dan rel pipeline diimpor apa adanya dari
+   stylesheet situs supaya sampul tidak pernah terlihat seperti produk lain.
+   ============================================================ */
+html, body { width: 1200px; height: 630px; overflow: hidden; }
+body.og { background: var(--bg); }
+.og-in {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 58px 72px 46px;
+  display: flex;
+  flex-direction: column;
+}
+.og-name {
+  font-size: 96px;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+.og-role {
+  font-size: 30px;
+  color: var(--ink);
+  margin-top: 22px;
+}
+.og-facts {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  color: var(--ink-dim);
+  margin-top: 18px;
+}
+.og-rail {
+  margin-top: auto;
+  padding-top: 34px;
+}
+.og-rail .hf-line { top: 41px; }
+.og-rail .hf-node i { width: 20px; height: 20px; }
+.og-rail .hf-node span { font-size: 19px; }
+.og-rail .hf-sub {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--ink-faint);
+  margin-top: -4px;
+  white-space: nowrap;
+}
+.og-foot {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  color: var(--ink-dim);
+  margin-top: 44px;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+.og-foot b { color: var(--accent); font-weight: 600; }
+.og-legend .lm-scan { color: var(--warn); }
+.og-legend .lm-gate { color: var(--danger); }
