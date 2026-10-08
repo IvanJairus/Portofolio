@@ -18,7 +18,6 @@
   position: relative;
   transition: background 0.3s var(--ease);
 }
-.cap:hover { background: var(--bg-2); }
 .cap .idx {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -217,7 +216,6 @@
   flex-direction: column;
   transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
 }
-.work-card:hover { transform: translateY(-4px); border-color: var(--accent-line); }
 .work-card.flash {
   border-color: var(--accent);
   box-shadow: 0 0 0 1px var(--accent), 0 22px 60px -34px var(--accent-line);
@@ -391,3 +389,13 @@
 /* kalimat penutup ini milik sendiri, jadi tidak perlu tanda kutip atau atribusi;
    bedanya hanya tinta - satu baris paling gelap di footer, tanpa ornamen baru */
 .ftr-creed { color: var(--ink); }
+
+/* ---------- B2: efek hover hanya untuk perangkat yang punya hover ----------
+   Disentuh, :hover menempel sampai ketukan berikutnya: kartu tetap terangkat
+   dan baris tabel tetap tersorot. Yang diblokir di sini efek posisi/warna besar;
+   perubahan warna tautan dan tombol dibiarkan, karena di sentuh itu umpan balik,
+   bukan hiasan. */
+@media (hover: hover) {
+.cap:hover { background: var(--bg-2); }
+.work-card:hover { transform: translateY(-4px); border-color: var(--accent-line); }
+}

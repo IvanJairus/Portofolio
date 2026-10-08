@@ -562,7 +562,6 @@
   background: var(--bg);
   transition: all 0.2s var(--ease);
 }
-.co-chip:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
 .co-chip.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
 .co-out {
   display: flex;
@@ -664,7 +663,6 @@
   transition: all 0.2s var(--ease);
 }
 .rp-ni i { font-style: normal; color: var(--ink-faint); font-size: 11px; width: 13px; text-align: center; }
-.rp-ni:hover { color: var(--ink); background: var(--bg-3); }
 .rp-ni.on { color: var(--accent-strong); background: var(--accent-dim); border-color: var(--accent-line); }
 .rp-ni.on i { color: var(--accent-strong); }
 .rp-ni[hidden] { display: none; }
@@ -765,7 +763,6 @@
 }
 .rp-tbl td { padding: 8px 12px; border-bottom: 1px solid var(--line); color: var(--ink-dim); vertical-align: middle; }
 .rp-tbl tr:last-child td { border-bottom: none; }
-.rp-tbl tr:hover td { background: var(--bg-3); }
 .rp-tbl td.svc { color: var(--ink); font-weight: 600; white-space: nowrap; }
 .rp-tbl td.mono, .rp-tbl .mono { font-family: var(--font-mono); font-size: 10.5px; }
 
@@ -801,7 +798,6 @@
 }
 .rp-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
 .rp-btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
-.rp-btn.primary:hover:not(:disabled) { filter: brightness(1.08); color: var(--accent-ink); }
 .rp-btn.danger:hover:not(:disabled) { border-color: var(--danger); color: var(--danger); }
 .rp-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 .rp-actions { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -1080,7 +1076,6 @@
   align-self: flex-start;
   transition: all 0.2s var(--ease);
 }
-.w-demo:hover { border-color: var(--accent); gap: 12px; }
 
 /* ============================================================
    5. KEYFRAMES baru
@@ -1536,7 +1531,6 @@ html:not([data-js]) .dec-fold { display: none; }
 }
 .tm-tbl td { padding: 13px 16px; border-bottom: 1px solid var(--line); color: var(--ink-dim); vertical-align: top; line-height: 1.5; }
 .tm-tbl tr:last-child td { border-bottom: none; }
-.tm-tbl tr:hover td { background: var(--bg-3); }
 .tm-tbl td:first-child { color: var(--ink); font-weight: 600; white-space: nowrap; }
 .tm-tbl td:nth-child(2) { color: var(--warn); }
 .tm-tbl td:last-child { color: var(--ink-dim); }
@@ -2230,4 +2224,45 @@ html:not([data-js]) .dec-fold { display: none; }
   }
   /* .ba-col h3 sengaja tidak ikut: kolomnya 57px dan "In Review" sudah 59px
      pada 10,5px — dipotong jadi "IN REV…" (aturan di atas menahan 10px) */
+}
+
+/* ---------- B2: efek hover hanya untuk perangkat yang punya hover ----------
+   Disentuh, :hover menempel sampai ketukan berikutnya: kartu tetap terangkat
+   dan baris tabel tetap tersorot. Yang diblokir di sini efek posisi/warna besar;
+   perubahan warna tautan dan tombol dibiarkan, karena di sentuh itu umpan balik,
+   bukan hiasan. */
+@media (hover: hover) {
+.co-chip:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+.rp-ni:hover { color: var(--ink); background: var(--bg-3); }
+.rp-tbl tr:hover td { background: var(--bg-3); }
+.rp-btn.primary:hover:not(:disabled) { filter: brightness(1.08); color: var(--accent-ink); }
+.w-demo:hover { border-color: var(--accent); gap: 12px; }
+.tm-tbl tr:hover td { background: var(--bg-3); }
+}
+
+/* ---------- B5: target sentuh ----------
+   Semua sudah di atas minimum WCAG 2.2 (24px), tapi di bawah 44px yang enak buat
+   ibu jari. Blok ini ada di file terakhir yang menata komponen, bukan di base.css,
+   karena .bd-btn dan .wsn didefinisikan di sini kemudian dan akan menang atas aturan
+   umum (terukur: 30px vs 44px sebelum dipindah). Chip kecil di dalam teks (.ref) tidak
+   boleh membesar - ia bagian dari kalimat - jadi area sentuhnya yang diperluas.
+   Catatan: .depth-btn, .dec-fold, .wsn dan .lc-pause sudah 44px di bloknya masing-masing;
+   yang di bawah ini sisanya. */
+@media (pointer: coarse) {
+  .tool-btn, .copy-btn, .tf-btn, .ms-tab, .lc-chip, .co-chip, .rp-btn, .dec-fold, .wsn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .bd-btn { width: 44px; height: 44px; }
+  .menu-btn { min-width: 44px; }
+  .bd-play { width: 52px; }
+  .ref { position: relative; }
+    /* 18px teks + 13px atas-bawah = 44px area sentuh, tampilan tidak berubah */
+  .ref::after { content: ""; position: absolute; inset: -13px -6px; }
+}
+/* chip .wsn setinggi 44px hanya muat kalau barisnya ikut naik; di ponsel sudah
+   56px, sisanya (tablet lebar) dapat nilai ini */
+@media (pointer: coarse) and (min-width: 761px) {
+  :root { --subnav-h: 64px; }
 }
