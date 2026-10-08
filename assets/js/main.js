@@ -280,6 +280,21 @@
     });
   }
 
+  /* ---------- potret: di ponsel ia pindah ke kartu kontak ---------- */
+  function initPhotoSlot() {
+    const mq = window.matchMedia("(max-width: 860px)");
+    const photo = document.querySelector(".hero-photo");
+    const card = document.querySelector(".contact-meta");
+    const hero = document.querySelector(".hero-grid");
+    if (!photo || !card || !hero) return;
+    const place = (mobile) => {
+      if (mobile) card.insertBefore(photo, card.firstChild);
+      else if (photo.parentElement !== hero) hero.appendChild(photo);
+    };
+    place(mq.matches);
+    mq.addEventListener("change", (e) => place(e.matches));
+  }
+
   /* ---------- strip stack: satu geseran, lalu diam ----------
      Di ponsel barisnya satu lajur yang bisa digeser, dan "bisa digeser" itu
      tidak terlihat dari luar. Sekali saja, hanya saat strip pertama kali
@@ -288,15 +303,14 @@
     const row = document.querySelector(".hs-row");
     if (!row || !("IntersectionObserver" in window)) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let touched = false, ran = false;
+    let touched = false;
     ["touchstart", "wheel", "keydown"].forEach((ev) =>
       row.addEventListener(ev, () => { touched = true; }, { passive: true })
     );
     const run = () => {
-      if (ran || touched) return;
+      if (touched) return;
       const max = row.scrollWidth - row.clientWidth;
       if (max <= 8) return;
-      ran = true;
       const out = Math.min(max, 190);
       const dur = 2400;
       const t0 = performance.now();
@@ -310,12 +324,16 @@
         } else {
           row.scrollLeft = 0;
           row.style.scrollSnapType = "";
+          if (visible) setTimeout(run, 4200);   /* ulangi selama strip masih dibaca */
         }
       };
       requestAnimationFrame(step);
     };
-    const io = new IntersectionObserver((entries, obs) => {
-      if (entries[0].isIntersecting) { setTimeout(run, 650); obs.disconnect(); }
+    let visible = false;
+    const io = new IntersectionObserver((entries) => {
+      const was = visible;
+      visible = entries[0].isIntersecting;
+      if (visible && !was) setTimeout(run, 650);
     }, { threshold: 0.5 });
     io.observe(row);
   }
@@ -402,6 +420,7 @@
     initDepth();
     initFold();
     initStackNudge();
+    initPhotoSlot();
     initMobileCta();
     initCopy();
 
