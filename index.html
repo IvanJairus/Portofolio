@@ -11,7 +11,7 @@
   <meta property="og:type" content="profile" />
   <meta property="og:url" content="https://www.ivanjairus.xyz/" />
   <meta property="og:title" content="Ivan Jairus — DevSecOps" />
-  <meta property="og:description" content="CI/CD pipelines as a product, security gates, and release automation for banking-grade systems. One gateway, forty repositories." />
+  <meta property="og:description" content="CI/CD pipelines as a product, security gates, and release automation for banking-grade systems. One gateway, fifty-three services." />
   <meta property="og:image" content="https://www.ivanjairus.xyz/assets/img/og-cover-1200x630.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -497,9 +497,9 @@
     <section id="architecture" data-deep>
       <div class="wrap">
         <div class="section-head">
-          <h2 data-i18n="arch.title">One gateway, forty repositories</h2>
+          <h2 data-i18n="arch.title">One gateway, fifty-three services</h2>
           <p class="lead" data-i18n="arch.lead">The idea I keep returning to: developers should never own pipeline plumbing. A four-line include routes every repository to its domain pipeline, and the standard evolves in one place.</p>
-          <p class="before-line mono"><span>before:</span> <span data-i18n="arch.before">every repo kept its own copy of the pipeline — fixing the standard meant editing 40 files</span></p>
+          <p class="before-line mono"><span>before:</span> <span data-i18n="arch.before">every repo kept its own copy of the pipeline — fixing the standard meant editing every repo's copy by hand</span></p>
         </div>
 
         <div class="diagram-shell" data-diagram="gateway">
@@ -531,7 +531,7 @@
             <g class="dg-node n-repo"><rect x="20" y="60" width="150" height="44" rx="3" /><text class="node-sub" x="95" y="86" text-anchor="middle" data-i18n="arch.node.repo">service repo</text></g>
             <g class="dg-node n-repo"><rect x="20" y="124" width="150" height="44" rx="3" /><text class="node-sub" x="95" y="150" text-anchor="middle" data-i18n="arch.node.repo">service repo</text></g>
             <g class="dg-node n-repo"><rect x="20" y="188" width="150" height="44" rx="3" /><text class="node-sub" x="95" y="214" text-anchor="middle" data-i18n="arch.node.repo">service repo</text></g>
-            <g class="dg-node n-repo"><rect x="20" y="252" width="150" height="44" rx="3" /><text class="node-sub" x="95" y="278" text-anchor="middle" data-i18n="arch.node.more">+35 more</text></g>
+            <g class="dg-node n-repo"><rect x="20" y="252" width="150" height="44" rx="3" /><text class="node-sub" x="95" y="278" text-anchor="middle" data-i18n="arch.node.more">+50 more</text></g>
 
             <!-- gateway -->
             <g class="dg-node n-gateway">
@@ -818,7 +818,7 @@
           <p class="care-note" data-i18n="arch.sec.line">// security is a gate, not a report — SAST on the merge path, SBOM per image, secrets fail closed</p>
         </div>
 
-        <p class="care-note" data-i18n="arch.note1">// the stage orchestrator was designed on paper before a line of code — 40 repos share one contract, so a new team onboards with a four-line include</p>
+        <p class="care-note" data-i18n="arch.note1">// the stage orchestrator was designed on paper before a line of code — 53 services share one contract, so a new team onboards with a four-line include</p>
         <p class="care-note" data-i18n="arch.note2">// every helper ships with permanent debug logs — when production misbehaves, I read, I do not guess</p>
         <p class="care-note" data-i18n="arch.note3">// I hate copy-paste versioning more than I hate writing code: sync groups retag a whole release train consistently, next version suggested</p>
       </div>

@@ -36,7 +36,7 @@ window.I18N = {
     "work.sub.threat": "Threat model",
     "board.before": "approvals lived in chat, release state lived in one person's head, deploys were triggered from a terminal",
     "plat.before": "five tools and one spreadsheet to answer \"what runs in UAT right now?\"",
-    "arch.before": "every repo kept its own copy of the pipeline — fixing the standard meant editing 40 files",
+    "arch.before": "every repo kept its own copy of the pipeline — fixing the standard meant editing every repo's copy by hand",
     "arch.scan.label": "sample output — sanitized",
     "nav.toolbox": "Toolbox",
     "nav.experience": "Experience",
@@ -248,11 +248,11 @@ window.I18N = {
 
 
 
-    "arch.title": "One gateway, forty repositories",
+    "arch.title": "One gateway, fifty-three services",
     "arch.lead": "The idea I keep returning to: developers should never own pipeline plumbing. A four-line include routes every repository to its domain pipeline, and the standard evolves in one place.",
     "arch.node.repos": "53 services",
     "arch.node.repo": "service repo",
-    "arch.node.more": "+35 more",
+    "arch.node.more": "+50 more",
     "arch.node.gateway": "gateway.yml",
     "arch.node.gateway.sub": "route by project id",
     "arch.node.dom": "domain pipelines",
@@ -271,7 +271,7 @@ window.I18N = {
     "arch.p3.body": "SIT → UAT → PROD moves are tag-and-merge operations with an append-only release ledger as the source of truth for what runs where.",
     "arch.gate.title": "what \"release ready\" means on my platform",
     "arch.sec.line": "// security is a gate, not a report — SAST on the merge path, SBOM per image, secrets fail closed",
-    "arch.note1": "// the stage orchestrator was designed on paper before a line of code — 40 repos share one contract, so a new team onboards with a four-line include",
+    "arch.note1": "// the stage orchestrator was designed on paper before a line of code — 53 services share one contract, so a new team onboards with a four-line include",
     "arch.note2": "// every helper ships with permanent debug logs — when production misbehaves, I read, I do not guess",
     "arch.note3": "// I hate copy-paste versioning more than I hate writing code: sync groups retag a whole release train consistently, next version suggested",
 

@@ -24,7 +24,7 @@ with the same pipeline that enforces it.
 
 - **Copy-paste a template into each repository.** Rejected because drift is
   guaranteed: the template is copied once and never re-synced, and the only way
-  to find the divergence is to diff 40 files by hand.
+  to find the divergence is to diff every repo's copy by hand.
 - **Per-repo overrides as the default escape hatch.** Rejected because an
   override nobody can see is how a standard becomes folklore. Overrides exist,
   but they are declared in the service map, so an exception reads as an
