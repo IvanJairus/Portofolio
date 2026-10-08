@@ -1054,11 +1054,25 @@
     if (!bar || !("IntersectionObserver" in window)) return;
     var links = {};
     bar.querySelectorAll(".wsn").forEach(function (a) { links[a.dataset.wsn] = a; });
+    /* di ponsel barisnya satu lajur yang bisa digeser: chip aktif harus ikut
+       terlihat, kalau tidak penanda posisi justru hilang di luar layar */
+    function bringIntoView(chip) {
+      if (bar.scrollWidth <= bar.clientWidth) return;
+      var left = chip.offsetLeft - (bar.clientWidth - chip.offsetWidth) / 2;
+      var max = bar.scrollWidth - bar.clientWidth;
+      var target = Math.max(0, Math.min(left, max));
+      if (Math.abs(bar.scrollLeft - target) < 2) return;
+      bar.scrollTo({ left: target, behavior: RM ? "auto" : "smooth" });
+    }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
         var id = e.target.id;
-        for (var k in links) links[k].classList.toggle("on", k === id);
+        for (var k in links) {
+          var on = k === id;
+          links[k].classList.toggle("on", on);
+          if (on) bringIntoView(links[k]);
+        }
       });
     }, { rootMargin: "-40% 0px -55% 0px" });
     Object.keys(links).forEach(function (id) {

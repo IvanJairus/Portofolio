@@ -1402,7 +1402,7 @@
 /* --- work subnav --- */
 .work-subnav {
   position: sticky;
-  top: 64px;
+  top: var(--header-h);
   z-index: 40;
   display: flex;
   align-items: center;
@@ -1410,10 +1410,33 @@
   gap: 8px;
   padding: 10px var(--pad);
   margin: 0 auto 8px;
+  background: rgba(255, 255, 255, 0.92);
   background: color-mix(in srgb, var(--bg) 82%, transparent);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
+}
+/* satu baris yang bisa digeser: enam chip + label tidak pernah jadi tiga
+   baris di ponsel (terukur 93px), dan tingginya tidak lagi menggeser anchor */
+@media (max-width: 760px) {
+  .work-subnav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    height: var(--subnav-h);
+    padding: 0 var(--pad);
+    scrollbar-width: none;
+    background:
+      linear-gradient(to right, var(--bg) 30%, rgba(255, 255, 255, 0)) left center / 30px 100% no-repeat local,
+      linear-gradient(to left,  var(--bg) 30%, rgba(255, 255, 255, 0)) right center / 30px 100% no-repeat local,
+      rgba(255, 255, 255, 0.92);
+    background:
+      linear-gradient(to right, var(--bg) 30%, rgba(255, 255, 255, 0)) left center / 30px 100% no-repeat local,
+      linear-gradient(to left,  var(--bg) 30%, rgba(255, 255, 255, 0)) right center / 30px 100% no-repeat local,
+      color-mix(in srgb, var(--bg) 82%, transparent);
+  }
+  .work-subnav::-webkit-scrollbar { display: none; }
+  .work-subnav > * { flex: 0 0 auto; }
+  .wsn { min-height: 44px; display: inline-flex; align-items: center; }
 }
 .wsn-label { font-size: 12px; letter-spacing: 0.18em; color: var(--ink-faint); margin-right: 6px; }
 .wsn {
@@ -1998,9 +2021,15 @@ html:not([data-js]) .dec-fold { display: none; }
 }
 @media (max-width: 700px) { .ms2 { grid-template-columns: repeat(3, 1fr); } }
 
-/* anchor jump tidak tertutup sub-nav sticky */
-#board, #platform, #architecture, #runtime, #decisions, #threat, #about, #work, #toolbox, #experience, #contact {
-  scroll-margin-top: 118px;
+/* anchor jump tidak tertutup chrome lengket. Dua aturan, bukan satu:
+   hanya seksi di dalam Work yang punya sub-nav sticky, jadi sisanya cukup
+   tinggi header saja — kalau keduanya pakai nilai penuh, anchor di luar
+   Work mendarat 56px terlalu dalam. */
+#board, #platform, #architecture, #runtime, #decisions, #threat {
+  scroll-margin-top: calc(var(--header-h) + var(--subnav-h) + 8px);
+}
+#about, #work, #toolbox, #experience, #contact {
+  scroll-margin-top: calc(var(--header-h) + 8px);
 }
 
 
