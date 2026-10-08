@@ -321,6 +321,8 @@ window.I18N = {
     "skills.e.4.3": "service lifecycle over SSH with dated backups and 5×10s verify retries.",
     "skills.e.4.4": "append-only release ledger; promotion is tag-and-merge, reviewable in a diff.",
     "skills.e.4.5": "five artifact types — jar, image, apk/aab, ipa and web bundle — each with its own stage contract behind one gateway.",
+    "skills.e.4.6": "where the mobile artifact types land: the pipeline's apk/aab and ipa outputs are distributed through them — the deploy target for iOS and Android.",
+    "skills.e.4.7": "built the platform's own machines from an empty image — Jenkins node, GitLab runner, app server, web server: install, configure, keep updated.",
     "skills.e.5.1": "permanent debug logs in every helper; deploy callbacks stream into the dashboard over SSE.",
     "skills.e.5.2": "anti-loop watermarks and the scan-fails=fails rule both exist because of real incidents.",
     "skills.e.5.3": "per-artifact stage templates and rendered OpenShift manifests from one service map.",
@@ -333,7 +335,7 @@ window.I18N = {
     "skills.1.1": "GitLab CI", "skills.1.2": "Bash", "skills.1.3": "Jenkins / Groovy", "skills.1.4": "Pipeline design",
     "skills.2.1": "Python", "skills.2.2": "JavaScript / Node", "skills.2.3": "Groovy", "skills.2.4": "SQL / Oracle",
     "skills.3.1": "SAST / Semgrep", "skills.3.2": "Container scanning / Trivy", "skills.3.3": "Secrets / Vault", "skills.3.4": "SBOM / CycloneDX",
-    "skills.4.1": "Docker / Registry", "skills.4.2": "OpenShift / Kubernetes", "skills.4.3": "Linux / SSH", "skills.4.4": "Git", "skills.4.5": "Multi-artifact delivery",
+    "skills.4.1": "Docker / Registry", "skills.4.2": "OpenShift / Kubernetes", "skills.4.3": "Linux / SSH", "skills.4.4": "Git", "skills.4.5": "Multi-artifact delivery", "skills.4.6": "Firebase / TestFlight", "skills.4.7": "On-prem VM provisioning",
     "skills.5.1": "Logging & debuggability", "skills.5.2": "Incident-driven design", "skills.5.3": "Templating & rendered manifests", "skills.5.4": "Automated testing",
 
     "exp.title": "One direction, deepened",
