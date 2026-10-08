@@ -194,8 +194,8 @@
           <p class="lead" data-i18n="work.lead">Sanitized descriptions — no hostnames, no tenant names, no internals. The engineering is real; the labels are not.</p>
 
           <div class="depth-row">
-            <button type="button" class="tool-btn depth-btn" data-depth-btn aria-pressed="false" aria-describedby="depth-hint"><span data-i18n="depth.skim">Highlights only</span><span class="depth-state" aria-hidden="true"></span></button>
-            <p class="depth-hint mono" id="depth-hint" data-i18n="depth.hint">shortens this page for a sixty-second read: the summary cards above stay, the six case studies below fold away</p>
+            <button type="button" class="tool-btn depth-btn" data-depth-btn aria-pressed="false" aria-describedby="depth-hint"><span data-i18n="depth.skim">Hide case studies</span></button>
+            <p class="depth-hint mono" id="depth-hint" data-i18n="depth.hint">hides the six case studies below and keeps the summary cards — for a sixty-second read</p>
           </div>
         </div>
 
@@ -971,6 +971,15 @@
         </div>
       </div>
     </section>
+
+      <!-- tempat enam case study tadi; hanya muncul saat halaman sedang disingkat,
+         supaya pengguna tidak perlu mene-nebak ke mana kontennya pergi -->
+      <div class="wrap">
+        <p class="skim-note" data-skim-note hidden>
+          <span class="mono" data-i18n="depth.hidden">six case studies hidden — this is the short read</span>
+          <button type="button" class="tool-btn skim-back" data-depth-btn aria-pressed="true"><span data-i18n="depth.show">Show them</span></button>
+        </p>
+      </div>
 
   </div><!-- /#work -->
 

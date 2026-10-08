@@ -263,13 +263,17 @@
   /* ---------- dua kedalaman baca (Skim / Deep) ---------- */
   function initDepth() {
     const root = document.documentElement;
-    const btn = document.querySelector("[data-depth-btn]");
+    const btns = [].slice.call(document.querySelectorAll("[data-depth-btn]"));
+    const label = btns.length ? btns[0].querySelector("[data-i18n]") : null;
     const skim = () => root.dataset.depth === "skim";
     const set = (on) => {
       root.dataset.depth = on ? "skim" : "deep";
-      if (btn) btn.setAttribute("aria-pressed", String(on));
+      btns.forEach((b) => b.setAttribute("aria-pressed", String(on)));
+      /* tombolnya berubah kata kerja, bukan cuma berubah state: "Highlights only
+         · off" tidak memberi tahu apa yang terjadi setelah ditekan */
+      if (label) label.textContent = t(on ? "depth.deep" : "depth.skim");
     };
-    if (btn) btn.addEventListener("click", () => set(!skim()));
+    btns.forEach((b) => b.addEventListener("click", () => set(!skim())));
     if (new URLSearchParams(location.search).get("view") === "skim") set(true);
     /* tautan ke section yang sedang disembunyikan: buka dulu, baru lompat */
     document.addEventListener("click", (e) => {

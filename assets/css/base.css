@@ -228,15 +228,30 @@ html[data-js] .depth-row { display: flex; flex-wrap: wrap; }
   color: var(--ink-faint);
   max-width: 46ch;
 }
-.depth-state::after { content: " \00b7 off"; color: var(--ink-faint); }
-.depth-btn[aria-pressed="true"] .depth-state::after { content: " \00b7 on"; }
 @media (pointer: coarse) {
   .depth-btn { min-height: 44px; display: inline-flex; align-items: center; }
 }
 html[data-depth="skim"] [data-deep] { display: none; }
+/* Penanda di tempat keenam case study tadi. Tanpanya tombol "hide" hanya
+   menghilangkan isi dan pengguna ditinggal menebak. Author style di atas
+   mengalahkan [hidden] bawaan UA, jadi tanpa JS ia tetap tersembunyi. */
+.skim-note {
+  display: none;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-top: 8px;
+  padding: 14px 16px;
+  border: 1px dashed var(--line-strong);
+  background: var(--bg-3);
+  font-size: 13px;
+  color: var(--ink-dim);
+}
+html[data-depth="skim"] .skim-note { display: flex; }
 /* cetak = dokumen lengkap, apa pun mode di layar */
 @media print {
   html[data-depth="skim"] [data-deep] { display: block; }
+  .skim-note { display: none; }
 }
 
 .menu-btn { display: none; }

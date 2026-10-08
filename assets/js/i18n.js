@@ -301,8 +301,11 @@ window.I18N = {
 
     "work.title": "Things I built and still maintain",
     "work.lead": "Sanitized descriptions — no hostnames, no tenant names, no internals. The engineering is real; the labels are not.",
-    "depth.skim": "Highlights only",
-    "depth.hint": "shortens this page for a sixty-second read: the summary cards above stay, the six case studies below fold away",
+    "depth.skim": "Hide case studies",
+    "depth.deep": "Show case studies",
+    "depth.hidden": "six case studies hidden — this is the short read",
+    "depth.show": "Show them",
+    "depth.hint": "hides the six case studies below and keeps the summary cards — for a sixty-second read",
     "work.1.title": "ChatOps Release Orchestrator",
     "work.1.desc": "Webhook-driven orchestrator that turns issue-board movements into action: branch creation, merge requests, approval validation, deploy triggers and scan scheduling, with a state machine persisted in the issue itself.",
     "work.1.i1": "32 pipeline jobs across 18 orchestrators",
