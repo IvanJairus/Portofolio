@@ -27,7 +27,7 @@ All notable changes to this repository are documented here. The format follows
 
 ## [Unreleased]
 
-Forty-four commits after `v1.0.0`, all on 2026-10-08. The tag was cut at
+Fifty commits after `v1.0.0`, all on 2026-10-08. The tag was cut at
 `66d63ad`; everything below is after it and has not been tagged yet.
 
 ### Domain
@@ -200,6 +200,39 @@ Forty-four commits after `v1.0.0`, all on 2026-10-08. The tag was cut at
   the policy needed to work around it would enforce nothing.
 - `866456e` — CODEOWNERS says one owner, because that is who owns it.
 
+### Round 3, from the owner's second screenshot set
+
+- `637eb7a` — three regressions of my own, all found by looking at rendered
+  screens rather than measuring widths: the "counter-example" flag was clipped
+  19px outside a 360px viewport (the flex row holding it could not wrap, so the
+  label that names the mode was the one thing off screen); the phone reflow of
+  the before/after board also caught the "gitlab out of the box" panel, whose
+  empty columns are the point, so it is scoped to `.ba-cols.five` now; and the
+  portrait in the contact card still carried `grid-area: photo`, which in a grid
+  without that area creates a phantom second track — the photo moved right and
+  the email row was cut at the card edge.
+- `2cabbf7` — the pause button is gone, on your instruction, and the strip is
+  driven by its own `scrollLeft` instead of a CSS transform so the same row can
+  be dragged by hand while it crawls at 26px/s. It holds still for 1,4s after
+  the last touch and then continues from wherever you left it. The trap that
+  made the first version stand still: `scrollLeft` reads back as an integer at
+  DPR 1, and one frame at 26px/s is 0,42px, so re-reading the position floored
+  the step to zero forever.
+- `493a92e` — "Highlights only · off" becomes a verb that swaps with its own
+  state, and a dashed note now sits where the six case studies were: "six case
+  studies hidden — this is the short read" with its own Show-them control.
+  Without JavaScript the note and the control row stay hidden.
+- `bf69dfa` — the rail is numbered 1–7 at ≤620px (the connector is switched off
+  there, which is what turned seven stages into seven shapes), its caption says
+  what the row is for instead of naming a property, the five artifact types
+  become five chips with glyphs drawn here, and the hero stops spending 70px of
+  a phone's first screen on padding.
+- `59adb96` — the footer's "Hand-built …" clause and the whole quality-gate
+  paragraph are removed. Recorded so it is not a silent loss: that paragraph was
+  the only place the page pointed at the CI enforcing its own numbers, and it had
+  gone stale ("400 KiB" after the ceiling moved to 512). The gate still runs; it
+  is just not advertised in the footer.
+
 ### Corrections
 
 - `2ddd5da` and `ec0982b` retract two of my own earlier claims: "7 of 7 rail
@@ -218,6 +251,16 @@ Forty-four commits after `v1.0.0`, all on 2026-10-08. The tag was cut at
 - `e336b7e` is a correction of a report, not of code: the menu glyph was said
   to sit off-centre, and measured it did not (offX 0, offY -0.4px inside
   44x44). What was actually wrong was the glyph's own optical centre.
+- `2cabbf7` removes the pause button `d5f6648` shipped and defends with WCAG
+  2.2.2. The owner rejected it, and the rejection is the better call: the strip
+  is now swipeable while it runs, so stopping is something the user does by
+  touching it rather than by finding a control. Reduced motion and no-JS still
+  get no marquee at all. What is *not* satisfied any more is a strict reading of
+  2.2.2 - there is no pause mechanism that is not "interact with the strip" -
+  and that is a deliberate trade, recorded here rather than discovered later.
+- `637eb7a` reverts the arrangement `b016bac` chose: the "open to work" pill sits
+  under the portrait again, not beside it. The side-by-side version measured
+  fine and looked wrong, which is the difference between a viewport and a screen.
 
 ## [1.0.0] - 2026-10-08
 
