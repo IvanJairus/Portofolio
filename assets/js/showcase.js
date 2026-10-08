@@ -484,6 +484,7 @@
     P.toasts = root.querySelector("[data-rp-toasts]");
     P.sse = root.querySelector("[data-rp-sse]");
     P.crumb = root.querySelector("[data-rp-crumb]");
+    P.hint = document.querySelector(".rp-hint");
 
     root.querySelectorAll(".rp-ni").forEach(function (b) {
       b.addEventListener("click", function () { setView(b.dataset.view); });
@@ -572,7 +573,21 @@
     setSafeHtml(P.viewEl, VIEW[P.view] ? VIEW[P.view]() : "");
     P.viewEl.querySelectorAll("[data-h]").forEach(function (b) { b.style.height = b.getAttribute("data-h") + "%"; });
     if (P.view === "deploys" && P.deployTab === "monitoring" && P.building) startConsole();
+    syncHint();
   }
+
+  /* Petunjuk geser hanya boleh tampil kalau view yang sedang dibuka memang lebih
+     lebar dari kotaknya. Terukur di 390px: hanya view Board yang begitu (598 vs
+     348); tujuh sisanya muat penuh, dan hint yang selalu ada itu bohong. */
+  function syncHint() {
+    if (!P.hint || !P.viewEl) return;
+    P.hint.hidden = P.viewEl.scrollWidth <= P.viewEl.clientWidth + 1;
+  }
+  var hintRaf = 0;
+  window.addEventListener("resize", function () {
+    if (hintRaf) return;
+    hintRaf = requestAnimationFrame(function () { hintRaf = 0; syncHint(); });
+  });
 
   /* ---------- helper markup ---------- */
   function panel(title, right, inner, note) {

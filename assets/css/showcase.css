@@ -2173,10 +2173,15 @@ html:not([data-js]) .dec-fold { display: none; }
     color: var(--ink-faint);
   }
   .scroll-hint::before { content: "↔ "; color: var(--accent); }
+  /* hint replika berada di luar kotak geser — isinya dirender JS, jadi tidak bisa
+     ditaruh di dalamnya — jadi ia tidak menempel ikut digeser, melainkan berdiri
+     tetap di atas area itu */
+  .rp-hint { position: static; padding: 0 16px; margin: 0 0 2px; }
+  .rp-hint[hidden] { display: none; }
 }
 /* bayangan tepi: sinyal visual kedua bahwa tepi kanan bukan batas konten */
 @media (max-width: 620px) {
-  .diagram-shell, .tm-wrap {
+  .diagram-shell, .tm-wrap, .rp-view {
     background:
       linear-gradient(to right, var(--bg-2) 30%, rgba(255, 255, 255, 0)) left center / 36px 100% no-repeat local,
       linear-gradient(to left,  var(--bg-2) 30%, rgba(255, 255, 255, 0)) right center / 36px 100% no-repeat local,
