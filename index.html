@@ -399,7 +399,7 @@
         </div>
 
         <!-- chatops jadi satu anotasi -->
-        <p class="care-note co-line"><span class="mono">chatops //</span> <span data-i18n="board.co.line">/retry · /sonarqube · /diff &lt;domain&gt; · /sync · /follow #iid · /summarypic · /notif — the board doubles as a command line; every command is anchored, gated by ticket status and bot-proof.</span></p>
+        <p class="care-note co-line"><span class="mono">chatops //</span> <span data-i18n="board.co.line">/retry · /sonarqube · /diff &lt;domain&gt; · /deploy-secure · /sync · /follow #iid · /summarypic · /notif — the board doubles as a command line; every command is anchored, gated by ticket status and bot-proof.</span></p>
       </div>
     </section>
 
@@ -953,6 +953,8 @@
               <tr><td data-i18n="tm.3a">secrets</td><td data-i18n="tm.3t">plaintext in logs or repo</td><td data-i18n="tm.3g">KV store, JWT-scoped pipeline auth, fail-closed, values masked in audit</td></tr>
               <tr><td data-i18n="tm.4a">artifacts</td><td data-i18n="tm.4t">vulnerable or untraceable image</td><td data-i18n="tm.4g">trivy + SBOM on the merge path; quality gate before promote</td></tr>
               <tr><td data-i18n="tm.5a">release record</td><td data-i18n="tm.5t">"what runs where" disputes</td><td data-i18n="tm.5g">append-only ledger + pipeline callbacks written back to the ticket</td></tr>
+              <tr><td data-i18n="tm.6a">mobile binaries</td><td data-i18n="tm.6t">a released app repackaged or reverse-engineered</td><td data-i18n-html="tm.6g">one pipeline, two build standards: plain by default, <code>/deploy-secure</code> puts Android through DexGuard and iOS through iXGuard</td></tr>
+              <tr><td data-i18n="tm.7a">dependencies</td><td data-i18n="tm.7t">a poisoned or unpinned package reaching a build</td><td data-i18n="tm.7g">every Maven and npm resolution is required to pass through one internal store — proxy, hosted and group repositories I administer</td></tr>
             </tbody>
           </table>
         </div>
@@ -1073,6 +1075,14 @@
             <div class="skill-item">
               <div class="si-top"><span class="si-name" data-i18n="skills.4.7">On-prem VM provisioning</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
               <p class="si-ev"><span data-i18n="skills.e.4.7">built the platform's own machines from an empty image — Jenkins node, GitLab runner, app server, web server: install, configure, keep updated.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.4.8">Sonatype Nexus</span><span class="tier t-daily" data-i18n="tier.daily">production daily</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.4.8">every service resolves its Maven and npm dependencies through this store — proxy, hosted and group repositories; I built it and I administer who may publish to it.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
+            </div>
+            <div class="skill-item">
+              <div class="si-top"><span class="si-name" data-i18n="skills.4.9">DexGuard / iXGuard</span><span class="tier t-regular" data-i18n="tier.regular">production regular</span></div>
+              <p class="si-ev"><span data-i18n="skills.e.4.9">hardening is a pipeline variant, not a second pipeline: the same stage contract with the protectors switched on, requested per release.</span><a class="ref" href="#proj-2" data-ref="proj-2">proj-02</a></p>
             </div>
           </div>
 
