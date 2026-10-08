@@ -59,6 +59,8 @@ window.I18N = {
     "rt.3.c": "A cleanup rule that is wrong deletes the evidence you would have wanted, so the date lives in the filename and removals are logged. The window itself is the bank's to publish, not mine; the rule and the routine are what I am claiming.",
     "rt.4.title": "What I would do differently",
     "rt.4.body": "Resource values started out copied from whatever service shipped last, because nothing measured them and nobody was asked for a number. If I set this up again, the contract would carry a measured baseline per artifact type, so the decision starts from an observation instead of an estimate — and the list of overrides stays short enough to read in one sitting.",
+    "rt.5.title": "Numbers, with the sample size attached",
+    "rt.5.body": "Measured from the platform's own GitLab API on 8 October 2026: 53 services declared across the service maps, 99 source repositories carrying no CI file at all (46 of them with pipeline history), and 10 pipeline projects that have run 7.550 pipelines between them. On one backend service: a deploy to an app-server VM takes a median 93 seconds (n = 13 successful jobs, p90 162 s, range 19\u2013199 s), and the SonarQube gate a median 80 seconds (n = 30, p90 140 s). Nobody reading this page can reproduce those numbers \u2014 they come from a private instance. That is exactly why each one carries its sample size: a figure you cannot interrogate is worth nothing, and a figure you can is worth the space it takes.",
     "dec.title": "Decisions and what they cost",
     "dec.lead": "Each decision, the alternative I rejected, and what it cost.",
     "dec.row.d": "decision",
