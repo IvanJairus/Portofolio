@@ -252,6 +252,35 @@
   text-transform: uppercase; color: var(--accent);
 }
 .bd-live i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s var(--ease) infinite; }
+
+/* kontrol "break the gate": tombol kecil, hasilnya besar */
+.bd-break {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--ink-dim);
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  padding: 5px 10px;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.bd-break:hover { color: var(--danger); border-color: var(--danger); }
+.bd-break[aria-pressed="true"] { background: var(--danger-dim); border-color: var(--danger); color: var(--danger); }
+.bd-break-flag {
+  display: none;
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--danger);
+}
+.bd.breaking .bd-break-flag { display: inline; }
+.bd.breaking .bd-live i { animation: none; background: var(--danger); }
+@keyframes act-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.bd.breaking .act-in { animation: act-in 0.45s var(--ease) both; }
+@media (prefers-reduced-motion: reduce) { .bd.breaking .act-in { animation: none; } }
+
+/* tanpa JS tombol ini tidak melakukan apa pun, jadi tidak ditampilkan */
+html:not([data-js]) .bd-break { display: none; }
 .bd-count { font-size: 12px; color: var(--ink-faint); letter-spacing: 0.08em; }
 .bd-count b { color: var(--ink); }
 .bd-btn {
@@ -2254,7 +2283,7 @@ html:not([data-js]) .dec-fold { display: none; }
    Catatan: .depth-btn, .dec-fold, .wsn dan .lc-pause sudah 44px di bloknya masing-masing;
    yang di bawah ini sisanya. */
 @media (pointer: coarse) {
-  .tool-btn, .copy-btn, .tf-btn, .ms-tab, .lc-chip, .co-chip, .rp-btn, .dec-fold, .wsn {
+  .tool-btn, .copy-btn, .tf-btn, .ms-tab, .lc-chip, .co-chip, .rp-btn, .dec-fold, .wsn, .bd-break {
     min-height: 44px;
     display: inline-flex;
     align-items: center;

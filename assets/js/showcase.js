@@ -202,11 +202,22 @@
     bd.total = root.querySelector("[data-bd-total]");
     if (bd.total) bd.total.textContent = String(STEPS.length);
 
-    root.querySelector("[data-bd-prev]").addEventListener("click", function () { stop(); go(bd.idx - 1); });
-    root.querySelector("[data-bd-next]").addEventListener("click", function () { stop(); go(bd.idx + 1); });
-    bd.playBtn.addEventListener("click", function () { bd.playing ? stop() : play(); });
+    bd.breakBtn = root.querySelector("[data-bd-break]");
+    if (bd.breakBtn) bd.breakBtn.addEventListener("click", function () { setBreak(!bd.breaking); });
+    /* navigasi apa pun mengakhiri counter-example: tidak ada mode tersembunyi
+       yang membuat langkah berikutnya terlihat salah */
+    function nav(fn) {
+      return function () { stop(); if (bd.breaking) setBreak(false); fn(); };
+    }
+    root.querySelector("[data-bd-prev]").addEventListener("click", nav(function () { go(bd.idx - 1); }));
+    root.querySelector("[data-bd-next]").addEventListener("click", nav(function () { go(bd.idx + 1); }));
+    bd.playBtn.addEventListener("click", function () {
+      if (bd.playing) { stop(); return; }
+      if (bd.breaking) setBreak(false);
+      play();
+    });
     bd.dots.forEach(function (d) {
-      d.addEventListener("click", function () { stop(); go(parseInt(d.dataset.bdGo, 10)); });
+      d.addEventListener("click", nav(function () { go(parseInt(d.dataset.bdGo, 10)); }));
     });
 
     go(0);
@@ -223,7 +234,7 @@
   }
 
   function play() {
-    if (!bd) return;
+    if (!bd || bd.breaking) return;
     bd.playing = true;
     bd.playBtn.classList.remove("paused");
     clearTimeout(bd.timer);
@@ -278,32 +289,7 @@
     if (bd.rendered > countActs(i)) { bd.feed.replaceChildren(); bd.rendered = 0; }
     var flat = [];
     for (var k = 0; k <= i; k++) flat = flat.concat(STEPS[k].acts);
-    for (var j = bd.rendered; j < flat.length; j++) {
-      var a = flat[j];
-      var el = document.createElement("div");
-      el.className = "act " + a.cls;
-
-      var who = document.createElement("div");
-      who.className = "act-who";
-      var s1 = document.createElement("span");
-      s1.textContent = a.who;
-      var s2 = document.createElement("span");
-      s2.textContent = a.name;
-      who.append(s1, s2);
-
-      var title = document.createElement("div");
-      title.className = "act-title";
-      setSafeHtml(title, a.title);
-
-      el.append(who, title);
-      if (a.body) {
-        var body = document.createElement("div");
-        body.className = "act-body";
-        setSafeHtml(body, a.body);
-        el.appendChild(body);
-      }
-      bd.feed.appendChild(el);
-    }
+    for (var j = bd.rendered; j < flat.length; j++) bd.feed.appendChild(actEl(flat[j]));
     bd.rendered = flat.length;
     bd.feed.scrollTop = bd.feed.scrollHeight;
 
@@ -314,6 +300,107 @@
       d.classList.toggle("on", di === i);
       d.classList.toggle("done", di < i);
     });
+  }
+
+  /* satu entri feed; dipakai alur normal dan counter-example di bawah */
+  function actEl(a) {
+    var el = document.createElement("div");
+    el.className = "act " + a.cls;
+
+    var who = document.createElement("div");
+    who.className = "act-who";
+    var s1 = document.createElement("span");
+    s1.textContent = a.who;
+    var s2 = document.createElement("span");
+    s2.textContent = a.name;
+    who.append(s1, s2);
+
+    var title = document.createElement("div");
+    title.className = "act-title";
+    setSafeHtml(title, a.title);
+
+    el.append(who, title);
+    if (a.body) {
+      var body = document.createElement("div");
+      body.className = "act-body";
+      setSafeHtml(body, a.body);
+      el.appendChild(body);
+    }
+    return el;
+  }
+
+  /* ---------- "break the gate": counter-example, bukan langkah ke-9 ----------
+     Tiga hal di bawah ini sudah diklaim situs di tempat lain (kartu langkah 6,
+     guard langkah 7, kartu "Gates fail closed" di Decisions). Tidak ada perilaku
+     baru yang diumumkan di sini; yang berubah adalah pengunjung boleh melihat
+     klaim itu bekerja, bukan membacanya sebagai janji. */
+  var BREAK = {
+    col: 3,
+    phase: "Merged \u00b7 refused",
+    acts: [
+      { who: "engineer", cls: "human", name: "manual",
+        title: "Card dragged to Merged \u2014 no merge request merged",
+        body: "The board accepts the move. That is the problem: a status on a card is a claim, and a claim needs a source." },
+      { who: "gate", cls: "gate", name: "merge guard",
+        title: "Status reverted to In Review",
+        body: "The orchestrator polls the merge request, finds no merged state behind it, posts the summary and <b>moves the card back</b>. A person still has to click merge." },
+      { who: "domain pipeline", cls: "bot", name: "gitlab-ci",
+        title: "Job failed with exit 1",
+        body: "The deploy job re-reads the ticket before it does anything: no confirmed merge, so it stops. Warn-and-continue would have shipped a claim." }
+    ]
+  };
+
+  function placeCard(col) {
+    var body = bd.cols[col].querySelector(".bd-colbody");
+    if (bd.card.parentElement !== body) {
+      body.appendChild(bd.card);
+      if (!RM) {
+        bd.card.classList.remove("moved");
+        void bd.card.offsetWidth;
+        bd.card.classList.add("moved");
+      }
+    }
+    bd.cols.forEach(function (c, ci) { c.classList.toggle("active", ci === col); });
+    bd.cols.forEach(function (c) {
+      var n = c.querySelector(".bd-colbody").children.length;
+      c.querySelector(".cc").textContent = String(n);
+    });
+  }
+
+  /* Dua ketukan: percobaan, lalu penolakannya. Kalau kartu langsung digambar di
+     kolom asal, "reverted" cuma jadi kalimat—dan yang dijual panel ini justru
+     melihatnya terjadi. */
+  function paintBreak() {
+    clearTimeout(bd.breakTimer);
+    setSafeHtml(bd.narr, T("board.narr.break"));
+    bd.feed.replaceChildren();
+    bd.feed.appendChild(actEl(BREAK.acts[0]));
+    bd.feed.scrollTop = bd.feed.scrollHeight;
+    bd.phase.textContent = BREAK.phase;
+    placeCard(BREAK.col);
+    bd.breakTimer = setTimeout(function () {
+      if (!bd || !bd.breaking) return;
+      bd.phase.textContent = "In Review";
+      placeCard(2);
+      [1, 2].forEach(function (n) {
+        var el = actEl(BREAK.acts[n]);
+        el.classList.add("act-in");
+        bd.feed.appendChild(el);
+      });
+      bd.feed.scrollTop = bd.feed.scrollHeight;
+    }, 1400);
+  }
+
+  function setBreak(on) {
+    if (!bd || !bd.breakBtn) return;
+    bd.breaking = on;
+    bd.breakBtn.setAttribute("aria-pressed", String(on));
+    bd.root.classList.toggle("breaking", on);
+    if (on) { stop(); paintBreak(); return; }
+    clearTimeout(bd.breakTimer);
+    bd.rendered = 0;
+    bd.feed.replaceChildren();
+    go(bd.idx);
   }
 
   function countActs(i) {
