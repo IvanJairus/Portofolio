@@ -122,7 +122,7 @@
             <div class="hf-node hf-prod" data-hf="6"><i></i><span>PROD</span><em class="hf-sub">release ledger</em></div>
           </div>
           <p class="sr-only">Release pipeline stages: commit (git push), build (maven, gradle, npm), scan (trivy, sonarqube), approval gate (five-layer chain), deploy to SIT, promote to UAT, release to PROD with a release ledger.</p>
-          <p class="hf-legend" data-i18n-html="hero.flow.legend"><span class="lm-scan" aria-hidden="true">◇</span> scan · <span class="lm-gate" aria-hidden="true">■</span> gate — fail closed</p>
+          <p class="hf-legend" data-i18n-html="hero.flow.legend">one change, seven stages — nobody runs these by hand · <span class="lm-scan" aria-hidden="true">◇</span> scan · <span class="lm-gate" aria-hidden="true">■</span> gate</p>
         </div>
 
         <div class="hero-after">
@@ -180,7 +180,31 @@
           </a>
         </div>
 
-        <p class="artifact-line mono" data-i18n="hero.artifacts">artifacts I ship: jar · image · apk/aab · ipa · web bundle — one standard for all five</p>
+        <!-- lima tipe artefak: dulu satu baris teks mono, sekarang satu baris
+             bentuk - orang membaca visual dulu, label belakangan -->
+        <ul class="artifacts" aria-label="Artifact types this pipeline ships">
+          <li class="art">
+            <svg class="art-ic" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M10 2.6 16.8 6v8L10 17.4 3.2 14V6z"/><path d="M3.2 6 10 9.4 16.8 6M10 9.4v8"/></svg>
+            <span class="art-n mono">jar</span><span class="art-t mono">JVM</span>
+          </li>
+          <li class="art">
+            <svg class="art-ic" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M10 2.8 3.4 6.2 10 9.6l6.6-3.4z"/><path d="M3.4 10 10 13.4 16.6 10M3.4 13.8 10 17.2 16.6 13.8"/></svg>
+            <span class="art-n mono">image</span><span class="art-t mono">OCI</span>
+          </li>
+          <li class="art">
+            <svg class="art-ic" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><rect x="5" y="2.6" width="10" height="14.8" rx="1.9"/><path d="M8.6 8 12.8 10.2 8.6 12.4z"/></svg>
+            <span class="art-n mono">apk / aab</span><span class="art-t mono">Android</span>
+          </li>
+          <li class="art">
+            <svg class="art-ic" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><rect x="5" y="2.6" width="10" height="14.8" rx="1.9"/><rect x="8.3" y="8" width="3.4" height="3.4" rx="1"/></svg>
+            <span class="art-n mono">ipa</span><span class="art-t mono">iOS</span>
+          </li>
+          <li class="art">
+            <svg class="art-ic" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><rect x="2.6" y="4.6" width="14.8" height="10.8" rx="1.6"/><path d="M2.6 7.8h14.8"/><path d="M4.9 6.2h.01M7.1 6.2h.01"/></svg>
+            <span class="art-n mono">web bundle</span><span class="art-t mono">Browser</span>
+          </li>
+        </ul>
+        <p class="artifact-line mono" data-i18n="hero.artifacts">one standard, five artifact types</p>
       </div>
     </section>
 

@@ -15,8 +15,8 @@ window.I18N = {
     /* ---- hero flow rail ---- */
     "hero.yml.where": "the whole file, in a GitLab-native repo",
     "hero.yml.foot": "real format, project name sanitized. Most services carry no CI file at all — the board runs them from the pipeline repository",
-    "hero.flow.legend": "<span class=\"lm-scan\" aria-hidden=\"true\">◇</span> scan · <span class=\"lm-gate\" aria-hidden=\"true\">■</span> gate — fail closed",
-    "hero.artifacts": "artifacts I ship: jar · image · apk/aab · ipa · web bundle — one standard for all five",
+    "hero.flow.legend": "one change, seven stages — nobody runs these by hand · <span class=\"lm-scan\" aria-hidden=\"true\">◇</span> scan · <span class=\"lm-gate\" aria-hidden=\"true\">■</span> gate",
+    "hero.artifacts": "one standard, five artifact types",
     "about.title": "Pipelines other people are happy to inherit.",
     "about.lead": "DevSecOps, Jakarta. I design and maintain the release machinery behind banking-grade systems — and I document the trade-offs, not just the wins.",
     "about.p1.text": "services delivered from one pipeline repository",

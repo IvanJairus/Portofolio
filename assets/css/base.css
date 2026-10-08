@@ -287,6 +287,12 @@ html[data-depth="skim"] .skim-note { display: flex; }
   padding-bottom: clamp(56px, 8vw, 96px);
   border-top: none;
 }
+/* Di ponsel 16vh berarti 135px: header 65px, lalu 70px kosong sebelum namanya.
+   Ruang itu tidak membeli apa pun di layar 844px - yang dibayar adalah rel yang
+   turun dari fold. Sisakan satu napas pendek di bawah chrome. */
+@media (max-width: 860px) {
+  .hero { padding-top: calc(var(--header-h) + 30px); }
+}
 .hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
