@@ -365,7 +365,8 @@ window.I18N = {
     "exp.edu": "S1 Informatics — Universitas Tarumanagara",
 
     "footer.built": "Hand-built — no framework, no CDN, no build step, system fonts.",
-    "footer.creed": "If the process needs a hero, the process is wrong."
+    "footer.creed": "If the process needs a hero, the process is wrong.",
+    "footer.gate": "runs on every push to main: Lighthouse mobile budgets, a 400 KiB page-weight ceiling, zero tolerance for contrast findings and console errors — and the report from the run that decided the outcome is uploaded with each build."
   }
 
 };
