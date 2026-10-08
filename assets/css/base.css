@@ -259,6 +259,11 @@ html[data-depth="skim"] [data-deep] { display: none; }
   .nav.open { transform: none; opacity: 1; visibility: visible; }
   .nav a { padding: 12px 10px; font-size: 14px; border-bottom: 1px solid var(--line); }
   .menu-btn { display: inline-flex; justify-content: center; align-items: center; padding: 7px 0; }
+  /* Glyph "≡" (U+2261) sudah rata kotak (offX 0, offY -0.4px di dalam 44x44),
+     tapi lebarnya cuma 8.5px dan ia duduk di math axis, bukan di tengah visual
+     - itu yang membuat tombolnya terlihat miring. Ikon SVG 18px ikut warna
+     teksnya, jadi tengahnya benar-benar tengah. */
+  .menu-btn .mi { display: block; }
 }
 
 /* ---------- hero ---------- */
@@ -547,12 +552,10 @@ html[data-depth="skim"] [data-deep] { display: none; }
 
 /* Di ponsel potret 161px di ujung hero menyisakan ruang kosong yang lebih lebar
    dari fotonya sendiri. Ia tidak dibuang: dipindah ke kartu kontak oleh main.js,
-   tempat wajah memang diharapkan. Tanpa JS ia tetap di hero, hanya tersembunyi. */
+   tempat wajah memang diharapkan - lihat .contact-meta di components.css untuk
+   cara ia duduk di sana. Tanpa JS ia tetap di hero, hanya tersembunyi. */
 @media (max-width: 860px) {
   .hero-photo { display: none; }
-  /* kartu kontak itu grid dua kolom; potret harus membentang sendiri di baris
-     pertamanya, tidak boleh ikut masuk ke sel label */
-  .contact-meta .hero-photo { display: block; grid-area: auto; grid-column: 1 / -1; justify-self: start; width: 116px; margin: 0 0 16px; }
 }
 
 @media (max-width: 860px) {

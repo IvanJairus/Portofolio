@@ -382,6 +382,19 @@
 .status-pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s var(--ease) infinite; }
 @media (max-width: 760px) { .contact-in { grid-template-columns: minmax(0, 1fr); } }
 
+/* Di ponsel kartu kontak menerima potret (dipindah oleh main.js). Baris
+   pertamanya potret + penanda status; kalau sempitnya tidak cukup, penanda itu
+   turun utuh ke baris sendiri - white-space dijaga supaya tidak pernah jadi
+   dua baris teks. Baris detail tetap selebar kartu. Aturan ini ada di sini,
+   bukan di base.css, karena .contact-meta di atas memakai display: grid dengan
+   spesifisitas sama: di base.css ia tidak akan pernah menang. */
+@media (max-width: 860px) {
+  .contact-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 16px; }
+  .contact-meta .hero-photo { display: block; width: 104px; margin: 0; flex: 0 0 auto; }
+  .contact-meta .status-pill { flex: 0 0 auto; white-space: nowrap; }
+  .contact-meta .cm-row { flex: 1 0 100%; }
+}
+
 /* ---------- footer ---------- */
 .site-footer { border-top: 1px solid var(--line); padding: 30px 0 40px; }
 .footer-in { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 12px; color: var(--ink-faint); letter-spacing: 0.04em; }
