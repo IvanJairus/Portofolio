@@ -393,32 +393,19 @@ html[data-depth="skim"] [data-deep] { display: none; }
   .hs-row > .sc { flex: 0 0 auto; scroll-snap-align: start; }
 }
 
-/* ---------- strip stack: lajur berjalan seperti papan nama ----------
-   Dua set identik berdampingan, digeser -50% lalu diulang: putarannya mulus
-   tanpa terlihat menyambung. Kecepatannya yang dijaga tetap - durasi dihitung
-   dari lebar isi di JS - supaya alat bernama panjang tidak terburu-buru.
-   Berhenti saat kursor di atasnya, saat ada chip menerima fokus keyboard, lewat
-   tombol pause di samping label, dan saat lajur sudah tidak terlihat.
+/* ---------- strip stack: papan nama yang bisa digeser ----------
+   Dua set identik berdampingan. Yang menggesernya adalah scrollLeft barisnya
+   sendiri (bukan transform), jadi satu kontrol melayani dua arah: lajur berjalan
+   pelan 26px/s, dan jari yang menariknya tetap bekerja seperti menggeser baris
+   biasa. Selama disentuh/di-scroll/difokus lajur diam; 1,4 detik setelah
+   interaksi terakhir ia lanjut dari posisi itu, bukan dari awal.
+   Tidak ada tombol pause - yang berhenti adalah animasinya, bukan hak pengguna.
    Tanpa JS atau dengan reduced-motion: tidak ada kloning, barisnya tetap bisa
-   digeser. */
+   digeser seperti sebelumnya. */
 @media (max-width: 860px) {
-  .hs-row.hs-marquee { overflow: hidden; scroll-snap-type: none; padding-bottom: 0; }
-  .hs-track {
-    display: flex;
-    width: max-content;
-    animation: hs-marquee var(--hs-dur, 46s) linear infinite;
-  }
+  .hs-row.hs-marquee { scroll-snap-type: none; padding-bottom: 0; }
+  .hs-track { display: flex; width: max-content; }
   .hs-set { display: flex; align-items: center; gap: 6px 12px; padding-right: 12px; }
-  .hs-row.hs-marquee:hover .hs-track,
-  .hs-row.hs-marquee.hs-stopped .hs-track,
-  .hero-stack:focus-within .hs-track,
-  .hs-row.hs-off .hs-track { animation-play-state: paused; }
-  @keyframes hs-marquee { to { transform: translateX(-50%); } }
-  .hs-label { display: flex; align-items: center; gap: 12px; }
-  .hs-pause { padding: 3px 8px; font-size: 10.5px; min-height: 0; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hs-track { animation: none; }
 }
 .hero h1 {
   font-size: clamp(42px, 7.4vw, 84px);

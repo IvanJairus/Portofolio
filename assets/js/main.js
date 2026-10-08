@@ -295,17 +295,20 @@
     mq.addEventListener("change", (e) => place(e.matches));
   }
 
-  /* ---------- strip stack: berjalan pelan seperti papan nama ----------
-     Sekali geser ternyata masih terlewat. Jadi lajurnya berjalan terus, pelan,
-     dan bisa dihentikan - konten yang bergerak otomatis lebih dari 5 detik
-     wajib punya cara berhenti (WCAG 2.2.2). Isinya diduplikasi sekali supaya
-     putarannya mulus; salinan itu aria-hidden sehingga pembaca layar hanya
-     menyebut setiap alat satu kali. Tanpa JS atau dengan reduced-motion: tidak
-     ada kloning, barisnya tetap bisa digeser seperti semula. */
+  /* ---------- strip stack: papan nama yang bisa digeser ----------
+     Yang digerakkan adalah scrollLeft barisnya sendiri, bukan transform, jadi
+     satu kontrol melayani dua arah: lajur berjalan pelan, dan jari yang menarik
+     tetap bekerja seperti menggeser baris biasa. Selama disentuh / di-scroll /
+     difokus ia diam, lalu lanjut 1,4 detik setelah interaksi terakhir - dari
+     posisi itu, bukan dari awal. Tidak ada tombol pause: yang berhenti adalah
+     animasinya, bukan hak penggunanya.
+     Isinya diduplikasi sekali supaya putarannya tidak pernah berakhir; salinan
+     itu aria-hidden sehingga pembaca layar menyebut setiap alat satu kali.
+     Tanpa JS atau dengan reduced-motion: tidak ada kloning, barisnya tetap bisa
+     digeser seperti semula. */
   function initStackMarquee() {
     const row = document.querySelector(".hs-row");
-    const stack = document.querySelector(".hero-stack");
-    if (!row || !stack) return;
+    if (!row) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const chips = [].slice.call(row.children);
     if (chips.length < 2) return;
@@ -323,30 +326,48 @@
     row.appendChild(track);
     row.classList.add("hs-marquee");
 
-    /* durasi mengikuti panjang isi: kecepatannya yang tetap, bukan putarannya */
-    const width = set.getBoundingClientRect().width;
-    track.style.setProperty("--hs-dur", Math.round(width / 26) + "s");
-
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "tool-btn hs-pause";
-    btn.setAttribute("aria-pressed", "false");
-    const lbl = document.createElement("span");
-    lbl.textContent = t("lc.pause");
-    btn.appendChild(lbl);
-    btn.addEventListener("click", () => {
-      const on = row.classList.toggle("hs-stopped");
-      btn.setAttribute("aria-pressed", String(on));
-      lbl.textContent = t(on ? "lc.resume" : "lc.pause");
-    });
-    const label = stack.querySelector(".hs-label");
-    if (label) label.appendChild(btn);
-    /* jangan membakar baterai ponsel di bawah layar: berhenti saat strip tidak terlihat */
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver((es) => {
-        row.classList.toggle("hs-off", !es[0].isIntersecting);
-      }, { threshold: 0 }).observe(row);
+    /* satu putaran = lebar satu set, termasuk gap pemisah di akhirnya. Posisi p
+       dan p + period menampilkan isi yang sama, jadi memelotkan scrollLeft ke
+       dalam [0, period) tidak pernah terlihat sebagai lompatan. */
+    const period = set.getBoundingClientRect().width + 12;
+    const SPEED = 26;                 /* px per detik - tetap, tidak bergantung panjang isi */
+    const RESUME_AFTER = 1400;
+    let idleAt = 0, hovered = false, focused = false, offscreen = false;
+    const hold = () => { idleAt = performance.now() + RESUME_AFTER; };
+    ["touchstart", "touchend", "pointerdown", "pointerup", "wheel", "keydown"]
+      .forEach((ev) => row.addEventListener(ev, hold, { passive: true }));
+    /* hover hanya bila perangkatnya memang punya hover - di layar sentuh :hover
+       menempel sampai sentuhan berikutnya, jadi itu bukan "masih dibaca" */
+    if (window.matchMedia("(hover: hover)").matches) {
+      row.addEventListener("mouseenter", () => { hovered = true; });
+      row.addEventListener("mouseleave", () => { hovered = false; });
     }
+    row.addEventListener("focusin", () => { focused = true; });
+    row.addEventListener("focusout", () => { focused = false; });
+    /* jangan menggerakkan sesuatu yang tidak terlihat */
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((es) => { offscreen = !es[0].isIntersecting; },
+        { threshold: 0 }).observe(row);
+    }
+    let last = performance.now();
+    /* scrollLeft dibaca-back dalam bilangan bulat pada DPR 1, dan satu frame
+       hanya 0,42px di 26px/s - kalau posisinya diambil ulang dari scrollLeft,
+       pembulatan itu membuatnya selalu kembali ke angka tadi dan lajur tidak
+       pernah jalan. x adalah posisinya yang sebenarnya; scrollLeft cuma dibayar
+       ke browser setiap frame. */
+    let x = 0;
+    const frame = (now) => {
+      const dt = Math.min((now - last) / 1000, 0.1);   /* tab yang ditinggal tidak boleh melompat */
+      last = now;
+      if (now < idleAt || hovered || focused || offscreen) {
+        x = row.scrollLeft;                            /* jari yang pegang: ikuti, jangan dilawan */
+      } else {
+        x = (x + SPEED * dt) % period;
+        row.scrollLeft = x;
+      }
+      requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
   }
 
   /* ---------- accordeon Runtime + Decisions (C2) ---------- */
