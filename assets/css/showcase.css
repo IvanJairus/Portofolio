@@ -95,12 +95,11 @@
 .hf-legend .lm-scan { color: var(--warn); }
 .hf-legend .lm-gate { color: var(--danger); }
 @media (max-width: 620px) {
-  .hero-flow { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 26px; column-gap: 14px; }
   .hf-line, .hf-packet { display: none; }
-  .hf-node { align-items: flex-start; }
   /* Garis penghubungnya hilang di sini, dan tanpa itu tujuh bentuk ini jadi
      satu kumpulan kotak, bukan satu urutan. Nomor yang mengembalikan artinya:
-     ini 1 sampai 7, bukan 7 hal yang berdiri sendiri. */
+     ini 1 sampai 7, bukan 7 hal yang berdiri sendiri. Tata letaknya sendiri
+     diatur di blok .hero-flow yang lebih belakang di berkas ini. */
   .hero-flow { counter-reset: hf; }
   .hf-node { counter-increment: hf; }
   .hf-node > span::before {
@@ -1226,41 +1225,33 @@ html:not([data-js]) .bd-break { display: none; }
 /* mark ikut warna teks chip: satu tinta, bukan warna brand */
 .sc-ic { width: 14px; height: 14px; flex: none; fill: currentColor; }
 /* --- lima tipe artefak: bentuk dulu, label kemudian ---
-   Baris teks mono dulu menyebut kelimanya tapi tidak ada yang membacanya;
-   sekarang tiap tipe punya bentuk sendiri. Glyph digambar sendiri (kotak,
-   lapisan, ponsel, jendela) karena yang dijual di sini format artefak, bukan
-   logo vendor. */
+   Tanpa kotak: bingkai membuat tiap item sebesar teksnya plus padding, dan lima
+   bingkai tidak pernah muat satu baris di HP. Yang tersisa adalah glyph + nama,
+   satu baris di 360-412px. Caption platform (JVM/OCI/...) hanya tampil di atas
+   620px - di ponsel glyph-nya sudah cukup menjelaskan. */
 .artifacts {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  align-items: center;
+  gap: 8px 12px;
   margin: 16px 0 0;
   padding: 0;
   list-style: none;
 }
-.art {
-  display: grid;
-  grid-template-columns: auto minmax(0, auto);
-  align-items: center;
-  column-gap: 9px;
-  row-gap: 1px;
-  padding: 8px 11px;
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  background: var(--bg-2);
-}
+.art { display: inline-flex; align-items: center; gap: 6px; }
 .art-ic {
-  grid-row: 1 / 3;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
+  flex: none;
   fill: none;
   stroke: var(--accent);
-  stroke-width: 1.4;
+  stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.art-n { font-size: 12px; letter-spacing: 0.04em; color: var(--ink); }
-.art-t { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
+.art-n { font-size: 12px; letter-spacing: 0.02em; color: var(--ink); }
+.art-t { font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+@media (max-width: 620px) { .art-t { display: none; } }
 
 /* --- artifact line --- */
 .artifact-line {
@@ -2154,10 +2145,30 @@ html:not([data-js]) .dec-fold { display: none; }
 @keyframes gw-pulse { 0%, 100% { stroke-opacity: 1; } 50% { stroke-opacity: 0.4; } }
 
 @media (max-width: 620px) {
-  .hero-flow { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .hf-sub, .hf-node > span { white-space: normal; }
+  /* Satu baris tujuh-tujuh. Dua baris 4+3 membuat tujuh tahap terbaca sebagai
+     sekumpulan kotak: urutan ada di mana-mana kecuali di mata. Dengan satu baris
+     garis penghubungnya bisa kembali - dan garis itulah penanda urutan, jadi
+     nomornya tidak perlu memakan lebar lagi. Nama tahap dipadatkan ke 10,5px
+     (lantai B1): terpanjang "COMMIT" 40px di kolom 50px, tidak menempel.
+     Sublabel alat dibuang; alatnya hidup di Lifecycle dan Toolbox. Paket
+     perjalanannya tetap tersembunyi - cukup satu hal yang bergerak di hero. */
+  .hero-flow { grid-template-columns: repeat(7, minmax(0, 1fr)); column-gap: 6px; row-gap: 0; }
+  .hf-line { display: block; }
+  .hf-node { gap: 8px; align-items: center; }
+  .hf-node > span { font-size: 10.5px; letter-spacing: 0.02em; white-space: nowrap; }
+  .hf-node > span::before { content: none; }
+  .hf-sub { display: none; }
   .lc-node { min-width: 0; }
   .lc-node > span { font-size: 12px; }
+}
+/* Di 380px ke bawah tujuh kolom tidak muat walau namanya 10,5px: kembali ke
+   4 kolom bernomor 1-7, yang di layout itu justru satu-satunya penanda urutan. */
+@media (max-width: 380px) {
+  .hero-flow { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 22px; }
+  .hf-line { display: none; }
+  .hf-node { align-items: flex-start; }
+  .hf-node > span { font-size: 14px; letter-spacing: 0.1em; white-space: normal; }
+  .hf-node > span::before { content: counter(hf); }
 }
 
 /* papan walkthrough: geser horizontal, bukan saling menimpa */
