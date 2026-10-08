@@ -227,6 +227,7 @@ window.I18N = {
     "work.demo.board": "See the interactive walkthrough",
     "work.demo.platform": "Try the interactive replica",
     "work.demo.architecture": "See the gateway diagram",
+    "work.demo.pipeline": "Read the reference implementation",
 
     "hero.role": "I build the machines that build the software.",
     "hero.tagline": "Platform engineer who turns release days into non-events — CI/CD pipelines, security gates and release automation for banking-grade systems.",
