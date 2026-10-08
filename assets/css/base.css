@@ -521,6 +521,13 @@ html[data-depth="skim"] [data-deep] { display: none; }
   /* rel naik ke bawah kolom nama; foto turun ke paling bawah agar rel muat di layar pertama */
   .hero-photo { justify-self: start; width: min(46%, 190px); }
 }
+/* F7: setelah hero dipadatkan, foto 161px di kiri meninggalkan ruang kosong
+   yang lebih lebar dari fotonya sendiri. Diperbesar sampai 60% membuat potret
+   itu membaca sebagai potret, bukan sebagai sisa layout. */
+@media (max-width: 620px) {
+  .hero-photo { width: min(60%, 216px); }
+}
+
 
 /* ---------- stats ---------- */
 .stats {
