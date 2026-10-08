@@ -369,7 +369,7 @@ window.I18N = {
     "skills.1.1": "GitLab CI", "skills.1.2": "Bash", "skills.1.3": "Jenkins / Groovy", "skills.1.4": "Pipeline design",
     "skills.2.1": "Python", "skills.2.2": "JavaScript / Node", "skills.2.3": "Groovy", "skills.2.4": "SQL / Oracle",
     "skills.3.1": "SAST / Semgrep", "skills.3.2": "Container scanning / Trivy", "skills.3.3": "Secrets / Vault", "skills.3.4": "SBOM / CycloneDX",
-    "skills.4.1": "Docker / Registry", "skills.4.2": "OpenShift / Kubernetes", "skills.4.3": "Linux / SSH", "skills.4.4": "Git", "skills.4.5": "Multi-artifact delivery", "skills.4.6": "Firebase / TestFlight", "skills.4.7": "On-prem VM provisioning", "skills.4.8": "Sonatype Nexus", "skills.4.9": "DexGuard / iXGuard",
+    "skills.4.1": "Docker / Registry", "skills.4.2": "OpenShift / Kubernetes", "skills.4.3": "Linux / SSH", "skills.4.4": "Git", "skills.4.5": "Multi-artifact delivery", "skills.4.6": "Firebase / TestFlight", "skills.4.7": "On-prem VM provisioning", "skills.4.8": "Sonatype Nexus", "skills.4.9": "Guardsquare (DexGuard / iXGuard)",
     "skills.5.1": "Logging & debuggability", "skills.5.2": "Incident-driven design", "skills.5.3": "Templating & rendered manifests", "skills.5.4": "Automated testing",
 
     "exp.title": "One direction, deepened",
