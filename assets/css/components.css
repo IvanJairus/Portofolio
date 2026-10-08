@@ -415,18 +415,6 @@
 .work-card:hover { transform: translateY(-4px); border-color: var(--accent-line); }
 }
 
-/* baris gerbang mutu: klaim yang bisa dibuka orang, bukan angka sekali ukur */
-.ftr-gate {
-  margin-top: 14px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.6;
-  letter-spacing: 0.04em;
-  color: var(--ink-faint);
-  max-width: 88ch;
-}
-.ftr-gate a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-line); }
-
 /* alamat email panjangnya 196px; di 320px ia mendorong kartu. Biarkan putus,
    jangan biarkan halaman melebar */
 @media (max-width: 360px) {
