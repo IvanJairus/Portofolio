@@ -522,7 +522,9 @@ html[data-depth="skim"] [data-deep] { display: none; }
    tempat wajah memang diharapkan. Tanpa JS ia tetap di hero, hanya tersembunyi. */
 @media (max-width: 860px) {
   .hero-photo { display: none; }
-  .contact-meta .hero-photo { display: block; width: 116px; margin: 0 0 14px; }
+  /* kartu kontak itu grid dua kolom; potret harus membentang sendiri di baris
+     pertamanya, tidak boleh ikut masuk ke sel label */
+  .contact-meta .hero-photo { display: block; grid-area: auto; grid-column: 1 / -1; justify-self: start; width: 116px; margin: 0 0 16px; }
 }
 
 @media (max-width: 860px) {
