@@ -2320,3 +2320,28 @@ html:not([data-js]) .dec-fold { display: none; }
 .rp-ai-n { margin-top: 8px; font-size: 11.5px; color: var(--ink-faint); }
 @keyframes rp-ai-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .rp-ai { animation: none; } }
+
+/* --- C: transisi antar view replika ---
+   Sekali gerakan 260ms saat konten berganti. Mati total di reduced-motion. */
+@keyframes rp-swap { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.rp-view.swapped { animation: rp-swap 0.26s var(--ease) both; }
+@media (prefers-reduced-motion: reduce) { .rp-view.swapped { animation: none; } }
+
+/* --- D: jalur yang disentuh menyala, sisanya mundur ---
+   Parallax sengaja tidak dipakai di sini: garis hubungan adalah elemen
+   terpisah dari kotaknya, jadi menggeser satu kolom akan melepas kabelnya dan
+   membuat diagram berbohong tentang arsitekturnya. */
+.diagram-shell .dg-node { cursor: default; }
+.diagram-shell .dg-node rect { transition: fill 0.2s var(--ease), stroke 0.2s var(--ease); }
+.diagram-shell .dg-link { transition: opacity 0.22s var(--ease), stroke 0.22s var(--ease), stroke-width 0.22s var(--ease); }
+.diagram-shell.focusing .dg-link { opacity: 0.22; }
+.diagram-shell.focusing .dg-link.hot {
+  opacity: 1;
+  stroke: var(--accent-bright);
+  stroke-width: 2;
+}
+.diagram-shell .dg-node[data-dg]:hover rect,
+.diagram-shell .dg-node[data-dg]:focus rect { stroke: var(--accent); fill: var(--accent-dim); }
+@media (hover: none) {
+  .diagram-shell.focusing .dg-link { opacity: 0.35; }
+}

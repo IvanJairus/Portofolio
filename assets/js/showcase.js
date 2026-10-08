@@ -658,6 +658,10 @@
     if (projSel && projSel.value !== P.proj) projSel.value = P.proj;
     P.crumb.textContent = TITLES[P.view] || "";
     setSafeHtml(P.viewEl, VIEW[P.view] ? VIEW[P.view]() : "");
+    /* rasa "aplikasi": konten baru masuk dengan satu gerakan pendek, bukan kedip */
+    P.viewEl.classList.remove("swapped");
+    void P.viewEl.offsetWidth;
+    P.viewEl.classList.add("swapped");
     P.viewEl.querySelectorAll("[data-h]").forEach(function (b) { b.style.height = b.getAttribute("data-h") + "%"; });
     if (P.view === "deploys" && P.deployTab === "monitoring" && P.building) startConsole();
     syncHint();
@@ -1156,6 +1160,30 @@
     return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
   }
 
+  /* ---------- diagram gateway: sorot jalur yang benar-benar dipakai ----------
+     Menyentuh satu kotak repo menyalakan garisnya sampai ke gateway, dan
+     meredam sisanya. Ini bukan hiasan: klaim diagram adalah "banyak repo, satu
+     gateway", dan interaksi ini menunjukkannya per kotak. */
+  function initDiagramFocus() {
+    var shell = document.querySelector('[data-diagram="gateway"]');
+    if (!shell) return;
+    var links = [].slice.call(shell.querySelectorAll(".dg-link"));
+    var nodes = [].slice.call(shell.querySelectorAll("[data-dg]"));
+    nodes.forEach(function (n) {
+      var ids = n.getAttribute("data-dg").split(/\s+/);
+      function on() {
+        links.forEach(function (l) { l.classList.toggle("hot", ids.indexOf(l.id) !== -1); });
+        shell.classList.add("focusing");
+      }
+      function off() {
+        links.forEach(function (l) { l.classList.remove("hot"); });
+        shell.classList.remove("focusing");
+      }
+      n.addEventListener("pointerenter", on);
+      n.addEventListener("pointerleave", off);
+    });
+  }
+
   /* ---------- sub-nav scroll spy (Work) ---------- */
   function initSubnav() {
     var bar = document.querySelector("[data-subnav]");
@@ -1293,6 +1321,7 @@
     initChatops();
     initPlatform();
     initSubnav();
+    initDiagramFocus();
     initLifecycle();
     initMailTabs();
     initToolboxFilter();
