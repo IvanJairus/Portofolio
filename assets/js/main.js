@@ -313,6 +313,18 @@
     });
   }
 
+  /* ---------- C4: pil kontak yang menunggu sampai hero lewat ---------- */
+  function initMobileCta() {
+    const cta = document.querySelector("[data-mcta]");
+    const hero = document.querySelector(".hero");
+    const contact = document.querySelector("#contact");
+    if (!cta || !hero || !contact || !("IntersectionObserver" in window)) return;
+    let inHero = true, inContact = false;
+    const sync = () => { cta.hidden = inHero || inContact; };
+    new IntersectionObserver((es) => { inHero = es[0].isIntersecting; sync(); }).observe(hero);
+    new IntersectionObserver((es) => { inContact = es[0].isIntersecting; sync(); }).observe(contact);
+  }
+
   /* ---------- salin email ---------- */
   function initCopy() {
     const btn = document.querySelector("[data-copy-btn]");
@@ -349,6 +361,7 @@
     initSkillRefs();
     initDepth();
     initFold();
+    initMobileCta();
     initCopy();
 
   });

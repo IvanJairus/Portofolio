@@ -425,8 +425,7 @@ html[data-depth="skim"] [data-deep] { display: none; }
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--font-mono);
+  gap: 10px;  font-family: var(--font-mono);
   font-size: 13px;
   letter-spacing: 0.06em;
   padding: 13px 22px;
@@ -612,3 +611,30 @@ html[data-depth="skim"] [data-deep] { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .site-header::after { display: none; }
 }
+
+/* ---------- C4: satu jalur kontak di ponsel ----------
+   Kontak sebelumnya hanya ada di paling bawah, dan tombol CV hanya di hero.
+   Satu pil, bukan tiga tombol, supaya chrome bawah tidak menumpuk. */
+.mcta { display: none; }
+@media (max-width: 760px) {
+  .mcta:not([hidden]) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 16px;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    z-index: 45;
+    min-height: 44px;
+    padding: 0 18px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    border-radius: 999px;
+    box-shadow: 0 10px 28px -12px var(--accent-line);
+  }
+}
+@media print { .mcta { display: none; } }
