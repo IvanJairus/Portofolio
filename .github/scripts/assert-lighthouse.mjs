@@ -37,7 +37,14 @@ const BUDGET_MAX = {
   "largest-contentful-paint": 4000, // measured 2892
   "total-blocking-time": 250, // measured 0
   "cumulative-layout-shift": 0.1, // measured 0
-  "total-byte-weight": 409600, // measured 353074 = 400 KiB ceiling
+  /* Ceiling raised 400 -> 512 KiB on 2026-10-08 by the owner, to buy motion and
+     imagery. Two facts kept honest: this number is measured against a local
+     python http.server that sends NOTHING compressed, while the deployed page
+     transfers ~131 KiB over the wire; and every other budget here is untouched,
+     including the ones a visitor actually feels (FCP, LCP, TBT, CLS). A weight
+     ceiling is the cheapest budget to move, which is exactly why it is the only
+     one moved, with the reason written down instead of the number nudged. */
+  "total-byte-weight": 524288, // measured 394876 = 512 KiB ceiling
 };
 
 const path = process.argv[2];
