@@ -27,7 +27,7 @@ All notable changes to this repository are documented here. The format follows
 
 ## [Unreleased]
 
-Fifty commits after `v1.0.0`, all on 2026-10-08. The tag was cut at
+Fifty-four commits after `v1.0.0`, all on 2026-10-08. The tag was cut at
 `66d63ad`; everything below is after it and has not been tagged yet.
 
 ### Domain
@@ -232,6 +232,23 @@ Fifty commits after `v1.0.0`, all on 2026-10-08. The tag was cut at
   the only place the page pointed at the CI enforcing its own numbers, and it had
   gone stale ("400 KiB" after the ceiling moved to 512). The gate still runs; it
   is just not advertised in the footer.
+
+### Round 4, same evening
+
+- `ac19fc9` — the Platform fact grid showed a grey box where a sixth fact would
+  be. It was not an element: the grid draws its hairlines as its own background
+  with 1px gaps, and five cells in two columns leave one gap exposed. The fifth
+  fact spans the row now, which closes it without inventing a number.
+- `37f8d07` — the hero rail between 381 and 620px was the 4+3 grid you called
+  meaningless; it is one row of seven, and because it is one row the connector
+  line came back — the line, not a number, is what reads as "this flows". The
+  1–7 numbers stay only where the grid still wraps (≤380px). Tool sublabels are
+  dropped at phone widths; the rail went from 128px to 55px tall and is still
+  7/7 above the fold at five viewports. The artifact chips lost their borders so
+  five fit one line instead of four plus an orphan.
+- `c69a65d` — CI caught what my local check could not: the workflow pins
+  `html-validate@8`, which rejects `aria-label` on `<ul>`; I had validated with
+  11.16.2. The label is gone rather than worked around.
 
 ### Corrections
 
