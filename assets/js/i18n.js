@@ -102,7 +102,7 @@ window.I18N = {
     "dec.6.w": "A draft is cheap and a wrong draft is cheap too, as long as it arrives in front of the same gate a human commit arrives in front of. The summary is a convenience layer over findings the scanner already produced; the gate underneath it is arithmetic, and arithmetic stays out of the model.",
     "dec.6.c": "More diffs to read, and a confident wrong summary is worse than none. So the figures in it point back at the scan rows, never the other way round, and no approval is ever worded as a model's opinion.",
     "tm.title": "What I was actually defending",
-    "tm.lead": "The tool list is what I used. This table is what I was thinking about.",
+    "tm.lead": "The tool list is what I used. This table is what I was thinking about The table is wider than a phone, so swipe it sideways",
     "tm.h.asset": "asset",
     "tm.h.threat": "threat",
     "tm.h.gate": "the gate that closes it",

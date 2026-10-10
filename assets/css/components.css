@@ -50,6 +50,16 @@
   overflow-x: auto;
 }
 .diagram-shell svg { width: 100%; min-width: 640px; height: auto; display: block; }
+/* Di ponsel 640px tidak muat di kotak 350px: 326px konten hilang tanpa tanda apa
+   pun bahwa kotak itu bisa digeser. Ditahan pada 560px dan tepi kanannya diberi
+   pudar, jadi sisa yang terpotong lebih kecil dan terbaca sebagai "ada lagi". */
+@media (max-width: 700px) {
+  .diagram-shell svg { min-width: 560px; }
+  .diagram-shell {
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 44px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 44px), transparent);
+  }
+}
 .diagram-shell svg text {
   font-family: var(--font-mono);
   fill: var(--ink-dim);
@@ -379,7 +389,10 @@
   background: var(--accent-dim);
   border-radius: 999px; padding: 7px 14px;
 }
-.status-pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s var(--ease) infinite; }
+/* "open to work" adalah fakta yang tidak berubah selama berjam-jam, jadi titiknya
+   tidak berdenyut. Tiga dot lain tetap berdenyut karena menandai keadaan yang
+   memang sedang berlangsung: walkthrough berjalan, SSE aktif, deploy sedang build. */
+.status-pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
 @media (max-width: 760px) { .contact-in { grid-template-columns: minmax(0, 1fr); } }
 
 /* Di ponsel kartu kontak menerima potret (dipindah oleh main.js): potret di

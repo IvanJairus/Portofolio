@@ -29,6 +29,31 @@ All notable changes to this repository are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- **`DESIGN.md`.** The site's visual and prose direction written down instead of
+  living in commit messages: why the page is white and the console is the only dark
+  field, why orange is GitLab's and where its budget stops, the four radii and the
+  two real shadows, the reason the graph-paper motif is there, and the declared
+  motion dials ENERGY 2 / RHYTHM 2 / MOTION 3. Written after the fact, and the file
+  says so.
+
+### Fixed
+
+- **The architecture diagram was cut in half on a phone.** `min-width: 640px` inside
+  a 350px box left 326px of the drawing off screen with nothing to suggest the box
+  scrolled, so the two columns that carry the argument (`domain pipelines` and
+  `environments`) were invisible. Held at 560px and the right edge now fades. The
+  threat model table keeps its scroll and gained the same cue plus a line in its
+  lead, because a text table cannot be squashed without becoming unreadable.
+  Measured: 326px hidden, now 246px, and document overflow stays 0 at 390 and 412.
+- **The "open to work" dot stopped pulsing.** It is a fact that does not change for
+  hours, and a pulsing dot borrows the vocabulary of a live indicator for something
+  that is not live. The three dots that mark real running state still pulse.
+- **One regression caught while fixing the above.** A longer caption hint widened a
+  grid row and pushed the scan card 215px off screen. Reverted; the overflow sweep
+  is back to its previous single pre-existing finding.
+
 ### Changed
 
 - **The "52-rule" count is off the page.** Four strings carried it: `work.2.i2`,

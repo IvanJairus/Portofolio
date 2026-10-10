@@ -1600,6 +1600,15 @@ html:not([data-js]) .dec-fold { display: none; }
 
 /* --- threat model --- */
 .tm-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); }
+/* Kolom ketiga tabel ini justru yang paling menarik ("the gate that closes it")
+   dan ia di luar layar pada 390px tanpa affordance. Tabel tidak bisa dipadatkan
+   tanpa menghancurkan keterbacaannya, jadi tetap digeser tapi diberi tanda. */
+@media (max-width: 700px) {
+  .tm-wrap {
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent);
+  }
+}
 .tm-tbl { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 640px; }
 .tm-tbl th {
   text-align: left;
