@@ -229,6 +229,36 @@
       </div>
     </section>
 
+    <section class="pv-tools">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Every tool named on my Toolbox page, and where it is on this one</h2>
+          <p class="lead">
+            The list on the landing page is a claim. This page is the receipt: each row below is a tool that
+            appears in a file this page shows, in a job this page draws, or both.
+          </p>
+        </div>
+        <ul class="pv-tool-grid">
+          <li><b>GitLab CI</b><span>DAG stage sets in <code>templates/backend.yml</code> and <code>templates/web.yml</code>, routed by <code>gateway.yml</code></span></li>
+          <li><b>Jenkins shared library</b><span><code>GatewaySIT.groovy</code> plus the five steps in <code>shared-library/vars/</code></span></li>
+          <li><b>Groovy</b><span>the gate entry point <code>run-gate.groovy</code> and the three rule classes</span></li>
+          <li><b>Vault</b><span>short-lived JWT lease, revoked in <code>finally</code>, in <code>vaultCredentials.groovy</code></span></li>
+          <li><b>Trivy</b><span>the scan job whose report the gate reads; its findings decide the red you can draw</span></li>
+          <li><b>Semgrep</b><span><code>scan:sast-semgrep</code>, allowed to fail and not allowed to be silent</span></li>
+          <li><b>Secret detection</b><span><code>scan:secret-detect</code> runs before any image exists</span></li>
+          <li><b>SonarQube</b><span>quality gate polled into <code>sonar-gate.json</code>, then adapted, never assumed</span></li>
+          <li><b>SBOM</b><span><code>scan:sbom-index</code> and <code>verify_sbom()</code>: zero components is a refusal</span></li>
+          <li><b>Artifact registry</b><span>Kaniko push in <code>publish-artifact.sh</code>; no <code>latest</code> tag is ever written</span></li>
+          <li><b>OpenShift / Kubernetes</b><span>render, apply, wait for rollout, roll back in <code>deploy.sh</code></span></li>
+          <li><b>Jira and ticket APIs</b><span>webhook routing in <code>GatewaySIT.groovy</code>; idempotent write-back in <code>ticket_sync.py</code></span></li>
+          <li><b>Prometheus</b><span><code>observability-push.sh</code>: a metric is never written for a number nobody measured</span></li>
+          <li><b>Python and Bash as CI tools</b><span>stdlib-only tools and scripts, each with a <code>--selftest</code> that runs offline</span></li>
+          <li><b>Versioning</b><span>one bump rule in <code>release_stamp.py</code>, shared by all five templates</span></li>
+          <li><b>CI hygiene</b><span>gitleaks, shellcheck, YAML parsing, an <code>include:</code> target check and an internal-identifier gate in the repository's own pipeline</span></li>
+        </ul>
+      </div>
+    </section>
+
     <section class="pv-proof">
       <div class="wrap">
         <div class="section-head">

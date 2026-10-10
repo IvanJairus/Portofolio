@@ -29,6 +29,14 @@ All notable changes to this repository are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- **A tools receipt on `/pipelines/`.** The landing page names tools; the original
+  brief for this page was that those names have to be provable somewhere. Sixteen
+  rows, each pointing at the file or the job on this page where the tool actually
+  appears, so a reader can check the claim by scrolling instead of by trusting a
+  list.
+
 ### Fixed
 
 - **A panel could name a file it never loaded.** `v1.4.0` was tagged at `52e3298`;
