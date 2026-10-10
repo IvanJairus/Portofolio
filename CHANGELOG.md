@@ -29,7 +29,14 @@ All notable changes to this repository are documented here. The format follows
 
 ## [Unreleased]
 
-Nothing yet: `v1.4.0` was tagged on 2026-10-11.
+### Fixed
+
+- **A panel could name a file it never loaded.** `v1.4.0` was tagged at `52e3298`;
+  this landed after it. Deep-linking into the Jenkins gate selected a job whose
+  source is `GateResult.groovy`, and the panel printed the file name with no line
+  marked, because the lazy loader fetched what the strip listed rather than what
+  the job map points at. The fetch now takes the union, and the Jenkins tree lists
+  the two shared classes it compiles.
 
 ## [1.4.0] - 2026-10-11
 
