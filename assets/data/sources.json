@@ -314,6 +314,21 @@
           "k": "deployment.yaml",
           "path": "jenkins/templates/deployment.yaml",
           "lines": 79
+        },
+        {
+          "d": "the classes both engines compile"
+        },
+        {
+          "f": "GateResult.groovy",
+          "k": "GateResult.groovy",
+          "path": "shared-library/src/com/reference/release/GateResult.groovy",
+          "lines": 88
+        },
+        {
+          "f": "ReleaseRules.groovy",
+          "k": "ReleaseRules.groovy",
+          "path": "shared-library/src/com/reference/release/ReleaseRules.groovy",
+          "lines": 122
         }
       ],
       "jobs": {

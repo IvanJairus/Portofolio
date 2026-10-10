@@ -548,7 +548,11 @@ class Panel {
 
   async ensureSources() {
     if (this.loaded || !SOURCES.data) return;
-    const wanted = this.tree().filter((n) => n.k).map((n) => n.k).filter((k) => !(k in FILE_TEXT));
+    /* A job can point at a file the strip does not list (the gate classes are
+       compiled by both engines), so the union is what has to be fetched. */
+    const keys = new Set(this.tree().filter((n) => n.k).map((n) => n.k));
+    Object.values(this.jobMap()).forEach((m) => keys.add(m.file));
+    const wanted = [...keys].filter((k) => !(k in FILE_TEXT));
     await Promise.all(wanted.map(async (k) => {
       FILE_TEXT[k] = await (await fetch(`../assets/data/src/${k}`, { cache: 'no-store' })).text();
     }));
