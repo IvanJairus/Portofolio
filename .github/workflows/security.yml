@@ -30,7 +30,7 @@ jobs:
             --exclude 'localhost'
             --exclude 'mailto:'
             --exclude 'linkedin\.com'
-            index.html README.md
+            index.html pipelines/index.html README.md
           fail: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -43,4 +43,8 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 20
-      - run: npx --yes html-validate@8 index.html 404.html
+      # Markup statis ketiga halaman diperiksa. Batasnya: DOM yang dibangun
+      # JavaScript (kolom stage, trace, pohon sumber) tidak lewat sini, jadi
+      # aturan seperti type pada tombol hanya terbukti untuk apa yang ada di file
+      # HTML - sisanya dicek di browser, bukan dianggap sudah valid.
+      - run: npx --yes html-validate@8 index.html 404.html pipelines/index.html

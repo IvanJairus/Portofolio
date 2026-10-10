@@ -40,6 +40,9 @@ jobs:
       # chip lifecycle, langkah walkthrough - tidak pernah dibuka, jadi temuan
       # kontras di state itu lolos dari pemeriksaan color-contrast di bawah dan
       # harus tetap dicari dengan sapuan kontras manual, bukan dianggap aman.
+      # Untuk /pipelines/ yang sama: pane Source dan Rules ber-display:none saat
+      # dimuat, jadi warna di dalamnya tidak diperiksa axe dan harus disentuh
+      # manual (sapuan 2026-10-10: 15 pasangan, satu diperbaiki).
       - name: Serve locally, measure, assert
         run: |
           python3 -m http.server 8731 --bind 127.0.0.1 >/tmp/httpd.log 2>&1 &
@@ -84,30 +87,42 @@ jobs:
           #
           # Laporan yang di-upload adalah laporan yang dipakai untuk mengambil keputusan,
           # supaya kegagalan bisa dibaca dari artifact, bukan dari satu baris "exit 1".
-          ok=0
-          for i in 1 2; do
-            npx --yes lighthouse@13.5.0 http://127.0.0.1:8731/ \
-              --only-categories=performance,accessibility,best-practices,seo \
-              --form-factor=mobile \
-              --screenEmulation.mobile \
-              --chrome-flags="--headless=new --no-sandbox --disable-dev-shm-usage --force-prefers-reduced-motion" \
-              --output=json \
-              --output-path=/tmp/lh-$i.json \
-              --quiet
-            if node .github/scripts/assert-lighthouse.mjs /tmp/lh-$i.json; then
-              cp /tmp/lh-$i.json /tmp/lighthouse-report.json
-              ok=1
-              break
-            fi
-            if [ "$i" = 1 ]; then
-              echo "::notice::run #1 tidak memenuhi budget; mencoba sekali lagi."
+          #
+          # Dua halaman diukur dengan ambang yang sama. Baseline /pipelines/ diukur
+          # lokal dengan flag yang sama pada 2026-10-10: Performance 99, Accessibility
+          # 100, Best-Practices 100, SEO 100, FCP 1.36 s, LCP 1.97 s, TBT 0 ms,
+          # CLS 0.015, 145 KiB tanpa kompresi. CLS-nya bukan 0: judul run tumbuh dari
+          # satu ke dua baris saat modul mengisi header.
+          fail=0
+          for page in "root:http://127.0.0.1:8731/" "pipelines:http://127.0.0.1:8731/pipelines/"; do
+            name=${page%%:*}
+            url=${page#*:}
+            ok=0
+            for i in 1 2; do
+              npx --yes lighthouse@13.5.0 "$url" \
+                --only-categories=performance,accessibility,best-practices,seo \
+                --form-factor=mobile \
+                --screenEmulation.mobile \
+                --chrome-flags="--headless=new --no-sandbox --disable-dev-shm-usage --force-prefers-reduced-motion" \
+                --output=json \
+                --output-path=/tmp/lh-$name-$i.json \
+                --quiet
+              if node .github/scripts/assert-lighthouse.mjs /tmp/lh-$name-$i.json; then
+                cp /tmp/lh-$name-$i.json /tmp/lighthouse-$name.json
+                ok=1
+                break
+              fi
+              if [ "$i" = 1 ]; then
+                echo "::notice::$name: run #1 tidak memenuhi budget; mencoba sekali lagi."
+              fi
+            done
+            if [ "$ok" != 1 ]; then
+              cp /tmp/lh-$name-2.json /tmp/lighthouse-$name.json
+              echo "::error::Lighthouse gagal memenuhi budget di $name pada dua run berturut-turut."
+              fail=1
             fi
           done
-          if [ "$ok" != 1 ]; then
-            cp /tmp/lh-2.json /tmp/lighthouse-report.json
-            echo "::error::Lighthouse gagal memenuhi budget pada dua run berturut-turut."
-            exit 1
-          fi
+          exit $fail
 
       # Kalau gerbang jatuh, laporan mentahnya harus bisa dibaca, bukan hanya
       # satu baris "exit 1".
@@ -116,7 +131,7 @@ jobs:
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: lighthouse-mobile
-          path: /tmp/lighthouse-report.json
+          path: /tmp/lighthouse-*.json
           retention-days: 14
 
   headers:
