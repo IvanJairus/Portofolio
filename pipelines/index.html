@@ -3,18 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pipeline run, by Ivan Jairus</title>
-  <meta name="description" content="A GitLab pipeline page and a Jenkins Blue Ocean graph, both driven by the release rules published in IvanJairus/Pipeline. Switch engine, switch outcome, then open the source that produced the job." />
+  <title>Pipeline runs, by Ivan Jairus</title>
+  <meta name="description" content="One release gate, drawn as a GitLab pipeline page and as a Jenkins Blue Ocean graph, each with its own console beside the repository file that produced the selected job. The rules are vendored from a pinned commit and run in your browser." />
   <meta name="color-scheme" content="light" />
   <meta name="theme-color" content="#ffffff" />
   <link rel="canonical" href="https://www.ivanjairus.xyz/pipelines/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.ivanjairus.xyz/pipelines/" />
-  <meta property="og:title" content="Pipeline run, two engines, one gate" />
-  <meta property="og:description" content="The same release rules rendered as a GitLab pipeline and as a Jenkins Blue Ocean graph, with the repository source that produced each job." />
+  <meta property="og:title" content="Two engines, one gate" />
+  <meta property="og:description" content="The same release rules rendered as a GitLab pipeline and as a Jenkins Blue Ocean graph, with the source that produced each job." />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Pipeline run, two engines, one gate" />
-  <meta name="twitter:description" content="Switch engine, switch outcome, open the source. Driven by the rules published in IvanJairus/Pipeline." />
+  <meta name="twitter:title" content="Two engines, one gate" />
+  <meta name="twitter:description" content="Switch the outcome and both engines refuse for the same sentence. Open any job and you are reading the repository file." />
+  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <meta name="msapplication-TileColor" content="#c2410c">
 
   <link rel="stylesheet" href="../assets/css/base.css" />
   <link rel="stylesheet" href="../assets/css/components.css" />
@@ -24,7 +28,7 @@
 
   <header class="site-header">
     <div class="wrap header-in">
-      <a class="brand" href="../" aria-label="Home">
+      <a class="brand" href="../">
         <span class="mark">IJ</span>
         <span>Ivan Jairus</span>
         <span class="slash">/</span>
@@ -47,77 +51,180 @@
         <p class="eyebrow mono">Reference implementation · synthetic data</p>
         <h1>Two engines, one gate.</h1>
         <p class="lead">
-          The same release rules, published in
-          <a href="https://github.com/IvanJairus/Pipeline" rel="noopener noreferrer">IvanJairus/Pipeline</a>,
-          rendered twice: as a GitLab pipeline page and as a Jenkins Blue Ocean graph. Switch the engine and the
-          layout changes. Switch the outcome and the gate refuses. Open the Source tab and you are reading the
-          repository file, with the block that produced the selected job marked.
+          The release rules published in
+          <a href="https://github.com/IvanJairus/Pipeline" rel="noopener noreferrer">IvanJairus/Pipeline</a> run on
+          both engines my teams use, and they decide the same way on both. The GitLab page and the Jenkins graph
+          are on one sheet below, each with its own console beside its own source, so a job and the file that
+          produced it are read together instead of one at a time. Change the outcome once and watch both refuse for
+          the same sentence.
         </p>
-        <p class="pv-selfcheck mono" id="selfcheck" aria-live="polite">checking the port against the Groovy fixture…</p>
+
+        <div class="pv-controls">
+          <span class="pv-field">
+            <span class="pv-lbl" id="runlbl">run</span>
+            <span class="pv-seg" role="group" aria-labelledby="runlbl" id="run-seg"></span>
+          </span>
+          <p class="pv-legend mono" id="legend">one branch, one manifest, one gate. Both panels answer to the switch.</p>
+        </div>
+
+        <p class="pv-fine mono">Times in the consoles below are your browser's clock as this page draws the replay. They are not the times of the original run, and the two durations that do come from a measurement are labelled with their sample size.</p>
+        <p class="pv-selfcheck mono" id="selfcheck" aria-live="polite">checking the port against the fixture…</p>
       </div>
     </section>
 
-    <section class="pv-run">
+    <section class="pv-engine" id="gitlab">
       <div class="wrap">
-        <div class="pv-card">
-
-          <div class="pv-bar">
-            <span class="pv-lbl">engine</span>
-            <span class="pv-seg" role="group" aria-label="CI engine" id="engine-seg"></span>
-            <span class="pv-lbl">run</span>
-            <span class="pv-seg" role="group" aria-label="Pipeline outcome" id="run-seg"></span>
-            <span class="pv-path mono" id="pathlbl"></span>
+        <div class="pv-ehead">
+          <div>
+            <p class="eyebrow mono">engine 1 · GitLab CI</p>
+            <h2>Stage columns, DAG edges, one trace per job.</h2>
           </div>
+          <p class="pv-enote">The job names below are the job names in <code>ci-library/templates/backend.yml</code>.</p>
+        </div>
+
+        <div class="pv-card" data-engine="gitlab">
+
+          <noscript><p class="pv-ns mono">The gate runs in your browser, so with JavaScript off these panels stay empty. The rules, the fixture and every file shown here are published in <a href="https://github.com/IvanJairus/Pipeline" rel="noopener noreferrer">IvanJairus/Pipeline</a>, and the same golden checks run in that repository's CI.</p></noscript>
 
           <div class="pv-rhead">
-            <span class="pv-st" id="rh-st" aria-hidden="true">✓</span>
-            <span class="pv-sttxt" id="rh-sttxt">passed</span>
+            <span class="pv-st" data-role="st" aria-hidden="true">✓</span>
+            <span class="pv-sttxt" data-role="sttxt">passed</span>
             <div class="pv-rtitle">
-              <span class="mono" id="rh-id">#1421</span>
-              <b id="rh-title"></b>
-              <span class="mono pv-rmeta" id="rh-meta"></span>
+              <span class="mono" data-role="id">#1421</span>
+              <b data-role="title"></b>
+              <span class="mono pv-rmeta" data-role="meta"></span>
             </div>
-            <div class="pv-rstats" id="rh-stats"></div>
+            <div class="pv-rstats" data-role="stats"></div>
           </div>
 
-          <div class="pv-skin" id="skin"></div>
+          <div class="pv-skin" data-role="skin"></div>
 
-          <div class="pv-tabs" role="tablist">
-            <button class="pv-tab" role="tab" aria-selected="true" data-pane="trace">Trace<span class="mono pv-tabnote" id="note-trace"></span></button>
-            <button class="pv-tab" role="tab" aria-selected="false" data-pane="source">Source<span class="mono pv-tabnote" id="note-source"></span></button>
-            <button class="pv-tab" role="tab" aria-selected="false" data-pane="rules">Rules<span class="mono pv-tabnote">GateResult</span></button>
-          </div>
+          <div class="pv-split">
+            <div class="pv-console">
+              <div class="pv-chead">
+                <b class="mono" data-role="jname"></b>
+                <span class="mono pv-cstate" data-role="jstate"></span>
+                <span class="sp mono" data-role="jmeas"></span>
+                <span class="mono pv-clock" data-role="clock"></span>
+              </div>
+              <div class="pv-log" data-role="log" tabindex="0" role="log" aria-label="Job trace"></div>
+              <div class="pv-logfoot mono" data-role="logfoot"></div>
+            </div>
 
-          <div class="pv-pane on" id="pane-trace">
-            <div class="pv-log" id="log" tabindex="0" role="log" aria-label="Job trace"></div>
-            <div class="pv-logfoot mono" id="logfoot"></div>
-          </div>
-
-          <div class="pv-pane" id="pane-source">
             <div class="pv-src">
-              <div class="pv-tree" id="tree"></div>
+              <div class="pv-tree" data-role="tree" role="group" aria-label="Repository files"></div>
               <div class="pv-code">
                 <div class="pv-codehead mono">
-                  <b id="code-name"></b>
-                  <span id="code-why"></span>
-                  <span class="pv-sp" id="code-count"></span>
+                  <b data-role="code-name"></b>
+                  <span data-role="code-why"></span>
+                  <span class="pv-sp" data-role="code-count"></span>
                 </div>
-                <div class="pv-cbody" id="cbody" tabindex="0"></div>
-                <div class="pv-cfoot mono">highlight = the lines that produced the selected job · verbatim from the repository</div>
+                <div class="pv-cbody" data-role="cbody" tabindex="0"></div>
+                <div class="pv-cfoot mono">marked = the lines that produced the selected job · verbatim from the pinned commit</div>
               </div>
             </div>
           </div>
 
-          <div class="pv-pane" id="pane-rules">
-            <div class="pv-log" id="ruleslog" tabindex="0"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pv-engine" id="jenkins">
+      <div class="wrap">
+        <div class="pv-ehead">
+          <div>
+            <p class="eyebrow mono">engine 2 · Jenkins</p>
+            <h2>Blue Ocean nodes, started by a Jira transition.</h2>
+          </div>
+          <p class="pv-enote">This one begins from a webhook body rather than a merge request: <code>jenkins/GatewaySIT.groovy</code>.</p>
+        </div>
+
+        <div class="pv-card" data-engine="jenkins">
+          <div class="pv-rhead">
+            <span class="pv-st" data-role="st" aria-hidden="true">✓</span>
+            <span class="pv-sttxt" data-role="sttxt">passed</span>
+            <div class="pv-rtitle">
+              <span class="mono" data-role="id">#2214</span>
+              <b data-role="title"></b>
+              <span class="mono pv-rmeta" data-role="meta"></span>
+            </div>
+            <div class="pv-rstats" data-role="stats"></div>
+          </div>
+
+          <div class="pv-skin" data-role="skin"></div>
+
+          <div class="pv-split">
+            <div class="pv-console">
+              <div class="pv-chead">
+                <b class="mono" data-role="jname"></b>
+                <span class="mono pv-cstate" data-role="jstate"></span>
+                <span class="sp mono" data-role="jmeas"></span>
+                <span class="mono pv-clock" data-role="clock"></span>
+              </div>
+              <div class="pv-log" data-role="log" tabindex="0" role="log" aria-label="Stage log"></div>
+              <div class="pv-logfoot mono" data-role="logfoot"></div>
+            </div>
+
+            <div class="pv-src">
+              <div class="pv-tree" data-role="tree" role="group" aria-label="Repository files"></div>
+              <div class="pv-code">
+                <div class="pv-codehead mono">
+                  <b data-role="code-name"></b>
+                  <span data-role="code-why"></span>
+                  <span class="pv-sp" data-role="code-count"></span>
+                </div>
+                <div class="pv-cbody" data-role="cbody" tabindex="0"></div>
+                <div class="pv-cfoot mono">marked = the lines that produced the selected stage · verbatim from the pinned commit</div>
+              </div>
+            </div>
           </div>
 
         </div>
+      </div>
+    </section>
+
+    <section class="pv-gate" id="gate">
+      <div class="wrap">
+        <div class="pv-ehead">
+          <div>
+            <p class="eyebrow mono">shared · the decision</p>
+            <h2>Both consoles above end in the same three classes.</h2>
+          </div>
+          <p class="pv-enote">No threshold on this page is typed by hand. The ones you can read were taken out of <code>GateResult</code> while the page drew.</p>
+        </div>
+
+        <div class="pv-card" data-engine="gate">
+          <div class="pv-split">
+            <div class="pv-console">
+              <div class="pv-chead">
+                <b class="mono" data-role="jname">GateResult.evaluate</b>
+                <span class="mono pv-cstate" data-role="jstate"></span>
+                <span class="sp mono" data-role="jmeas"></span>
+                <span class="mono pv-clock" data-role="clock"></span>
+              </div>
+              <div class="pv-log" data-role="log" tabindex="0" role="log" aria-label="Gate evaluation"></div>
+              <div class="pv-logfoot mono" data-role="logfoot"></div>
+            </div>
+
+            <div class="pv-src">
+              <div class="pv-tree" data-role="tree" role="group" aria-label="Repository files"></div>
+              <div class="pv-code">
+                <div class="pv-codehead mono">
+                  <b data-role="code-name"></b>
+                  <span data-role="code-why"></span>
+                  <span class="pv-sp" data-role="code-count"></span>
+                </div>
+                <div class="pv-cbody" data-role="cbody" tabindex="0"></div>
+                <div class="pv-cfoot mono">the engines above compile these files</div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <p class="pv-note">
-          Names, project ids, durations and log wording are synthetic. The decision is not: every status on this
-          page comes from <code>ReleaseRules</code>, <code>GateResult</code> and <code>DeploymentPlan</code>, the
-          same classes the CI runs.
+          The port in <code>assets/js/release-rules.mjs</code> is checked against <code>rules/fixture.json</code>,
+          and the fixture is written by the Groovy, not by the JavaScript. That check runs in the repository's CI
+          and again in your browser, which is what the badge near the top of this page reports.
         </p>
       </div>
     </section>
@@ -139,11 +246,11 @@
             </p>
           </div>
           <div class="pv-proof-card">
-            <h3>The source is pinned</h3>
+            <h3>The source is pinned to a commit</h3>
             <p>
-              Seven repository files are vendored here and pinned by SHA-256. CI compares them against what the
-              repository serves, so a stale copy fails the build instead of quietly becoming a second
-              implementation.
+              Twenty-five repository files are vendored here verbatim and pinned by SHA-256 against one commit. CI
+              refetches that commit and compares bytes, so a stale copy fails the build instead of quietly becoming
+              a second implementation.
             </p>
           </div>
           <div class="pv-proof-card">
@@ -161,8 +268,9 @@
       <div class="wrap">
         <h2>Read the rules themselves</h2>
         <p class="lead">
-          The interesting files are <code>ReleaseRules.groovy</code>, <code>GateResult.groovy</code> and
-          <code>DeploymentPlan.groovy</code>, and the thirty cases that hold them in place.
+          The repository holds the gateway, the five stage templates, the scripts they call, the Groovy classes, and
+          a transcript of this chain running for real. That transcript is where the log format on this page comes
+          from.
         </p>
         <p class="pv-end-links">
           <a class="btn primary" href="https://github.com/IvanJairus/Pipeline" rel="noopener noreferrer">Open the repository</a>

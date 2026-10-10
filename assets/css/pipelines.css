@@ -1,62 +1,66 @@
-/* ============================================================
-   pipelines.css - the two-engine run page.
-   Tokens come from base.css. The console is the only dark surface.
-   Status text always uses the *-strong variants: the brand greens and
-   reds are for filled glyphs, where 3:1 is the bar, not for type on white.
-   ============================================================ */
-
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
+/* /pipelines/ - two engines, one gate.
+   Tokens come from base.css. This file adds nothing to the palette: it arranges
+   it. The only dark surface on the page is the console, because that is what a
+   console is. */
 
 /* ---------- intro ---------- */
-.pv-intro { padding: calc(var(--header-h) + clamp(34px, 5vw, 62px)) 0 clamp(24px, 3vw, 36px); }
-.pv-intro h1 { font-size: clamp(36px, 5.6vw, 62px); letter-spacing: -0.03em; margin: 10px 0 0; }
-.pv-intro .lead { max-width: 68ch; }
+.pv-intro { padding: calc(var(--header-h) + clamp(36px, 6vw, 72px)) 0 clamp(28px, 4vw, 44px); }
+.pv-intro h1 { font-size: clamp(38px, 7.2vw, 76px); line-height: 1.02; letter-spacing: -0.035em; margin: 10px 0 18px; }
+.pv-intro .lead { max-width: 74ch; }
 
-.pv-selfcheck {
-  margin-top: 24px;
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 12.5px;
-  color: var(--ink-dim);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 7px 14px;
-  background: var(--bg-3);
+.pv-controls { display: flex; align-items: center; gap: 14px 20px; flex-wrap: wrap; margin-top: 26px; }
+.pv-field { display: inline-flex; align-items: center; gap: 10px; }
+.pv-lbl { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
+.pv-seg { display: inline-flex; border: 1px solid var(--line-strong); border-radius: var(--radius); overflow: hidden; background: var(--bg); }
+.pv-seg button {
+  font-family: var(--font-mono); font-size: 12px; border: 0; background: var(--bg);
+  color: var(--ink-dim); padding: 8px 16px; min-height: 40px; cursor: pointer;
+  transition: color .16s var(--ease), background .16s var(--ease);
+}
+.pv-seg button + button { border-left: 1px solid var(--line-strong); }
+.pv-seg button:hover { color: var(--ink); }
+.pv-seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.pv-seg button:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: -2px; }
+.pv-legend { margin: 0; font-size: 11.5px; color: var(--ink-faint); }
+
+.pv-fine { margin: 20px 0 0; max-width: 68ch; font-size: 11px; line-height: 1.6; color: var(--ink-faint); }
+.pv-selfcheck {  margin-top: 22px;
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 12.5px; color: var(--ink-dim);
+  border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; background: var(--bg-3);
 }
 .pv-selfcheck::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--ink-faint); flex: none; }
 .pv-selfcheck.ok { color: var(--pass-strong); border-color: rgba(99, 169, 85, 0.4); }
 .pv-selfcheck.ok::before { background: var(--pass-brand); }
 .pv-selfcheck.bad { color: var(--danger); border-color: rgba(218, 41, 28, 0.35); }
 .pv-selfcheck.bad::before { background: var(--danger-brand); }
+/* The badge's three states are kept under ~40 characters so each stays one line
+   at 390px. A badge that grows a second line moves the whole page, and a moved
+   page is what Lighthouse calls a layout shift. */
 
-/* ---------- card shell ---------- */
-.pv-run { padding: 0 0 clamp(48px, 6vw, 76px); }
+/* ---------- section heads ---------- */
+.pv-engine, .pv-gate { padding: clamp(30px, 4vw, 46px) 0 clamp(34px, 5vw, 56px); }
+.pv-engine + .pv-engine { border-top: 1px solid var(--line); }
+.pv-gate { border-top: 1px solid var(--line); }
+.pv-ehead { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px 28px; flex-wrap: wrap; margin-bottom: 18px; }
+.pv-ehead h2 { margin: 6px 0 0; font-size: clamp(21px, 2.6vw, 30px); letter-spacing: -0.022em; line-height: 1.18; }
+.pv-enote { margin: 0; max-width: 46ch; font-size: 12.5px; line-height: 1.6; color: var(--ink-faint); }
+.pv-enote code { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-dim); }
+
+/* ---------- card ---------- */
 .pv-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); overflow: hidden; }
+.pv-ns { margin: 0; padding: 12px 16px; border-bottom: 1px solid var(--line); font-size: 11.5px; line-height: 1.7; color: var(--ink-dim); background: var(--bg-3); }
 
-.pv-bar {
-  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-  padding: 11px 14px; border-bottom: 1px solid var(--line); background: var(--bg-3);
-}
-.pv-lbl { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
-.pv-seg { display: inline-flex; border: 1px solid var(--line-strong); border-radius: var(--radius); overflow: hidden; }
-.pv-seg button {
-  font-family: var(--font-mono); font-size: 12px; border: 0; background: var(--bg);
-  color: var(--ink-dim); padding: 8px 14px; min-height: 40px; cursor: pointer;
-  transition: color .16s var(--ease), background .16s var(--ease);
-}
-.pv-seg button + button { border-left: 1px solid var(--line-strong); }
-.pv-seg button:hover { color: var(--ink); }
-.pv-seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
-.pv-path { margin-left: auto; font-size: 11px; color: var(--ink-faint); }
+/* The minimums below are the FILLED height of the default run, measured at 390px
+   and 1440px with the geometry harness (_pv2.html). The card is painted by a
+   module that runs after the browser has already shown the shell, so an empty
+   container that is shorter than its own content moves everything under it.
+   Re-measure after changing the default state. */
+.pv-rhead { min-height: 72px; }
+.pv-skin { min-height: 180px; padding: 4px 10px 18px; overflow-x: auto; }
+.pv-log { height: 320px; }
+.pv-cbody { height: 320px; }
 
-/* ---------- run header ---------- */
 .pv-rhead { display: flex; align-items: center; gap: 11px; flex-wrap: wrap; padding: 14px 16px; border-bottom: 1px solid var(--line); }
 .pv-st {
   width: 20px; height: 20px; border-radius: 50%; flex: none;
@@ -64,10 +68,12 @@
   color: var(--bg); font-size: 11px; font-weight: 700; background: var(--pass-brand);
 }
 .pv-st.bad { background: var(--danger-brand); }
+/* Status is colour + glyph + word. The word carries the meaning in greyscale,
+   on a screen the visitor is not looking at directly, and in the log. */
 .pv-sttxt { font-family: var(--font-mono); font-size: 12px; color: var(--pass-strong); letter-spacing: .04em; }
 .pv-sttxt.bad { color: var(--danger); }
 .pv-rtitle { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; min-width: 0; }
-.pv-rtitle #rh-id { font-size: 13px; color: var(--ink-dim); }
+.pv-rtitle [data-role="id"] { font-size: 13px; color: var(--ink-dim); }
 .pv-rtitle b { font-size: 15.5px; letter-spacing: -0.01em; }
 .pv-rmeta { font-size: 11.5px; color: var(--ink-faint); }
 .pv-rstats { margin-left: auto; display: flex; gap: 20px; }
@@ -77,16 +83,16 @@
 .pv-rstats b.ok { color: var(--pass-strong); } .pv-rstats b.bad { color: var(--danger); }
 
 /* ---------- skin: GitLab stage columns ---------- */
-.pv-skin { padding: 4px 10px 18px; overflow-x: auto; }
 .gl-cols { display: flex; min-width: 880px; }
-/* min-width 132px: di bawah itu nama job seperti "maven-package" terpotong
-   jadi "docke…". Menyerahkan sisanya ke scroll horizontal, sama seperti GitLab. */
+/* 132px is where "maven-package" still fits. Below it the name becomes
+   "docke…", which is a column of icons rather than a pipeline. The rest goes to
+   horizontal scroll, exactly like the real page. */
 .gl-col { flex: 1 0 132px; min-width: 132px; padding: 0 6px; position: relative; }
 .gl-col + .gl-col::before {
   content: ""; position: absolute; left: -1px; top: 9px;
   border: 4px solid transparent; border-left-color: var(--line-strong);
 }
-.gl-col h4 { margin: 0 0 8px; font-family: var(--font-mono); font-size: 11px; font-weight: 400; color: var(--ink-dim); text-align: center; }
+.gl-stage { margin: 0 0 8px; font-family: var(--font-mono); font-size: 11px; font-weight: 400; color: var(--ink-dim); text-align: center; }
 .gl-job {
   display: flex; align-items: center; gap: 7px; width: 100%; text-align: left;
   background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius);
@@ -105,11 +111,11 @@
 .ic.none { background: var(--bg); border: 1.5px solid var(--line-strong); color: var(--ink-faint); }
 
 /* ---------- skin: Jenkins Blue Ocean nodes ---------- */
-.bo-flow { display: flex; align-items: stretch; gap: 0; padding: 22px 8px 12px; min-width: 900px; }
+.bo-flow { display: flex; align-items: stretch; padding: 22px 8px 12px; min-width: 960px; }
 .bo-node {
   position: relative; flex: 1; min-width: 112px; background: var(--bg); cursor: pointer;
   border: 1px solid var(--line); border-left: 3px solid var(--pass-brand);
-  border-radius: var(--radius); padding: 9px 12px; text-align: left; font: inherit; color: inherit;
+  border-radius: var(--radius); padding: 9px 12px 9px 11px; text-align: left; font: inherit; color: inherit;
   transition: border-color .14s var(--ease), box-shadow .14s var(--ease);
 }
 .bo-node + .bo-node { margin-left: 18px; }
@@ -120,79 +126,98 @@
 .bo-node[aria-current="true"] { border-color: var(--info); border-left-color: var(--info); box-shadow: 0 0 0 2px var(--info-dim); }
 .bo-node.bad { border-left-color: var(--danger-brand); background: var(--danger-dim); }
 .bo-node.hollow { border-left-color: var(--line-strong); }
+.bo-node.man { border-left-style: dashed; border-left-color: var(--ink-faint); }
 .bo-node.hollow .bo-nm { color: var(--ink-faint); }
+.bo-ic { display: none; }
 .bo-nm { font-size: 12px; font-weight: 600; hyphens: none; }
 .bo-du { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-faint); margin-top: 3px; font-variant-numeric: tabular-nums; }
 .bo-meta { display: flex; gap: 8px; flex-wrap: wrap; padding: 0 10px 18px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-faint); }
 .bo-meta span { border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; }
 
-/* ---------- tabs ---------- */
-.pv-tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--line); background: var(--bg-3); padding: 0 10px; flex-wrap: wrap; }
-.pv-tab {
-  font: inherit; font-size: 12.5px; border: 0; border-bottom: 2px solid transparent;
-  background: none; color: var(--ink-dim); padding: 11px 13px; min-height: 44px; cursor: pointer;
+/* ---------- console beside source ---------- */
+.pv-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border-top: 1px solid var(--line); }
+.pv-console { display: flex; flex-direction: column; min-width: 0; border-right: 1px solid var(--line); }
+.pv-chead {
+  display: flex; align-items: center; gap: 10px; padding: 9px 14px;
+  border-bottom: 1px solid var(--line); background: var(--bg-3); font-size: 12px; min-height: 38px;
 }
-.pv-tab:hover { color: var(--ink); }
-.pv-tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
-.pv-tabnote { font-size: 10.5px; color: var(--ink-faint); margin-left: 7px; font-weight: 400; }
-.pv-pane { display: none; }
-.pv-pane.on { display: block; }
+.pv-chead b { font-size: 12.5px; letter-spacing: -.01em; }
+.pv-cstate { font-size: 10.5px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line-strong); color: var(--ink-dim); }
+.pv-cstate.ok { color: var(--pass-strong); border-color: rgba(99, 169, 85, .45); }
+.pv-cstate.bad { color: var(--danger); border-color: rgba(218, 41, 28, .4); }
+.pv-cstate.hollow { color: var(--ink-faint); }
+.pv-chead .sp { margin-left: auto; font-size: 10.5px; color: var(--ink-faint); }
 
-/* ---------- trace ---------- */
 .pv-log {
   background: var(--surface-dark); color: var(--on-dark);
-  font-family: var(--font-mono); font-size: 12.5px; line-height: 1.66;
-  padding: 12px 0; max-height: 380px; overflow: auto;
+  font-family: var(--font-mono); font-size: 12px; line-height: 1.62;
+  padding: 10px 0; overflow: auto;
 }
 .pv-log:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: -2px; }
-.pv-ll { display: flex; gap: 12px; padding: 0 16px; white-space: pre; }
-.pv-ll .n { color: rgba(250, 247, 242, 0.55); width: 26px; flex: none; text-align: right; user-select: none; }
-.pv-ll .t { white-space: pre-wrap; word-break: break-word; min-width: 0; }
+.pv-ll { display: flex; gap: 8px; padding: 0 14px; }
+.pv-ll .ts { flex: none; color: rgba(250, 247, 242, 0.55); font-size: 10.5px; white-space: nowrap; align-self: flex-start; padding-top: 1px; }
+.pv-ll .ts .dt { margin-right: 5px; }
+.pv-ll .ts .tz { margin-left: 3px; }
+.pv-clock { display: none; font-size: 10.5px; color: var(--ink-faint); }
+.pv-ll .lv { flex: none; width: 34px; color: rgba(250, 247, 242, 0.5); font-size: 10.5px; text-align: right; }
+.pv-ll .sc { flex: none; max-width: 15ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: rgba(250, 247, 242, 0.45); font-size: 10.5px; }
+.pv-ll .t { white-space: pre-wrap; word-break: break-word; min-width: 0; flex: 1; }
 .pv-ll.cmd .t { color: #9ad48f; font-weight: 600; }
-.pv-ll.err .t { color: #ff9d94; }
-.pv-ll.warn .t { color: #f0b46a; }
-.pv-ll.dim .t { color: rgba(250, 247, 242, 0.62); }
+.pv-ll.err .t { color: #ff9d94; } .pv-ll.err .lv { color: #ff9d94; }
+.pv-ll.warn .t { color: #f0b46a; } .pv-ll.warn .lv { color: #f0b46a; }
 .pv-ll.ok .t { color: #9ad48f; }
+.pv-ll.out .t, .pv-ll.log .t { color: var(--on-dark); }
+
 .pv-logfoot {
-  display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
-  padding: 8px 16px; border-top: 1px solid var(--line); background: var(--bg-3);
+  display: flex; gap: 16px; flex-wrap: wrap; align-items: center; min-height: 34px;
+  padding: 8px 14px; border-top: 1px solid var(--line); background: var(--bg-3);
   font-size: 11px; color: var(--ink-faint);
 }
 .pv-logfoot .ok { color: var(--pass-strong); } .pv-logfoot .bad { color: var(--danger); }
 .pv-logfoot .sp { margin-left: auto; }
 
 /* ---------- source ---------- */
-.pv-src { display: grid; grid-template-columns: 232px minmax(0, 1fr); }
-.pv-tree { border-right: 1px solid var(--line); padding: 10px 0; background: var(--bg-3); font-family: var(--font-mono); font-size: 11.5px; min-width: 0; }
-.pv-tdir { color: var(--ink-faint); padding: 4px 14px; overflow-wrap: normal; word-break: keep-all; }
-.pv-tfile {
-  display: flex; gap: 8px; align-items: center; padding: 6px 14px 6px 24px; min-height: 36px;
-  color: var(--ink-dim); cursor: pointer; border-left: 2px solid transparent; background: none;
-  border-top: 0; border-right: 0; border-bottom: 0; width: 100%; text-align: left; font: inherit;
+.pv-src { display: flex; flex-direction: column; min-width: 0; }
+.pv-tree {
+  display: flex; gap: 4px; overflow-x: auto; padding: 8px; background: var(--bg-3);
+  border-bottom: 1px solid var(--line); font-family: var(--font-mono); font-size: 11.5px; min-width: 0;
+  scroll-snap-type: x proximity;
 }
-.pv-tfile:hover { background: var(--bg); color: var(--ink); }
-.pv-tfile.on { border-left-color: var(--accent); background: var(--bg); color: var(--ink); font-weight: 600; }
-.pv-tfile .m { margin-left: auto; font-size: 9.5px; color: var(--ink-faint); font-weight: 400; }
-.pv-code { min-width: 0; display: flex; flex-direction: column; }
+.pv-tdir { display: none; }
+.pv-tfile {
+  flex: none; font: inherit; text-align: left; cursor: pointer; color: var(--ink-dim);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 6px 11px;
+  scroll-snap-align: start; display: inline-flex; gap: 7px; align-items: center; min-height: 30px;
+  transition: border-color .14s var(--ease), background .14s var(--ease);
+}
+.pv-tfile:hover { border-color: var(--accent); }
+.pv-tfile.on { border-color: var(--accent); background: var(--accent-dim); color: var(--ink); }
+.pv-tfile .m { font-size: 10px; color: var(--ink-faint); }
+.pv-tfile:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 1px; }
+
+.pv-code { display: flex; flex-direction: column; min-width: 0; flex: 1; }
 .pv-codehead {
-  display: flex; align-items: center; gap: 12px; padding: 9px 14px;
-  border-bottom: 1px solid var(--line); background: var(--bg-3); font-size: 11px; color: var(--ink-faint);
+  display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;
+  padding: 8px 14px; border-bottom: 1px solid var(--line); font-size: 11px; color: var(--ink-faint); min-height: 34px;
 }
 .pv-codehead b { font-size: 12px; color: var(--ink); }
-.pv-codehead .pv-sp { margin-left: auto; }
-.pv-cbody { padding: 8px 0; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.66; overflow: auto; max-height: 460px; }
-.pv-cbody:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-.pv-cl { display: flex; gap: 14px; padding: 0 16px; white-space: pre; }
-.pv-cl .n { width: 26px; flex: none; text-align: right; color: var(--ink-faint); font-size: 11.5px; user-select: none; }
-.pv-cl .t { color: var(--ink); white-space: pre-wrap; word-break: break-word; min-width: 0; }
-.pv-cl.hit { background: var(--accent-dim); box-shadow: inset 3px 0 0 var(--accent); }
-.pv-cl.hit .t { color: var(--accent-strong); }
-.pv-cfoot { padding: 8px 16px; border-top: 1px solid var(--line); background: var(--bg-3); font-size: 10.5px; color: var(--ink-faint); }
+.pv-codehead .pv-sp { margin-left: auto; font-variant-numeric: tabular-nums; }
 
-.pv-note { font-size: 12.5px; color: var(--ink-faint); margin: 14px 2px 0; line-height: 1.65; }
+.pv-cbody { background: var(--bg); overflow: auto; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.62; padding: 8px 0; }
+.pv-cbody:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: -2px; }
+.pv-cl { display: flex; gap: 10px; padding: 0 12px; }
+.pv-cl .n { flex: none; width: 30px; text-align: right; color: var(--ink-faint); user-select: none; font-variant-numeric: tabular-nums; }
+.pv-cl .t { white-space: pre; min-width: 0; color: var(--ink-dim); }
+/* The marked block is the reason this panel exists: the lines that produced the
+   job you clicked, in the file you are reading. */
+.pv-cl.hit { background: var(--accent-dim); box-shadow: inset 3px 0 0 var(--accent); }
+.pv-cl.hit .t { color: var(--ink); }
+.pv-cfoot { padding: 7px 14px; border-top: 1px solid var(--line); background: var(--bg-3); font-size: 10.5px; color: var(--ink-faint); }
+
+/* ---------- notes, proof, end ---------- */
+.pv-note { font-size: 12.5px; color: var(--ink-faint); margin: 16px 2px 0; line-height: 1.65; }
 .pv-note code { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-dim); }
 
-/* ---------- proof ---------- */
 .pv-proof { padding: clamp(48px, 6vw, 76px) 0; border-top: 1px solid var(--line); }
 .pv-proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(268px, 1fr)); gap: 16px; }
 .pv-proof-card { border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; background: var(--bg-3); }
@@ -205,28 +230,35 @@
 .pv-end-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
 
 /* ---------- narrow ---------- */
-@media (max-width: 900px) {
-  .pv-src { grid-template-columns: 1fr; }
-  .pv-tree { border-right: 0; border-bottom: 1px solid var(--line); display: flex; overflow-x: auto; padding: 6px; gap: 4px;
-             scroll-snap-type: x proximity; min-width: 0; }
-  .pv-tdir { display: none; }
-  .pv-tfile { flex: none; border: 1px solid var(--line); border-left-width: 1px; border-radius: 999px; padding: 7px 12px;
-              scroll-snap-align: start; font-size: 11px; }
-  .pv-tfile.on { border-color: var(--accent); background: var(--accent-dim); }
-  .pv-tfile .m { display: none; }
-  .pv-rstats { margin-left: 0; width: 100%; gap: 16px; }
-  .pv-rstats div { text-align: left; }
-  .pv-path { display: none; }
+@media (max-width: 1040px) {
+  .pv-split { grid-template-columns: 1fr; }
+  .pv-console { border-right: 0; border-bottom: 1px solid var(--line); }
+  .pv-log { height: 294px; }
+  .pv-cbody { height: 300px; }
 }
 
-/* Sapuan horizontal hanya di lebar sempit: di desktop panel ini sudah punya
-   scrollbar sendiri, dan memudarkan tepi log akan membuat baris terakhirnya
-   sulit dibaca. */
 @media (max-width: 900px) {
-  .pv-skin, .pv-tree {
-    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 34px), transparent);
-    mask-image: linear-gradient(to right, #000 calc(100% - 34px), transparent);
-  }
+  .pv-rhead { min-height: 225px; }
+  .pv-rstats { margin-left: 0; width: 100%; gap: 16px; }
+  .pv-rstats div { text-align: left; }
+  .pv-ll .sc { display: none; }
+  .pv-ll { gap: 7px; padding: 0 10px; }
+}
+
+/* A strip fades only when it actually overflows: the class is set from measured
+   numbers in pipelines.mjs, so a panel that fits shows no false hint. */
+.pv-skin.scrolling, .pv-tree.scrolling {
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 34px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 34px), transparent);
+}
+
+@media (max-width: 640px) {
+  /* A full RFC3339 stamp costs about 150px of a 350px panel. The date and the
+     zone move up into the console head, where they are stated once, and each
+     line keeps the part that actually differs. */
+  .pv-ll .ts .dt, .pv-ll .ts .tz { display: none; }
+  .pv-chead .sp { margin-left: 0; }
+  .pv-clock { display: block; margin-left: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {

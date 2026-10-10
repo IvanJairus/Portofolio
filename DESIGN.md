@@ -111,8 +111,36 @@ reader sees and not what grep finds.
   the landing page publishes them; everywhere else the page says what it decided
   rather than how long it took.
 - A replica says it is a replica. Synthetic data is labelled where it is visible.
+- The times in a `/pipelines/` console are the visitor's own clock, stamped as each
+  line is drawn. The page says so in one line above the panels, because a timestamp
+  is the one number on that page a reader would otherwise assume was measured.
 - The footer creed line is the owner's sentence. It is not quoted, not attributed,
   and not used as evidence for anyone else's claim.
+
+## The log line on `/pipelines/`
+
+```
+2026-10-11T00:37:09.910+07:00 INFO deploy:sit verdict checked env=sit allowed=true
+```
+
+That shape is not decoration: it is `ci-library/scripts/lib/log.sh` in the
+repository, mirrored by `run-gate.groovy`, `release_stamp.py` and `ticket_sync.py`,
+and proven by `ci-library/examples/transcript.txt`, which is the output of those
+programs actually running. The page draws lines in that shape so the console and
+the source panel agree with each other. Below 640px the date and the zone move into
+the console header and each line keeps only its time: a 150-character-wide stamp
+inside a 350px panel leaves the message unreadable, and the date is the same on
+every line anyway.
+
+## Geometry reserved for JavaScript
+
+`/pipelines/` is painted by a module that runs after the browser has shown the
+shell. Every region the module fills reserves the height of its filled default
+state (`.pv-rhead`, `.pv-skin`, `.pv-log`, `.pv-cbody`), and the self-check badge
+keeps its three states to one line. Without that, the page moved 82px under the
+reader on load and measured CLS 0.30 while the site publishes CLS 0. The numbers
+are re-measured with `_pv2.html` whenever the default state changes; they are
+comments in the CSS, not folklore.
 
 ## The one dark side of this file
 

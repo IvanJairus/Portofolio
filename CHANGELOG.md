@@ -40,24 +40,74 @@ All notable changes to this repository are documented here. The format follows
 
 ### Changed
 
-- **`/pipelines/` rebuilt as a pipeline run page, not a widget.** The landing page's
-  case-study layout does not read as CI, so this page now borrows the grammar of the
-  tools instead: GitLab stage columns with job cards and manual jobs marked in dashed
-  circles, and a Jenkins Blue Ocean graph of rounded nodes on connectors. Switching
-  the engine swaps the layout and the run identity, and a third tab opens the
-  repository file that produced the selected job.
-- **The source shown is the real repository source.** Seven files vendored verbatim
-  and pinned by SHA-256 in `assets/data/rules.lock.json`, with a manifest mapping each
-  job to the line ranges that produced it. `GatewaySIT.groovy` (196 lines: tracker
-  webhook to transition table to `build wait: false`), `vaultCredentials.groovy`
-  (JWT lease, revoked in `finally`) and `GateResult.groovy` are the files on show.
+- **`/pipelines/` is one sheet with two engines on it, not a widget with tabs.** The
+  first version of the page made you choose: engine here, outcome there, and the
+  source behind a tab. A pipeline is read by comparing what happened with the code
+  that made it happen, so the tabs are gone. The GitLab stage columns and the Jenkins
+  Blue Ocean graph are now stacked, each with its console beside its own source panel,
+  and the gate that decides both sits below them as its own section. One switch,
+  `passed / refused`, moves all three at once.
+- **The GitLab side got the complexity the claim needed.** Eight stages and sixteen
+  jobs, named exactly as they are named in `ci-library/templates/backend.yml`:
+  version stamp, jar, image digest, unit and contract tests, four scans including an
+  SBOM index, the quality gate, the composite gate, the ticket write-back, the SIT
+  deploy, two manual promotions, and a metrics push that runs whether the pipeline is
+  green or red. The Jenkins side is a different animal and says so: it starts from a
+  Jira webhook body and routes on the transition.
+- **Twenty-five files are vendored from one pinned commit, not from a moving branch.**
+  `scripts/sync-sources.mjs` fetches them from `raw.githubusercontent.com` at the
+  commit named in `assets/data/sources.json`, writes the bodies, the line counts and
+  `rules.lock.json`, and refuses to write anything if a highlight range falls outside
+  the file it points at. `check-rules-sync.mjs` re-verifies all of it, including that
+  every line count still matches the bytes on disk. Comparing against `HEAD` would
+  have let the page's claim rot the first time someone edited a file upstream.
+- **The console speaks the repository's log format.** `ci-library/scripts/lib/log.sh`
+  defines `<RFC3339+offset> <LEVEL> <scope> <message> key=value`, and the page draws
+  lines in that shape. The timestamps are the visitor's own clock as the replay is
+  drawn, which the page states above the panels; the two durations that are real
+  measurements carry their sample sizes.
 - **Durations are shown in two places only.** Those are the two the landing page
   publishes with a sample size. Everywhere else the slot stays empty rather than
-  guessing a plausible number.
+  guessing a plausible number, and a job the gate never let start shows no duration at
+  all.
 - **`DESIGN.md` now describes a two-page site.**
+- **The Lighthouse gate measures both pages.** It measured the landing page only,
+  so everything built on `/pipelines/` could regress without CI noticing. The loop
+  now runs `root` and `pipelines` against the same thresholds, keeps the retry
+  (two attempts per page, pass on either), and uploads one artifact per page. Run
+  locally with the pinned version before committing:
+  `root` A99 / BP100 / SEO100, `pipelines` P99 / A100 / BP100 / SEO100.
+- **The other two gates started covering the second page too.** `html-validate` ran
+  on `index.html` and `404.html`, and the link check on `index.html` and `README.md`,
+  so `pipelines/index.html` was never parsed and its links were never followed. Both
+  now include it. The first run found three `<button>` elements without a `type`.
 
 ### Fixed
 
+- **`/pipelines/` moved the page under the reader while it loaded.** CLS 0.30 on
+  first measurement, in two steps: the module waited for eight `fetch()`es before
+  painting anything, and the empty containers it then filled were shorter than
+  their own content. The run now paints synchronously from the vendored rules and
+  only the repository files load late, and each JS-filled region reserves the
+  height of the default run's filled state. Measured after: CLS 0.015, which is
+  not zero and is not claimed as zero. The residual is the run title growing from
+  one line to two inside a header that already reserved its height.
+- **A 404 on every load of `/pipelines/`.** The page had no icon links, so the
+  browser asked for `/favicon.ico` and Best-Practices lost a point. Now carries
+  the same three as the landing page.
+- **Two accessibility findings.** Stage names in the GitLab columns were `<h4>`
+  under an `<h1>`, which axe reads as a broken heading order; they are column
+  labels, so they are `<p>` now. And the brand link's `aria-label="Home"` did not
+  match its visible text, which is a `label-content-name-mismatch`: the label is
+  gone, so the accessible name is the text on screen. The landing page carries the
+  same brand markup and is left alone until its published scores are re-measured.
+- **The self-check badge rewrote the page when it finished.** Its result text was
+  78 characters against a 40-character placeholder, so the pill grew a line and
+  pushed the card down. Both states now fit one line at 390px.
+- **The `run` label could sit alone at the end of a row** with its buttons on the
+  next one. Label and control are grouped, so they wrap together.
+- **Truncated job names had no way back.** `sonarqube-c…` and `promote-p…` are what
+  a 132px column gives; the full name is now a tooltip, as it is in GitLab.
 - **The architecture diagram was cut in half on a phone.** `min-width: 640px` inside
   a 350px box left 326px of the drawing off screen with nothing to suggest the box
   scrolled, so the two columns that carry the argument (`domain pipelines` and
