@@ -37,7 +37,7 @@ window.PROFILE = {
         en: [
           "Own CI/CD for a wholesale banking platform: one pipeline standard shared by 53 services across two CI engines.",
           "Built the release control plane and the ChatOps orchestrator that drives branch, merge, deploy and scan workflows from issue boards.",
-          "Codified a 52-rule pipeline standard and the security gates (SAST, container scan, SBOM, quality gate) enforced on every merge.",
+          "Codified the pipeline standard and the security gates (SAST, container scan, SBOM, quality gate) enforced on every merge.",
           "Set up and administer the internal artifact store every build must resolve through: Maven and npm, proxy, hosted and group repositories.",
           "Designed the platform architecture and delivery workflows end-to-end: gateway routing, stage contracts, environment promotion and the release ledger.",
           "Mentored and onboarded new engineers, and transferred ownership of the four projects I held, with architecture docs and runbooks, so the platform outlives any single owner.",

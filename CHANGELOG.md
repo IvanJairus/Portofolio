@@ -31,6 +31,14 @@ All notable changes to this repository are documented here. The format follows
 
 ### Changed
 
+- **The "52-rule" count is off the page.** Four strings carried it: `work.2.i2`,
+  `tm.8g`, `skills.e.1.1`, and the DevSecOps timeline bullet in `config.js`. The
+  number could not be pointed at a published list, so it was a claim a reviewer
+  could ask about and I could not answer. It now reads "the published standard"
+  and "the published rule set", which the reference library can actually show
+  line by line. `ReleaseRules.groovy` in `pipeline-gateway-reference` still
+  writes "52 rules" in its own header comment; that is a different repository and
+  was left alone. Cut after `v1.2.0`, so it belongs to the next release.
 - **Copy: 348 dashes removed from the page and the repository.** The em dash was
   doing the job of a period, a comma or a colon in 16 tracked files, and in
   clusters it is the tell that reads as machine-written. Long sentences were split
