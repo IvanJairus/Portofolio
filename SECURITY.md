@@ -32,7 +32,11 @@ Report it if the finding is about the site as it is published, for example:
 - A published file that should not be public: a secret, a token, an internal
   hostname, or unsanitised employer data. Every figure, name, host and
   screenshot on the site is intentionally dummy data, so anything that looks
-  real and internal is a disclosure bug.
+  real and internal is a disclosure bug. One file is the deliberate exception:
+  `assets/cv/cv-ivan-jairus.pdf` is a real curriculum vitae, linked from the
+  page, and it names the employer. That is the owner's choice rather than a
+  leak. What would be a leak is that same file carrying an internal hostname, a
+  credential, a real ticket number, or a client name.
 - A header configuration in `vercel.json` that is weaker than it is documented
   to be, or a redirect that leaks the referrer.
 - An accessibility failure that blocks a real task (keyboard operation, colour

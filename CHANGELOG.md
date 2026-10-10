@@ -71,6 +71,28 @@ All notable changes to this repository are documented here. The format follows
   `security.yml` now validates `404.html` with the same pinned
   `html-validate@8`, which caught a lowercase doctype on the first run.
 
+### Fixed
+
+- **The page's own fallback text had drifted from its data.** `config.js` carries
+  seven experience bullets and four contact links; `index.html` shipped six and
+  two. A visitor with JavaScript disabled saw a shorter record than one without,
+  and nothing in CI could notice. `scripts/sync-i18n.mjs` now generates the
+  timeline and the links block from `config.js` the same way `main.js` builds
+  them, so the drift is not possible to reintroduce. Verified in a browser: 10
+  bullets and 4 links on both sides, identical text.
+- **`robust` cut for real.** The backend bullet claimed "the design patterns and
+  framework knowledge that keep microservice APIs robust", which states no fact.
+  It now says what was built and stops there.
+
+### Removed
+
+- **Nine dead locale fields in `config.js`.** `main.js` fixes `lang` to `en`, so
+  every `id:` sibling of an `en:` value was unreachable. The example entry in the
+  file's own comment taught the two-language shape, so it was corrected too.
+- **`links[].id` was kept on purpose.** Those four values are identifiers
+  (`linkedin`, `github`, `pipeline`, `dashboard`), not Indonesian text, and a
+  first pass that counted 13 dead fields mistook them for dead. They stay.
+
 ### Deliberately not added
 
 - **ISR and server rendering** need Next.js; this is a static page with no build
