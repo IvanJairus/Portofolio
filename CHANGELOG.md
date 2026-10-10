@@ -113,13 +113,28 @@ best-practices 100, SEO 100; FCP 2.4 s, LCP 3.3 s, TBT 0 ms, CLS 0.001, weight
 with no page overflow and no clipped text, zero console errors, and the analytics
 loader confirmed inert locally.
 
-### Needs one action
+### Confirmed live, both features
 
-Enable Web Analytics in the Vercel dashboard for this project. The code is
-already correct; until the toggle is on, the production hostname is the only
-place that would request a script that does not exist. Speed Insights is free to
-10,000 events per rolling 30 days on Hobby and uses a per-project script path;
-paste that path into `SPEED_INSIGHTS_PATH` and it loads the same way.
+Web Analytics was enabled in the dashboard on 2026-10-08, but nothing had ever
+loaded its script. The pull request Vercel's agent opened to do it
+(`IvanJairus/Portofolio#5`, still a draft since that day) is the only thing that
+would have, and it writes the bootstrap as an inline `<script>` which this site's
+`script-src 'self'` refuses. Its `vercel.json` change is byte-identical to the
+one in this release, which is a useful second opinion on the host list. PR #5 can
+be closed.
+
+Speed Insights was assumed to need a per-project path copied from the dashboard,
+so it was left for later. That assumption was wrong and checking it cost one
+request: `/_vercel/speed-insights/script.js` already answers 200 on production.
+Reading the loader settled the remaining question, which is where the data goes:
+it posts to `vitals.vercel-insights.com/v2/vitals`, the same host Web Analytics
+uses, and reports LCP, CLS and INP on `visibilitychange` through `sendBeacon`. No
+CSP change was needed, so both scripts now load through the same guarded path.
+
+Verified on production with a real browser: both scripts return 200, both tags
+are present after load, `window.va` is a function, and the console stays clean.
+Allowance on Hobby is 50,000 Web Analytics events per month and 10,000 Speed
+Insights events per rolling 30 days, shared across the team.
 ## [1.1.0] - 2026-10-08
 
 Fifty-eight commits after `v1.0.0` (`66d63ad`), all on 2026-10-08, this

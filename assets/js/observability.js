@@ -1,28 +1,25 @@
 /*
-  Vercel serves its own analytics from this origin, so the script fits the page's
-  existing `script-src 'self'`. The measurement goes to
-  vitals.vercel-insights.com, which is the one host `connect-src` allows.
+  Vercel serves both of its scripts from this origin, so they fit the page's
+  existing `script-src 'self'`. Both post their measurements to
+  vitals.vercel-insights.com, the one host `connect-src` allows, so neither
+  feature needs a second exception: Web Analytics sends a pageview, Speed
+  Insights sends LCP, CLS and INP on visibilitychange via sendBeacon.
 
   The hostname test is the point of this file. A missing `/_vercel/...` script is
   logged as a failed request in the console, and this page is judged on its
-  engineering hygiene, so the script is only requested where it is meant to
+  engineering hygiene, so the scripts are only requested where they are meant to
   exist: not on a laptop, not on a preview deployment.
-
-  Before this does anything, enable Web Analytics for the project in the Vercel
-  dashboard. Speed Insights uses a per-project path that the dashboard shows
-  when the feature is turned on; paste it below and it loads the same way.
 */
 const PRODUCTION = "www.ivanjairus.xyz";
-const SPEED_INSIGHTS_PATH = "";
+const WEB_ANALYTICS_PATH = "/_vercel/insights/script.js";
+const SPEED_INSIGHTS_PATH = "/_vercel/speed-insights/script.js";
 
 if (location.hostname === PRODUCTION) {
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-  addScript("/_vercel/insights/script.js");
+  addScript(WEB_ANALYTICS_PATH);
 
-  if (SPEED_INSIGHTS_PATH) {
-    window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
-    addScript(SPEED_INSIGHTS_PATH);
-  }
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+  addScript(SPEED_INSIGHTS_PATH);
 }
 
 function addScript(src) {
@@ -31,3 +28,4 @@ function addScript(src) {
   tag.defer = true;
   document.head.appendChild(tag);
 }
+

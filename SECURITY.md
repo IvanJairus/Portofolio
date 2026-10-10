@@ -8,19 +8,20 @@ Nothing the page loads comes from another origin. The Content-Security-Policy is
 `default-src 'self'` with `style-src 'self'` and no `unsafe-inline`, so a
 hot-linked asset is blocked by the browser rather than loaded.
 
-The one exception is the host. Vercel Web Analytics is enabled for this project.
-Its script is served from this origin at `/_vercel/insights/script.js`, and the
-measurement is posted to `vitals.vercel-insights.com`, which is the only external
-host the CSP allows under `connect-src`. The counter is cookieless and
-aggregated: Vercel identifies a visitor with a hash of the request and discards
-the session after 24 hours. No name, address, email or employer data is involved,
-and this repository stores nothing about a visitor.
+The one exception is the host. Two Vercel features are enabled for this project:
+Web Analytics, which counts a pageview, and Speed Insights, which reports the
+Core Web Vitals a real browser measured (LCP, CLS, INP). Both scripts are served
+from this origin under `/_vercel/`, and both post to
+`vitals.vercel-insights.com`, which is the only external host the CSP allows
+under `connect-src`. Neither uses a cookie. Vercel describes a visitor with a
+hash of the request and discards the session after 24 hours, and Speed Insights
+sends timings rather than anything identifying. No name, address, email or
+employer data is involved, and this repository stores nothing about a visitor.
 
-`assets/js/observability.js` requests the analytics script only on the
-production hostname, so a local run or a preview deployment never sends a
-request that the host would answer with a 404. If you find a request to any host
-other than this one and `vitals.vercel-insights.com`, that is a reportable
-finding.
+`assets/js/observability.js` requests the two scripts only on the production
+hostname, so a local run or a preview deployment never sends a request the host
+would answer with a 404. If you find a request to any host other than this one
+and `vitals.vercel-insights.com`, that is a reportable finding.
 
 ## What counts as a vulnerability
 
