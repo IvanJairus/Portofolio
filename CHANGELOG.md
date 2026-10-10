@@ -29,6 +29,10 @@ All notable changes to this repository are documented here. The format follows
 
 ## [Unreleased]
 
+Nothing yet: `v1.4.0` was tagged on 2026-10-11.
+
+## [1.4.0] - 2026-10-11
+
 ### Added
 
 - **`DESIGN.md`.** The site's visual and prose direction written down instead of
@@ -236,6 +240,33 @@ Verified on production with a real browser: both scripts return 200, both tags
 are present after load, `window.va` is a function, and the console stays clean.
 Allowance on Hobby is 50,000 Web Analytics events per month and 10,000 Speed
 Insights events per rolling 30 days, shared across the team.
+
+### Measured after
+
+Lighthouse 13.5.0, mobile emulation, `--force-prefers-reduced-motion`, served by
+`python3 -m http.server` on 127.0.0.1, 2026-10-11. Both pages, same thresholds,
+and the CI gate now runs both:
+
+| Page | P | A | BP | SEO | FCP | LCP | TBT | CLS | Weight |
+|---|---|---|---|---|---|---|---|---|---|
+| `/` | 89 | 99 | 100 | 100 | 2.40 s | 3.30 s | 0 ms | 0 | 416 KiB |
+| `/pipelines/` | 99 | 100 | 100 | 100 | 1.58 s | 1.66 s | 0 ms | 0.011 | 250 KiB |
+
+The landing page's own published figures still come from the 2026-10-07 run
+(P93, LCP 2.9 s), and this table is not evidence that they are wrong: it is one
+run on a laptop doing other things at midnight, and Performance is the number
+that moves with the machine. That is exactly why the gate has thresholds and two
+attempts instead of a fixed score. If a future run on a quiet machine does not
+return to P93, the published figures have to be re-measured and corrected, not
+smoothed over.
+
+Weight is what an uncompressed local server sends; over the wire the deployed page
+transfers far less. `/pipelines/` is 0.011 and not 0: the run title grows from one
+line to two inside a header that had already reserved its height. Colour contrast:
+axe reports 0 findings on the state a visitor lands in; the console's own palette was
+computed by hand because the panels below the fold and the marked source lines are
+not open at load (the console's scope column was raised from 4.23:1 to 6.08:1 as a result).
+
 ## [1.1.0] - 2026-10-08
 
 Fifty-eight commits after `v1.0.0` (`66d63ad`), all on 2026-10-08, this
