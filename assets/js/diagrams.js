@@ -1,8 +1,8 @@
-/* ============================================================
-   diagrams.js — urutan animasi diagram arsitektur, pipeline, gate
-   Semua diagram hanya bermain saat masuk viewport, sekali saja,
-   dan dimatikan total bila prefers-reduced-motion.
-   ============================================================ */
+/*
+  Urutan animasi diagram arsitektur, pipeline dan gate. Setiap diagram hanya
+  bermain saat masuk viewport, sekali saja, dan dimatikan total bila
+  prefers-reduced-motion aktif.
+*/
 
 (function () {
   "use strict";

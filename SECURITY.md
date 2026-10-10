@@ -2,10 +2,25 @@
 
 This is a personal portfolio: one hand-built static HTML page, its own CSS and
 vanilla JavaScript, served as-is. There is no backend, no database, no
-authentication, no forms, and no user data of any kind. Nothing on the page
-talks to a third party — the Content-Security-Policy is `default-src 'self'`
-with `style-src 'self'` and no `unsafe-inline`, so a hot-linked asset would be
-blocked by the browser rather than loaded.
+authentication and no forms, so there is nothing here that stores visitor data.
+
+Nothing the page loads comes from another origin. The Content-Security-Policy is
+`default-src 'self'` with `style-src 'self'` and no `unsafe-inline`, so a
+hot-linked asset is blocked by the browser rather than loaded.
+
+The one exception is the host. Vercel Web Analytics is enabled for this project.
+Its script is served from this origin at `/_vercel/insights/script.js`, and the
+measurement is posted to `vitals.vercel-insights.com`, which is the only external
+host the CSP allows under `connect-src`. The counter is cookieless and
+aggregated: Vercel identifies a visitor with a hash of the request and discards
+the session after 24 hours. No name, address, email or employer data is involved,
+and this repository stores nothing about a visitor.
+
+`assets/js/observability.js` requests the analytics script only on the
+production hostname, so a local run or a preview deployment never sends a
+request that the host would answer with a 404. If you find a request to any host
+other than this one and `vitals.vercel-insights.com`, that is a reportable
+finding.
 
 ## What counts as a vulnerability
 
@@ -14,14 +29,14 @@ Report it if the finding is about the site as it is published, for example:
 - A way to execute script in the page's origin, including a DOM-based sink in
   `assets/js/`, a bypass of the CSP, or an injection through the URL hash or a
   stored value the page reads.
-- A published file that should not be public — a secret, a token, an internal
+- A published file that should not be public: a secret, a token, an internal
   hostname, or unsanitised employer data. Every figure, name, host and
   screenshot on the site is intentionally dummy data, so anything that looks
   real and internal is a disclosure bug.
 - A header configuration in `vercel.json` that is weaker than it is documented
   to be, or a redirect that leaks the referrer.
 - An accessibility failure that blocks a real task (keyboard operation, colour
-  contrast below WCAG 2.1 AA) — this site sells its engineering hygiene, so
+  contrast below WCAG 2.1 AA). This site sells its engineering hygiene, so
   accessibility defects are treated as bugs, not cosmetics.
 - A supply-chain issue in CI: a workflow step that runs a floating tag, an
   over-broad `permissions:` block, or a third-party action that could execute
@@ -34,8 +49,8 @@ Report it if the finding is about the site as it is published, for example:
   server-side code and no input handling to exploit.
 - Missing HTTP-only hardening on the `*.vercel.app` hostname itself, or anything
   only reachable from a local `python3 -m http.server` run.
-- Generic reports about the Vercel or GitHub platforms, and dependency advisories
-  — there are no dependencies to update. Dependabot is configured for GitHub
+- Generic reports about the Vercel or GitHub platforms, and dependency advisories.
+  There are no dependencies to update. Dependabot is configured for GitHub
   Actions only.
 - Social engineering, phishing against the contact address, and scanner output
   without a reproducible demonstration.
@@ -50,7 +65,7 @@ first and ask for an encryption method before describing it.
 
 Please include: the URL, what the page does wrong, the steps to reproduce it,
 and the impact. A proof of concept is more useful than a description. Do not
-open a public issue for an unfixed vulnerability — the repository is public,
+open a public issue for an unfixed vulnerability. The repository is public,
 and an issue is a disclosure.
 
 There is no bug bounty and no safe-harbour statement to offer beyond this: a

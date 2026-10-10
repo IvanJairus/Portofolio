@@ -1,5 +1,5 @@
 /*
- * assert-lighthouse.mjs — turn a Lighthouse JSON report into a pass/fail gate.
+ * Turn a Lighthouse JSON report into a pass/fail gate.
  *
  * Used by .github/workflows/quality.yml. Run with:
  *   node .github/scripts/assert-lighthouse.mjs <path-to-report.json>
@@ -117,7 +117,7 @@ if (consoleErrors) {
   check("errors-in-console", count, "<=", 0, "reported");
 }
 
-console.log(`\nLighthouse gate — ${report.finalDisplayedUrl || report.requestedUrl || "target"} ` +
+console.log(`\nLighthouse gate: ${report.finalDisplayedUrl || report.requestedUrl || "target"} ` +
   `(lighthouse ${report.lighthouseVersion || "?"}, ${report.configSettings ? report.configSettings.formFactor : "?"} emulation)\n`);
 console.log(rows.join("\n"));
 

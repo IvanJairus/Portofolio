@@ -1,6 +1,8 @@
-# Portfolio — Ivan Jairus
+# Portfolio site of Ivan Jairus
 
-Static portfolio site: plain HTML + vanilla JS + CSS. No build step, no CDN, no dependencies.
+Static portfolio site: plain HTML, vanilla JS and CSS. No build step, no CDN, no
+npm dependencies. The only third party involved is the host itself; see
+[SECURITY.md](SECURITY.md) for what that means for analytics.
 
 ![security](https://github.com/IvanJairus/Portofolio/actions/workflows/security.yml/badge.svg)
 
@@ -13,12 +15,14 @@ python3 -m http.server 8731
 
 ## Deploy
 
-Push to `main` — Vercel serves the repo statically; `vercel.json` sets CSP and security headers.
+Push to `main`. Vercel serves the repo statically and `vercel.json` sets the CSP, the
+security headers, the cache policy and the apex redirect.
 
 ## Notes
 
 - All figures, names, hosts and screenshots on the site are sanitized dummy data; the engineering described is real.
-- All page text lives in `assets/js/i18n.js` (English only) and every value is duplicated as the HTML fallback in `index.html` - change both or the parity check complains. Identity data lives in `assets/js/config.js`.
+- All page text lives in `assets/js/i18n.js` (English only) and every value is duplicated as the HTML fallback in `index.html`. Run
+`node scripts/sync-i18n.mjs` after editing it, or `--check` in CI to catch drift. Identity data lives in `assets/js/config.js`.
 
 ## Licence
 

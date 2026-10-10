@@ -1,0 +1,70 @@
+/*
+  Halaman 404. Berdiri sendiri: hanya token dari base.css yang dipakai, supaya
+  satu halaman error tidak menarik seluruh stylesheet halaman utama.
+*/
+
+.error {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 32px 20px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+.error-box { width: min(560px, 100%); }
+
+.error-code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .16em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.error h1 {
+  margin: 10px 0 0;
+  font-size: clamp(26px, 5vw, 34px);
+  font-weight: 650;
+  letter-spacing: -.02em;
+  line-height: 1.2;
+}
+
+.error p {
+  margin: 12px 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-dim);
+}
+
+.error-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.error-links a {
+  display: inline-block;
+  padding: 8px 13px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: 13.5px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.error-links a:hover { border-color: var(--accent-line); color: var(--accent-strong); }
+.error-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.error-foot {
+  margin-top: 30px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-faint);
+}

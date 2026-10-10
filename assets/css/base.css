@@ -1,15 +1,14 @@
-/* ============================================================
-   base.css — tokens, reset, tipografi, layout, header, hero
-   Satu tema saja: broken white hangat + oranye GitLab sebagai
-   warna utama. Warna status memakai warna alat nyata (Jenkins,
-   OpenShift, Jira, Docker, GitHub) — lihat tabel kontras di
-   usulan-palet-2026-10-07.md.
-   ============================================================ */
+/*
+  Token, reset, tipografi, layout, header dan hero.
+  Satu tema: broken white hangat dengan oranye GitLab sebagai warna utama.
+  Warna status memakai warna alat aslinya (Jenkins, OpenShift, Jira, Docker,
+  GitHub) supaya konsisten dengan diagram di halaman.
+*/
 
 :root {
   color-scheme: light;
 
-  /* bidang — halaman putih; warna hangat bertahan hanya sebagai tint cekung.
+  /* bidang: halaman putih; warna hangat bertahan hanya sebagai tint cekung.
      bg-2 sengaja sama dengan bg: pemisah kartu/blok selalu garis, bukan warna,
      jadi tidak ada pasangan yang kehilangan pemisahnya di atas putih. */
   --bg: #ffffff;
@@ -17,7 +16,7 @@
   --bg-3: #faf7f2;
   --surface-dark: #241c17; /* satu-satunya bidang gelap: terminal & cuplikan kode */
 
-  /* teks — semua >= 4.5:1 di bg, bg-2, maupun bg-3 */
+  /* teks: semua >= 4.5:1 di bg, bg-2 maupun bg-3 */
   --ink: #1c1917;        /* 15.7 - 17.2 */
   --ink-dim: #5c5348;    /* 6.4 - 7.4 */
   --ink-faint: #766b5f;  /* 4.7 - 5.1 */
@@ -49,7 +48,7 @@
   --section: clamp(84px, 11vw, 148px);
   --radius: 4px;
   --ease: cubic-bezier(0.22, 0.68, 0.24, 1);
-  /* tinggi chrome lengket — dipakai bersama oleh posisi sub-nav dan jarak anchor.
+  /* Tinggi chrome lengket, dipakai bersama oleh posisi sub-nav dan jarak anchor.
      Di layar sempit subnav jadi satu baris, jadi tingginya ikut berubah di sini,
      bukan di dua tempat yang harus diingat orang. */
   --header-h: 65px;
@@ -372,7 +371,7 @@ html[data-depth="skim"] .skim-note { display: flex; }
 }
 
 /* strip stack di bawah tombol hero: satu baris mark + nama, tanpa wadah.
-   Di 390 strip ikut di atas rel — Anda menerima bahwa rel terdorong turun. */
+   Di 390 strip ikut di atas rel, jadi rel terdorong turun. */
 .hero-stack {
   grid-area: stack;
   display: flex;
@@ -625,7 +624,7 @@ html[data-depth="skim"] .skim-note { display: flex; }
   border-radius: 2px;
 }
 /* situs ini punya hover dan focus ring, tapi tidak pernah punya state tertekan
-   (0 aturan :active sebelumnya) — sentuh/klik tidak memberi umpan balik sama sekali.
+   (0 aturan :active sebelumnya), jadi sentuh/klik tidak memberi umpan balik sama sekali.
    Hanya kontrol nyata; rel hero (.hf-node) sengaja tidak ikut, sesuai veto Anda. */
 .btn:active, .wsn:active, .ms-tab:active, .tf-btn:active, .bd-btn:active, .bd-dot:active,
 .tool-btn:active, .lc-node:active, .lc-chip:active, .copy-btn:active, [data-act]:active {
@@ -649,7 +648,7 @@ html[data-depth="skim"] .skim-note { display: flex; }
   .gate-result .g-state { font-size: 0; color: #2e7d32 !important; }
   .gate-result .g-state::before { content: attr(data-ready); font-size: 22px; font-weight: 700; }
   .hf-packet, .lc-packet, .rp-sse i, .bd-live i { display: none !important; }
-  .rp-view::before, .bd-narr::before { content: "Interactive demo — see written description."; font-family: var(--font-mono); font-size: 12px; color: #555; }
+  .rp-view::before, .bd-narr::before { content: "Interactive demo. See the written description."; font-family: var(--font-mono); font-size: 12px; color: #555; }
   .dg-link { stroke-dashoffset: 0 !important; } /* animasi dimatikan di cetak: garis diagram harus tetap terlihat */
   * { animation: none !important; transition: none !important; }
 }

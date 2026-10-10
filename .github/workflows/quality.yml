@@ -182,3 +182,27 @@ jobs:
             cat "$raw" >&2
             exit 1
           fi
+
+  copy:
+    name: Copy gates (parity, dash-as-connector)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 20
+
+      # Teks halaman ada di dua tempat: sebagai nilai di i18n.js dan sebagai
+      # fallback di index.html. Kalau keduanya berbeda, halaman pertama yang
+      # dilihat pengunjung bukan halaman yang sama setelah JS jalan. Step ini
+      # memaksa i18n.js jadi satu-satunya sumber: jalankan
+      # `node scripts/sync-i18n.mjs` setiap mengeditnya.
+      - name: HTML fallback must equal i18n.js
+        run: node scripts/sync-i18n.mjs --check
+
+      # Aturan penulisannya: tanda hubung panjang tidak dipakai sebagai penyambung
+      # kalimat. Yang diperiksa bukan hanya karakternya, tapi juga bentuk yang
+      # sampai ke pembaca: escape Unicode di JS dan entity HTML di markup. Keduanya
+      # tidak terlihat oleh grep biasa.
+      - name: No dash used as a connector
+        run: node scripts/assert-copy.mjs --strict

@@ -1,14 +1,12 @@
-/* ============================================================
-   showcase.css — hero flow rail, stack matrix, board storyboard,
-   dan replika UI release control plane.
-   Semua komponen di sini bersifat aditif: tidak menimpa base.css
-   maupun components.css, hanya menambahkan blok baru.
-   Token warna (--accent, --pass, --warn, --info, --danger, dst.)
-   dimilik oleh base.css; berkas ini tidak mendeklarasikannya lagi.
-   ============================================================ */
+/*
+  Hero flow rail, stack matrix, board storyboard dan replika UI release
+  control plane. Semua di sini aditif: tidak menimpa base.css maupun
+  components.css. Token warna dimiliki base.css dan tidak dideklarasikan
+  ulang di berkas ini.
+*/
 
 /* ============================================================
-   1. HERO — rel pipeline
+   HERO: rel pipeline
    ============================================================ */
 .hero-flow-wrap { grid-area: flow; margin-top: 0; }
 .hero-flow {
@@ -111,7 +109,7 @@
 }
 
 /* ============================================================
-   2. STACKS — konveyor + matriks artefak
+   STACKS: konveyor dan matriks artefak
    ============================================================ */
 .conveyor { position: relative; }
 .cv-rail {
@@ -241,7 +239,7 @@
 .stack-note .mono { color: var(--accent); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; margin-right: 6px; }
 
 /* ============================================================
-   3. BOARD — storyboard interaktif
+   BOARD: storyboard interaktif
    ============================================================ */
 .bd {
   margin-top: clamp(26px, 3.6vw, 40px);
@@ -629,7 +627,7 @@ html:not([data-js]) .bd-break { display: none; }
 .co-text .no { color: var(--danger); }
 
 /* ============================================================
-   4. PLATFORM — replika UI release control plane
+   PLATFORM: replika UI release control plane
    ============================================================ */
 .rp {
   border: 1px solid var(--line-strong);
@@ -1982,7 +1980,7 @@ html:not([data-js]) .dec-fold { display: none; }
   padding-left: 16px;
   position: relative;
 }
-.eco-card li::before { content: "—"; position: absolute; left: 0; color: var(--ink-faint); }
+.eco-card li::before { content: "\00B7"; position: absolute; left: 0; color: var(--ink-faint); }
 .eco-new li::before { color: var(--accent); }
 .eco-arrow { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-width: 120px; }
 .ea-ic { font-size: 26px; color: var(--accent); }
@@ -2112,7 +2110,7 @@ html:not([data-js]) .dec-fold { display: none; }
 
 /* anchor jump tidak tertutup chrome lengket. Dua aturan, bukan satu:
    hanya seksi di dalam Work yang punya sub-nav sticky, jadi sisanya cukup
-   tinggi header saja — kalau keduanya pakai nilai penuh, anchor di luar
+   tinggi header saja. Kalau keduanya pakai nilai penuh, anchor di luar
    Work mendarat 56px terlalu dalam. */
 #board, #platform, #architecture, #runtime, #decisions, #threat {
   scroll-margin-top: calc(var(--header-h) + var(--subnav-h) + 8px);
@@ -2283,8 +2281,8 @@ html:not([data-js]) .dec-fold { display: none; }
     color: var(--ink-faint);
   }
   .scroll-hint::before { content: "↔ "; color: var(--accent); }
-  /* hint replika berada di luar kotak geser — isinya dirender JS, jadi tidak bisa
-     ditaruh di dalamnya — jadi ia tidak menempel ikut digeser, melainkan berdiri
+  /* Hint replika berada di luar kotak geser. Isinya dirender JS, jadi tidak bisa
+     ditaruh di dalamnya. Ia tidak ikut bergeser, melainkan berdiri
      tetap di atas area itu */
   .rp-hint { position: static; padding: 0 16px; margin: 0 0 2px; }
   .rp-hint[hidden] { display: none; }
@@ -2339,7 +2337,7 @@ html:not([data-js]) .dec-fold { display: none; }
     font-size: 10.5px;
   }
   /* .ba-col h3 sengaja tidak ikut: kolomnya 57px dan "In Review" sudah 59px
-     pada 10,5px — dipotong jadi "IN REV…" (aturan di atas menahan 10px) */
+     pada 10,5px, dipotong jadi "IN REV…" (aturan di atas menahan 10px) */
 }
 
 /* ---------- B2: efek hover hanya untuk perangkat yang punya hover ----------

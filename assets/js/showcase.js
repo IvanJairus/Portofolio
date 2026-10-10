@@ -1,13 +1,8 @@
-/* ============================================================
-   showcase.js — komponen interaktif portofolio:
-   1. rel pipeline di hero
-   2. konveyor matriks stack
-   3. storyboard board GitLab (8 langkah, autoplay)
-   4. chip ChatOps
-   5. replika UI release control plane
-
-   Semua data di dalam replika adalah dummy yang sudah disanitasi.
-   ============================================================ */
+/*
+  Komponen interaktif portofolio: rel pipeline di hero, konveyor matriks stack,
+  storyboard board GitLab, chip ChatOps, dan replika UI release control plane.
+  Semua data di dalam replika dummy yang sudah disanitasi.
+*/
 
 (function () {
   "use strict";
@@ -25,9 +20,7 @@
     }
   }
 
-  /* ============================================================
-     1. HERO — rel pipeline
-     ============================================================ */
+  /* rel pipeline di hero */
   function initHeroFlow() {
     var rail = document.querySelector('[data-flow="hero"]');
     if (!rail) return;
@@ -101,14 +94,14 @@
     {
       col: 0, phase: "Intake", approvals: [],
       acts: [
-        { who: "engineer", cls: "human", name: "manual", title: "Ticket sits in To do", body: "No branch, no state, no approvals yet. A plain GitLab board gives you columns and labels — nothing that a regulated release actually needs." }
+        { who: "engineer", cls: "human", name: "manual", title: "Ticket sits in To do", body: "No branch, no state and no approvals yet. A plain GitLab board gives you columns and labels, nothing that a regulated release actually needs." }
       ],
       narr: "board.narr.1"
     },
     {
       col: 0, phase: "Dev Planning", approvals: ["team", "business", "product", "architecture"],
       acts: [
-        { who: "gate", cls: "gate", name: "phase validator", title: "Phase flow validated", body: "Phases run in a fixed sequence. A jump is <b>reverted automatically</b> through the API with an explanatory comment — the board cannot be lied to." },
+        { who: "gate", cls: "gate", name: "phase validator", title: "Phase flow validated", body: "Phases run in a fixed sequence. A jump is <b>reverted automatically</b> through the API with an explanatory comment. The board cannot be lied to." },
         { who: "gate", cls: "gate", name: "approval checker", title: "Approval chain complete", body: "team → business → product → architecture. One role may hold only one approval state; a contradictory second value clears both and posts a warning." }
       ],
       narr: "board.narr.2"
@@ -117,7 +110,7 @@
       col: 1, phase: "Development", approvals: ["team", "business", "product", "architecture"],
       acts: [
         { who: "engineer", cls: "human", name: "manual", title: "Card moved to In Dev", body: "This is the <b>only</b> manual step in the whole cycle." },
-        { who: "bot", cls: "bot", name: "board bot", title: "✓ Branch Created", body: "<code>dev/sprint-24/issue-471</code> from <code>release/sprint-24</code> — naming derived from milestone and ticket number, so it is traceable forever." }
+        { who: "bot", cls: "bot", name: "board bot", title: "✓ Branch Created", body: "<code>dev/sprint-24/issue-471</code> from <code>release/sprint-24</code>. Naming derived from milestone and ticket number, so it is traceable forever." }
       ],
       narr: "board.narr.3"
     },
@@ -142,8 +135,8 @@
       col: 3, phase: "Development", approvals: ["team", "business", "product", "architecture"], botmark: true,
       acts: [
         { who: "reviewer", cls: "human", name: "manual", title: "Approved and merged in the GitLab UI", body: "The bot never merges on a human's behalf. If the card is set to Merged too early, it posts the summary and <b>reverts the status</b> so a person still clicks merge." },
-        { who: "bot", cls: "bot", name: "board bot", title: "Merge confirmed by API polling", body: "Merge is asynchronous: the webhook can arrive before GitLab agrees with itself. The orchestrator polls until the state is real — and fails loudly if it never becomes real." },
-        { who: "bot", cls: "bot", name: "board bot", title: "Pre-Deploy Summary (Accumulated)", body: 'Affected services resolved from the diff, including library → service fan-out:<table class="mini-tbl"><tr><th>service</th><th>type</th><th>branch</th></tr><tr><td>ledger-service</td><td>jar</td><td class="ok">release/sprint-24</td></tr><tr><td>scheduler-job</td><td>jar</td><td class="ok">release/sprint-24</td></tr><tr><td>mobile-bff</td><td>image</td><td class="ok">release/sprint-24</td></tr></table>A hidden state marker is written into the ticket description, so the release state survives with the ticket itself — no external database.' }
+        { who: "bot", cls: "bot", name: "board bot", title: "Merge confirmed by API polling", body: "Merge is asynchronous: the webhook can arrive before GitLab agrees with itself. The orchestrator polls until the state is real, and fails loudly if it never becomes real." },
+        { who: "bot", cls: "bot", name: "board bot", title: "Pre-Deploy Summary (Accumulated)", body: 'Affected services resolved from the diff, including library → service fan-out:<table class="mini-tbl"><tr><th>service</th><th>type</th><th>branch</th></tr><tr><td>ledger-service</td><td>jar</td><td class="ok">release/sprint-24</td></tr><tr><td>scheduler-job</td><td>jar</td><td class="ok">release/sprint-24</td></tr><tr><td>mobile-bff</td><td>image</td><td class="ok">release/sprint-24</td></tr></table>A hidden state marker is written into the ticket description, so the release state survives with the ticket itself. There is no external database.' }
       ],
       narr: "board.narr.6"
     },
@@ -159,7 +152,7 @@
     {
       col: 4, phase: "SIT", approvals: ["team", "business", "product", "architecture", "engineering"], botmark: true,
       acts: [
-        { who: "domain pipeline", cls: "bot", name: "callback", title: "Deploy Result", body: '<table class="mini-tbl"><tr><th>service</th><th>env</th><th>status</th></tr><tr><td>ledger-service</td><td>SIT</td><td class="ok">SUCCESS</td></tr><tr><td>scheduler-job</td><td>SIT</td><td class="ok">SUCCESS</td></tr><tr><td>mobile-bff</td><td>SIT</td><td class="ok">SUCCESS</td></tr></table>The pipeline writes its own result back into the ticket as a comment — the audit trail lives where the work lives.' },
+        { who: "domain pipeline", cls: "bot", name: "callback", title: "Deploy Result", body: '<table class="mini-tbl"><tr><th>service</th><th>env</th><th>status</th></tr><tr><td>ledger-service</td><td>SIT</td><td class="ok">SUCCESS</td></tr><tr><td>scheduler-job</td><td>SIT</td><td class="ok">SUCCESS</td></tr><tr><td>mobile-bff</td><td>SIT</td><td class="ok">SUCCESS</td></tr></table>The pipeline writes its own result back into the ticket as a comment. The audit trail lives where the work lives.' },
         { who: "QA", cls: "human", name: "chatops", title: "/diff sit", body: "Artifact comparison between environments posted as a MATCH / DIFF / MISSING table, so \"is UAT really what we tested?\" is a command, not an argument." },
         { who: "bot", cls: "bot", name: "board bot", title: "Phase advanced", body: "Integration Testing → SIT, final approval recorded. Security scanners keep running on schedule as a continuous gate, and release branches are kept in sync by cascading merges where the approver is never the author." }
       ],
@@ -339,7 +332,7 @@
     phase: "Merged \u00b7 refused",
     acts: [
       { who: "engineer", cls: "human", name: "manual",
-        title: "Card dragged to Merged \u2014 no merge request merged",
+        title: "Card dragged to Merged, no merge request merged",
         body: "The board accepts the move. That is the problem: a status on a card is a claim, and a claim needs a source." },
       { who: "gate", cls: "gate", name: "merge guard",
         title: "Status reverted to In Review",
@@ -368,7 +361,7 @@
   }
 
   /* Dua ketukan: percobaan, lalu penolakannya. Kalau kartu langsung digambar di
-     kolom asal, "reverted" cuma jadi kalimat—dan yang dijual panel ini justru
+     kolom asal, "reverted" cuma jadi kalimat, dan yang dijual panel ini justru
      melihatnya terjadi. */
   function paintBreak() {
     clearTimeout(bd.breakTimer);
@@ -446,7 +439,7 @@
     { n: "notification-worker", t: "image", cat: "Backend", sit: "1.22.0", uat: "1.21.4", st: "diff" },
     { n: "report-engine", t: "jar", cat: "Backend", sit: "5.2.0", uat: "5.2.0", st: "same" },
     { n: "mobile-bff", t: "image", cat: "Backend", sit: "4.1.7", uat: "4.0.9", st: "diff" },
-    { n: "scheduler-job", t: "jar", cat: "Backend", sit: "1.9.3", uat: "—", st: "new" },
+    { n: "scheduler-job", t: "jar", cat: "Backend", sit: "1.9.3", uat: "", st: "new" },
     { n: "customer-portal-web", t: "bundle", cat: "Frontend", sit: "2026.10.05", uat: "2026.09.28", st: "diff" },
     { n: "admin-console", t: "bundle", cat: "Frontend", sit: "1.6.0", uat: "1.6.0", st: "same" },
     { n: "android-app", t: "apk / aab", cat: "Mobile", sit: "7.4.0-b212", uat: "7.3.2-b198", st: "diff" },
@@ -498,7 +491,7 @@
   ];
 
   var TAG_DESC =
-    "Release 2026.10.05 — Sprint 24\n" +
+    "Release 2026.10.05 · Sprint 24\n" +
     "\n" +
     "Features\n" +
     "  • #471 nightly ledger reconciliation\n" +
@@ -519,15 +512,15 @@
     "Repositories tagged: 6 · sync group: monolith";
 
   var CONSOLE = [
-    { s: 0, c: "c-dim", t: "[queue] item queued — waiting for executor" },
+    { s: 0, c: "c-dim", t: "[queue] item queued, waiting for executor" },
     { s: 0, c: "c-dim", t: "[queue] executing on runner #2 (shell)" },
     { s: 0, c: "", t: "[checkout] release/sprint-24 @ a91f0c2" },
     { s: 1, c: "", t: "[build] mvn -B -DskipTests package → ledger-service.jar" },
     { s: 1, c: "c-dim", t: "[build] compiling 412 source files" },
     { s: 1, c: "", t: "[build] mvn -B package → scheduler-job.jar" },
     { s: 2, c: "", t: "[unit-test] 128 tests · 0 failures · 0 skipped" },
-    { s: 3, c: "c-warn", t: "[scan] trivy image — 0 critical · 2 high · 11 medium" },
-    { s: 3, c: "c-ok", t: "[scan] sonarqube — quality gate PASSED (coverage 78.4%)" },
+    { s: 3, c: "c-warn", t: "[scan] trivy image: 0 critical · 2 high · 11 medium" },
+    { s: 3, c: "c-ok", t: "[scan] sonarqube: quality gate PASSED (coverage 78.4%)" },
     { s: 4, c: "", t: "[sbom] cyclonedx bom written → artifact archive" },
     { s: 5, c: "", t: "[package] docker build → registry push (digest sha256:9f2c…)" },
     { s: 5, c: "c-dim", t: "[package] signing material fetched from secret store at runtime" },
@@ -535,7 +528,7 @@
     { s: 6, c: "", t: "[deploy] start service · waiting for port" },
     { s: 6, c: "c-ok", t: "[deploy] health check /actuator/health → UP (attempt 1/3)" },
     { s: 7, c: "", t: "[verify] version endpoint reports 3.14.2" },
-    { s: 7, c: "c-ok", t: "[done] SUCCESS — 3 services · 4m38s" }
+    { s: 7, c: "c-ok", t: "[done] SUCCESS: 3 services · 4m38s" }
   ];
   var STAGES = ["checkout", "build", "unit-test", "scan", "sbom", "package", "deploy", "verify"];
 
@@ -721,9 +714,9 @@
       metric("SIT ≠ UAT", changed().length, "services to promote", "warn") +
       metric("deploys today", "18", "6 failed · 2 rolled back") +
       "</div>" +
-      panel("Version comparison — SIT vs UAT", "gate: deploy · sonar · trivy",
+      panel("Version comparison: SIT vs UAT", "gate: deploy · sonar · trivy",
         "<table class='rp-tbl'><tr><th>service</th><th>type</th><th>SIT</th><th>UAT</th><th>state</th><th>quality gate</th></tr>" + rows + "</table>",
-        "Only services whose versions diverged are eligible for the next release plan — nothing rides along by accident.") +
+        "Only services whose versions diverged are eligible for the next release plan. Nothing rides along by accident.") +
       panel("Deployment frequency", "weekly", '<div class="rp-bars rp-bars-wrap">' + bars + "</div>");
   };
 
@@ -786,10 +779,10 @@
       '<div class="rp-sel">' +
       '<button class="rp-btn primary" data-act="deploy"' + (count ? "" : " disabled") + ">Deploy " + (count ? "(" + count + ")" : "") + "</button>" +
       '<span class="mono rp-or">or</span>' +
-      '<input class="rp-inp" placeholder="paste a commit SHA — services resolved from the diff" data-act-input="sha" />' +
+      '<input class="rp-inp" placeholder="paste a commit SHA, services resolve from the diff" data-act-input="sha" />' +
       '<button class="rp-btn" data-act="bycommit">Deploy by Commit</button>' +
       "</div>",
-      "Service type (backend / frontend / both) and the target host mapping are resolved from configuration per branch — the operator never types a Jenkins parameter by hand.");
+      "Service type (backend / frontend / both) and the target host mapping are resolved from configuration per branch. The operator never types a Jenkins parameter by hand.");
   };
 
   VIEW.deploys_monitoring = function () {
@@ -801,10 +794,10 @@
     }).join("");
     return panel("Active builds", P.building ? '<span class="rp-building"><i></i>building</span>' : (P.lastRunOk ? badge("SUCCESS", "ok") : badge("idle", "")),
       '<div class="rp-stages">' + stages + "</div>" +
-      '<div class="rp-pad"><div class="rp-console" data-console>' + (P.consoleHtml || '<span class="c-dim">no active build — trigger one from Build &amp; Deploy</span>') + "</div></div>" +
+      '<div class="rp-pad"><div class="rp-console" data-console>' + (P.consoleHtml || '<span class="c-dim">no active build. Trigger one from Build &amp; Deploy</span>') + "</div></div>" +
       '<div class="rp-sel"><button class="rp-btn" data-act="jenkins">View in CI server</button>' +
       '<button class="rp-btn" data-act="rerun">Re-run last build</button></div>',
-      "Queue item, pipeline stages and console output are polled progressively and streamed into the page — engineers watch a deploy without ever opening the CI server.");
+      "Queue item, pipeline stages and console output are polled progressively and streamed into the page. Engineers watch a deploy without ever opening the CI server.");
   };
 
   VIEW.deploys_rollback = function () {
@@ -846,7 +839,7 @@
 
     var approved = P.planStatus === "approved";
     return '<div class="rp-h"><h4>PRE-UAT review</h4><span class="sub">plan #48 · ' + P.planStatus + "</span></div>" +
-      (approved ? '<div class="rp-note rp-note--ok">Plan approved and tags created — 6 repositories tagged consistently.</div>' : "") +
+      (approved ? '<div class="rp-note rp-note--ok">Plan approved and tags created: 6 repositories tagged consistently.</div>' : "") +
       panel("Services to deploy", ch.length + " changed",
         "<table class='rp-tbl'><tr><th>service</th><th>type</th><th>version</th><th>ticket</th><th>state</th></tr>" + rows + "</table>",
         "This list is generated from the version diff, not typed by a human.") +
@@ -964,7 +957,7 @@
         '<div class="rp-sel rp-pad">' +
         '<span class="mono rp-dimline">uptime 14d 06:22 · heap 118 MB · rate limit 100 req/min/ip</span>' +
         '<button class="rp-btn primary rp-mla" data-act="platformupdate">Platform Update</button></div>',
-        "That button triggers the CI job that redeploys this dashboard itself — the platform is delivered by the same pipeline it orchestrates.");
+        "That button triggers the CI job that redeploys this dashboard itself. The platform is delivered by the same pipeline it orchestrates.");
   };
 
   /* ---------- interaksi ---------- */
@@ -981,7 +974,7 @@
     if (act === "deploy") {
       var n = Object.keys(P.sel).length;
       if (!n) { toast("select at least one service", "warn"); return; }
-      toast("build triggered — " + n + " services · SIT");
+      toast("build triggered: " + n + " services · SIT");
       P.deployTab = "monitoring";
       P.building = true;
       P.stageDone = 0;
@@ -994,12 +987,12 @@
       var inp = P.viewEl.querySelector('[data-act-input="sha"]');
       var sha = inp && inp.value.trim();
       if (!sha || sha.length < 7) { toast("paste a commit SHA first", "warn"); return; }
-      toast("diff analyzed — 2 services resolved: ledger-service, scheduler-job");
+      toast("diff analyzed: 2 services resolved: ledger-service, scheduler-job");
       P.sel = { "ledger-service": 1, "scheduler-job": 1 };
       render();
       return;
     }
-    if (act === "jenkins") { toast("demo only — no external links here", ""); return; }
+    if (act === "jenkins") { toast("demo only, no external links here", ""); return; }
     if (act === "rerun") {
       toast("re-running last build with the same parameters");
       P.deployTab = "monitoring"; P.building = true; P.stageDone = 0; P.consoleHtml = ""; P.lastRunOk = false;
@@ -1007,7 +1000,7 @@
     }
     if (act === "rollback") {
       if (!can("rollback")) { toast("forbidden for role " + P.role, "bad"); return; }
-      toast("rollback queued — " + b.dataset.svc);
+      toast("rollback queued: " + b.dataset.svc);
       return;
     }
 
@@ -1026,7 +1019,7 @@
     if (act === "reject") {
       if (!can("approve")) { toast("forbidden for role " + P.role, "bad"); return; }
       P.planStatus = "draft";
-      toast("plan rejected — 4 tickets returned to sit-deployed", "warn");
+      toast("plan rejected: 4 tickets returned to sit-deployed", "warn");
       render(); return;
     }
     if (act === "createtags") {
@@ -1034,7 +1027,7 @@
       toast("tagging 6 repositories…");
       b.disabled = true;
       later(function () {
-        toast("promote pipeline triggered — tags + merge", "");
+        toast("promote pipeline triggered: tags + merge", "");
       }, 1100);
       later(function () {
         P.planStatus = "approved";
@@ -1054,7 +1047,7 @@
       return;
     }
     if (act === "triggerscan") {
-      toast("scan pipeline triggered — results arrive by callback");
+      toast("scan pipeline triggered, results arrive by callback");
       later(function () { toast("scan completed: 5 passed · 1 failed", "warn"); pulse(); }, 2600);
       return;
     }
@@ -1072,14 +1065,14 @@
     }
 
     if (act === "path") { P.secret = parseInt(b.dataset.i, 10); render(); return; }
-    if (act === "newsecret" || act === "editsecret") { toast("demo only — writes are disabled", "warn"); return; }
+    if (act === "newsecret" || act === "editsecret") { toast("demo only, writes are disabled", "warn"); return; }
     if (act === "delsecret") { toast("soft delete: version 4 marked as deleted", "warn"); return; }
     if (act === "deluser") {
       if (!can("users")) { toast("only admin can manage users", "bad"); return; }
-      toast("demo only — user not removed", "warn"); return;
+      toast("demo only, user not removed", "warn"); return;
     }
     if (act === "platformupdate") {
-      toast("self-deploy job triggered — the dashboard redeploys itself");
+      toast("self-deploy job triggered, the dashboard redeploys itself");
       later(function () { toast("platform updated · v5.22.3", ""); }, 2400);
       return;
     }
@@ -1112,7 +1105,7 @@
     var script = CONSOLE.map(function (l) { return { s: l.s, c: l.c, t: l.t }; });
     script.forEach(function (l) {
       if (first && l.t.indexOf("[verify]") === 0) l.t = "[verify] version endpoint reports " + first.sit;
-      if (l.t.indexOf("[done]") === 0) l.t = "[done] SUCCESS — " + count + (count === 1 ? " service" : " services") + " · 4m38s";
+      if (l.t.indexOf("[done]") === 0) l.t = "[done] SUCCESS: " + count + (count === 1 ? " service" : " services") + " · 4m38s";
     });
     var i = 0;
     P.stageDone = 0;
@@ -1130,7 +1123,7 @@
           P.history.unshift({ t: nowHM(), s: n, e: "SIT", v: sv ? sv.sit : "3.14.2", st: "SUCCESS", sq: "PASSED", by: "ivan.j" });
         });
         P.history = P.history.slice(0, 10);
-        toast("build SUCCESS — " + (names.length || 3) + " services deployed to SIT");
+        toast("build SUCCESS: " + (names.length || 3) + " services deployed to SIT");
         render();
         return;
       }

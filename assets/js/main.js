@@ -1,6 +1,6 @@
-/* ============================================================
-   main.js — i18n, profil, navigasi, counter, terminal
-   ============================================================ */
+/*
+  i18n, profil, navigasi, counter dan terminal halaman.
+*/
 
 (function () {
   "use strict";
@@ -75,7 +75,7 @@
       mail.textContent = P.email;
     }
 
-    document.title = (P.name || "Portfolio") + " — " + pick(P.role);
+    document.title = (P.name || "Portfolio") + ", " + pick(P.role);
 
     /* tautan sosial */
     const linksBox = document.querySelector("[data-profile='links']");

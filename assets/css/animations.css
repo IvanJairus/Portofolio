@@ -1,10 +1,8 @@
-/* ============================================================
-   animations.css — keyframes animasi bermakna, reduced motion
-   Catatan Batch D: reveal-on-scroll global sudah dihapus; konten
-   tampil langsung. Yang tersisa hanya animasi yang mengomunikasikan
-   sesuatu: rel hero, diagram yang digambar berurutan, dan respons
-   atas aksi pengunjung.
-   ============================================================ */
+/*
+  Keyframes untuk animasi yang mengomunikasikan sesuatu: rel hero, diagram
+  yang digambar berurutan, dan respons atas aksi pengunjung. Tidak ada
+  reveal-on-scroll; konten tampil langsung.
+*/
 
 /* ---------- keyframes ---------- */
 @keyframes pulse {
