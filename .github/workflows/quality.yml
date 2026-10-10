@@ -206,3 +206,10 @@ jobs:
       # tidak terlihat oleh grep biasa.
       - name: No dash used as a connector
         run: node scripts/assert-copy.mjs --strict
+
+      # /pipelines/ menjalankan salinan vendored dari aturan rilis yang hidup di
+      # pipeline-gateway-reference. Salinan yang dibiarkan melaju adalah implementasi
+      # kedua yang memakai nama implementasi pertama, jadi hash-nya dibandingkan
+      # dengan apa yang benar-benar disajikan repo itu.
+      - name: Vendored rules must equal upstream
+        run: node scripts/check-rules-sync.mjs

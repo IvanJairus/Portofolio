@@ -11,6 +11,7 @@ window.I18N = {
     "nav.automation": "Automation",
     "nav.security": "Security",
     "nav.work": "Work",
+    "nav.pipelines": "Pipelines",
     "nav.contact": "Contact",
 
     /* ---- hero flow rail ---- */

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pipeline execution, by Ivan Jairus</title>
+  <meta name="description" content="The release gate from pipeline-gateway-reference, running in your browser. Pick a case, watch the stages, read the log, and see the same thirty golden checks that CI runs." />
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="canonical" href="https://www.ivanjairus.xyz/pipelines/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.ivanjairus.xyz/pipelines/" />
+  <meta property="og:title" content="Pipeline execution, the gate that ships" />
+  <meta property="og:description" content="A JavaScript port of the published release rules, running the same thirty golden checks the CI runs. Pick a case and watch it pass or refuse." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Pipeline execution, the gate that ships" />
+  <meta name="twitter:description" content="The release gate from pipeline-gateway-reference, running in your browser against the Groovy fixture." />
+
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+  <link rel="stylesheet" href="../assets/css/pipelines.css" />
+</head>
+<body id="top">
+
+  <header class="site-header">
+    <div class="wrap header-in">
+      <a class="brand" href="../" aria-label="Home">
+        <span class="mark">IJ</span>
+        <span>Ivan Jairus</span>
+        <span class="slash">/</span>
+        <span class="dim">pipelines</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="../#about">About</a>
+        <a href="../#work">Work</a>
+        <a href="../#toolbox">Toolbox</a>
+        <a href="./" aria-current="page">Pipelines</a>
+        <a href="../#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="pl-hero">
+      <div class="wrap">
+        <p class="eyebrow mono">Reference implementation · synthetic data</p>
+        <h1>The gate, running.</h1>
+        <p class="lead">
+          Every release decision on this site is written down as code in
+          <a href="https://github.com/IvanJairus/pipeline-gateway-reference" rel="noopener noreferrer">pipeline-gateway-reference</a>.
+          This page runs that code in your browser. Pick a case, watch the stages settle, and read the log the
+          gate would have written to the ticket. Nothing here is a recording.
+        </p>
+        <p class="pl-selfcheck mono" id="selfcheck" aria-live="polite">checking the port against the Groovy fixture…</p>
+      </div>
+    </section>
+
+    <section id="run" class="pl-run">
+      <div class="wrap">
+
+        <div class="pl-controls" role="group" aria-label="Pipeline case">
+          <span class="ctl-label mono">case</span>
+          <div class="ctl-row" id="case-buttons"></div>
+        </div>
+
+        <div class="pl-controls" role="group" aria-label="CI engine">
+          <span class="ctl-label mono">engine</span>
+          <div class="ctl-row" id="engine-buttons"></div>
+        </div>
+
+        <div class="pl-work">
+          <div class="pl-rail-col">
+            <h2 class="pl-h mono">stages</h2>
+            <ol class="pl-rail" id="rail"></ol>
+            <div class="pl-verdict" id="verdict"></div>
+          </div>
+
+          <div class="pl-detail-col">
+            <div class="pl-summary" id="summary"></div>
+            <div class="pl-console" id="console" tabindex="0" role="log" aria-label="Build log">
+              <div class="pl-console-bar"><i></i><i></i><i></i><span class="mono">stage output</span></div>
+              <div class="pl-console-body" id="console-body"></div>
+            </div>
+            <p class="pl-note mono">the console is a real surface on this site, not a picture of one: it scrolls, and its text selects</p>
+          </div>
+        </div>
+
+        <div class="pl-source" id="source">
+          <div class="pl-source-head">
+            <h2 class="pl-h mono">the code that produced that log</h2>
+            <button type="button" class="pl-toggle" id="source-toggle" aria-expanded="false" aria-controls="source-body">show source</button>
+          </div>
+          <div class="pl-source-body" id="source-body" hidden></div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="contract" class="pl-contract">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Two engines, one verdict</h2>
+          <p class="lead">
+            The same gate has to hold whether a service builds on GitLab CI or on the Jenkins jobs that predate it.
+            So the rules live in one place, and each engine calls it. Switch the engine above and the log format
+            changes. The decision does not.
+          </p>
+        </div>
+        <div class="pl-contract-grid" id="contract-grid"></div>
+      </div>
+    </section>
+
+    <section id="how" class="pl-how">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Why you should not trust the animation</h2>
+          <p class="lead">
+            A page that draws green ticks can draw anything. This one is checked two ways, and both are public.
+          </p>
+        </div>
+        <div class="pl-how-grid">
+          <div class="pl-how-card">
+            <h3>The answers come from Groovy</h3>
+            <p>
+              <code>rules/fixture.json</code> is written by
+              <code>shared-library/test/run-fixture.groovy</code> running the real classes. The JavaScript port can
+              only match it. If both sides were allowed to author the file, agreement would prove nothing.
+            </p>
+          </div>
+          <div class="pl-how-card">
+            <h3>The copy is checked against upstream</h3>
+            <p>
+              This page vendors two files from the repository. CI compares their SHA-256 against what the
+              repository serves, so a stale copy fails the build instead of quietly becoming a second
+              implementation.
+            </p>
+          </div>
+          <div class="pl-how-card">
+            <h3>Two bugs it already caught</h3>
+            <p>
+              The fixture found a duplicate-service message that named the count instead of the service id, and it
+              found that my first <code>truthy()</code> let a missing SBOM through. Neither was caught by the tests
+              that were already passing.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="end" class="pl-end">
+      <div class="wrap">
+        <h2>Read the rules themselves</h2>
+        <p class="lead">
+          The interesting part is not the animation. It is <code>ReleaseRules.groovy</code>,
+          <code>GateResult.groovy</code> and <code>DeploymentPlan.groovy</code>, and the thirty cases that hold them
+          in place.
+        </p>
+        <p class="pl-end-links">
+          <a class="btn primary" href="https://github.com/IvanJairus/pipeline-gateway-reference" rel="noopener noreferrer">Open the repository</a>
+          <a class="btn ghost" href="../#work">Back to the work</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-in">
+      <span>© 2026 Ivan Jairus</span>
+      <span class="ftr-creed">If the process needs a hero, the process is wrong.</span>
+    </div>
+  </footer>
+
+  <script defer src="../assets/js/observability.js"></script>
+  <script type="module" src="../assets/js/pipelines.mjs"></script>
+</body>
+</html>
