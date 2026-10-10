@@ -1,254 +1,473 @@
 {
- "note": "Vendored verbatim from IvanJairus/Pipeline. check-rules-sync.mjs pins these by SHA-256. Do not edit here.",
- "tree": [
-  {
-   "d": "ci-library/"
+  "note": "Every file under assets/data/src/ is vendored verbatim from one pinned commit of IvanJairus/Pipeline by scripts/sync-sources.mjs, which also writes rules.lock.json and the line counts here. Do not edit a file body here or on disk: change upstream, bump ref, re-sync. scripts/check-rules-sync.mjs fails if any of that drifts.",
+  "upstream": "IvanJairus/Pipeline",
+  "ref": "c488f25277f23bdcb84a557a06f8641ea955433a",
+  "engines": {
+    "gitlab": {
+      "tree": [
+        {
+          "d": "the repo a developer owns"
+        },
+        {
+          "f": ".gitlab-ci.yml",
+          "k": "gitlab-ci.yml",
+          "path": "ci-library/includes/gitlab-ci.yml",
+          "lines": 11
+        },
+        {
+          "d": "the gateway, owned by the platform team"
+        },
+        {
+          "f": "gateway.yml",
+          "k": "gateway.yml",
+          "path": "ci-library/gateway.yml",
+          "lines": 75
+        },
+        {
+          "f": "templates/backend.yml",
+          "k": "backend.yml",
+          "path": "ci-library/templates/backend.yml",
+          "lines": 323
+        },
+        {
+          "f": "templates/web.yml",
+          "k": "web.yml",
+          "path": "ci-library/templates/web.yml",
+          "lines": 218
+        },
+        {
+          "d": "scripts"
+        },
+        {
+          "f": "scripts/lib/log.sh",
+          "k": "log.sh",
+          "path": "ci-library/scripts/lib/log.sh",
+          "lines": 99
+        },
+        {
+          "f": "scripts/publish-artifact.sh",
+          "k": "publish-artifact.sh",
+          "path": "ci-library/scripts/publish-artifact.sh",
+          "lines": 189
+        },
+        {
+          "f": "scripts/deploy.sh",
+          "k": "deploy.sh",
+          "path": "ci-library/scripts/deploy.sh",
+          "lines": 260
+        },
+        {
+          "f": "scripts/ticket-sync.sh",
+          "k": "ticket-sync.sh",
+          "path": "ci-library/scripts/ticket-sync.sh",
+          "lines": 122
+        },
+        {
+          "f": "scripts/observability-push.sh",
+          "k": "observability-push.sh",
+          "path": "ci-library/scripts/observability-push.sh",
+          "lines": 161
+        },
+        {
+          "f": "scripts/run-gate.groovy",
+          "k": "run-gate.groovy",
+          "path": "ci-library/scripts/run-gate.groovy",
+          "lines": 245
+        },
+        {
+          "d": "tools"
+        },
+        {
+          "f": "tools/release_stamp.py",
+          "k": "release_stamp.py",
+          "path": "ci-library/tools/release_stamp.py",
+          "lines": 313
+        },
+        {
+          "f": "tools/ticket_sync.py",
+          "k": "ticket_sync.py",
+          "path": "ci-library/tools/ticket_sync.py",
+          "lines": 320
+        },
+        {
+          "d": "the manifest this run reads"
+        },
+        {
+          "f": "examples/release.json",
+          "k": "release.json",
+          "path": "ci-library/examples/release.json",
+          "lines": 41
+        }
+      ],
+      "jobs": {
+        "release-stamp": {
+          "file": "release_stamp.py",
+          "hl": [
+            [
+              97,
+              116
+            ]
+          ],
+          "why": "the only place a status becomes success"
+        },
+        "maven-package": {
+          "file": "backend.yml",
+          "hl": [
+            [
+              72,
+              88
+            ]
+          ],
+          "why": "cache keyed by pom.xml, not by branch"
+        },
+        "docker-image": {
+          "file": "publish-artifact.sh",
+          "hl": [
+            [
+              69,
+              88
+            ]
+          ],
+          "why": "digest file, never a latest tag"
+        },
+        "unit": {
+          "file": "backend.yml",
+          "hl": [
+            [
+              110,
+              120
+            ]
+          ],
+          "why": "junit reports handed to the next stage"
+        },
+        "contract": {
+          "file": "backend.yml",
+          "hl": [
+            [
+              121,
+              136
+            ]
+          ],
+          "why": "consumer contracts before any scan runs"
+        },
+        "sast-semgrep": {
+          "file": "backend.yml",
+          "hl": [
+            [
+              137,
+              149
+            ]
+          ],
+          "why": "allowed to fail, not allowed to be silent"
+        },
+        "secret-detect": {
+          "file": "backend.yml",
+          "hl": [
+            [
+              150,
+              160
+            ]
+          ],
+          "why": "secrets scanned before the image exists"
+        },
+        "container-trivy": {
+          "file": "backend.yml",
+          "hl": [
+            [
+              161,
+              176
+            ]
+          ],
+          "why": "the scan whose report the gate reads"
+        },
+        "sbom-index": {
+          "file": "release_stamp.py",
+          "hl": [
+            [
+              127,
+              152
+            ]
+          ],
+          "why": "an empty SBOM is a refusal, not a clean bill"
+        },
+        "sonarqube-checks": {
+          "file": "backend.yml",
+          "hl": [
+            [
+              198,
+              218
+            ]
+          ],
+          "why": "quality gate polled, not assumed"
+        },
+        "release-rules": {
+          "file": "run-gate.groovy",
+          "hl": [
+            [
+              88,
+              122
+            ]
+          ],
+          "why": "adapters that turn reports into evidence"
+        },
+        "ticket-sync": {
+          "file": "ticket_sync.py",
+          "hl": [
+            [
+              126,
+              160
+            ]
+          ],
+          "why": "idempotent, retried on 5xx only"
+        },
+        "deploy-sit": {
+          "file": "deploy.sh",
+          "hl": [
+            [
+              73,
+              92
+            ]
+          ],
+          "why": "no verdict on disk, no deploy"
+        },
+        "promote-uat": {
+          "file": "deploy.sh",
+          "hl": [
+            [
+              141,
+              175
+            ]
+          ],
+          "why": "the ladder is asked, not walked"
+        },
+        "promote-prod": {
+          "file": "deploy.sh",
+          "hl": [
+            [
+              94,
+              108
+            ]
+          ],
+          "why": "production has a change window"
+        },
+        "observability": {
+          "file": "observability-push.sh",
+          "hl": [
+            [
+              57,
+              90
+            ]
+          ],
+          "why": "a metric is never written for a number nobody measured"
+        }
+      }
+    },
+    "jenkins": {
+      "tree": [
+        {
+          "d": "the job a Jira transition calls"
+        },
+        {
+          "f": "jenkins/GatewaySIT.groovy",
+          "k": "GatewaySIT.groovy",
+          "path": "jenkins/GatewaySIT.groovy",
+          "lines": 196
+        },
+        {
+          "d": "shared-library/vars"
+        },
+        {
+          "f": "validateTicket.groovy",
+          "k": "validateTicket.groovy",
+          "path": "shared-library/vars/validateTicket.groovy",
+          "lines": 23
+        },
+        {
+          "f": "vaultCredentials.groovy",
+          "k": "vaultCredentials.groovy",
+          "path": "shared-library/vars/vaultCredentials.groovy",
+          "lines": 31
+        },
+        {
+          "f": "qualityGate.groovy",
+          "k": "qualityGate.groovy",
+          "path": "shared-library/vars/qualityGate.groovy",
+          "lines": 22
+        },
+        {
+          "f": "deployPlan.groovy",
+          "k": "deployPlan.groovy",
+          "path": "shared-library/vars/deployPlan.groovy",
+          "lines": 37
+        },
+        {
+          "f": "mergeApprove.groovy",
+          "k": "mergeApprove.groovy",
+          "path": "shared-library/vars/mergeApprove.groovy",
+          "lines": 23
+        },
+        {
+          "d": "rendered by the plan, applied by the platform"
+        },
+        {
+          "f": "templates/deployment.yaml",
+          "k": "deployment.yaml",
+          "path": "jenkins/templates/deployment.yaml",
+          "lines": 79
+        }
+      ],
+      "jobs": {
+        "trigger": {
+          "file": "GatewaySIT.groovy",
+          "hl": [
+            [
+              12,
+              46
+            ]
+          ],
+          "why": "a webhook body becomes the run identity"
+        },
+        "route": {
+          "file": "GatewaySIT.groovy",
+          "hl": [
+            [
+              53,
+              133
+            ]
+          ],
+          "why": "transition from:to selects the downstream job"
+        },
+        "ticket": {
+          "file": "validateTicket.groovy",
+          "hl": [
+            [
+              8,
+              23
+            ]
+          ],
+          "why": "the ticket is checked before anything is built"
+        },
+        "labels": {
+          "file": "GatewaySIT.groovy",
+          "hl": [
+            [
+              185,
+              196
+            ]
+          ],
+          "why": "which release this ticket belongs to"
+        },
+        "credentials": {
+          "file": "vaultCredentials.groovy",
+          "hl": [
+            [
+              10,
+              31
+            ]
+          ],
+          "why": "short-lived lease, revoked in finally"
+        },
+        "quality": {
+          "file": "qualityGate.groovy",
+          "hl": [
+            [
+              8,
+              22
+            ]
+          ],
+          "why": "coverage and duplication read from the API"
+        },
+        "gate": {
+          "file": "GateResult.groovy",
+          "hl": [
+            [
+              20,
+              63
+            ]
+          ],
+          "why": "absent evidence fails the release"
+        },
+        "plan": {
+          "file": "deployPlan.groovy",
+          "hl": [
+            [
+              8,
+              37
+            ]
+          ],
+          "why": "waves by tier, watermark per service"
+        },
+        "promote": {
+          "file": "ReleaseRules.groovy",
+          "hl": [
+            [
+              51,
+              67
+            ]
+          ],
+          "why": "the ladder between environments"
+        },
+        "notify": {
+          "file": "mergeApprove.groovy",
+          "hl": [
+            [
+              8,
+              23
+            ]
+          ],
+          "why": "the five signatures, or a refusal"
+        }
+      }
+    }
   },
-  {
-   "f": "gateway.yml",
-   "k": "gateway.yml",
-   "lines": 75,
-   "path": "ci-library/gateway.yml"
-  },
-  {
-   "d": "ci-library/includes/"
-  },
-  {
-   "f": "gitlab-ci.yml",
-   "k": "gitlab-ci.yml",
-   "lines": 11,
-   "path": "ci-library/includes/gitlab-ci.yml"
-  },
-  {
-   "d": "jenkins/"
-  },
-  {
-   "f": "GatewaySIT.groovy",
-   "k": "GatewaySIT.groovy",
-   "lines": 196,
-   "path": "jenkins/GatewaySIT.groovy"
-  },
-  {
-   "d": "shared-library/vars/"
-  },
-  {
-   "f": "qualityGate.groovy",
-   "k": "qualityGate.groovy",
-   "lines": 22,
-   "path": "shared-library/vars/qualityGate.groovy"
-  },
-  {
-   "f": "vaultCredentials.groovy",
-   "k": "vaultCredentials.groovy",
-   "lines": 31,
-   "path": "shared-library/vars/vaultCredentials.groovy"
-  },
-  {
-   "f": "validateTicket.groovy",
-   "k": "validateTicket.groovy",
-   "lines": 23,
-   "path": "shared-library/vars/validateTicket.groovy"
-  },
-  {
-   "d": "shared-library/src/.../release/"
-  },
-  {
-   "f": "GateResult.groovy",
-   "k": "GateResult.groovy",
-   "lines": 88,
-   "path": "shared-library/src/com/reference/release/GateResult.groovy"
+  "gate": {
+    "tree": [
+      {
+        "d": "the standard, as three classes"
+      },
+      {
+        "f": "ReleaseRules.groovy",
+        "k": "ReleaseRules.groovy",
+        "path": "shared-library/src/com/reference/release/ReleaseRules.groovy",
+        "lines": 122
+      },
+      {
+        "f": "GateResult.groovy",
+        "k": "GateResult.groovy",
+        "path": "shared-library/src/com/reference/release/GateResult.groovy",
+        "lines": 88
+      },
+      {
+        "f": "DeploymentPlan.groovy",
+        "k": "DeploymentPlan.groovy",
+        "path": "shared-library/src/com/reference/release/DeploymentPlan.groovy",
+        "lines": 70
+      },
+      {
+        "d": "the answers these classes give"
+      },
+      {
+        "f": "fixture.json",
+        "k": "fixture.json",
+        "path": "rules/fixture.json",
+        "lines": 760
+      }
+    ],
+    "jobs": {
+      "release-rules": {
+        "file": "GateResult.groovy",
+        "hl": [
+          [
+            15,
+            21
+          ],
+          [
+            52,
+            62
+          ]
+        ],
+        "why": "the thresholds the console prints, and the rule that absent evidence fails"
+      }
+    }
   }
- ],
- "jobs": {
-  "maven-package": {
-   "file": "gateway.yml",
-   "hl": [
-    [
-     26,
-     37
-    ]
-   ],
-   "why": "the backend block that owns this jar"
-  },
-  "docker-build": {
-   "file": "gateway.yml",
-   "hl": [
-    [
-     39,
-     44
-    ]
-   ],
-   "why": "platform template, same tier"
-  },
-  "unit-test": {
-   "file": "gateway.yml",
-   "hl": [
-    [
-     46,
-     52
-    ]
-   ],
-   "why": "web template selected by project id"
-  },
-  "contract-test": {
-   "file": "gateway.yml",
-   "hl": [
-    [
-     60,
-     67
-    ]
-   ],
-   "why": "libraries build but never deploy"
-  },
-  "container-trivy": {
-   "file": "gateway.yml",
-   "hl": [
-    [
-     54,
-     58
-    ]
-   ],
-   "why": "mobile block, no internal registry"
-  },
-  "sast-semgrep": {
-   "file": "gateway.yml",
-   "hl": [
-    [
-     26,
-     37
-    ]
-   ],
-   "why": "the repo set SAST runs against"
-  },
-  "secret-detect": {
-   "file": "gateway.yml",
-   "hl": [
-    [
-     26,
-     29
-    ]
-   ],
-   "why": "one include, so one place to scan"
-  },
-  "sonarqube-checks": {
-   "file": "qualityGate.groovy",
-   "hl": [
-    [
-     8,
-     21
-    ]
-   ],
-   "why": "the verdict and the ticket comment"
-  },
-  "release-rules": {
-   "file": "validateTicket.groovy",
-   "hl": [
-    [
-     3,
-     12
-    ]
-   ],
-   "why": "branch, tag and manifest rules"
-  },
-  "deploy-sit": {
-   "file": "vaultCredentials.groovy",
-   "hl": [
-    [
-     10,
-     31
-    ]
-   ],
-   "why": "short-lived lease, revoked in finally"
-  },
-  "promote-uat": {
-   "file": "gateway.yml",
-   "hl": [
-    [
-     69,
-     75
-    ]
-   ],
-   "why": "what deliberately stays out of the gateway"
-  },
-  "promote-prod": {
-   "file": "gateway.yml",
-   "hl": [
-    [
-     69,
-     75
-    ]
-   ],
-   "why": "same block, prod ladder"
-  },
-  "Trigger Jobs": {
-   "file": "GatewaySIT.groovy",
-   "hl": [
-    [
-     10,
-     46
-    ]
-   ],
-   "why": "webhook body becomes the run identity"
-  },
-  "Resolve Plan": {
-   "file": "GatewaySIT.groovy",
-   "hl": [
-    [
-     53,
-     57
-    ]
-   ],
-   "why": "transition string is the job key"
-  },
-  "Build": {
-   "file": "gateway.yml",
-   "hl": [
-    [
-     26,
-     37
-    ]
-   ],
-   "why": "same routing table, other engine"
-  },
-  "Scan": {
-   "file": "gateway.yml",
-   "hl": [
-    [
-     54,
-     58
-    ]
-   ],
-   "why": "same routing table, other engine"
-  },
-  "Quality Gate": {
-   "file": "qualityGate.groovy",
-   "hl": [
-    [
-     8,
-     21
-    ]
-   ],
-   "why": "identical call, identical verdict"
-  },
-  "Deploy SIT": {
-   "file": "vaultCredentials.groovy",
-   "hl": [
-    [
-     10,
-     31
-    ]
-   ],
-   "why": "identical lease handling"
-  },
-  "Promote UAT": {
-   "file": "GatewaySIT.groovy",
-   "hl": [
-    [
-     117,
-     124
-    ]
-   ],
-   "why": "no mapping means refuse, not guess"
-  }
- }
 }

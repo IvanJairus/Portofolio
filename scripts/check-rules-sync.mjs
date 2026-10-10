@@ -24,7 +24,15 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const lock = JSON.parse(readFileSync(join(root, 'assets/data/rules.lock.json'), 'utf8'));
 
 const REPO = lock.upstream;
-const BASE = `https://raw.githubusercontent.com/${REPO}/HEAD/`;
+/*
+  The pinned commit, not HEAD. A page that says "this is the source my pipeline
+  runs" is making a claim about a specific state of a repository; comparing
+  against a moving branch would let that claim rot quietly the day someone
+  upstream edits a file. Bumping the ref is an explicit change to
+  assets/data/sources.json plus a re-sync.
+*/
+const REF = lock.ref || 'HEAD';
+const BASE = `https://raw.githubusercontent.com/${REPO}/${REF}/`;
 const sha = (buf) => createHash('sha256').update(buf).digest('hex');
 
 let blocked = 0;
@@ -67,11 +75,54 @@ for (const [local, spec] of Object.entries(lock.files)) {
   }
 }
 
+/*
+  The manifest that drives the page's source panels has to agree with the bytes
+  on disk: every file it names must exist, every line count must match, and every
+  highlight range must land inside its file. Without this, a panel can point at a
+  line that is not there and nobody notices until a visitor reads an empty row.
+*/
+const sources = JSON.parse(readFileSync(join(root, 'assets/data/sources.json'), 'utf8'));
+const localFor = (k) => (k === 'fixture.json' ? 'assets/data/fixture.json' : `assets/data/src/${k}`);
+const listed = new Map();
+for (const group of [...Object.values(sources.engines).map((e) => e.tree), sources.gate.tree]) {
+  for (const node of group) if (node.k) listed.set(node.k, node);
+}
+for (const [k, node] of listed) {
+  let text;
+  try {
+    text = readFileSync(join(root, localFor(k)), 'utf8');
+  } catch {
+    console.log(`FAIL sources.json names ${k}, which is not on disk`);
+    blocked++;
+    continue;
+  }
+  const real = text.replace(/\n$/, '').split('\n').length;
+  if (real !== node.lines) {
+    console.log(`FAIL ${k}: sources.json says ${node.lines} lines, the file has ${real}`);
+    blocked++;
+  }
+  if (!lock.files[localFor(k)]) {
+    console.log(`FAIL ${k} is displayed but not pinned in rules.lock.json`);
+    blocked++;
+  }
+}
+for (const [engine, spec] of Object.entries({ ...sources.engines, gate: sources.gate })) {
+  for (const [job, m] of Object.entries(spec.jobs)) {
+    const node = listed.get(m.file);
+    if (!node) { console.log(`FAIL ${engine}/${job} points at ${m.file}, which no tree lists`); blocked++; continue; }
+    for (const [from, to] of m.hl) {
+      if (from < 1 || to > node.lines) {
+        console.log(`FAIL ${engine}/${job} highlights ${from}-${to} in a ${node.lines}-line file`);
+        blocked++;
+      }
+    }
+  }
+}
+
 if (unverified) {
-  console.log(`\n${unverified} file(s) could not be compared to upstream. ` +
-    `That is expected while ${REPO} is private, and it means the page's claim that ` +
-    `these are published rules is currently unverifiable by a visitor too. ` +
-    `Make the repository public and this check becomes real.`);
+  console.log(`\n${unverified} file(s) could not be compared to ${REPO}@${REF.slice(0, 7)}. ` +
+    `The local-vs-pinned check still ran and still blocks; this one needs the network. ` +
+    `A visitor can always fetch the same commit themselves, which is the point of pinning it.`);
 }
 
 process.exit(blocked === 0 ? 0 : 1);
