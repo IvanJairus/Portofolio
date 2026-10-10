@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
-  Two checks on the files this site vendors from pipeline-gateway-reference.
+  Two checks on the files this site vendors from IvanJairus/Pipeline.
 
   1. The local copy must match assets/data/rules.lock.json. This always runs and
      always blocks. It catches the ordinary accident: someone edits the vendored

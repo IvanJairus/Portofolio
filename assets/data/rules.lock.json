@@ -1,6 +1,6 @@
 {
-  "note": "Pinned SHA-256 of the files vendored from pipeline-gateway-reference. check-rules-sync.mjs verifies the local copy against this (always) and against the upstream repository (only once that repository is public).",
-  "upstream": "IvanJairus/pipeline-gateway-reference",
+  "note": "Pinned SHA-256 of the files vendored from IvanJairus/Pipeline. check-rules-sync.mjs verifies the local copy against this (always) and against what that repository serves (also always, since it is public).",
+  "upstream": "IvanJairus/Pipeline",
   "files": {
     "assets/js/release-rules.mjs": {
       "sha256": "a9f6e333a32407ef7a73a586c1e27d10d8cdd6d2fc4d66abe8894617c972ff3d",

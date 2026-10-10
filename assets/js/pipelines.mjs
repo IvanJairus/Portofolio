@@ -1,6 +1,6 @@
 /*
   The pipeline view. Everything it decides comes from release-rules.mjs, which is
-  a port of the Groovy in pipeline-gateway-reference and is checked against that
+  a port of the Groovy in IvanJairus/Pipeline and is checked against that
   Groovy by rules/fixture.json in CI.
 
   Two rules this file holds itself to:
