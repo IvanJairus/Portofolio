@@ -11,6 +11,41 @@
       "sha256": "1754c02b4af4547623a2a724d54c78c38b6ed45ec26535d60fade3e24845cf8f",
       "upstream": "rules/fixture.json",
       "bytes": 23342
+    },
+    "assets/data/src/gateway.yml": {
+      "sha256": "3990d160b62a11acf5fdc1989871887cd080c959f3401b013f8af747a0694276",
+      "upstream": "ci-library/gateway.yml",
+      "bytes": 3905
+    },
+    "assets/data/src/gitlab-ci.yml": {
+      "sha256": "def9f05429eca68635c21ff86e8f890ad65e93f6429b7d5fe4c7ef4700cb597f",
+      "upstream": "ci-library/includes/gitlab-ci.yml",
+      "bytes": 385
+    },
+    "assets/data/src/GatewaySIT.groovy": {
+      "sha256": "b2445c271069db009f8ab3e8ed6d3193ddc77628e5f4bda43667ca52c2ff6ce7",
+      "upstream": "jenkins/GatewaySIT.groovy",
+      "bytes": 7298
+    },
+    "assets/data/src/qualityGate.groovy": {
+      "sha256": "b0a5f8b1fa0052b4b18f5cf9e7550fb3efb0f80c9ab6ef8ccd32ea2a5da06d8b",
+      "upstream": "shared-library/vars/qualityGate.groovy",
+      "bytes": 827
+    },
+    "assets/data/src/vaultCredentials.groovy": {
+      "sha256": "7fcc05b333e20adab19eafeeadf96a960b8b644f6556995b54a07cc675eb5677",
+      "upstream": "shared-library/vars/vaultCredentials.groovy",
+      "bytes": 1272
+    },
+    "assets/data/src/validateTicket.groovy": {
+      "sha256": "1e5c609c795900f3c7834ae79655f724aa93238a9e45736daa4f98faab34cbca",
+      "upstream": "shared-library/vars/validateTicket.groovy",
+      "bytes": 939
+    },
+    "assets/data/src/GateResult.groovy": {
+      "sha256": "a73d5da8c8cd09ab9da38a4d947eaf3f8e00e6678bdb416c33d71775cd33293d",
+      "upstream": "shared-library/src/com/reference/release/GateResult.groovy",
+      "bytes": 3598
     }
   }
 }

@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pipeline execution, by Ivan Jairus</title>
-  <meta name="description" content="The release gate from the Pipeline reference repository, running in your browser. Pick a case, watch the stages, read the log, and see the same thirty golden checks that CI runs." />
+  <title>Pipeline run, by Ivan Jairus</title>
+  <meta name="description" content="A GitLab pipeline page and a Jenkins Blue Ocean graph, both driven by the release rules published in IvanJairus/Pipeline. Switch engine, switch outcome, then open the source that produced the job." />
   <meta name="color-scheme" content="light" />
   <meta name="theme-color" content="#ffffff" />
   <link rel="canonical" href="https://www.ivanjairus.xyz/pipelines/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.ivanjairus.xyz/pipelines/" />
-  <meta property="og:title" content="Pipeline execution, the gate that ships" />
-  <meta property="og:description" content="A JavaScript port of the published release rules, running the same thirty golden checks the CI runs. Pick a case and watch it pass or refuse." />
+  <meta property="og:title" content="Pipeline run, two engines, one gate" />
+  <meta property="og:description" content="The same release rules rendered as a GitLab pipeline and as a Jenkins Blue Ocean graph, with the repository source that produced each job." />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Pipeline execution, the gate that ships" />
-  <meta name="twitter:description" content="The release gate from the Pipeline reference repository, running in your browser against the Groovy fixture." />
+  <meta name="twitter:title" content="Pipeline run, two engines, one gate" />
+  <meta name="twitter:description" content="Switch engine, switch outcome, open the source. Driven by the rules published in IvanJairus/Pipeline." />
 
   <link rel="stylesheet" href="../assets/css/base.css" />
   <link rel="stylesheet" href="../assets/css/components.css" />
@@ -33,8 +33,8 @@
       <nav class="nav" aria-label="Primary">
         <a href="../#about">About</a>
         <a href="../#work">Work</a>
+        <a href="./">Pipelines</a>
         <a href="../#toolbox">Toolbox</a>
-        <a href="./" aria-current="page">Pipelines</a>
         <a href="../#contact">Contact</a>
       </nav>
     </div>
@@ -42,121 +42,129 @@
 
   <main>
 
-    <section class="pl-hero">
+    <section class="pv-intro">
       <div class="wrap">
         <p class="eyebrow mono">Reference implementation · synthetic data</p>
-        <h1>The gate, running.</h1>
+        <h1>Two engines, one gate.</h1>
         <p class="lead">
-          Every release decision on this site is written down as code in
-          <a href="https://github.com/IvanJairus/Pipeline" rel="noopener noreferrer">IvanJairus/Pipeline</a>.
-          This page runs that code in your browser. Pick a case, watch the stages settle, and read the log the
-          gate would have written to the ticket. Nothing here is a recording.
+          The same release rules, published in
+          <a href="https://github.com/IvanJairus/Pipeline" rel="noopener noreferrer">IvanJairus/Pipeline</a>,
+          rendered twice: as a GitLab pipeline page and as a Jenkins Blue Ocean graph. Switch the engine and the
+          layout changes. Switch the outcome and the gate refuses. Open the Source tab and you are reading the
+          repository file, with the block that produced the selected job marked.
         </p>
-        <p class="pl-selfcheck mono" id="selfcheck" aria-live="polite">checking the port against the Groovy fixture…</p>
+        <p class="pv-selfcheck mono" id="selfcheck" aria-live="polite">checking the port against the Groovy fixture…</p>
       </div>
     </section>
 
-    <section id="run" class="pl-run">
+    <section class="pv-run">
       <div class="wrap">
+        <div class="pv-card">
 
-        <div class="pl-controls" role="group" aria-label="Pipeline case">
-          <span class="ctl-label mono">case</span>
-          <div class="ctl-row" id="case-buttons"></div>
-        </div>
-
-        <div class="pl-controls" role="group" aria-label="CI engine">
-          <span class="ctl-label mono">engine</span>
-          <div class="ctl-row" id="engine-buttons"></div>
-        </div>
-
-        <div class="pl-work">
-          <div class="pl-rail-col">
-            <h2 class="pl-h mono">stages</h2>
-            <ol class="pl-rail" id="rail"></ol>
-            <div class="pl-verdict" id="verdict"></div>
+          <div class="pv-bar">
+            <span class="pv-lbl">engine</span>
+            <span class="pv-seg" role="group" aria-label="CI engine" id="engine-seg"></span>
+            <span class="pv-lbl">run</span>
+            <span class="pv-seg" role="group" aria-label="Pipeline outcome" id="run-seg"></span>
+            <span class="pv-path mono" id="pathlbl"></span>
           </div>
 
-          <div class="pl-detail-col">
-            <div class="pl-summary" id="summary"></div>
-            <div class="pl-console" id="console" tabindex="0" role="log" aria-label="Build log">
-              <div class="pl-console-bar"><i></i><i></i><i></i><span class="mono">stage output</span></div>
-              <div class="pl-console-body" id="console-body"></div>
+          <div class="pv-rhead">
+            <span class="pv-st" id="rh-st" aria-hidden="true">✓</span>
+            <span class="pv-sttxt" id="rh-sttxt">passed</span>
+            <div class="pv-rtitle">
+              <span class="mono" id="rh-id">#1421</span>
+              <b id="rh-title"></b>
+              <span class="mono pv-rmeta" id="rh-meta"></span>
             </div>
-            <p class="pl-note mono">the console is a real surface on this site, not a picture of one: it scrolls, and its text selects</p>
+            <div class="pv-rstats" id="rh-stats"></div>
           </div>
+
+          <div class="pv-skin" id="skin"></div>
+
+          <div class="pv-tabs" role="tablist">
+            <button class="pv-tab" role="tab" aria-selected="true" data-pane="trace">Trace<span class="mono pv-tabnote" id="note-trace"></span></button>
+            <button class="pv-tab" role="tab" aria-selected="false" data-pane="source">Source<span class="mono pv-tabnote" id="note-source"></span></button>
+            <button class="pv-tab" role="tab" aria-selected="false" data-pane="rules">Rules<span class="mono pv-tabnote">GateResult</span></button>
+          </div>
+
+          <div class="pv-pane on" id="pane-trace">
+            <div class="pv-log" id="log" tabindex="0" role="log" aria-label="Job trace"></div>
+            <div class="pv-logfoot mono" id="logfoot"></div>
+          </div>
+
+          <div class="pv-pane" id="pane-source">
+            <div class="pv-src">
+              <div class="pv-tree" id="tree"></div>
+              <div class="pv-code">
+                <div class="pv-codehead mono">
+                  <b id="code-name"></b>
+                  <span id="code-why"></span>
+                  <span class="pv-sp" id="code-count"></span>
+                </div>
+                <div class="pv-cbody" id="cbody" tabindex="0"></div>
+                <div class="pv-cfoot mono">highlight = the lines that produced the selected job · verbatim from the repository</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pv-pane" id="pane-rules">
+            <div class="pv-log" id="ruleslog" tabindex="0"></div>
+          </div>
+
         </div>
 
-        <div class="pl-source" id="source">
-          <div class="pl-source-head">
-            <h2 class="pl-h mono">the code that produced that log</h2>
-            <button type="button" class="pl-toggle" id="source-toggle" aria-expanded="false" aria-controls="source-body">show source</button>
-          </div>
-          <div class="pl-source-body" id="source-body" hidden></div>
-        </div>
-
+        <p class="pv-note">
+          Names, project ids, durations and log wording are synthetic. The decision is not: every status on this
+          page comes from <code>ReleaseRules</code>, <code>GateResult</code> and <code>DeploymentPlan</code>, the
+          same classes the CI runs.
+        </p>
       </div>
     </section>
 
-    <section id="contract" class="pl-contract">
+    <section class="pv-proof">
       <div class="wrap">
         <div class="section-head">
-          <h2>Two engines, one verdict</h2>
+          <h2>Why you should not trust this page</h2>
           <p class="lead">
-            The same gate has to hold whether a service builds on GitLab CI or on the Jenkins jobs that predate it.
-            So the rules live in one place, and each engine calls it. Switch the engine above and the log format
-            changes. The decision does not.
+            Anything can draw green ticks. Three things stop this one from being a drawing.
           </p>
         </div>
-        <div class="pl-contract-grid" id="contract-grid"></div>
-      </div>
-    </section>
-
-    <section id="how" class="pl-how">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Why you should not trust the animation</h2>
-          <p class="lead">
-            A page that draws green ticks can draw anything. This one is checked two ways, and both are public.
-          </p>
-        </div>
-        <div class="pl-how-grid">
-          <div class="pl-how-card">
-            <h3>The answers come from Groovy</h3>
+        <div class="pv-proof-grid">
+          <div class="pv-proof-card">
+            <h3>The answers are not written here</h3>
             <p>
-              <code>rules/fixture.json</code> is written by
-              <code>shared-library/test/run-fixture.groovy</code> running the real classes. The JavaScript port can
-              only match it. If both sides were allowed to author the file, agreement would prove nothing.
+              <code>rules/fixture.json</code> is produced by the Groovy classes in the repository. This page only
+              has to match it, and the badge above says whether it did, in your browser, right now.
             </p>
           </div>
-          <div class="pl-how-card">
-            <h3>The copy is checked against upstream</h3>
+          <div class="pv-proof-card">
+            <h3>The source is pinned</h3>
             <p>
-              This page vendors two files from the repository. CI compares their SHA-256 against what the
+              Seven repository files are vendored here and pinned by SHA-256. CI compares them against what the
               repository serves, so a stale copy fails the build instead of quietly becoming a second
               implementation.
             </p>
           </div>
-          <div class="pl-how-card">
-            <h3>Two bugs it already caught</h3>
+          <div class="pv-proof-card">
+            <h3>Absent evidence fails</h3>
             <p>
-              The fixture found a duplicate-service message that named the count instead of the service id, and it
-              found that my first <code>truthy()</code> let a missing SBOM through. Neither was caught by the tests
-              that were already passing.
+              Switch the run to refused and read the trace. The gate prints the rule it applied and the threshold
+              behind it, then the stages after it go hollow rather than red, because they never ran.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="end" class="pl-end">
+    <section class="pv-end">
       <div class="wrap">
         <h2>Read the rules themselves</h2>
         <p class="lead">
-          The interesting part is not the animation. It is <code>ReleaseRules.groovy</code>,
-          <code>GateResult.groovy</code> and <code>DeploymentPlan.groovy</code>, and the thirty cases that hold them
-          in place.
+          The interesting files are <code>ReleaseRules.groovy</code>, <code>GateResult.groovy</code> and
+          <code>DeploymentPlan.groovy</code>, and the thirty cases that hold them in place.
         </p>
-        <p class="pl-end-links">
+        <p class="pv-end-links">
           <a class="btn primary" href="https://github.com/IvanJairus/Pipeline" rel="noopener noreferrer">Open the repository</a>
           <a class="btn ghost" href="../#work">Back to the work</a>
         </p>

@@ -38,6 +38,24 @@ All notable changes to this repository are documented here. The format follows
   motion dials ENERGY 2 / RHYTHM 2 / MOTION 3. Written after the fact, and the file
   says so.
 
+### Changed
+
+- **`/pipelines/` rebuilt as a pipeline run page, not a widget.** The landing page's
+  case-study layout does not read as CI, so this page now borrows the grammar of the
+  tools instead: GitLab stage columns with job cards and manual jobs marked in dashed
+  circles, and a Jenkins Blue Ocean graph of rounded nodes on connectors. Switching
+  the engine swaps the layout and the run identity, and a third tab opens the
+  repository file that produced the selected job.
+- **The source shown is the real repository source.** Seven files vendored verbatim
+  and pinned by SHA-256 in `assets/data/rules.lock.json`, with a manifest mapping each
+  job to the line ranges that produced it. `GatewaySIT.groovy` (196 lines: tracker
+  webhook to transition table to `build wait: false`), `vaultCredentials.groovy`
+  (JWT lease, revoked in `finally`) and `GateResult.groovy` are the files on show.
+- **Durations are shown in two places only.** Those are the two the landing page
+  publishes with a sample size. Everywhere else the slot stays empty rather than
+  guessing a plausible number.
+- **`DESIGN.md` now describes a two-page site.**
+
 ### Fixed
 
 - **The architecture diagram was cut in half on a phone.** `min-width: 640px` inside

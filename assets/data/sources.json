@@ -1,0 +1,254 @@
+{
+ "note": "Vendored verbatim from IvanJairus/Pipeline. check-rules-sync.mjs pins these by SHA-256. Do not edit here.",
+ "tree": [
+  {
+   "d": "ci-library/"
+  },
+  {
+   "f": "gateway.yml",
+   "k": "gateway.yml",
+   "lines": 75,
+   "path": "ci-library/gateway.yml"
+  },
+  {
+   "d": "ci-library/includes/"
+  },
+  {
+   "f": "gitlab-ci.yml",
+   "k": "gitlab-ci.yml",
+   "lines": 11,
+   "path": "ci-library/includes/gitlab-ci.yml"
+  },
+  {
+   "d": "jenkins/"
+  },
+  {
+   "f": "GatewaySIT.groovy",
+   "k": "GatewaySIT.groovy",
+   "lines": 196,
+   "path": "jenkins/GatewaySIT.groovy"
+  },
+  {
+   "d": "shared-library/vars/"
+  },
+  {
+   "f": "qualityGate.groovy",
+   "k": "qualityGate.groovy",
+   "lines": 22,
+   "path": "shared-library/vars/qualityGate.groovy"
+  },
+  {
+   "f": "vaultCredentials.groovy",
+   "k": "vaultCredentials.groovy",
+   "lines": 31,
+   "path": "shared-library/vars/vaultCredentials.groovy"
+  },
+  {
+   "f": "validateTicket.groovy",
+   "k": "validateTicket.groovy",
+   "lines": 23,
+   "path": "shared-library/vars/validateTicket.groovy"
+  },
+  {
+   "d": "shared-library/src/.../release/"
+  },
+  {
+   "f": "GateResult.groovy",
+   "k": "GateResult.groovy",
+   "lines": 88,
+   "path": "shared-library/src/com/reference/release/GateResult.groovy"
+  }
+ ],
+ "jobs": {
+  "maven-package": {
+   "file": "gateway.yml",
+   "hl": [
+    [
+     26,
+     37
+    ]
+   ],
+   "why": "the backend block that owns this jar"
+  },
+  "docker-build": {
+   "file": "gateway.yml",
+   "hl": [
+    [
+     39,
+     44
+    ]
+   ],
+   "why": "platform template, same tier"
+  },
+  "unit-test": {
+   "file": "gateway.yml",
+   "hl": [
+    [
+     46,
+     52
+    ]
+   ],
+   "why": "web template selected by project id"
+  },
+  "contract-test": {
+   "file": "gateway.yml",
+   "hl": [
+    [
+     60,
+     67
+    ]
+   ],
+   "why": "libraries build but never deploy"
+  },
+  "container-trivy": {
+   "file": "gateway.yml",
+   "hl": [
+    [
+     54,
+     58
+    ]
+   ],
+   "why": "mobile block, no internal registry"
+  },
+  "sast-semgrep": {
+   "file": "gateway.yml",
+   "hl": [
+    [
+     26,
+     37
+    ]
+   ],
+   "why": "the repo set SAST runs against"
+  },
+  "secret-detect": {
+   "file": "gateway.yml",
+   "hl": [
+    [
+     26,
+     29
+    ]
+   ],
+   "why": "one include, so one place to scan"
+  },
+  "sonarqube-checks": {
+   "file": "qualityGate.groovy",
+   "hl": [
+    [
+     8,
+     21
+    ]
+   ],
+   "why": "the verdict and the ticket comment"
+  },
+  "release-rules": {
+   "file": "validateTicket.groovy",
+   "hl": [
+    [
+     3,
+     12
+    ]
+   ],
+   "why": "branch, tag and manifest rules"
+  },
+  "deploy-sit": {
+   "file": "vaultCredentials.groovy",
+   "hl": [
+    [
+     10,
+     31
+    ]
+   ],
+   "why": "short-lived lease, revoked in finally"
+  },
+  "promote-uat": {
+   "file": "gateway.yml",
+   "hl": [
+    [
+     69,
+     75
+    ]
+   ],
+   "why": "what deliberately stays out of the gateway"
+  },
+  "promote-prod": {
+   "file": "gateway.yml",
+   "hl": [
+    [
+     69,
+     75
+    ]
+   ],
+   "why": "same block, prod ladder"
+  },
+  "Trigger Jobs": {
+   "file": "GatewaySIT.groovy",
+   "hl": [
+    [
+     10,
+     46
+    ]
+   ],
+   "why": "webhook body becomes the run identity"
+  },
+  "Resolve Plan": {
+   "file": "GatewaySIT.groovy",
+   "hl": [
+    [
+     53,
+     57
+    ]
+   ],
+   "why": "transition string is the job key"
+  },
+  "Build": {
+   "file": "gateway.yml",
+   "hl": [
+    [
+     26,
+     37
+    ]
+   ],
+   "why": "same routing table, other engine"
+  },
+  "Scan": {
+   "file": "gateway.yml",
+   "hl": [
+    [
+     54,
+     58
+    ]
+   ],
+   "why": "same routing table, other engine"
+  },
+  "Quality Gate": {
+   "file": "qualityGate.groovy",
+   "hl": [
+    [
+     8,
+     21
+    ]
+   ],
+   "why": "identical call, identical verdict"
+  },
+  "Deploy SIT": {
+   "file": "vaultCredentials.groovy",
+   "hl": [
+    [
+     10,
+     31
+    ]
+   ],
+   "why": "identical lease handling"
+  },
+  "Promote UAT": {
+   "file": "GatewaySIT.groovy",
+   "hl": [
+    [
+     117,
+     124
+    ]
+   ],
+   "why": "no mapping means refuse, not guess"
+  }
+ }
+}
