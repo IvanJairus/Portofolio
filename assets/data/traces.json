@@ -592,7 +592,7 @@
         },
         {
           "l": "log",
-          "m": "skipped reason=already_posted key=gate-51daa202bcf986a2 target=gitlab",
+          "m": "skipped reason=already_posted key=gate-383a8aad37876b0e target=gitlab",
           "p": "ticket_sync.py::already_posted"
         }
       ],

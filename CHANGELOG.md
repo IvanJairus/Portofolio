@@ -31,6 +31,21 @@ All notable changes to this repository are documented here. The format follows
 
 ### Added
 
+- **A gitleaks config with exactly one exemption.** CI's secret scanner flagged
+  `key=gate-383a8aad37876b0e` in a console trace under `generic-api-key`. That
+  value is the first 16 hex characters of a SHA-256 over a pipeline id and a
+  verdict summary, which is what an idempotency key looks like. Checking it
+  against `ticket_sync.py` also caught that the number on the page had been
+  invented: `sha256("1421|gate passed")` is `383a8aad37876b0e`, and the trace
+  said `51daa202bcf986a2`, which is the digest of nothing. The trace now carries
+  the value the code produces, so a reader can recompute it. `.gitleaks.toml`
+  allows `^gate-[0-9a-f]{16}$` and nothing else, anchored because gitleaks matches
+  allowlist regexes against the secret rather than the line around it. `[extend]
+  useDefault = true` is load-bearing: without it a config file replaces the
+  default rules, which would switch the gate off while looking like it was
+  configured. Tested both ways with the same binary CI uses (8.24.3): the range
+  that failed now reports no leaks, and a planted Slack bot token in a scratch
+  directory is still caught.
 - **A tools receipt on `/pipelines/`.** The landing page names tools; the original
   brief for this page was that those names have to be provable somewhere. Sixteen
   rows, each pointing at the file or the job on this page where the tool actually

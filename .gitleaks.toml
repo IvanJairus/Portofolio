@@ -1,0 +1,20 @@
+# gitleaks runs in CI (.github/workflows/security.yml) with its own default rules.
+# useDefault below keeps every one of them; this file adds a single allowlist
+# entry and nothing else. Without [extend] a config file replaces the defaults,
+# which would turn the gate off while looking like it is configured.
+#
+# The one exemption is an idempotency key printed in a console trace. It is the
+# first 16 hex characters of a SHA-256 over a pipeline id and a commit subject
+# (ticket_sync.py, idempotency_key), which generic-api-key reads as a key. It is
+# not a credential: nothing authenticates with it, and the same value is
+# recomputed from public inputs on every run.
+#
+# The regex is anchored because gitleaks matches allowlist regexes against the
+# secret it found, not the line around it. A wider pattern here would let any
+# string starting with "gate-" through.
+[extend]
+  useDefault = true
+
+[allowlist]
+  description = "truncated SHA-256 idempotency keys in the console trace"
+  regexes = ['''^gate-[0-9a-f]{16}$''']
