@@ -51,7 +51,7 @@
 </head>
 <body>
 
-  <!-- ================= HEADER ================= -->
+  <!-- header -->
   <header class="site-header">
     <div class="wrap header-in">
       <a class="brand" href="#top" aria-label="Home">
@@ -78,7 +78,7 @@
 
   <main id="top">
 
-    <!-- ================= HERO ================= -->
+    <!-- hero -->
     <section class="hero">
       <div class="wrap hero-grid">
         <div class="hero-id">
@@ -148,12 +148,13 @@
   - <span class="hy-k">project</span>: <span class="hy-v">'platform/pipeline-gateway'</span>
     <span class="hy-k">file</span>: <span class="hy-v">'/gateway.yml'</span></pre>
             <div class="hy-foot" data-i18n="hero.yml.foot">the real format. Most services carry no CI file at all, so the board runs them from the pipeline repository</div>
+            <a class="hy-run mono" href="pipelines/">and this is what one of those runs prints</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ================= ABOUT ================= -->
+    <!-- about -->
     <section id="about">
       <div class="wrap">
         <div class="section-head">
@@ -214,7 +215,7 @@
 
   <div id="work">
 
-    <!-- ================= WORK ================= -->
+    <!-- work -->
     <section class="work-intro">
       <div class="wrap">
         <div class="section-head">
@@ -272,6 +273,18 @@
             <a class="w-demo" href="https://github.com/IvanJairus/release-dashboard" target="_blank" rel="noopener"><span data-i18n="work.demo.controlplane">Read the control-plane reference</span> <span class="arr">↗</span></a>
           </article>
 
+          <!-- The gate, quoted. Three lines a refused run really prints, taken from
+               the same statements the pipelines page traces; no clock, because a
+               static excerpt cannot honestly carry a timestamp. -->
+          <div class="wv">
+            <p class="wv-cap mono">the gate, in its own words. These three lines end a refused run on
+              <a href="pipelines/">the pipelines page</a>, where GitLab and Jenkins reach the same verdict from
+              the same class</p>
+            <pre class="wv-log mono"><span class="lv">ERROR</span> GateResult.evaluate passed=false failures=1 warnings=1
+<span class="lv">ERROR</span> gate failed: vulnerabilities: 1 critical (allowed 0)
+<span class="lv">ERROR</span> verdict written passed=false file=gate-verdict.json</pre>
+          </div>
+
         </div>
       </div>
     </section>
@@ -286,7 +299,7 @@
       <a href="#threat" class="wsn" data-wsn="threat" data-i18n="work.sub.threat">Threat model</a>
     </div>
 
-    <!-- ================= MASTERPIECE I : BOARD ================= -->
+    <!-- masterpiece I: board -->
     <section id="board" data-deep>
       <div class="wrap">
         <div class="section-head">
@@ -433,7 +446,7 @@
       </div>
     </section>
 
-    <!-- ================= MASTERPIECE II : PLATFORM ================= -->
+    <!-- masterpiece II: platform -->
     <section id="platform" data-deep>
       <div class="wrap">
         <div class="section-head">
@@ -526,7 +539,7 @@
       </div>
     </section>
 
-    <!-- ================= ARCHITECTURE ================= -->
+    <!-- architecture -->
     <section id="architecture" data-deep>
       <div class="wrap">
         <div class="section-head">
@@ -671,7 +684,9 @@
             </ol>
           </div>
 
-          <!-- email preview: 3 real reports, replicated from the original HTML templates, sanitized -->
+          <!-- One of the three reports. The other two, and this one in full
+               context, are on /reports/; the rows below name what each answers so
+               the link carries the claim instead of a bare "read more". -->
           <div class="lc-mailgrid">
             <div class="mailshow">
               <div class="mailshow-head">
@@ -679,15 +694,9 @@
                   <span class="ms-title mono">email reports</span>
                   <span class="ms-sub" data-i18n="lc.mail.headsub">report emails my pipelines generate, sample data sanitized</span>
                 </div>
-                <div class="ms-tabs" role="tablist">
-                  <button type="button" class="ms-tab on" data-mail="sync" role="tab">branch sync</button>
-                  <button type="button" class="ms-tab" data-mail="sast" role="tab">sast report</button>
-                  <button type="button" class="ms-tab" data-mail="sonar" role="tab">sonarqube</button>
-                </div>
+                <a class="ms-more mono" href="reports/">all three reports</a>
               </div>
-
-              <!-- 1. BRANCH SYNC -->
-              <div class="mail-card" data-mail-pane="sync">
+              <div class="mail-card">
                 <div class="mail-top mono">
                   <span class="mail-av">IJ</span>
                   <div>
@@ -718,81 +727,21 @@
                   <div class="mail-note mono">note // one design system, three report types. The run always reports itself</div>
                 </div>
               </div>
-
-              <!-- 2. SAST (replicated from the original report, sanitized) -->
-              <div class="mail-card" data-mail-pane="sast" hidden>
-                <div class="mail-top mono">
-                  <span class="mail-av">IJ</span>
-                  <div>
-                    <div class="mail-from">devops-platform &lt;noreply@…&gt;</div>
-                    <div class="mail-subj">[SAST Report] core · BE · ⚠ 1 critical | 5 medium | 01 Oct</div>
-                  </div>
-                </div>
-                <div class="mail-body">
-                  <div class="mail-head">
-                    <span class="mono">SAST SECURITY SCAN REPORT</span><span class="mono mail-wm">DEVOPS&nbsp;PLATFORM</span>
-                  </div>
-                  <div class="mail-callout">
-                    <b>ⓘ Scope and limits of this scan</b>
-                    <p>Semgrep produced these results, run automatically by the pipeline. Findings are indicative and can include <i>false positives</i>. The report is a starting point for the developer who owns the service, not a substitute for a formal security review.</p>
-                  </div>
-                  <div class="mail-meta mono"><span>Generated: 01 Oct 2026 01:31 WIB</span><span>31 service</span><span>Scanner: Semgrep</span><span class="mail-branches">development ✓ · R1.0 ✓ · R1.1 ✓ · R1.2 ✓</span></div>
-                  <div class="mail-stats ms2">
-                    <div class="ms t"><b>6</b><span>total</span></div>
-                    <div class="ms c"><b>1</b><span>critical</span></div>
-                    <div class="ms h"><b>0</b><span>high</span></div>
-                    <div class="ms m"><b>5</b><span>medium</span></div>
-                    <div class="ms l"><b>0</b><span>low</span></div>
-                  </div>
-                  <div class="mail-sect mono">SUMMARY BY CATEGORY</div>
-                  <table class="mail-tbl">
-<tbody><tr class="th"><td>category</td><td>service</td><td>critical</td><td>high</td><td>medium</td><td>low</td><td>status</td></tr>
-                    <tr><td><b>FE</b></td><td>12</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td><span class="pill ok">CLEAN</span></td></tr>
-                    <tr><td><b>BE</b></td><td>19</td><td class="bad">1</td><td class="ok">0</td><td class="warn">5</td><td class="ok">0</td><td><span class="pill bad">FINDINGS</span></td></tr>
-</tbody>
-                  </table>
-                  <div class="mail-att mono"><span>📎 sast-report-core-fe.html · 17 KB</span><span>📎 sast-report-core-be.html · 70 KB</span></div>
-                  <div class="mail-note mono">Each category's full report is attached to this email and opens directly in a browser.</div>
-                  <div class="mail-note mono" data-i18n="lc.mail.artifact">note // scheduled weekly, one HTML report per category, artifacts kept for 30 days</div>
-                </div>
-              </div>
-
-              <!-- 3. SONARQUBE -->
-              <div class="mail-card" data-mail-pane="sonar" hidden>
-                <div class="mail-top mono">
-                  <span class="mail-av">IJ</span>
-                  <div>
-                    <div class="mail-from">devops-platform &lt;noreply@…&gt;</div>
-                    <div class="mail-subj">[board] SonarQube Scan Summary · CORE · 01 Oct (30 scanned, 2 not passed, 1 with no analysis)</div>
-                  </div>
-                </div>
-                <div class="mail-body">
-                  <div class="mail-head">
-                    <span class="mono">SONARQUBE SCAN REPORT</span><span class="mono mail-wm">DEVOPS&nbsp;PLATFORM</span>
-                  </div>
-                  <div class="mail-meta mono"><span>Domain: core</span><span>Date: 01 Oct 2026 WIB</span><span class="mail-branches">Branches: development · R1.0 · R1.1 · R1.2</span></div>
-                  <div class="mail-stats ms2">
-                    <div class="ms t"><b>31</b><span>total scan</span></div>
-                    <div class="ms ok2"><b>30</b><span>scanned</span></div>
-                    <div class="ms p"><b>28</b><span>passed</span></div>
-                    <div class="ms c"><b>2</b><span>not passed</span></div>
-                    <div class="ms n"><b>1</b><span>no analysis</span></div>
-                  </div>
-                  <div class="mail-sect mono">SCAN RESULTS</div>
-                  <table class="mail-tbl">
-<tbody><tr class="th"><td>service</td><td>branch</td><td>quality gate</td><td>vulns</td><td>coverage</td></tr>
-                    <tr><td>ledger-service</td><td>R1.1</td><td><span class="pill ok">PASSED</span></td><td class="ok">0</td><td>78.4%</td></tr>
-                    <tr><td>mobile-bff</td><td>R1.1</td><td><span class="pill bad">NOT PASSED</span></td><td class="bad">2</td><td>61.2%</td></tr>
-                    <tr><td>auth-gateway</td><td>R1.1</td><td><span class="pill ok">PASSED</span></td><td class="ok">0</td><td>83.0%</td></tr>
-                    <tr><td class="dim">scheduler-job</td><td>R1.1</td><td><span class="pill dim">NO ANALYSIS</span></td><td></td><td></td></tr>
-</tbody>
-                  </table>
-                  <div class="mail-note mono">note // each service's own Sonar pipeline is triggered in batches, then polled round-robin until every one is done</div>
-                </div>
-              </div>
             </div>
+            <ul class="lc-mailmore mono">
+              <li><a href="reports/#sast">SAST · core</a><span>1 critical, 5 medium, 31 services scanned</span></li>
+              <li><a href="reports/#sonar">SonarQube · core</a><span>30 scanned, 2 not passed, 1 with no analysis</span></li>
+            </ul>
             <p class="care-note lc-mailcap" data-i18n="lc.mail.caption">// dummy data in the report format my pipelines generate. Names, domains and links are sanitized. The amber disclaimer is there because a scanner that overclaims is worse than no scanner</p>
           </div>
+        </div>
+
+        <!-- Where the rules above are actually enforced. Two destinations, each
+             named by what a reader finds there. -->
+        <div class="lc-out mono">
+          <span>where this is enforced</span>
+          <a href="pipelines/">the gate as a GitLab pipeline and as a Jenkins graph, with the file behind every line</a>
+          <a href="reports/">the three reports a weekly run sends when nobody is on shift</a>
         </div>
 
         <!-- two ecosystems: Jira+Jenkins before, GitLab board+CI now -->
@@ -857,7 +806,7 @@
       </div>
     </section>
 
-    <!-- ================= RUNTIME ================= -->
+    <!-- runtime -->
     <section id="runtime" data-deep>
       <div class="wrap">
         <div class="section-head">
@@ -905,7 +854,7 @@
       </div>
     </section>
 
-    <!-- ================= DECISIONS ================= -->
+    <!-- decisions -->
     <section id="decisions" data-deep>
       <div class="wrap">
         <div class="section-head">
@@ -971,7 +920,7 @@
       </div>
     </section>
 
-    <!-- ================= THREAT MODEL ================= -->
+    <!-- threat model -->
     <section id="threat" data-deep>
       <div class="wrap">
         <div class="section-head">
@@ -1012,7 +961,7 @@
 
   </div><!-- /#work -->
 
-    <!-- ================= SKILLS ================= -->
+    <!-- skills -->
     <section id="toolbox">
       <div class="wrap">
         <div class="section-head">
@@ -1155,10 +1104,12 @@
             </div>
           </div>
         </div>
+        <p class="tb-receipt mono">Every tool named above appears in a file or a job on
+          <a href="pipelines/">the pipelines page</a>, where the claim can be checked line by line instead of read.</p>
       </div>
     </section>
 
-    <!-- ================= EXPERIENCE ================= -->
+    <!-- experience -->
     <section id="experience">
       <div class="wrap">
         <div class="section-head">
@@ -1208,7 +1159,7 @@
       </div>
     </section>
 
-    <!-- ================= CONTACT ================= -->
+    <!-- contact -->
     <section id="contact">
       <div class="wrap contact-in">
         <div>
@@ -1246,7 +1197,7 @@
     </section>
   </main>
 
-  <!-- ================= FOOTER ================= -->
+  <!-- footer -->
   <footer class="site-footer">
     <div class="wrap footer-in">
       <span>© <span data-profile="year">2026</span> <span data-profile="brand-name">Ivan Jairus</span></span>

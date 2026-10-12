@@ -1,0 +1,51 @@
+/* The three report emails, shown as documents rather than as a widget.
+   base.css already gives every section its padding and its top rule, and
+   showcase.css owns the mail-card internals; this file only frames the cards
+   outside the tabbed shell they used to live in. */
+
+.rp-where {
+  margin: 14px 0 0;
+  font-size: 12px;
+  color: var(--ink-dim);
+}
+.rp-where a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+
+.rp-qhead {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.rp-num {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.rp-qhead h2 { margin: 0; font-size: 24px; line-height: 1.25; }
+
+.rp-look {
+  margin: 0 0 20px;
+  font-size: 12px;
+  color: var(--ink-faint);
+  max-width: 62ch;
+}
+
+/* The card used to be framed by .mailshow, which stripped its own border and
+   shadow. Here it is the document, so it carries a line and nothing else: a
+   50px blur under a screenshot of an email would be the page decorating. */
+.rp-block .mail-card {
+  max-width: 720px;
+  border: 1px solid var(--line-strong);
+  box-shadow: none;
+}
+.rp-end .care-note { max-width: 72ch; }
+.rp-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin: 18px 0 0;
+  font-size: 13px;
+}
+.rp-nav a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.rp-nav a + a { color: var(--ink-dim); }

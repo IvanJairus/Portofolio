@@ -1,7 +1,7 @@
 {
   "note": "Every file under assets/data/src/ is vendored verbatim from one pinned commit of IvanJairus/Pipeline by scripts/sync-sources.mjs, which also writes rules.lock.json and the line counts here. Do not edit a file body here or on disk: change upstream, bump ref, re-sync. scripts/check-rules-sync.mjs fails if any of that drifts.",
   "upstream": "IvanJairus/Pipeline",
-  "ref": "0774a5b6e9c13d0accd0cd8163306dd693b0fb20",
+  "ref": "1271c28486e562d3cfd84da761a43bd66465dfdc",
   "files": {
     "assets/data/src/gitlab-ci.yml": {
       "sha256": "b0d801ead078d3fc4adbaf9473e3ebb6ed51231378c2f3bfc7ead2b7c66bb789",
@@ -84,9 +84,9 @@
       "bytes": 3734
     },
     "assets/data/src/GatewaySIT.groovy": {
-      "sha256": "4587f64ddbdc38d7db5575ae5001557c68e8253228a0fedadd514c4f0e7485a6",
+      "sha256": "ee658926a33214b63f37d6f4b3a4aa7df26dda9a3bfa297acb96bd5be21281ed",
       "upstream": "jenkins/GatewaySIT.groovy",
-      "bytes": 7250
+      "bytes": 7249
     },
     "assets/data/src/validateTicket.groovy": {
       "sha256": "a3e33afba247d001082c03f315cca91cb75ff235b97c489dc9ebc50faf635595",
@@ -149,9 +149,9 @@
       "bytes": 15285
     },
     "assets/data/src/setup-vault-jwt.sh": {
-      "sha256": "cf970c520ba6b0328d0ba0db046a6c8f336c6b804c855fd92f7818c07bc3bfd5",
+      "sha256": "ed7512a70b32f9dfb84e427da62b7908a9ebe646cad5bd601c4b383d406e02f0",
       "upstream": "ci-library/scripts/setup-vault-jwt.sh",
-      "bytes": 3327
+      "bytes": 3287
     },
     "assets/data/src/deployment-gateway.yaml": {
       "sha256": "0b60ea9f2a85cf4a09c6b8d6d9925940e09c0a4ee1d0604971efc8351a48ca13",
@@ -159,9 +159,9 @@
       "bytes": 2909
     },
     "assets/js/release-rules.mjs": {
-      "sha256": "a9f6e333a32407ef7a73a586c1e27d10d8cdd6d2fc4d66abe8894617c972ff3d",
+      "sha256": "7bf7b1bf7f69b6cae794dc584872a67fdaa408b21da633acb5239e6f92d83273",
       "upstream": "rules/release-rules.mjs",
-      "bytes": 12309
+      "bytes": 12224
     }
   }
 }

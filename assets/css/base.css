@@ -58,7 +58,7 @@
   :root { --subnav-h: 56px; }
 }
 
-/* ---------- reset ---------- */
+/* reset */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 html { scroll-behavior: smooth; }
@@ -100,7 +100,7 @@ body::before {
 }
 main, header, footer { position: relative; z-index: 1; }
 
-/* ---------- layout ---------- */
+/* layout */
 .wrap {
   max-width: var(--wrap);
   margin-inline: auto;
@@ -109,7 +109,7 @@ main, header, footer { position: relative; z-index: 1; }
 section { padding-block: var(--section); }
 section + section { border-top: 1px solid var(--line); }
 
-/* ---------- typography ---------- */
+/* typography */
 .kicker {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -143,7 +143,7 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
 .section-head > h2:first-child,
 .hero-id > h1:first-child { margin-top: 0; }
 
-/* ---------- header ---------- */
+/* header */
 .site-header {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -280,7 +280,7 @@ html[data-depth="skim"] .skim-note { display: flex; }
   .menu-btn .mi { display: block; }
 }
 
-/* ---------- hero ---------- */
+/* hero */
 .hero {
   padding-top: clamp(120px, 16vh, 180px);
   padding-bottom: clamp(56px, 8vw, 96px);
@@ -369,6 +369,18 @@ html[data-depth="skim"] .skim-note { display: flex; }
   font-size: 10.5px;
   color: var(--ink-faint);
 }
+/* The card's only action. It sits below the caption rather than inside it
+   because the caption is filled by i18n, which replaces its text content. */
+.hy-run {
+  display: block;
+  padding: 8px 14px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--accent);
+  transition: background 0.18s var(--ease);
+}
+.hy-run:hover { background: var(--accent-dim); text-decoration: underline; text-underline-offset: 2px; }
 
 /* stack strip under the hero button: one row of mark + name, no container.
    At 390 the strip also sits above the rail, so the rail gets pushed down. */
@@ -582,7 +594,7 @@ html[data-depth="skim"] .skim-note { display: flex; }
 }
 
 
-/* ---------- stats ---------- */
+/* stats */
 .stats {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -617,7 +629,7 @@ html[data-depth="skim"] .skim-note { display: flex; }
 }
 
 
-/* ---------- accessibility: focus & reduced motion (audit D2/D3) ---------- */
+/* accessibility: focus & reduced motion (audit D2/D3) */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
@@ -625,8 +637,8 @@ html[data-depth="skim"] .skim-note { display: flex; }
 }
 /* this site has hover and focus rings, but never had a pressed state
    (0 :active rules before this), so touch/click gave no feedback at all.
-   Real controls only; the hero rail (.hf-node) is deliberately left out, per your veto. */
-.btn:active, .wsn:active, .ms-tab:active, .tf-btn:active, .bd-btn:active, .bd-dot:active,
+   Real controls only; the hero rail (.hf-node) stays out by decision. */
+.btn:active, .wsn:active, .tf-btn:active, .bd-btn:active, .bd-dot:active,
 .tool-btn:active, .lc-node:active, .lc-chip:active, .copy-btn:active, [data-act]:active {
   transform: translateY(1px);
 }
@@ -641,7 +653,7 @@ html[data-depth="skim"] .skim-note { display: flex; }
 }
 
 
-/* ---------- print: all content & final widget state (audit v2 #10) ---------- */
+/* print: all content & final widget state (audit v2 #10) */
 @media print {
   .gate-check .box { background: #2e7d32 !important; border-color: #2e7d32 !important; color: #fff !important; }
   .gate-result { border-color: #2e7d32 !important; background: #e7f2e6 !important; }

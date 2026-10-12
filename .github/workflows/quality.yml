@@ -94,7 +94,7 @@ jobs:
           # CLS 0.015, 145 KiB uncompressed. Its CLS is not 0: the run title grows from
           # one line to two while the module fills the header.
           fail=0
-          for page in "root:http://127.0.0.1:8731/" "pipelines:http://127.0.0.1:8731/pipelines/"; do
+          for page in "root:http://127.0.0.1:8731/" "pipelines:http://127.0.0.1:8731/pipelines/" "reports:http://127.0.0.1:8731/reports/"; do
             name=${page%%:*}
             url=${page#*:}
             ok=0

@@ -1,7 +1,7 @@
 {
   "note": "Every file under assets/data/src/ is vendored verbatim from one pinned commit of IvanJairus/Pipeline by scripts/sync-sources.mjs, which also writes rules.lock.json and the line counts here. Do not edit a file body here or on disk: change upstream, bump ref, re-sync. scripts/check-rules-sync.mjs fails if any of that drifts.",
   "upstream": "IvanJairus/Pipeline",
-  "ref": "0774a5b6e9c13d0accd0cd8163306dd693b0fb20",
+  "ref": "1271c28486e562d3cfd84da761a43bd66465dfdc",
   "engines": {
     "gitlab": {
       "tree": [

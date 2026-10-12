@@ -54,7 +54,7 @@ function gdec(n) {
   return Number.isInteger(v) ? `${v}.0` : String(n);
 }
 
-/* ---------- what a release is made of ---------- */
+/* what a release is made of */
 
 /* The same manifest the repository ships as ci-library/examples/release.json. */
 const MANIFEST = {
@@ -78,7 +78,7 @@ const gateInput = (scan) => ({ deploy: { result: 'success' }, quality: QUALITY, 
    and trivy-refused.json at the pinned commit, one entry per finding. The
    consoles quote those two files, so changing one side without the other makes
    the page disagree with itself: the trivy table and the gate's counts are the
-   same three findings. */
+   same findings. */
 const RUNS = {
   passed: {
     branch: 'fix/471-timeout', tag: 'v1.4.2', approvals: FIVE,
@@ -102,7 +102,7 @@ const MEASURED = {
   'deploy-sit': '93 s · median, n = 13',
 };
 
-/* ---------- the run, computed ---------- */
+/* the run, computed */
 
 function compute(engine, key) {
   const sc = RUNS[key];
@@ -180,7 +180,7 @@ function compute(engine, key) {
   };
 }
 
-/* ---------- panels ---------- */
+/* panels */
 
 const SOURCES = { data: null };
 const TRACES = { data: null };
@@ -216,6 +216,12 @@ function traceFor(engine, job, run) {
     } else if (line.dyn === 'counts') {
       const c = run.counts;
       out.push({ l: 'out', m: `scan.findings   critical ${c.critical}  high ${c.high}  medium ${c.medium}  low ${c.low}` });
+    } else if (line.dyn === 'readscan') {
+      /* The same statement run-gate.groovy runs, with the counts the gate
+         actually computed for this outcome. Typed numbers here would be a third
+         place to keep the scan report in sync. */
+      const c = run.counts;
+      out.push({ l: 'log', m: `read scan file=trivy-report.json findings=${c.critical + c.high + c.medium + c.low} critical=${c.critical} high=${c.high} medium=${c.medium} low=${c.low} sbom=true` });
     } else if (line.dyn === 'plan') {
       out.push({ l: 'out', m: `plan            ${run.plan.map((p) => `${p.name} tier ${p.tier}`).join('  ')}` });
     } else if (line.dyn === 'thresholds') {
@@ -481,7 +487,7 @@ class Panel {
   }
 }
 
-/* ---------- boot ---------- */
+/* boot */
 
 const panels = [...document.querySelectorAll('.pv-card')].map((card) => new Panel(card, card.dataset.engine));
 let runKey = 'passed';

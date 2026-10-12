@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Situs bercabang pada 2026-10-10: /pipelines/ adalah halaman kedua. -->
+<!-- Three pages: the landing, /pipelines/, and /reports/. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.ivanjairus.xyz/</loc>
     <lastmod>2026-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.ivanjairus.xyz/reports/</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.ivanjairus.xyz/pipelines/</loc>

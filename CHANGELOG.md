@@ -31,6 +31,29 @@ All notable changes to this repository are documented here. The format follows
 
 ### Added
 
+- **`/reports/`, a third page.** The three report emails were a tabbed widget: one
+  card visible, two hidden until a click, so a printed page, a crawler and a
+  60-second read all saw exactly one of them. They are a page now, stacked, each
+  under the question it answers ("Did every release branch get the fix?", "What
+  did the scanner find across the domain?", "Which services failed their quality
+  gate?"). Measured cold on simulated mobile: Performance 98, Accessibility 100,
+  CLS 0, 149644 B.
+- **Four ways into `/pipelines/`, where there was one.** Before this the only
+  route to the strongest evidence on the site was the nav link, and the nav
+  collapses to a hamburger below 900px. Now: the footer of the hero's
+  `.gitlab-ci.yml` card says *and this is what one of those runs prints*; the Work
+  section ends with three real lines from a refused gate run on the dark console
+  surface; the lifecycle block ends with a "where this is enforced" pair; and the
+  Toolbox closes with the receipt sentence pointing at the page that lists every
+  tool against the file it appears in.
+- **The gate's scan line is computed, not typed.** A `dyn: "readscan"` line builds
+  `read scan file=… findings=N critical=… high=…` from the counts the ported rules
+  produce, in the shape `run-gate.groovy` logs it. Before that the refused run
+  displayed the passing run's numbers: `findings=3 critical=0` above a table that
+  contained a critical.
+- **A third page in the gates.** `quality.yml` runs the Lighthouse budget over
+  root, `/pipelines/` and `/reports/`, and `html-validate` covers all four
+  documents including `404.html`.
 - **A gitleaks config with exactly one exemption.** CI's secret scanner flagged
   `key=gate-383a8aad37876b0e` in a console trace under `generic-api-key`. That
   value is the first 16 hex characters of a SHA-256 over a pipeline id and a
@@ -81,6 +104,26 @@ All notable changes to this repository are documented here. The format follows
 
 ### Changed
 
+- **The report widget lost its tabs, and the code with them.** One card stays on
+  the landing, and the two that are not shown are named by their own numbers
+  ("1 critical, 5 medium, 31 services scanned") so the link carries the claim
+  instead of a "read more". `initMailTabs()` and the `.ms-tab` rules are deleted:
+  a control that switches between one thing that exists and two that do not is a
+  dead control.
+- **The honest surprise: the landing did not get shorter.** Moving two report
+  cards off the page removed almost no height, because hidden elements contribute
+  none, and the new pointers added some. Measured at 390px the page is 25,569px
+  tall before and 26,230px after, 2.6% taller. Transfer size went the other way:
+  425,844 B to 422,597 B, because the hidden cards, the tab JS and the tab CSS left
+  together. Shortening the page needs a section that is actually visible to move,
+  and that trade is not free: `#decisions` and `#runtime` are 1,251 words of dense
+  prose a skimmer would then stop seeing. Proposed, not done.
+- **108 section banners stopped being drawn with dashes.**
+  `/* ---------- mail preview tabs ---------- */` became `/* mail preview tabs */`,
+  and `<!-- ================= HERO ================= -->` became `<!-- hero -->`.
+  Ten more went the same way upstream (`1271c28`) in files this page displays,
+  which moved the pin to that commit; `check-comments-only.py` proves that diff
+  touched comments only, and the fixture there still reports 31/31.
 - **The tab icon is the site's own mark.** The favicon was an orange circle with a
   white square inside it, a shape nothing else on the site uses, while every page
   header draws a 30px white box with a hairline orange border and bold mono `IJ`.

@@ -172,3 +172,18 @@ of the row one column to the left.
 rather than up front. Writing it down after the fact is still worth it, but a
 reviewer should read it as a reconstruction of the reasoning, not as a brief that
 guided the build.
+
+## How a page earns visitors
+
+The site is three pages: the landing, `/pipelines/`, and `/reports/`. A page that
+only the nav points at is a page nobody finds, and below 900px the nav is a
+hamburger, so the nav is not a plan. Each page therefore has several in-content
+pointers, and each pointer carries the claim itself: "1 critical, 5 medium, 31
+services scanned", not "read more". If a link's text would still be true after the
+target is deleted, the link is doing no work.
+
+The same reasoning killed a widget. Three report emails sat behind tabs, so two of
+them were invisible to a print, a crawler, and a 60-second read of the page. Tabs
+are fine when every pane exists where the reader can see it counted; here the
+count was the point, so the panes became a page and the landing kept one card plus
+two sentences that name what the other two say.

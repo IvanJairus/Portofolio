@@ -42,7 +42,7 @@ const sources = JSON.parse(read('assets/data/sources.json'));
 const traces = JSON.parse(read('assets/data/traces.json'));
 
 const TOOLS = new Set(['maven', 'trivy', 'semgrep', 'gitleaks', 'syft', 'sonar', 'kaniko']);
-const DYN = new Set(['summary', 'failures', 'warnings', 'counts', 'plan', 'thresholds']);
+const DYN = new Set(['summary', 'failures', 'warnings', 'counts', 'plan', 'thresholds', 'readscan']);
 const LEVELS = new Set(['cmd', 'out', 'log', 'ok', 'warn', 'err']);
 
 const localFor = (k) => (k === 'fixture.json' ? 'assets/data/fixture.json' : `assets/data/src/${k}`);

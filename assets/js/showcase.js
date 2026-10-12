@@ -673,7 +673,7 @@
     hintRaf = requestAnimationFrame(function () { hintRaf = 0; syncHint(); });
   });
 
-  /* ---------- helper markup ---------- */
+  /* helper markup */
   function panel(title, right, inner, note) {
     return '<div class="rp-panel"><h5><span>' + title + "</span>" +
       (right ? '<span class="r">' + right + "</span>" : "") + "</h5>" + inner +
@@ -691,7 +691,7 @@
   }
   function changed() { return SVC.filter(function (s) { return s.st !== "same"; }); }
 
-  /* ---------- view: dashboard ---------- */
+  /* view: dashboard */
   var VIEW = {};
 
   VIEW.dashboard = function () {
@@ -720,7 +720,7 @@
       panel("Deployment frequency", "weekly", '<div class="rp-bars rp-bars-wrap">' + bars + "</div>");
   };
 
-  /* ---------- view: board ---------- */
+  /* view: board */
   VIEW.board = function () {
     var cols = ["To do", "In Dev", "In Review", "Merged", "Deploy"];
     var html = cols.map(function (c, ci) {
@@ -737,7 +737,7 @@
       panel("Transition rules", "", '<div class="rp-note rp-note--plain">A ticket may only move along the allowed path; <code>emergency-hotfix</code> starts directly at <b>sit-deployed</b>. Every transition is recorded with actor and timestamp, and a rejected PRE-UAT review returns the ticket to <b>sit-deployed</b> and increments its rejection counter.</div>');
   };
 
-  /* ---------- view: deploys ---------- */
+  /* view: deploys */
   VIEW.deploys = function () {
     var tabs = [["history", "History"], ["build", "Build & Deploy"], ["monitoring", "Monitoring"], ["rollback", "Rollback"]];
     var tabHtml = '<div class="rp-tabs">' + tabs.map(function (t) {
@@ -814,7 +814,7 @@
       "Jars roll back from a dated backup taken before every deploy; images roll back by digest. Both paths verify the service is healthy again before reporting success.");
   };
 
-  /* ---------- view: pre-uat ---------- */
+  /* view: pre-uat */
   VIEW.preuat = function () {
     var ch = changed();
     var rows = ch.map(function (s) {
@@ -856,7 +856,7 @@
       "</div>";
   };
 
-  /* ---------- view: scans ---------- */
+  /* view: scans */
   VIEW.scans = function () {
     var rows = P.scans.map(function (s, i) {
       return "<tr><td class='svc'>" + s.r + "</td>" +
@@ -886,7 +886,7 @@
       "<p class=\"rp-ai-n\">The gate below this paragraph is arithmetic. It does not read the paragraph.</p></div>";
   };
 
-  /* ---------- view: testing ---------- */
+  /* view: testing */
   VIEW.testing = function () {
     var suites = [
       { d: "2026-10-05", n: "login-flow", p: 24, f: 0, t: "3m12s" },
@@ -908,7 +908,7 @@
       metric("failed", "2", "steps", "warn") + metric("retention", "3d", "auto-cleanup daily") + "</div>" + html;
   };
 
-  /* ---------- view: secrets ---------- */
+  /* view: secrets */
   VIEW.secrets = function () {
     var list = SECRETS.map(function (s, i) {
       return '<button class="rp-path ' + (P.secret === i ? "on" : "") + '" data-act="path" data-i="' + i + '"><span>' + s.p + "</span><span>" + badge(s.ch, s.ch === "created" ? "info" : (s.ch === "updated" ? "warn" : "")) + "</span></button>";
@@ -931,7 +931,7 @@
         "Secret changes are part of the release record: who changed what, when, and whether it travelled to the next environment.");
   };
 
-  /* ---------- view: settings ---------- */
+  /* view: settings */
   VIEW.settings = function () {
     if (!can("settings")) return '<div class="rp-lock">restricted</div>';
     var users = [
@@ -960,7 +960,7 @@
         "That button triggers the CI job that redeploys this dashboard itself. The platform is delivered by the same pipeline it orchestrates.");
   };
 
-  /* ---------- interaksi ---------- */
+  /* interaksi */
   function onViewClick(e) {
     var b = e.target.closest("[data-act]");
     if (!b) return;
@@ -1094,7 +1094,7 @@
     }
   }
 
-  /* ---------- streaming console ---------- */
+  /* streaming console */
   function startConsole() {
     var box = P.viewEl.querySelector("[data-console]");
     if (!box) return;
@@ -1177,7 +1177,7 @@
     });
   }
 
-  /* ---------- sub-nav scroll spy (Work) ---------- */
+  /* sub-nav scroll spy (Work) */
   function initSubnav() {
     var bar = document.querySelector("[data-subnav]");
     if (!bar || !("IntersectionObserver" in window)) return;
@@ -1210,7 +1210,7 @@
     });
   }
 
-  /* ---------- toolbox tier filter ---------- */
+  /* toolbox tier filter */
   function initToolboxFilter() {
     var grid = document.querySelector(".skill-grid");
     var bar = document.querySelector(".tier-filter");
@@ -1238,22 +1238,7 @@
     apply("daily"); /* default when JS is on; without JS everything shows (noscript.css hides the bar) */
   }
 
-  /* ---------- mail preview tabs ---------- */
-  function initMailTabs() {
-    var box = document.querySelector(".mailshow");
-    if (!box) return;
-    var tabs = box.querySelectorAll(".ms-tab");
-    tabs.forEach(function (t) {
-      t.addEventListener("click", function () {
-        tabs.forEach(function (x) { x.classList.toggle("on", x === t); });
-        box.querySelectorAll("[data-mail-pane]").forEach(function (p) {
-          p.hidden = p.dataset.mailPane !== t.dataset.mail;
-        });
-      });
-    });
-  }
-
-  /* ---------- lifecycle rail (Architecture) ---------- */
+  /* lifecycle rail (Architecture) */
   function initLifecycle() {
     var wrap = document.querySelector(".lc");
     if (!wrap) return;
@@ -1316,7 +1301,6 @@
     initSubnav();
     initDiagramFocus();
     initLifecycle();
-    initMailTabs();
     initToolboxFilter();
   });
 })();

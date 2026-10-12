@@ -469,6 +469,7 @@
         },
         {
           "l": "log",
+          "dyn": "readscan",
           "m": "read scan file=trivy-report.json findings=3 critical=0 high=2 medium=1 low=0 sbom=true",
           "p": "run-gate.groovy::read scan file="
         },
