@@ -36,7 +36,7 @@ const value = (key, replacement) => {
   if (file !== before) touched += 1;
 };
 
-/* ---------- 1. text bound by i18n key ---------- */
+/* 1. text bound by i18n key */
 
 const PLAIN = /<([a-z][a-z0-9]*)((?:\s[^<>]*?)?)\sdata-i18n="([a-z0-9_.]+)"((?:\s[^<>]*?)?)>([^<]*)<\/\1>/g;
 const HTML = /<([a-z][a-z0-9]*)((?:\s[^<>]*?)?)\sdata-i18n-html="([a-z0-9_.]+)"((?:\s[^<>]*?)?)>([\s\S]*?)<\/\1>/g;
@@ -55,7 +55,7 @@ function bindI18n(re, render, suffix) {
 bindI18n(PLAIN, escape, "");
 bindI18n(HTML, (v) => v, "-html");
 
-/* ---------- 2. scalars filled from PROFILE ---------- */
+/* 2. scalars filled from PROFILE */
 
 const SCALAR = {
   name: () => PROFILE.name,
@@ -85,7 +85,7 @@ file = file.replace(mail, (match, attrs, content) => {
   return next;
 });
 
-/* ---------- 3. containers rebuilt the way main.js builds them ---------- */
+/* 3. containers rebuilt the way main.js builds them */
 
 // Find the matching close for a nested div, because the timeline block
 // holds divs inside divs and a non-greedy pattern would stop too early.
@@ -135,7 +135,7 @@ rebuild(`<div class="cm-v profile-links" data-profile="links">`, () => "\n" +
     `            <a href="${escape(l.href)}" target="_blank" rel="noopener noreferrer">${escape(l.label)} ↗</a>`).join("\n") +
   "\n          ");
 
-/* ---------- report ---------- */
+/* report */
 
 if (missing.length) {
   console.error(`tidak ada sumbernya: ${missing.join(", ")}`);
