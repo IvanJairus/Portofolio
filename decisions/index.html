@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Decisions and what they cost, by Ivan Jairus</title>
+  <meta name="description" content="Eleven pipeline and platform decisions, each with the alternative that was rejected and what the choice cost in practice: fail-closed gates, one gateway instead of per-repo templates, two CI engines without a big-bang migration, and the things deliberately not built." />
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="canonical" href="https://www.ivanjairus.xyz/decisions/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.ivanjairus.xyz/decisions/" />
+  <meta property="og:title" content="Decisions and what they cost" />
+  <meta property="og:description" content="Eleven decisions with the alternative rejected and the cost paid, including the ones that cost something." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Decisions and what they cost" />
+  <meta name="twitter:description" content="The gateway, the gates that fail closed, two CI engines, and what was deliberately not built." />
+  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <meta name="msapplication-TileColor" content="#c2410c">
+
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+  <link rel="stylesheet" href="../assets/css/showcase.css" />
+  <link rel="stylesheet" href="../assets/css/decisions.css" />
+</head>
+<body id="top">
+
+  <header class="site-header">
+    <div class="wrap header-in">
+      <a class="brand" href="../">
+        <span class="mark">IJ</span>
+        <span>Ivan Jairus</span>
+        <span class="slash">/</span>
+        <span class="dim">decisions</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="../#about">About</a>
+        <a href="../#work">Work</a>
+        <a href="../pipelines/">Pipelines</a>
+        <a href="../#toolbox">Toolbox</a>
+        <a href="../#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="ds-intro">
+      <div class="wrap">
+        <p class="eyebrow mono">Trade-offs, written down while they were still true</p>
+        <h1>Decisions and what they cost.</h1>
+        <p class="lead">
+          Eleven of them, each with the alternative I rejected and what the choice actually cost. Two groups: how the
+          system is shaped, and what keeps it running on a weekday. A decision with no cost line next to it is an
+          advertisement, so every card here carries one, including the ones that cost me an argument with a team.
+        </p>
+        <p class="ds-jump mono">
+          <a href="#shaped">how the system is shaped</a>
+          <a href="#production">running it in production</a>
+        </p>
+      </div>
+    </section>
+
+    <section id="shaped">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>How the system is shaped</h2>
+                  </div>
+        <div class="dec-grid">
+          <article class="dec-card">
+            <h3><span>One gateway, not per-repo templates</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
+            <dl>
+              <dt>decision</dt><dd>A single gateway.yml include routes every repo to its domain pipeline.</dd>
+              <dt>alternative</dt><dd>Copy-paste a template into each repository.</dd>
+              <dt>why</dt><dd>The standard evolves in one place; onboarding stays a four-line include.</dd>
+              <dt>cost</dt><dd>The gateway is critical path: one bad merge affects everyone. Paid for by versioning it with the same pipeline that protects releases.</dd>
+            </dl>
+          </article>
+          <article class="dec-card">
+            <h3><span>Gates fail closed</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
+            <dl>
+              <dt>decision</dt><dd>A missing secret or unconfirmed merge stops the job with exit 1.</dd>
+              <dt>alternative</dt><dd>Warn and continue, keep builds green.</dd>
+              <dt>why</dt><dd>A silently-falling-back secret is a compliance incident with a head start.</dd>
+              <dt>cost</dt><dd>Builds fail when config is missing. The team cursed it for a week, then config drift stopped shipping. I traded availability for correctness, and plan B is honest: a manual run from the GitLab UI, same pipeline, same gates.</dd>
+            </dl>
+          </article>
+          <article class="dec-card">
+            <h3><span>Two CI engines, no big-bang migration</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
+            <dl>
+              <dt>decision</dt><dd>GitLab CI and legacy Jenkins kept running side by side.</dd>
+              <dt>alternative</dt><dd>Force every pipeline onto one engine now.</dd>
+              <dt>why</dt><dd>29 pipelines still deliver; migration is only safe behind one stage contract.</dd>
+              <dt>cost</dt><dd>Dual maintenance plus the contract abstraction itself, which is invisible to teams. That was the point.</dd>
+            </dl>
+          </article>
+          <article class="dec-card">
+            <h3><span>What I deliberately did NOT build</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
+            <dl>
+              <dt>decision</dt><dd>No state database for the board; no deploy queue; no auto-merge on a human's behalf.</dd>
+              <dt>alternative</dt><dd>Postgres for state, a queue for busy deploys, a bot that clicks merge.</dd>
+              <dt>why</dt><dd>State lives inside the ticket; a second deploy while one runs is refused, not queued; the bot reverts the card and waits for a person.</dd>
+              <dt>cost</dt><dd>Fewer moving parts and fewer ways to be wrong. The cost is occasionally waiting for a human.</dd>
+            </dl>
+          </article>
+          <article class="dec-card dec-wide">
+            <h3><span>Built the control plane, did not buy one</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
+            <dl>
+              <dt>decision</dt><dd>A release board, an append-only ledger and generated reports, written by me on top of Jira and GitLab.</dd>
+              <dt>alternative</dt><dd>ArgoCD for deploys, GitLab Environments for promotion, Backstage as the read layer.</dd>
+              <dt>why</dt><dd>The source of truth here is the issue board, not a git repository: a release is the set of services that diverged between environments, and each stage is approved by a different group. Argo reconciles one application from one repo, and Environments assume one approver per environment. On-prem OpenShift, no cloud tenancy to attach either to.</dd>
+              <dt>cost</dt><dd>I own a UI that Argo ships for free, every feature costs me, and the bus factor is smaller than a mainstream tool's. If this moved to a public cloud with git-driven deploys, I would retire it and run the standard instead. It exists because it fits more shops than a bespoke one does.</dd>
+            </dl>
+          </article>
+          <article class="dec-card dec-wide">
+            <h3><span>Agents write the pipeline. Nothing they write merges itself.</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
+            <dl>
+              <dt>decision</dt><dd>Coding agents draft and edit gateway.yml, Groovy and shell; a hosted model behind a config value turns scan output into the summary that lands on the merge request.</dd>
+              <dt>alternative</dt><dd>Ban models from the delivery path, or let them act on the board directly.</dd>
+              <dt>why</dt><dd>A draft is cheap and a wrong draft is cheap too, as long as it arrives in front of the same gate a human commit arrives in front of. The summary is a convenience layer over findings the scanner already produced; the gate underneath it is arithmetic, and arithmetic stays out of the model.</dd>
+              <dt>cost</dt><dd>More diffs to read, and a confident wrong summary is worse than none. So the figures in it point back at the scan rows, never the other way round, and no approval is ever worded as a model's opinion.</dd>
+            </dl>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- threat model -->
+    <section id="production">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Running it in production</h2>
+          <p class="ds-lead">The pipeline is only half of it. These are the settings that decide whether a service keeps running after it ships. My part is not choosing the numbers. It is making sure the number that was agreed is the number that runs, in every repo.</p>
+        </div>
+
+        <div class="dec-grid">
+          <article class="dec-card">
+            <h3><span>Capacity is decided upstream. I make it stick.</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
+            <dl>
+              <dt>decision</dt><dd>Requests, limits and the autoscaler range default from the shared stage contract. A service that genuinely needs different numbers carries that override in its own manifest, with the reason written beside it.</dd>
+              <dt>alternative</dt><dd>Every team copies a deployment manifest and edits the numbers by hand.</dd>
+              <dt>why</dt><dd>The capacity target is the system analyst's decision, not mine. My job is that the agreed target reaches production unchanged, that all 53 services start from the same default, and that an exception reads as an exception instead of a silent fork.</dd>
+              <dt>cost</dt><dd>A wrong default reaches every repo that includes the contract, and an override can outlive the reason it was written for. So the contract is versioned, and the merge request that adds an override has to justify it there, not in a later incident review.</dd>
+            </dl>
+          </article>
+          <article class="dec-card">
+            <h3><span>One rollout rule, and no two deploys at once.</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
+            <dl>
+              <dt>decision</dt><dd>The update strategy is set in the contract instead of per team, so every repo rolls the same way. The deploy job also refuses a second run while one is still going.</dd>
+              <dt>alternative</dt><dd>Each service picks its own strategy, including stop-then-start, usually at the moment someone is in a hurry.</dd>
+              <dt>why</dt><dd>A release that interrupts traffic is an incident with a ticket number attached, and two releases racing for the same route turn a rollback into a guess. The board already knows which services moved; the platform should not be the thing that surprises anyone.</dd>
+              <dt>cost</dt><dd>One rule for everything means a service that genuinely needs different behaviour asks for an override, which is the same exception path as capacity and gets reviewed where it is added. The cost of not queueing is that someone waits for a free slot.</dd>
+            </dl>
+          </article>
+          <article class="dec-card">
+            <h3><span>A backup is only real if it expires.</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
+            <dl>
+              <dt>decision</dt><dd>Nothing destructive runs without a dated backup taken first, and nothing is kept forever. Anything past the retention date is removed on a schedule, not when someone notices the disk.</dd>
+              <dt>alternative</dt><dd>Back up once, keep everything, delete by hand when the volume complains.</dd>
+              <dt>why</dt><dd>"We have backups" without an expiry rule becomes an outage months later when the storage fills up, and a folder nobody is allowed to clean eventually stops being inspected at all.</dd>
+              <dt>cost</dt><dd>A cleanup rule that is wrong deletes the evidence you would have wanted, so the date lives in the filename and removals are logged. The window itself is the bank's to publish, not mine; the rule and the routine are what I am claiming.</dd>
+            </dl>
+          </article>
+          <article class="dec-card">
+            <h3><span>What I would do differently</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
+            <p class="rt-body">Resource values started out copied from whatever service shipped last, because nothing measured them and nobody was asked for a number. If I set this up again, the contract would carry a measured baseline per artifact type, so the decision starts from an observation. The list of overrides would then stay short enough to read in one sitting.</p>
+          </article>
+          <article class="dec-card dec-wide">
+            <h3><span>Numbers, with the sample size attached</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
+            <p class="rt-body">Measured from the platform's own GitLab API on 8 October 2026: 53 services declared across the service maps, 99 source repositories carrying no CI file at all (46 of them with pipeline history), and 10 pipeline projects that have run 7.550 pipelines between them. On one backend service: a deploy to an app-server VM takes a median 93 seconds (n = 13 successful jobs, p90 162 s, range 19–199 s), and the SonarQube gate a median 80 seconds (n = 30, p90 140 s). Nobody reading this page can reproduce those numbers. They come from a private instance. That is exactly why each one carries its sample size: a figure you cannot interrogate is worth nothing, and a figure you can is worth the space it takes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- decisions -->
+
+    <section class="ds-end">
+      <div class="wrap">
+        <p class="ds-nav mono">
+          <a href="../pipelines/">the gate those decisions enforce, with the source behind every line &rarr;</a>
+          <a href="../">back to the overview</a>
+        </p>
+        <p class="care-note mono">Sanitised: service names, hosts and identifiers are replaced with synthetic ones.
+          The decisions, the alternatives and the costs are the real ones.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-in">
+      <span>&copy; 2026 Ivan Jairus</span>
+      <span class="ftr-creed">If the process needs a hero, the process is wrong.</span>
+    </div>
+  </footer>
+
+  <script defer src="../assets/js/observability.js"></script>
+  <script type="module" src="../assets/js/folds.mjs"></script>
+</body>
+</html>

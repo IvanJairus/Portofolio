@@ -47,4 +47,4 @@ jobs:
       # JavaScript (stage columns, trace, source tree) does not come through here, so
       # a rule like the type on a button is only proven for what is in the
       # HTML files; the rest is verified in a browser, not assumed valid.
-      - run: npx --yes html-validate@8 index.html 404.html pipelines/index.html reports/index.html
+      - run: npx --yes html-validate@8 index.html 404.html pipelines/index.html reports/index.html decisions/index.html

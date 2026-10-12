@@ -374,39 +374,6 @@
     requestAnimationFrame(frame);
   }
 
-  /* accordion Runtime + Decisions (C2) */
-  function initFold() {
-    const narrow = window.matchMedia("(max-width: 760px)");
-    const cards = document.querySelectorAll("#runtime .dec-card, #decisions .dec-card");
-    cards.forEach((card) => {
-      const btn = card.querySelector(".dec-fold");
-      if (!btn) return;
-      const label = btn.querySelector("span");
-      const setOpen = (on) => {
-        if (on) delete card.dataset.fold; else card.dataset.fold = "closed";
-        btn.setAttribute("aria-expanded", String(on));
-        if (label) label.textContent = t(on ? "dec.fold.hide" : "dec.fold.show");
-      };
-      /* the first card of each section stays open so readers know the rest can open */
-      setOpen(!(narrow.matches && card.previousElementSibling));
-      btn.addEventListener("click", () => setOpen(card.dataset.fold === "closed"));
-    });
-    /* the screen widens: the hidden state no longer applies, labels are synced */
-    narrow.addEventListener("change", (e) => {
-      if (!e.matches) {
-        cards.forEach((c) => {
-          delete c.dataset.fold;
-          const b = c.querySelector(".dec-fold");
-          if (b) {
-            b.setAttribute("aria-expanded", "true");
-            const l = b.querySelector("span");
-            if (l) l.textContent = t("dec.fold.hide");
-          }
-        });
-      }
-    });
-  }
-
   /* C4: the contact pill that waits until the hero is past */
   function initMobileCta() {
     const cta = document.querySelector("[data-mcta]");
@@ -454,7 +421,6 @@
     initNav();
     initSkillRefs();
     initDepth();
-    initFold();
     initStackMarquee();
     initPhotoSlot();
     initMobileCta();

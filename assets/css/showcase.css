@@ -1569,8 +1569,8 @@ html:not([data-js]) .bd-break { display: none; }
 /* runtime closing card: one paragraph, no decision/alternative/why/cost rows */
 .rt-body { font-size: 13.5px; line-height: 1.6; color: var(--ink-dim); margin: 0; }
 
-/* --- C2: accordion for the ten Runtime + Decisions cards ---
-   Only applies on narrow screens; without JS all cards stay open. */
+/* Accordion for the eleven cards on /decisions/. Only applies on narrow screens;
+   without JS all cards stay open and the buttons are hidden. */
 .dec-card h3 { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .dec-fold {
   flex: none;
@@ -2384,7 +2384,7 @@ html:not([data-js]) .dec-fold { display: none; }
    Note: .depth-btn, .dec-fold, .wsn and .lc-pause are already 44px in their own blocks;
    what follows below is the rest. */
 @media (pointer: coarse) {
-  .tool-btn, .copy-btn, .tf-btn, .ms-tab, .lc-chip, .co-chip, .rp-btn, .dec-fold, .wsn, .bd-break {
+  .tool-btn, .copy-btn, .tf-btn, .lc-chip, .co-chip, .rp-btn, .dec-fold, .wsn, .bd-break {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
@@ -2563,3 +2563,44 @@ html:not([data-js]) .dec-fold { display: none; }
   color: var(--ink-dim);
 }
 .tb-receipt a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+
+/* The decision record now lives on /decisions/. This band is a pointer, not a
+   copy of the page: it is recessed and bordered so it reads differently from the
+   cards above it, and it names three decisions by what they cost. */
+.dx {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 24px 40px;
+  align-items: start;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg-3);
+  padding: 24px;
+}
+.dx h2 { margin: 0 0 8px; font-size: 26px; line-height: 1.2; }
+.dx-sub { margin: 0 0 18px; font-size: 12px; color: var(--ink-faint); }
+.dx-cta {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--accent-ink);
+  background: var(--accent);
+  padding: 9px 16px;
+  border-radius: 999px;
+}
+.dx-cta:hover { background: var(--accent-strong); }
+.dx-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
+.dx-list li {
+  display: grid;
+  gap: 2px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.dx-list b { font-size: 13px; font-weight: 600; color: var(--ink); }
+.dx-list span { color: var(--ink-dim); }
+@media (max-width: 860px) {
+  .dx { grid-template-columns: minmax(0, 1fr); gap: 18px; padding: 18px; }
+  .dx h2 { font-size: 22px; }
+}

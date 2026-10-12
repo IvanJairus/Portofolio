@@ -31,6 +31,32 @@ All notable changes to this repository are documented here. The format follows
 
 ### Added
 
+- **`/decisions/`, a fourth page, and the landing finally got shorter.**
+  `#runtime` and `#decisions` were eleven `decision / alternative / why / cost`
+  cards and 1,252 words of prose sitting at the eighth and ninth screen of a
+  mobile scroll, where the accordion had already folded nine of them. They are one
+  page now, in two groups ("How the system is shaped", "Running it in production"),
+  and the landing keeps a band in their reading position: the heading, the count,
+  and three decisions named by what they cost, so the link has to earn the click.
+  Measured at 390px the landing went 26,230px to 24,041px, and at 1440 19,490px to
+  16,871px; across the whole session that is 25,569px to 24,041px on mobile and
+  425,844 B to 401,859 B. The new page measures Performance 98, Accessibility 100,
+  CLS 0.003, 155,033 B.
+- **`folds.mjs`, and one trap worth writing down.** The accordion moved with the
+  cards, out of `main.js`. `showcase.css` hides `.dec-fold` until
+  `html[data-js]` exists, so a reader without JS gets open cards instead of a
+  button that does nothing, and that flag is set by `main.js`, which the new page
+  does not load. The first build therefore folded the cards and hid the control
+  that opens them: eleven collapsed panels with no visible affordance. The flag is
+  set in `folds.mjs` now, with the reason there.
+- **60 dictionary entries deleted.** The moved cards carry plain text, so their
+  `dec.*` and `rt.*` keys and the `Runtime` sub-nav chip went with them;
+  `i18n.js` is 35,298 B to 27,110 B and parity reports 323 keys, 0 broken.
+- **`/decisions/` in the gates.** `quality.yml` measures four pages, `html-validate`
+  five documents, the sitemap lists four URLs, and `404.html`'s "Runtime" link
+  became "Decisions" pointing at the new page rather than at an anchor that no
+  longer exists.
+
 - **`/reports/`, a third page.** The three report emails were a tabbed widget: one
   card visible, two hidden until a click, so a printed page, a crawler and a
   60-second read all saw exactly one of them. They are a page now, stacked, each
@@ -110,14 +136,14 @@ All notable changes to this repository are documented here. The format follows
   instead of a "read more". `initMailTabs()` and the `.ms-tab` rules are deleted:
   a control that switches between one thing that exists and two that do not is a
   dead control.
-- **The honest surprise: the landing did not get shorter.** Moving two report
-  cards off the page removed almost no height, because hidden elements contribute
-  none, and the new pointers added some. Measured at 390px the page is 25,569px
-  tall before and 26,230px after, 2.6% taller. Transfer size went the other way:
-  425,844 B to 422,597 B, because the hidden cards, the tab JS and the tab CSS left
-  together. Shortening the page needs a section that is actually visible to move,
-  and that trade is not free: `#decisions` and `#runtime` are 1,251 words of dense
-  prose a skimmer would then stop seeing. Proposed, not done.
+- **The honest surprise: the report split did not shorten the landing.** Moving two
+  report cards off the page removed almost no height, because hidden elements
+  contribute none, and the new pointers added some. Measured at 390px the page went
+  from 25,569px to 26,230px, 2.6% taller, while transfer size fell from 425,844 B to
+  422,597 B because the hidden cards, the tab JS and the tab CSS left together. That
+  is what prompted the `/decisions/` split above, which did shorten it: 24,041px at
+  390px and 401,859 B. The lesson is written where it can be found: shortening a
+  page means moving something a reader can already see.
 - **108 section banners stopped being drawn with dashes.**
   `/* ---------- mail preview tabs ---------- */` became `/* mail preview tabs */`,
   and `<!-- ================= HERO ================= -->` became `<!-- hero -->`.

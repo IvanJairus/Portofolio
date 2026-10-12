@@ -175,15 +175,26 @@ guided the build.
 
 ## How a page earns visitors
 
-The site is three pages: the landing, `/pipelines/`, and `/reports/`. A page that
-only the nav points at is a page nobody finds, and below 900px the nav is a
-hamburger, so the nav is not a plan. Each page therefore has several in-content
-pointers, and each pointer carries the claim itself: "1 critical, 5 medium, 31
-services scanned", not "read more". If a link's text would still be true after the
-target is deleted, the link is doing no work.
+The site is four pages: the landing, `/pipelines/`, `/reports/` and `/decisions/`.
+A page that only the nav points at is a page nobody finds, and below 900px the nav
+is a hamburger, so the nav is not a plan. Each page therefore has several
+in-content pointers, and each pointer carries the claim itself: "1 critical, 5
+medium, 31 services scanned", not "read more". If a link's text would still be
+true after the target is deleted, the link is doing no work.
 
 The same reasoning killed a widget. Three report emails sat behind tabs, so two of
 them were invisible to a print, a crawler, and a 60-second read of the page. Tabs
 are fine when every pane exists where the reader can see it counted; here the
 count was the point, so the panes became a page and the landing kept one card plus
 two sentences that name what the other two say.
+
+A section that moves leaves a band behind, not a gap: the heading, the count, and
+two or three items quoted from what moved, in the reading position the section had.
+The band is recessed and bordered so it cannot be mistaken for the cards above it.
+That is how `/decisions/` kept its place in the scroll after eleven cards left.
+
+Length is the trap in all of this. Hiding something costs the page nothing, so
+moving hidden content off it saves nothing either: the report split made the
+landing 2.6% *taller*. Only moving visible prose shortens a page, and the price is
+that a skimmer stops seeing it. Both numbers are in the changelog because the
+first conclusion was wrong until it was measured twice.
