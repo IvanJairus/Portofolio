@@ -200,6 +200,15 @@ All notable changes to this repository are documented here. The format follows
 
 ### Fixed
 
+- **Two of the three reports were invisible on `/reports/`, found on a real
+  phone.** The cards were copied out of the tabbed widget with their `hidden`
+  attribute still on them, so the page rendered "report 2" and "report 3" as a
+  heading and a sentence over empty space. My own check had counted three
+  `.mail-card` elements in the markup and called that verified; the markup was
+  right and the page was not. `scripts/check-visible.mjs` is the gate now: no card
+  on any page may carry `hidden`, and it is proven to fire both ways, a clean run
+  passes and a planted `hidden` fails with the file and the line.
+
 - **The page contradicted itself about the scan findings.** The trivy console
   printed `Total: 3 (CRITICAL: 0, HIGH: 2, MEDIUM: 1, LOW: 0)` under a command
   that asked for `--severity CRITICAL,HIGH`, and the gate card below it computed

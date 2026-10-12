@@ -48,3 +48,7 @@ jobs:
       # a rule like the type on a button is only proven for what is in the
       # HTML files; the rest is verified in a browser, not assumed valid.
       - run: npx --yes html-validate@8 index.html 404.html pipelines/index.html reports/index.html decisions/index.html
+
+      # A card that ships with `hidden` renders as a heading over nothing, which
+      # is the bug this page exists to avoid. Static, so it costs no browser.
+      - run: node scripts/check-visible.mjs
