@@ -1,4 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Ivan Jairus">
-  <circle cx="16" cy="16" r="16" fill="#c2410c"/>
-  <rect x="11" y="11" width="10" height="10" fill="#ffffff"/>
+  <!-- The same mark the header draws: white field, GitLab orange border, 2px
+       radius, bold mono initials. Two numbers are adapted, not copied: the border
+       is 2 units because a 32-unit box rendered in a 16px tab halves every stroke,
+       and the initials are 44% of the box instead of the header's 40%, which is
+       what makes them readable at that size. -->
+  <rect x="1" y="1" width="30" height="30" rx="2" fill="#ffffff" stroke="#c2410c" stroke-width="2"/>
+  <text x="16" y="16.5" text-anchor="middle" dominant-baseline="central"
+        font-family="ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace"
+        font-size="14" font-weight="700" letter-spacing="0.2" fill="#c2410c">IJ</text>
 </svg>

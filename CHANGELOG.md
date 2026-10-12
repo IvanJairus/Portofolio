@@ -81,6 +81,18 @@ All notable changes to this repository are documented here. The format follows
 
 ### Changed
 
+- **The tab icon is the site's own mark.** The favicon was an orange circle with a
+  white square inside it, a shape nothing else on the site uses, while every page
+  header draws a 30px white box with a hairline orange border and bold mono `IJ`.
+  The icon is that mark now. Two numbers are deliberately not copies of the CSS:
+  the border is 2 units in a 32-unit box (a 16px tab halves every stroke, so the
+  header's 1px would render as half a pixel), and the initials are 44% of the box
+  instead of 40%. Both were chosen by rendering the mark at 16px on a light tab
+  and a dark tab and comparing three weights; the picked version is the one that
+  still reads as `IJ` at 16px. `favicon.svg`, `favicon-32.png` and
+  `apple-touch-icon.png` (180px) all come from the same SVG, rendered by the
+  browser rather than drawn twice. `404.html` declared only the SVG icon; it now
+  declares the same three links as the other pages.
 - **The consoles are three times longer.** The page drew 65 console lines from an
   array written next to the source data; it now draws 217 from
   `assets/data/traces.json`, one entry per line, each with its own probe. The
