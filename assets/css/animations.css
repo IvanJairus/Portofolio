@@ -4,7 +4,7 @@
   reveal-on-scroll; content shows immediately.
 */
 
-/* ---------- keyframes ---------- */
+/* keyframes */
 @keyframes pulse {
   0%, 100% { box-shadow: 0 0 0 0 var(--accent-line); }
   50% { box-shadow: 0 0 0 5px transparent; }
@@ -48,7 +48,7 @@
 }
 .play .flow-stage .s-name { transition: color 0.3s var(--ease); }
 
-/* ---------- reduced motion ---------- */
+/* reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
@@ -62,7 +62,7 @@
   .flow-stage { border-color: var(--line-strong); background: var(--bg-3); }
 }
 
-/* ---------- delay utility classes (replace style="--d:..."; CSP-safe) ---------- */
+/* delay utility classes (replace style="--d:..."; CSP-safe) */
 .d1{--d:.08s}   .d2{--d:.1s}    .d3{--d:.16s}  .d4{--d:.2s}   .d5{--d:.24s}
 .d6{--d:.3s}    .d7{--d:.5s}    .d8{--d:.6s}   .d9{--d:.7s}   .d10{--d:.8s}
 .d11{--d:1.3s}  .d12{--d:1.4s}  .d13{--d:1.5s} .d14{--d:2.2s} .d15{--d:2.3s}

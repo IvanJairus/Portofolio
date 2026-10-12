@@ -3,7 +3,7 @@
    it. The only dark surface on the page is the console, because that is what a
    console is. */
 
-/* ---------- intro ---------- */
+/* intro */
 .pv-intro { padding: calc(var(--header-h) + clamp(36px, 6vw, 72px)) 0 clamp(28px, 4vw, 44px); }
 .pv-intro h1 { font-size: clamp(38px, 7.2vw, 76px); line-height: 1.02; letter-spacing: -0.035em; margin: 10px 0 18px; }
 .pv-intro .lead { max-width: 74ch; }
@@ -40,7 +40,7 @@
    at 390px. A badge that grows a second line moves the whole page, and a moved
    page is what Lighthouse calls a layout shift. */
 
-/* ---------- section heads ---------- */
+/* section heads */
 .pv-engine, .pv-gate { padding: clamp(30px, 4vw, 46px) 0 clamp(34px, 5vw, 56px); }
 .pv-engine + .pv-engine { border-top: 1px solid var(--line); }
 .pv-gate { border-top: 1px solid var(--line); }
@@ -49,7 +49,7 @@
 .pv-enote { margin: 0; max-width: 46ch; font-size: 12.5px; line-height: 1.6; color: var(--ink-faint); }
 .pv-enote code { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-dim); }
 
-/* ---------- card ---------- */
+/* card */
 .pv-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); overflow: hidden; }
 .pv-ns { margin: 0; padding: 12px 16px; border-bottom: 1px solid var(--line); font-size: 11.5px; line-height: 1.7; color: var(--ink-dim); background: var(--bg-3); }
 
@@ -85,7 +85,7 @@
 .pv-rstats b { font-family: var(--font-mono); font-size: 13.5px; font-weight: 600; font-variant-numeric: tabular-nums; }
 .pv-rstats b.ok { color: var(--pass-strong); } .pv-rstats b.bad { color: var(--danger); }
 
-/* ---------- skin: GitLab stage columns ---------- */
+/* skin: GitLab stage columns */
 .gl-cols { display: flex; min-width: 880px; }
 /* 132px is where "maven-package" still fits. Below it the name becomes
    "docke…", which is a column of icons rather than a pipeline. The rest goes to
@@ -113,7 +113,7 @@
 .ic.man { background: var(--bg); border: 1.5px dashed var(--ink-faint); color: var(--ink-faint); }
 .ic.none { background: var(--bg); border: 1.5px solid var(--line-strong); color: var(--ink-faint); }
 
-/* ---------- skin: Jenkins Blue Ocean nodes ---------- */
+/* skin: Jenkins Blue Ocean nodes */
 .bo-flow { display: flex; align-items: stretch; padding: 22px 8px 12px; min-width: 960px; }
 .bo-node {
   position: relative; flex: 1; min-width: 112px; background: var(--bg); cursor: pointer;
@@ -137,7 +137,7 @@
 .bo-meta { display: flex; gap: 8px; flex-wrap: wrap; padding: 0 10px 18px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-faint); }
 .bo-meta span { border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; }
 
-/* ---------- console beside source ---------- */
+/* console beside source */
 .pv-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border-top: 1px solid var(--line); }
 .pv-console { display: flex; flex-direction: column; min-width: 0; border-right: 1px solid var(--line); }
 .pv-chead {
@@ -193,7 +193,7 @@
 .pv-logfoot .ok { color: var(--pass-strong); } .pv-logfoot .bad { color: var(--danger); }
 .pv-logfoot .sp { margin-left: auto; }
 
-/* ---------- source ---------- */
+/* source */
 .pv-src { display: flex; flex-direction: column; min-width: 0; }
 .pv-tree {
   display: flex; gap: 4px; overflow-x: auto; padding: 8px; background: var(--bg-3);
@@ -231,7 +231,7 @@
 .pv-cl.hit .t { color: var(--ink); }
 .pv-cfoot { padding: 7px 14px; border-top: 1px solid var(--line); background: var(--bg-3); font-size: 10.5px; color: var(--ink-faint); }
 
-/* ---------- notes, proof, end ---------- */
+/* notes, proof, end */
 .pv-note { font-size: 12.5px; color: var(--ink-faint); margin: 16px 2px 0; line-height: 1.65; }
 .pv-note code { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-dim); }
 
@@ -256,7 +256,7 @@
 .pv-end code { font-family: var(--font-mono); font-size: 13px; color: var(--accent-strong); }
 .pv-end-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
 
-/* ---------- narrow ---------- */
+/* narrow */
 @media (max-width: 1040px) {
   .pv-split { grid-template-columns: 1fr; }
   .pv-console { border-right: 0; border-bottom: 1px solid var(--line); }

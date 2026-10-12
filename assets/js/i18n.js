@@ -14,7 +14,7 @@ window.I18N = {
     "nav.pipelines": "Pipelines",
     "nav.contact": "Contact",
 
-    /* ---- hero flow rail ---- */
+    /* hero flow rail */
     "hero.yml.where": "the whole file, in a GitLab-native repo",
     "hero.yml.foot": "the real format. Most services carry no CI file at all, so the board runs them from the pipeline repository",
     "hero.flow.legend": "one change, seven stages. Nobody runs these by hand · <span class=\"lm-scan\" aria-hidden=\"true\">◇</span> scan · <span class=\"lm-gate\" aria-hidden=\"true\">■</span> gate",
@@ -190,9 +190,9 @@ window.I18N = {
     "eco.n4": "the same gates survived the move: approval chain, scans, fail-closed",
     "eco.arrow": "same standard, different tools",
 
-    /* ---- stacks ---- */
+    /* stacks */
 
-    /* ---- masterpiece I : board ---- */
+    /* masterpiece I : board */
     "board.kicker": "Case study I: release orchestration",
     "board.title": "I turned a bare GitLab board into a release system",
     "board.lead": "A GitLab issue board has almost none of what a regulated release needs: no approval chain, no phase enforcement, no persistent state, no deploy trigger. Instead of buying a tool, I made the board itself drive the pipeline. Engineers move a card, and branches, merge requests, scans, approvals, deploys and audit comments follow. Every result is written back into the ticket.",
@@ -229,7 +229,7 @@ window.I18N = {
     "board.ba.after": "phase badge · approval chips · bot comments · deploy trigger: the board runs the release",
     "board.co.line": "/retry · /sonarqube · /diff <domain> · /deploy-secure · /sync · /follow #iid · /summarypic · /notif. The board doubles as a command line; every command is anchored, gated by ticket status and bot-proof.",
 
-    /* ---- masterpiece II : platform ---- */
+    /* masterpiece II : platform */
     "plat.kicker": "Case study II: release control plane",
     "plat.title": "The dashboard that replaced five tools and a spreadsheet",
     "plat.lead": "A release management platform I built and maintain: version drift between environments, build and deploy triggering, live console streaming, quality gates, secret changes, mobile test recordings and role-based access, all on one page and updated in realtime. Below is an interactive replica with sanitized dummy data. Click anything.",

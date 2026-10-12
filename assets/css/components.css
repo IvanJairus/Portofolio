@@ -2,7 +2,7 @@
   Cards, diagrams, projects, skills, timeline and contact.
 */
 
-/* ---------- capability cards ---------- */
+/* capability cards */
 .cap-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -41,7 +41,7 @@
 .cap p { margin-top: 12px; color: var(--ink-dim); font-size: 14.6px; }
 @media (max-width: 760px) { .cap-grid { grid-template-columns: minmax(0, 1fr); } }
 
-/* ---------- diagram ---------- */
+/* diagram */
 .diagram-shell {
   background: var(--bg-2);
   border: 1px solid var(--line);
@@ -109,7 +109,7 @@
 @media (max-width: 900px) { .points-row, .points-row.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 620px) { .points-row, .points-row.four { grid-template-columns: minmax(0, 1fr); } }
 
-/* ---------- pipeline stages (diagram 2) ---------- */
+/* pipeline stages (diagram 2) */
 .flow {
   display: flex;
   align-items: stretch;
@@ -153,7 +153,7 @@
 }
 .play .flow-dot { animation: travel 5.6s linear infinite; }
 
-/* ---------- security gate (diagram 3) ---------- */
+/* security gate (diagram 3) */
 .gate {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -215,7 +215,7 @@
 .gate-result.ready { border-color: var(--pass); background: var(--pass-dim); box-shadow: 0 0 40px -18px rgba(99, 169, 85, 0.6); }
 .gate-result.ready .g-state { color: var(--pass); }
 
-/* ---------- projects ---------- */
+/* projects */
 .work-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 2.6vw, 28px); }
 .work-card {
   border: 1px solid var(--line);
@@ -260,7 +260,7 @@
 }
 @media (max-width: 760px) { .work-grid { grid-template-columns: minmax(0, 1fr); } }
 
-/* ---------- skills: tier + evidence ---------- */
+/* skills: tier + evidence */
 .tier {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -318,7 +318,7 @@
 .ref:hover, .ref:focus-visible { background: var(--accent); color: var(--accent-ink); }
 @media (max-width: 760px) { .skill-grid { grid-template-columns: minmax(0, 1fr); } }
 
-/* ---------- timeline ---------- */
+/* timeline */
 .timeline { position: relative; padding-left: 28px; }
 .timeline::before {
   content: "";
@@ -345,7 +345,7 @@
 .tl-points li { position: relative; padding-left: 18px; font-size: 14px; color: var(--ink-dim); }
 .tl-points li::before { content: "\00B7"; position: absolute; left: 0; color: var(--ink-faint); }
 
-/* ---------- contact ---------- */
+/* contact */
 .contact-in { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(32px, 5vw, 72px); align-items: start; }
 .mail-line {
   margin-top: 30px;
@@ -410,7 +410,7 @@
   .contact-meta .status-pill { justify-self: start; white-space: nowrap; }
 }
 
-/* ---------- footer ---------- */
+/* footer */
 .site-footer { border-top: 1px solid var(--line); padding: 30px 0 40px; }
 .footer-in { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 12px; color: var(--ink-faint); letter-spacing: 0.04em; }
 .footer-in a:hover { color: var(--accent); }

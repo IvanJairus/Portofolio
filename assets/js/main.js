@@ -31,7 +31,7 @@
     }
   }
 
-  /* ---------- static translations ---------- */
+  /* static translations */
   function applyI18n() {
     document.documentElement.lang = lang;
     document.querySelectorAll("[data-i18n]").forEach((el) => {
@@ -55,7 +55,7 @@
     });
   }
 
-  /* ---------- personal data from config.js ---------- */
+  /* personal data from config.js */
   function renderProfile() {
     const P = window.PROFILE || {};
     const set = (sel, val) => {
@@ -138,7 +138,7 @@
     ));
   }
 
-  /* ---------- stat counters ---------- */
+  /* stat counters */
   function initCounters() {
     const els = document.querySelectorAll("[data-count]");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -178,7 +178,7 @@
     els.forEach((el) => io.observe(el));
   }
 
-  /* ---------- typing terminal ---------- */
+  /* typing terminal */
   function initTerminal() {
     const body = document.querySelector(".terminal-body");
     if (!body) return;
@@ -211,7 +211,7 @@
     io.observe(body);
   }
 
-  /* ---------- nav: active section + mobile menu ---------- */
+  /* nav: active section + mobile menu */
   function initNav() {
     const links = Array.from(document.querySelectorAll(".nav a[href^='#']"));
     const map = new Map();
@@ -244,7 +244,7 @@
     }
   }
 
-  /* ---------- skill references → project cards ---------- */
+  /* skill references → project cards */
   function initSkillRefs() {
     document.querySelectorAll(".ref").forEach((a) => {
       const target = document.getElementById(a.dataset.ref);
@@ -260,7 +260,7 @@
     });
   }
 
-  /* ---------- two reading depths (Skim / Deep) ---------- */
+  /* two reading depths (Skim / Deep) */
   function initDepth() {
     const root = document.documentElement;
     const btns = [].slice.call(document.querySelectorAll("[data-depth-btn]"));
@@ -284,7 +284,7 @@
     });
   }
 
-  /* ---------- portrait: on a phone it moves into the contact card ---------- */
+  /* portrait: on a phone it moves into the contact card */
   function initPhotoSlot() {
     const mq = window.matchMedia("(max-width: 860px)");
     const photo = document.querySelector(".hero-photo");
@@ -374,7 +374,7 @@
     requestAnimationFrame(frame);
   }
 
-  /* ---------- accordion Runtime + Decisions (C2) ---------- */
+  /* accordion Runtime + Decisions (C2) */
   function initFold() {
     const narrow = window.matchMedia("(max-width: 760px)");
     const cards = document.querySelectorAll("#runtime .dec-card, #decisions .dec-card");
@@ -407,7 +407,7 @@
     });
   }
 
-  /* ---------- C4: the contact pill that waits until the hero is past ---------- */
+  /* C4: the contact pill that waits until the hero is past */
   function initMobileCta() {
     const cta = document.querySelector("[data-mcta]");
     const hero = document.querySelector(".hero");
@@ -419,7 +419,7 @@
     new IntersectionObserver((es) => { inContact = es[0].isIntersecting; sync(); }).observe(contact);
   }
 
-  /* ---------- copy email ---------- */
+  /* copy email */
   function initCopy() {
     const btn = document.querySelector("[data-copy-btn]");
     if (!btn) return;
@@ -445,7 +445,7 @@
     });
   }
 
-  /* ---------- boot ---------- */
+  /* boot */
   document.addEventListener("DOMContentLoaded", () => {
     renderProfile();
     applyI18n();

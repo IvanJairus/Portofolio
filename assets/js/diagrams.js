@@ -19,7 +19,7 @@
     });
   }
 
-  /* ---------- diagram 1: gateway ---------- */
+  /* diagram 1: gateway */
   function playGateway(scope) {
     scope.classList.add("play");
     const seq = [
@@ -37,7 +37,7 @@
     });
   }
 
-  /* ---------- diagram 3: security gate ---------- */
+  /* diagram 3: security gate */
   function playGate(scope) {
     scope.classList.add("play");
     const checks = scope.querySelectorAll(".gate-check");
@@ -50,7 +50,7 @@
     }, 400 + checks.length * 800 + 300);
   }
 
-  /* ---------- shared observer ---------- */
+  /* shared observer */
   function observeDiagrams() {
     const targets = document.querySelectorAll("[data-diagram]");
     if (!targets.length) return;
