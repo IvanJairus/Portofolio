@@ -1,0 +1,133 @@
+# Pipeline template for libraries: entities, common, messaging-lib.
+#
+# This file has NO deploy stage, and the gap is not an oversight. A library has no
+# target environment; it lives inside somebody else's jar. All a library can do is
+# raise its version and wait to be used.
+#
+# That is why the gate rules, not a missing button, refuse promotion for a project
+# in this block. The difference matters: if only the button were missing, someone
+# desperate enough would build their own pipeline that has one. When the rules
+# refuse, that path is closed to everyone, including people who hold the rights.
+
+image: maven:3.9-eclipse-temurin-17
+
+variables:
+  GIT_DEPTH: "0"
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+
+cache:
+  key:
+    files:
+      - pom.xml
+  paths:
+    - .m2/repository
+  policy: pull-push
+
+stages:
+  - build
+  - test
+  - quality
+  - gate
+  - publish
+  - feedback
+
+build:release-stamp:
+  stage: build
+  needs: []
+  script:
+    - python3 ci-library/tools/release_stamp.py --tag-prefix "L" --output "build-info.json"
+  artifacts:
+    paths:
+      - build-info.json
+
+build:maven-package:
+  stage: build
+  needs:
+    - job: build:release-stamp
+      artifacts: true
+  script:
+    - bash ci-library/scripts/build-maven.sh package "$CI_PROJECT_DIR"
+  artifacts:
+    paths:
+      - target/*.jar
+      - target/*.pom
+
+test:unit:
+  stage: test
+  needs:
+    - job: build:maven-package
+      artifacts: true
+  script:
+    - bash ci-library/scripts/build-maven.sh test "$CI_PROJECT_DIR"
+  artifacts:
+    when: always
+    reports:
+      junit: target/surefire-reports/TEST-*.xml
+
+test:compat:
+  stage: test
+  # The consumers of this library have their own branches, so the compat check
+  # runs the main consumers' tests against the newly built jar. Without this step,
+  # a changed method signature only surfaces when another team builds, not when the
+  # library itself changes.
+  needs:
+    - job: build:maven-package
+      artifacts: true
+  script:
+    - bash ci-library/scripts/build-maven.sh contracts "$CI_PROJECT_DIR"
+  allow_failure: true
+
+quality:sonarqube-checks:
+  stage: quality
+  needs:
+    - job: test:unit
+      artifacts: true
+  image: sonarsource/sonar-scanner-cli:10
+  script:
+    - sonar-scanner -Dsonar.host.url="$SONAR_HOST"
+    - SCAN_PROJECT="$CI_PROJECT_NAME" SCAN_TYPE=maven SCAN_SERVICES="$CI_PROJECT_NAME:${RELEASE_TAG:-main}" bash ci-library/scripts/run-scan.sh > sonar-gate.json
+  artifacts:
+    paths:
+      - sonar-gate.json
+
+gate:release-rules:
+  stage: gate
+  needs:
+    - job: quality:sonarqube-checks
+      artifacts: true
+    - job: build:release-stamp
+      artifacts: true
+  image: groovy:4.0-jdk17
+  script:
+    - groovy -cp shared-library/src ci-library/scripts/run-gate.groovy
+      --manifest release.json --quality sonar-gate.json --no-environment
+  artifacts:
+    when: always
+    paths:
+      - gate-verdict.json
+      - gate-summary.txt
+
+publish:maven:
+  stage: publish
+  resource_group: maven-library
+  needs:
+    - job: gate:release-rules
+      artifacts: true
+    - job: build:maven-package
+      artifacts: true
+  script:
+    - bash ci-library/scripts/publish-artifact.sh maven
+  rules:
+    # Only the default branch may write to the registry. A feature branch that
+    # produces an artifact with the same version would poison the consumers that
+    # use LATEST, and nobody can pull that back afterwards.
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+
+feedback:observability:
+  stage: feedback
+  when: always
+  needs:
+    - job: gate:release-rules
+      artifacts: true
+  script:
+    - bash ci-library/scripts/observability-push.sh pipeline

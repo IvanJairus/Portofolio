@@ -1,27 +1,27 @@
 #!/bin/bash
-# Mendorong hasil satu pipeline ke agregator metrik, dan menulis satu baris audit.
+# Push one pipeline's results to the metrics aggregator, and write one audit line.
 #
-# Dipanggil oleh job feedback:observability (when: always) dan oleh after_script
-# deploy di template platform.
+# Called by the feedback:observability job (when: always) and by the deploy
+# after_script in the platform template.
 #
-# Pemakaian:
+# Usage:
 #   observability-push.sh pipeline
 #   observability-push.sh deploy --env sit --seconds 93
 #   observability-push.sh --selftest
 #
 # Environment:
-#   PUSHGATEWAY_URL   tujuan POST; kosong berarti hanya menulis berkas
+#   PUSHGATEWAY_URL   POST destination; empty means write the file only
 #   METRICS_FILE      default metrics.prom
-#   DRY_RUN=1         jangan kirim, cukup cetak
+#   DRY_RUN=1         do not send, just print
 #
-# Dua aturan yang menahan file ini supaya datanya masih bisa dipercaya:
+# Two rules keep the data in this file trustworthy:
 #
-#   1. Tidak ada angka yang dikarang. Durasi hanya ditulis kalau GitLab memang
-#      mengirimkannya (CI_PIPELINE_DURATION_SECONDS). Kalau tidak ada, metriknya
-#      tidak ada - bukan 0, karena 0 berarti "seketika" dan itu dibaca sebagai
-#      kabar baik oleh siapa pun yang punya dashboard.
-#   2. Verdict yang hilang bukan kelulusan. release_passed hanya ditulis kalau
-#      gate-verdict.json benar-benar ada; kalau tidak, tidak ada angka sama sekali.
+#   1. No invented numbers. A duration is written only when GitLab actually sent
+#      one (CI_PIPELINE_DURATION_SECONDS). When it did not, the metric does not
+#      exist: not 0, because 0 means "instant", and anyone with a dashboard
+#      reads that as good news.
+#   2. A missing verdict is not a pass. release_passed is written only when
+#      gate-verdict.json really exists; otherwise there is no number at all.
 
 set -euo pipefail
 
@@ -37,11 +37,26 @@ DRY_RUN="${DRY_RUN:-0}"
 
 die() { log_fail "$1" "${@:2}"; exit 1; }
 
-metric() { printf '%s %s\n' "$1" "$2" >> "$METRICS_FILE"; }
+# Every metric line is named as it is written: the value alone is not traceable
+# to the sample, so the name and the labels go into the log next to it.
+metric() {
+  local series="$1" value="$2" name labels
+  printf '%s %s\n' "$series" "$value" >> "$METRICS_FILE"
+  name="${series%%\{*}"
+  case "$series" in
+    *\{*) labels="${series#*\{}"; labels="${labels%\}}" ;;
+    *) labels="none" ;;
+  esac
+  log INFO "metric name=$name labels=${labels:-none} value=$value"
+}
+
+# The number of series actually on disk, counted from the file rather than from
+# a counter that could be incremented without writing.
+metric_count() { printf '%s' "$(( $(wc -l < "$METRICS_FILE" 2>/dev/null || echo 0) ))"; }
 
 push() {
   if [ -z "$PUSHGATEWAY_URL" ]; then
-    log_warn "skipped reason=no_pushgateway_url file=$METRICS_FILE metrics=$(( $(wc -l < "$METRICS_FILE") ))"
+    log_warn "skipped reason=no_pushgateway_url file=$METRICS_FILE metrics=$(metric_count)"
     return 0
   fi
   if [ "$DRY_RUN" = "1" ]; then log INFO "would push url=$PUSHGATEWAY_URL file=$METRICS_FILE"; return 0; fi
@@ -60,17 +75,17 @@ cmd_pipeline() {
   [ -f "$BUILD_INFO" ] && version="$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1],encoding="utf-8")).get("version","none"))' "$BUILD_INFO" 2>/dev/null || echo none)"
 
   if [ ! -f "$VERDICT_FILE" ]; then
-    # Sengaja tidak menulis release_passed=0: itu akan terlihat seperti "gate
-    # menolak", padahal yang terjadi adalah tidak ada keputusan untuk dibaca.
+    # Deliberately not writing release_passed=0: that would look like "the gate
+    # refused", when in fact there was no decision to read.
     log_error "failed reason=no_verdict file=$VERDICT_FILE metrics_written=0"
     die no_verdict "file=$VERDICT_FILE nothing can be reported about a decision that was never made"
   fi
   passed="$(python3 -c 'import json,sys;print(1 if json.load(open(sys.argv[1],encoding="utf-8")).get("passed") else 0)' "$VERDICT_FILE")"
 
   metric "gateway_release_passed{project=\"$project\",version=\"$version\"}" "$passed"
-  # Yang dihitung di sini adalah jumlah alasan, bukan jumlah temuan: temuan
-  # mentah sudah ada di artefak scan, dan menyalinnya ke metrik hanya memberi
-  # dua angka yang bisa berbeda.
+  # What is counted here is the number of reasons, not the number of findings:
+  # the raw findings already live in the scan artifact, and copying them into a
+  # metric would only produce two numbers that can disagree.
   local failures
   failures="$(python3 -c 'import json,sys;print(len(json.load(open(sys.argv[1],encoding="utf-8")).get("failures") or []))' "$VERDICT_FILE")"
   metric "gateway_gate_failures{project=\"$project\"}" "$failures"
@@ -85,6 +100,7 @@ cmd_pipeline() {
   fi
 
   log INFO "audit release=$version project=$project passed=$passed warnings=$warns pipeline=${CI_PIPELINE_ID:-local} metrics=$METRICS_FILE"
+  log INFO "written file=$METRICS_FILE metrics=$(metric_count)"
   push
 }
 
@@ -100,6 +116,7 @@ cmd_deploy() {
   else
     log_warn "skipped metric=deploy_ready_seconds reason=not_measured env=$env"
   fi
+  log INFO "written file=$METRICS_FILE metrics=$(metric_count)"
   push
 }
 
@@ -112,39 +129,46 @@ selftest() {
   tmp="$(mktemp -d)"; cd "$tmp"
   export CI_PROJECT_NAME=core-api CI_PIPELINE_ID=1421 PUSHGATEWAY_URL=
 
-  # Tanpa verdict: tidak ada metrik, dan kegagalannya bernama.
+  # Without a verdict: no metrics, and the failure is named.
   try env CI_PIPELINE_ID=1421 bash "$SCRIPT_DIR/observability-push.sh" pipeline
-  says err.txt "reason=no_verdict" "verdict hilang tidak dilaporkan diam-diam"
-  eq_count() { [ "$(wc -l < "$1" | tr -d ' ')" = "$2" ] || { echo "observability selftest FAIL $3: $(wc -l < "$1") baris, mau $2" >&2; fails=$((fails+1)); }; return 0; }
-  eq_count metrics.prom 0 "berkas metrik tetap berisi tanpa verdict"
+  says err.txt "reason=no_verdict" "a missing verdict is not reported in silence"
+  eq_count() { [ "$(wc -l < "$1" | tr -d ' ')" = "$2" ] || { echo "observability selftest FAIL $3: $(wc -l < "$1") lines, expected $2" >&2; fails=$((fails+1)); }; return 0; }
+  eq_count metrics.prom 0 "the metrics file stays populated without a verdict"
 
   printf '%s\n' '{"passed":true,"failures":[],"warnings":["2 medium findings accepted"],"plan":[]}' > gate-verdict.json
   printf '%s\n' '{"version":"R1.4.3","status":"success"}' > build-info.json
 
-  # Durasi tidak dikirim: metriknya tidak boleh muncul, apalagi bernilai 0.
+  # Duration not sent: the metric must not appear, let alone with the value 0.
   try env CI_PIPELINE_ID=1421 bash "$SCRIPT_DIR/observability-push.sh" pipeline
-  says metrics.prom 'gateway_release_passed{project="core-api",version="R1.4.3"} 1' "passes tidak tertulis benar"
-  says metrics.prom 'gateway_gate_failures{project="core-api"} 0' "jumlah alasan gate tidak tertulis"
-  never_says metrics.prom "duration_seconds" "durasi tanpa data tetap ditulis"
-  says err.txt "reason=not_reported_by_runner" "alasan penundaan tidak disebut"
-  says err.txt "skipped reason=no_pushgateway_url" "pushgateway kosong tidak dilaporkan"
+  says metrics.prom 'gateway_release_passed{project="core-api",version="R1.4.3"} 1' "passes not written correctly"
+  says metrics.prom 'gateway_gate_failures{project="core-api"} 0' "the count of gate reasons not written"
+  never_says metrics.prom "duration_seconds" "duration written even with no data"
+  says err.txt "reason=not_reported_by_runner" "the reason for holding back not stated"
+  says err.txt "skipped reason=no_pushgateway_url" "an empty pushgateway not reported"
+  says err.txt 'metric name=gateway_release_passed labels=project="core-api",version="R1.4.3" value=1' "a series was written without being named"
+  says err.txt 'metric name=gateway_gate_failures labels=project="core-api" value=0' "the gate reason count was not named"
+  says err.txt "written file=metrics.prom metrics=3" "the file and the number of lines in it were not reported"
 
-  # Dengan durasi nyata, angkanya lewat apa adanya.
+  # With a real duration, the number passes through unchanged.
   try env CI_PIPELINE_ID=1421 CI_PIPELINE_DURATION_SECONDS=412 bash "$SCRIPT_DIR/observability-push.sh" pipeline
-  says metrics.prom 'gateway_pipeline_duration_seconds{project="core-api"} 412' "durasi nyata tidak tertulis"
+  says metrics.prom 'gateway_pipeline_duration_seconds{project="core-api"} 412' "the real duration not written"
 
-  # Verdict menolak harus terbaca sebagai 0, bukan hilang.
+  # A refusing verdict must read as 0, not go missing.
   printf '%s\n' '{"passed":false,"failures":["vulnerabilities: 1 critical (allowed 0)"],"warnings":[],"plan":[]}' > gate-verdict.json
   try env CI_PIPELINE_ID=1421 bash "$SCRIPT_DIR/observability-push.sh" pipeline
-  says metrics.prom 'gateway_release_passed{project="core-api",version="R1.4.3"} 0' "verdict merah tidak tertulis 0"
+  says metrics.prom 'gateway_release_passed{project="core-api",version="R1.4.3"} 0' "a red verdict not written as 0"
 
-  # Deploy tanpa pengukuran: tidak ada angka, ada alasannya.
+  # Deploy without a measurement: no number, and the reason is stated.
   try env bash "$SCRIPT_DIR/observability-push.sh" deploy --env sit
-  says err.txt "reason=not_measured" "deploy tanpa durasi tidak menjelaskan alasan"
+  says err.txt "reason=not_measured" "a deploy with no duration leaves the reason unstated"
+
+  # Deploy with a measurement: the series is named the moment it is written.
+  try env bash "$SCRIPT_DIR/observability-push.sh" deploy --env sit --seconds 93
+  says err.txt 'metric name=gateway_deploy_ready_seconds labels=project="core-api",env="sit" value=93' "a measured deploy was not named"
 
   cd /; rm -rf "$tmp"
   if [ "$fails" = "0" ]; then echo "observability selftest: ok" >&2; return 0; fi
-  echo "observability selftest: $fails kegagalan" >&2; return 1
+  echo "observability selftest: $fails failures" >&2; return 1
 }
 
 main() {

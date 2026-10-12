@@ -178,7 +178,7 @@ window.I18N = {
     "std.5": "Promotion between environments is tag-and-merge: same pipeline, same artefact, only the target changes.",
     "std.6": "A fix cascades forward through merge requests between release branches, so it never misses an older line.",
     "lc.mail.caption": "// dummy data in the report format my pipelines generate. Names, domains and links are sanitized. The amber disclaimer is there because a scanner that overclaims is worse than no scanner",
-    "lc.mail.artifact": "// the report text stays in Indonesian, that is how the team reads it",
+    "lc.mail.artifact": "note // scheduled weekly, one HTML report per category, artifacts kept for 30 days",
     "lc.mail.headsub": "report emails my pipelines generate, sample data sanitized",
     "eco.o1": "dozens of shared-library steps wiring Jira webhooks to GitLab automation",
     "eco.o2": "Jira webhook → gateway job parses the changelog and dispatches sibling Jenkins jobs",
@@ -188,7 +188,7 @@ window.I18N = {
     "eco.n2": "one webhook → workflow.rules routes to 18 orchestrators, one module per job",
     "eco.n3": "state lives inside the ticket, as watermarks in its notes. There is no extra database that can drift from it.",
     "eco.n4": "the same gates survived the move: approval chain, scans, fail-closed",
-    "eco.arrow": "migrated the standard, not just the tools",
+    "eco.arrow": "same standard, different tools",
 
     /* ---- stacks ---- */
 

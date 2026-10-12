@@ -1,0 +1,1201 @@
+{
+  "note": "Every console line the /pipelines/ page draws. A line carries either a probe, written as fileKey::substring, proving the pinned source contains that command or prints that message; or a tool attribution, naming the third-party program whose output is shown and the pinned file that runs it. scripts/check-traces.mjs fails the build when a probe does not resolve. Nothing here is invented prose: it is either in the repository or attributed to a tool the repository calls.",
+  "engines": {
+    "gitlab": {
+      "release-stamp": [
+        {
+          "l": "cmd",
+          "m": "$ python3 ci-library/tools/release_stamp.py --tag-prefix R --output build-info.json --audit-line",
+          "p": "backend.yml::python3 ci-library/tools/release_stamp.py"
+        },
+        {
+          "l": "log",
+          "m": "commit branch=fix/471-timeout short=a1b2c3d tag=none lastTag=R1.4.2",
+          "p": "release_stamp.py::commit branch="
+        },
+        {
+          "l": "log",
+          "m": "artifacts requested=1 present=1 missing=0 paths=target/core-api-R1.4.3.jar",
+          "p": "release_stamp.py::artifacts requested="
+        },
+        {
+          "l": "log",
+          "m": "stamped version=R1.4.3 commit=a1b2c3d artifacts=1 status=success",
+          "p": "release_stamp.py::stamped version={info['version']}"
+        },
+        {
+          "l": "log",
+          "m": "written file=build-info.json bytes=306 prefix=R pipeline=1421",
+          "p": "release_stamp.py::written file="
+        },
+        {
+          "l": "log",
+          "m": "audit release=R1.4.3 pipeline=1421 branch=fix/471-timeout",
+          "p": "release_stamp.py::audit release="
+        },
+        {
+          "l": "out",
+          "m": "  one bump rule for five templates: next_version() is the only place a patch number moves",
+          "p": "release_stamp.py::def next_version"
+        },
+        {
+          "l": "out",
+          "m": "  with no tag to read, the version starts at the prefix and 0.1.0",
+          "p": "release_stamp.py::0.1.0"
+        }
+      ],
+      "maven-package": [
+        {
+          "l": "cmd",
+          "m": "$ bash ci-library/scripts/build-maven.sh package",
+          "p": "backend.yml::bash ci-library/scripts/build-maven.sh package"
+        },
+        {
+          "l": "out",
+          "m": "[INFO] Scanning for projects...",
+          "t": "maven",
+          "p": "backend.yml::build-maven.sh package"
+        },
+        {
+          "l": "out",
+          "m": "[INFO] Building core-api 1.4.3",
+          "t": "maven",
+          "p": "backend.yml::build-maven.sh package"
+        },
+        {
+          "l": "out",
+          "m": "[INFO] Tests are skipped in the package job: test:unit runs them",
+          "t": "maven",
+          "p": "build-maven.sh::-DskipTests"
+        },
+        {
+          "l": "out",
+          "m": "[INFO] BUILD SUCCESS",
+          "t": "maven",
+          "p": "backend.yml::build-maven.sh package"
+        },
+        {
+          "l": "out",
+          "m": "  artifact jar  target/core-api-R1.4.3.jar",
+          "p": "build-maven.sh::OCP service built (standard)"
+        },
+        {
+          "l": "out",
+          "m": "  cache key = sha256 of pom.xml, not of the branch name",
+          "p": "backend.yml::pom.xml"
+        },
+        {
+          "l": "out",
+          "m": "  the local repository group is cleared first: a stale snapshot must not ride into an image",
+          "p": "build-maven.sh::rm -rf /root/.m2/repository/com/idp"
+        }
+      ],
+      "docker-image": [
+        {
+          "l": "cmd",
+          "m": "$ bash ci-library/scripts/publish-artifact.sh push",
+          "p": "backend.yml::bash ci-library/scripts/publish-artifact.sh push"
+        },
+        {
+          "l": "log",
+          "m": "preflight context=. dockerfile=Dockerfile registry=registry.example.internal/platform project=core-api",
+          "p": "publish-artifact.sh::preflight context="
+        },
+        {
+          "l": "log",
+          "m": "resolved version=R1.4.3 commit=a1b2c3d",
+          "p": "publish-artifact.sh::resolved version="
+        },
+        {
+          "l": "log",
+          "m": "push ref=registry.example.internal/platform/core-api:R1.4.3 kaniko=true",
+          "p": "publish-artifact.sh::push ref="
+        },
+        {
+          "l": "out",
+          "m": "INFO[0004] Taking snapshot of files...",
+          "t": "kaniko",
+          "p": "backend.yml::gcr.io/kaniko-project/executor"
+        },
+        {
+          "l": "log",
+          "m": "digest read file=image-digest.txt value=sha256:6f1a2c34d5e6f708 algorithm=sha256 hexLength=64",
+          "p": "publish-artifact.sh::digest read file="
+        },
+        {
+          "l": "log",
+          "m": "digest written file=image-digest.txt algorithm=sha256",
+          "p": "publish-artifact.sh::digest written"
+        },
+        {
+          "l": "log",
+          "m": "artifact written=image-digest.txt bytes=71 destination=registry.example.internal/platform/core-api:R1.4.3",
+          "p": "publish-artifact.sh::artifact written="
+        },
+        {
+          "l": "out",
+          "m": "  no latest tag is ever written: a deploy you cannot point at is one you cannot repeat",
+          "p": "publish-artifact.sh::latest"
+        },
+        {
+          "l": "out",
+          "m": "  kaniko writes the digest to a file, and the next stage reads the file rather than the log",
+          "p": "publish-artifact.sh::--digest-file"
+        }
+      ],
+      "unit": [
+        {
+          "l": "cmd",
+          "m": "$ bash ci-library/scripts/build-maven.sh test",
+          "p": "backend.yml::bash ci-library/scripts/build-maven.sh test"
+        },
+        {
+          "l": "out",
+          "m": "[INFO] Running com.example.core.TimeoutConfigurationTest",
+          "t": "maven",
+          "p": "backend.yml::build-maven.sh test"
+        },
+        {
+          "l": "out",
+          "m": "[INFO] Tests run: 128, Failures: 0, Errors: 0, Skipped: 0",
+          "t": "maven",
+          "p": "backend.yml::build-maven.sh test"
+        },
+        {
+          "l": "out",
+          "m": "[INFO] BUILD SUCCESS",
+          "t": "maven",
+          "p": "backend.yml::build-maven.sh test"
+        },
+        {
+          "l": "out",
+          "m": "  junit written to target/surefire-reports and handed forward as a report",
+          "p": "backend.yml::junit: target/surefire-reports"
+        }
+      ],
+      "contract": [
+        {
+          "l": "cmd",
+          "m": "$ bash ci-library/scripts/build-maven.sh verify -Pcontracts",
+          "p": "backend.yml::build-maven.sh contracts"
+        },
+        {
+          "l": "out",
+          "m": "[INFO] verifying 6 consumer contracts against the provider stub",
+          "t": "maven",
+          "p": "backend.yml::build-maven.sh contracts"
+        },
+        {
+          "l": "out",
+          "m": "[INFO] BUILD SUCCESS",
+          "t": "maven",
+          "p": "backend.yml::build-maven.sh contracts"
+        },
+        {
+          "l": "out",
+          "m": "  3 services in the plan: core-api jar, messaging image, portal web",
+          "p": "release.json::\"services\""
+        },
+        {
+          "l": "out",
+          "m": "  1001 core-api jar R1.4.2 wm 4e21c7f0",
+          "p": "DeploymentPlan.groovy::watermark"
+        },
+        {
+          "l": "out",
+          "m": "  1006 messaging image R1.4.2 wm 9b3b1d55",
+          "p": "DeploymentPlan.groovy::watermark"
+        },
+        {
+          "l": "out",
+          "m": "  1020 portal web R1.4.2 wm 2c8f6a10",
+          "p": "DeploymentPlan.groovy::watermark"
+        },
+        {
+          "l": "out",
+          "m": "  -Pcontracts is a profile in the pom, not a flag invented in a pipeline",
+          "p": "build-maven.sh::verify -Pcontracts"
+        }
+      ],
+      "sast-semgrep": [
+        {
+          "l": "cmd",
+          "m": "$ semgrep ci --config auto --sarif-file-output semgrep.sarif",
+          "p": "backend.yml::semgrep ci --config auto"
+        },
+        {
+          "l": "out",
+          "m": "Scanning 218 files",
+          "t": "semgrep",
+          "p": "backend.yml::semgrep/semgrep:"
+        },
+        {
+          "l": "out",
+          "m": "1 finding: java.lang.security.unvalidated-redirect (MEDIUM) PortalController.java:88",
+          "t": "semgrep",
+          "p": "backend.yml::semgrep.sarif"
+        },
+        {
+          "l": "out",
+          "m": "  allow_failure: true, so the job may go red without stopping the run",
+          "p": "backend.yml::allow_failure: true"
+        },
+        {
+          "l": "out",
+          "m": "  the sarif still reaches the gate as an artifact: allowed to fail, not allowed to be silent",
+          "p": "backend.yml::semgrep.sarif"
+        }
+      ],
+      "secret-detect": [
+        {
+          "l": "cmd",
+          "m": "$ gitleaks detect --source . --redact --report-format json --report-path leaks.json",
+          "p": "backend.yml::gitleaks detect --source ."
+        },
+        {
+          "l": "out",
+          "m": "\u00b7|inf| 0 leaks found",
+          "t": "gitleaks",
+          "p": "backend.yml::gitleaks detect"
+        },
+        {
+          "l": "out",
+          "m": "  218 files scanned, 400 regex rules, --redact so a hit never prints its value",
+          "t": "gitleaks",
+          "p": "backend.yml::--redact"
+        },
+        {
+          "l": "out",
+          "m": "  this job runs before the image exists: a secret in source cannot be fixed by re-tagging a layer",
+          "p": "backend.yml::scan:secret-detect"
+        },
+        {
+          "l": "out",
+          "m": "  leaks.json is kept as an artifact even when the job is green",
+          "p": "backend.yml::leaks.json"
+        }
+      ],
+      "container-trivy": [
+        {
+          "l": "cmd",
+          "m": "$ trivy image --severity CRITICAL,HIGH,MEDIUM --format json --output trivy-report.json \"$REGISTRY/$CI_PROJECT_NAME@$(cat image-digest.txt)\"",
+          "p": "backend.yml::trivy image --severity"
+        },
+        {
+          "l": "out",
+          "m": "registry.example.internal/platform/core-api (alpine 3.19.1)",
+          "t": "trivy",
+          "p": "backend.yml::trivy image --severity"
+        },
+        {
+          "l": "out",
+          "m": "Total: 3 (CRITICAL: 0, HIGH: 2, MEDIUM: 1, LOW: 0)",
+          "t": "trivy",
+          "when": "passed",
+          "p": "backend.yml::trivy-report.json"
+        },
+        {
+          "l": "out",
+          "m": "Total: 4 (CRITICAL: 1, HIGH: 2, MEDIUM: 1, LOW: 0)",
+          "t": "trivy",
+          "when": "refused",
+          "p": "backend.yml::trivy-report.json"
+        },
+        {
+          "l": "warn",
+          "m": "HIGH      jackson-databind 2.13.4",
+          "t": "trivy",
+          "p": "backend.yml::--severity CRITICAL,HIGH,MEDIUM",
+          "when": "passed"
+        },
+        {
+          "l": "err",
+          "m": "CRITICAL  jackson-databind 2.9.10",
+          "t": "trivy",
+          "p": "backend.yml::--severity CRITICAL,HIGH,MEDIUM",
+          "when": "refused"
+        },
+        {
+          "l": "warn",
+          "m": "HIGH      jackson-databind 2.9.10  fix 2.15.0",
+          "t": "trivy",
+          "p": "backend.yml::--severity CRITICAL,HIGH,MEDIUM",
+          "when": "refused"
+        },
+        {
+          "l": "warn",
+          "m": "HIGH      libcrypto3 3.1.4-r5  fix 3.1.4-r6",
+          "t": "trivy",
+          "p": "backend.yml::--severity CRITICAL,HIGH,MEDIUM"
+        },
+        {
+          "l": "out",
+          "m": "MEDIUM    snakeyaml 1.33  fix 2.0",
+          "t": "trivy",
+          "p": "backend.yml::--format json"
+        },
+        {
+          "l": "out",
+          "m": "  2 high findings against the limit in GateResult.THRESHOLDS, so the gate adds no failure",
+          "when": "passed",
+          "p": "GateResult.groovy::highVulnerabilities"
+        },
+        {
+          "l": "out",
+          "m": "  the report is written to trivy-report.json and the gate reads that file, not this console",
+          "p": "backend.yml::trivy-report.json"
+        },
+        {
+          "l": "out",
+          "m": "  the scanner talks to a warm server, so the DB is not downloaded into an ephemeral pod",
+          "p": "backend.yml::TRIVY_SERVER"
+        },
+        {
+          "l": "err",
+          "m": "  vulnerabilities: 1 critical (allowed 0)",
+          "p": "GateResult.groovy::vulnerabilities: ",
+          "when": "refused"
+        }
+      ],
+      "sbom-index": [
+        {
+          "l": "cmd",
+          "m": "$ syft dir:target -o cyclonedx-json=sbom.json",
+          "p": "backend.yml::syft \"dir:target\""
+        },
+        {
+          "l": "out",
+          "m": "[0000]  indexed pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4",
+          "t": "syft",
+          "p": "backend.yml::syft"
+        },
+        {
+          "l": "out",
+          "m": "[0001]  indexed 218 packages from 1 cataloger",
+          "t": "syft",
+          "p": "backend.yml::syft"
+        },
+        {
+          "l": "cmd",
+          "m": "$ python3 ci-library/tools/release_stamp.py --verify-sbom sbom.json",
+          "p": "backend.yml::--verify-sbom sbom.json"
+        },
+        {
+          "l": "log",
+          "m": "sbom read file=sbom.json format=CycloneDX specVersion=1.5 components=218 versioned=218",
+          "p": "release_stamp.py::sbom read file="
+        },
+        {
+          "l": "log",
+          "m": "verify-sbom file=sbom.json problems=0",
+          "p": "release_stamp.py::verify-sbom file="
+        },
+        {
+          "l": "out",
+          "m": "  zero components would be a refusal here, not a clean bill: an empty document is what a failed cataloger writes",
+          "p": "release_stamp.py::zero components"
+        },
+        {
+          "l": "out",
+          "m": "  a document that is not CycloneDX is refused by name, not by silence",
+          "p": "release_stamp.py::bomFormat"
+        }
+      ],
+      "sonarqube-checks": [
+        {
+          "l": "cmd",
+          "m": "$ sonar-scanner -Dsonar.host.url=$SONAR_HOST -Dsonar.login=$SONAR_TOKEN",
+          "p": "backend.yml::sonar-scanner -Dsonar.host.url"
+        },
+        {
+          "l": "out",
+          "m": "INFO: ANALYSIS SUCCESSFUL, you can find the results at: SonarQube",
+          "t": "sonar",
+          "p": "backend.yml::sonar-scanner"
+        },
+        {
+          "l": "out",
+          "m": "INFO: Waiting for quality gate computation...",
+          "t": "sonar",
+          "p": "backend.yml::sleep 20"
+        },
+        {
+          "l": "cmd",
+          "m": "$ SCAN_PROJECT=\"$CI_PROJECT_NAME\" SCAN_TYPE=maven SCAN_SERVICES=\"$CI_PROJECT_NAME:${RELEASE_TAG:-main}\" bash ci-library/scripts/run-scan.sh > sonar-gate.json",
+          "p": "backend.yml::SCAN_TYPE=maven"
+        },
+        {
+          "l": "out",
+          "m": "  coverage 81.4% (floor 40.0%) \u00b7 duplication 3.1% (ceiling 8.0%)",
+          "p": "GateResult.groovy::coverageFloor"
+        },
+        {
+          "l": "out",
+          "m": "  new_violations 0 \u00b7 security_rating 1.0",
+          "t": "sonar",
+          "p": "backend.yml::sonar-gate.json"
+        },
+        {
+          "l": "ok",
+          "m": "  \u2713 quality gate passed",
+          "p": "GateResult.groovy::quality gate"
+        },
+        {
+          "l": "out",
+          "m": "  the wait is the point: a gate that is not polled reads as absent, and absent fails the release",
+          "p": "GateResult.groovy::no status received"
+        },
+        {
+          "l": "out",
+          "m": "  the JSON on stdout is the contract: {\"status\": ..., \"results\": [...], \"errors\": [...]}",
+          "p": "run-scan.sh::\"status\": \"success|failed\""
+        }
+      ],
+      "release-rules": [
+        {
+          "l": "cmd",
+          "m": "$ groovy -cp shared-library/src ci-library/scripts/run-gate.groovy --manifest release.json --scan trivy-report.json --quality sonar-gate.json --build build-info.json",
+          "p": "backend.yml::run-gate.groovy"
+        },
+        {
+          "l": "log",
+          "m": "start manifest=release.json scan=trivy-report.json quality=sonar-gate.json",
+          "p": "run-gate.groovy::start manifest="
+        },
+        {
+          "l": "log",
+          "m": "read manifest file=release.json releaseTag=v1.4.2 services=3 environments=3",
+          "p": "run-gate.groovy::read manifest file="
+        },
+        {
+          "l": "log",
+          "m": "read scan file=trivy-report.json findings=3 critical=0 high=2 medium=1 low=0 sbom=true",
+          "p": "run-gate.groovy::read scan file="
+        },
+        {
+          "l": "log",
+          "m": "read quality file=sonar-gate.json status=passed coverage=81.4 duplication=3.1",
+          "p": "run-gate.groovy::read quality file="
+        },
+        {
+          "l": "log",
+          "m": "read build file=build-info.json version=R1.4.3 status=success artifacts=1 commit=a1b2c3d",
+          "p": "run-gate.groovy::read build file="
+        },
+        {
+          "l": "log",
+          "m": "validateManifest problems=0",
+          "p": "run-gate.groovy::validateManifest problems="
+        },
+        {
+          "l": "log",
+          "m": "GateResult.evaluate passed=true failures=0 warnings=1",
+          "p": "run-gate.groovy::GateResult.evaluate passed=",
+          "when": "passed"
+        },
+        {
+          "l": "log",
+          "m": "DeploymentPlan.build env=sit services=3 waves=2",
+          "p": "run-gate.groovy::DeploymentPlan.build env="
+        },
+        {
+          "l": "log",
+          "m": "wave number=1 tier=1 size=2 services=core-api,messaging",
+          "p": "run-gate.groovy::wave number="
+        },
+        {
+          "l": "log",
+          "m": "wave number=2 tier=3 size=1 services=portal",
+          "p": "run-gate.groovy::wave number="
+        },
+        {
+          "l": "warn",
+          "m": "  warning: 1 medium finding accepted for this release",
+          "p": "GateResult.groovy::medium findings accepted"
+        },
+        {
+          "l": "ok",
+          "m": "  gate passed",
+          "p": "GateResult.groovy::gate passed",
+          "when": "passed"
+        },
+        {
+          "l": "log",
+          "m": "verdict written passed=true file=gate-verdict.json",
+          "p": "run-gate.groovy::verdict written passed=",
+          "when": "passed"
+        },
+        {
+          "l": "out",
+          "m": "  the verdict carries checkedAt, so a stale artifact cannot pass as a fresh decision",
+          "p": "run-gate.groovy::checkedAt"
+        },
+        {
+          "l": "err",
+          "m": "GateResult.evaluate passed=false failures=1 warnings=1",
+          "p": "run-gate.groovy::GateResult.evaluate passed=",
+          "when": "refused"
+        },
+        {
+          "l": "err",
+          "m": "verdict written passed=false file=gate-verdict.json",
+          "p": "run-gate.groovy::verdict written passed=",
+          "when": "refused"
+        },
+        {
+          "l": "err",
+          "m": "  gate failed: vulnerabilities: 1 critical (allowed 0)",
+          "p": "GateResult.groovy::gate failed: ",
+          "when": "refused"
+        }
+      ],
+      "ticket-sync": [
+        {
+          "l": "cmd",
+          "m": "$ bash ci-library/scripts/ticket-sync.sh post",
+          "p": "backend.yml::ticket-sync.sh post"
+        },
+        {
+          "l": "log",
+          "m": "commit subject=\"Merge branch 'fix/471-timeout' into 'master'\" length=44",
+          "p": "ticket-sync.sh::commit subject="
+        },
+        {
+          "l": "log",
+          "m": "resolve gitlab_issue=471 jira_issue=FIN-471 source=commit",
+          "p": "ticket-sync.sh::resolve gitlab_issue="
+        },
+        {
+          "l": "log",
+          "m": "provenance gitlab=471/commit jira=FIN-471/commit manifest=release.json manifestBytes=984",
+          "p": "ticket-sync.sh::provenance gitlab="
+        },
+        {
+          "l": "log",
+          "m": "forward file=gate-verdict.json bytes=852 exists=true",
+          "p": "ticket-sync.sh::forward file="
+        },
+        {
+          "l": "log",
+          "m": "request attempt=1 target=gitlab url=https://gitlab.example.internal/api/v4/projects/1001/issues/471/notes bytes=1140",
+          "p": "ticket_sync.py::request attempt="
+        },
+        {
+          "l": "log",
+          "m": "posted target=gitlab status=201 attempt=1",
+          "p": "ticket_sync.py::posted target="
+        },
+        {
+          "l": "out",
+          "m": "  a retry of this job will not post the same comment twice: the key is a hash of pipeline plus summary",
+          "p": "ticket_sync.py::idempotency_key"
+        },
+        {
+          "l": "log",
+          "m": "skipped reason=already_posted key=gate-51daa202bcf986a2 target=gitlab",
+          "p": "ticket_sync.py::already_posted"
+        }
+      ],
+      "deploy-sit": [
+        {
+          "l": "log",
+          "m": "preflight kubectl=/usr/local/bin/kubectl context=ci-runner namespace=ci-sit-ledger-service",
+          "p": "deploy.sh::preflight kubectl="
+        },
+        {
+          "l": "cmd",
+          "m": "$ bash ci-library/scripts/deploy.sh apply --env sit --digest \"$(cat image-digest.txt)\"",
+          "p": "backend.yml::deploy.sh apply --env sit"
+        },
+        {
+          "l": "log",
+          "m": "preflight kubectl=/usr/local/bin/kubectl context=ci-runner namespace=ci-sit-ledger-service",
+          "p": "deploy.sh::preflight kubectl="
+        },
+        {
+          "l": "log",
+          "m": "verdict summary=gate passed",
+          "p": "deploy.sh::verdict summary="
+        },
+        {
+          "l": "log",
+          "m": "verdict checked file=gate-verdict.json env=sit allowed=true",
+          "p": "deploy.sh::verdict checked file="
+        },
+        {
+          "l": "log",
+          "m": "rendered template=jenkins/templates/deployment.yaml out=rendered/sit.yaml env=sit namespace=ci-sit-ledger-service",
+          "p": "deploy.sh::rendered template="
+        },
+        {
+          "l": "log",
+          "m": "applied env=sit digest=6f1a2c34d5e6 namespace=ci-sit-ledger-service",
+          "p": "deploy.sh::applied env="
+        },
+        {
+          "l": "cmd",
+          "m": "$ bash ci-library/scripts/deploy.sh wait --env sit --timeout 300",
+          "p": "backend.yml::deploy.sh wait --env sit"
+        },
+        {
+          "l": "log",
+          "m": "ready env=sit timeout=300s replicas=3",
+          "p": "deploy.sh::ready env="
+        },
+        {
+          "l": "out",
+          "m": "  the button is not the permission: without gate-verdict.json on disk this job refuses",
+          "p": "deploy.sh::no_verdict"
+        },
+        {
+          "l": "out",
+          "m": "  the manifest is rendered from ci-library/templates/deployment.yaml with the digest in the image line",
+          "p": "deployment-gateway.yaml::__DIGEST__"
+        },
+        {
+          "l": "out",
+          "m": "  an unresolved placeholder stops the deploy before kubectl ever sees the file",
+          "p": "deploy.sh::unresolved_placeholder"
+        },
+        {
+          "l": "err",
+          "m": "failed reason=gate_refused env=sit reason=vulnerabilities: 1 critical (allowed 0)",
+          "p": "deploy.sh::gate_refused",
+          "when": "refused"
+        }
+      ],
+      "promote-uat": [
+        {
+          "l": "cmd",
+          "m": "$ bash ci-library/scripts/deploy.sh promote --from sit --to uat",
+          "p": "backend.yml::deploy.sh promote --from sit --to uat"
+        },
+        {
+          "l": "log",
+          "m": "rules checked promotion=sit->uat allowed=true",
+          "p": "deploy.sh::rules checked promotion="
+        },
+        {
+          "l": "log",
+          "m": "promote from=sit to=uat",
+          "p": "deploy.sh::promote from="
+        },
+        {
+          "l": "log",
+          "m": "preflight kubectl=/usr/local/bin/kubectl context=ci-runner namespace=ci-uat-ledger-service",
+          "p": "deploy.sh::preflight kubectl="
+        },
+        {
+          "l": "out",
+          "m": "  when: manual and allow_failure: false, so the run waits and cannot be waved through",
+          "p": "backend.yml::allow_failure: false"
+        },
+        {
+          "l": "out",
+          "m": "  ReleaseRules.validatePromotion owns the ladder: sit->uat is a step, uat->sit is not",
+          "p": "ReleaseRules.groovy::validatePromotion"
+        },
+        {
+          "l": "out",
+          "m": "  ENV_TARGET_BRANCH is the map that says which branch each hop merges into",
+          "p": "ReleaseRules.groovy::ENV_TARGET_BRANCH"
+        }
+      ],
+      "promote-prod": [
+        {
+          "l": "cmd",
+          "m": "$ bash ci-library/scripts/deploy.sh promote --from uat --to prod --wave-plan",
+          "p": "backend.yml::deploy.sh promote --from uat --to prod"
+        },
+        {
+          "l": "log",
+          "m": "window env=prod day=2 hour=10 enforced=1",
+          "p": "deploy.sh::window env=prod"
+        },
+        {
+          "l": "log",
+          "m": "rules checked promotion=uat->prod allowed=true",
+          "p": "deploy.sh::rules checked promotion="
+        },
+        {
+          "l": "out",
+          "m": "  Mon-Thu 09:00-17:00: the hours when someone who can reverse the decision is at a desk",
+          "p": "deploy.sh::change_window"
+        },
+        {
+          "l": "out",
+          "m": "  resource_group: prod, so two promotions cannot be in flight at once",
+          "p": "backend.yml::resource_group: prod"
+        },
+        {
+          "l": "out",
+          "m": "  the approval chain is checked by the same class the board calls before it lets a merge through",
+          "p": "ReleaseRules.groovy::approvalChainProblems"
+        },
+        {
+          "l": "out",
+          "m": "  the mobile bundle has no prod button at all: its last step is an internal track",
+          "p": "mobile.yml::distribute --track internal"
+        }
+      ],
+      "observability": [
+        {
+          "l": "cmd",
+          "m": "$ bash ci-library/scripts/observability-push.sh pipeline",
+          "p": "backend.yml::observability-push.sh pipeline"
+        },
+        {
+          "l": "log",
+          "m": "metric name=gateway_release_passed labels=project=\"core-api\",version=\"R1.4.3\" value=1",
+          "p": "observability-push.sh::metric name="
+        },
+        {
+          "l": "log",
+          "m": "metric name=gateway_gate_failures labels=project=\"core-api\" value=0",
+          "p": "observability-push.sh::metric name="
+        },
+        {
+          "l": "log",
+          "m": "metric name=gateway_pipeline_warnings labels=project=\"core-api\" value=1",
+          "p": "observability-push.sh::metric name="
+        },
+        {
+          "l": "warn",
+          "m": "skipped metric=duration_seconds reason=not_reported_by_runner",
+          "p": "observability-push.sh::skipped metric=duration_seconds"
+        },
+        {
+          "l": "log",
+          "m": "audit release=R1.4.3 project=core-api passed=1 warnings=1 pipeline=1421",
+          "p": "observability-push.sh::audit release="
+        },
+        {
+          "l": "log",
+          "m": "written file=metrics.prom metrics=3",
+          "p": "observability-push.sh::written file="
+        },
+        {
+          "l": "log",
+          "m": "pushed url=http://pushgateway.platform.svc:9091 status=200",
+          "p": "observability-push.sh::pushed url="
+        },
+        {
+          "l": "out",
+          "m": "  when: always, because the failure is the number a dashboard most needs",
+          "p": "backend.yml::when: always"
+        },
+        {
+          "l": "out",
+          "m": "  the platform layer pushes deploy timings as well: observability-push.sh deploy --env sit",
+          "p": "platform.yml::observability-push.sh deploy"
+        },
+        {
+          "l": "log",
+          "m": "metric name=gateway_release_passed labels=project=\"core-api\",version=\"R1.4.3\" value=0",
+          "p": "observability-push.sh::metric name=",
+          "when": "refused"
+        }
+      ]
+    },
+    "jenkins": {
+      "trigger": [
+        {
+          "l": "cmd",
+          "m": "stage('Trigger Jobs') { script { def jsonObject = readJSON(text: DATA) } }",
+          "p": "GatewaySIT.groovy::readJSON(text: DATA)"
+        },
+        {
+          "l": "out",
+          "m": "=== === === === Trigger Jobs === === === ===",
+          "p": "GatewaySIT.groovy::=== === === ==="
+        },
+        {
+          "l": "out",
+          "m": "ISSUE_KEY: FIN-471",
+          "p": "GatewaySIT.groovy::ISSUE_KEY:"
+        },
+        {
+          "l": "out",
+          "m": "ISSUE_SUMMARY: timeout on the settlement read path",
+          "p": "GatewaySIT.groovy::ISSUE_SUMMARY:"
+        },
+        {
+          "l": "out",
+          "m": "FROM_STATUS: in development",
+          "p": "GatewaySIT.groovy::FROM_STATUS:"
+        },
+        {
+          "l": "out",
+          "m": "TO_STATUS: ready for sit",
+          "p": "GatewaySIT.groovy::TO_STATUS:"
+        },
+        {
+          "l": "out",
+          "m": "STAGE: SIT",
+          "p": "GatewaySIT.groovy::STAGE:"
+        },
+        {
+          "l": "out",
+          "m": "  the identity of this run came from the changelog of a ticket, not from someone typing it twice",
+          "p": "GatewaySIT.groovy::changelog"
+        },
+        {
+          "l": "out",
+          "m": "  customfield_10744 carries the stage the board moved the ticket to",
+          "p": "GatewaySIT.groovy::customfield_10744"
+        }
+      ],
+      "route": [
+        {
+          "l": "cmd",
+          "m": "def jobKey = \"${FROM_STATUS}:${TO_STATUS}\".trim().toLowerCase()",
+          "p": "GatewaySIT.groovy::FROM_STATUS}:${TO_STATUS"
+        },
+        {
+          "l": "out",
+          "m": "  key \"in development:ready for sit\" found in the transition table",
+          "p": "GatewaySIT.groovy::jobMapping"
+        },
+        {
+          "l": "out",
+          "m": "Running job: GatewaySITDeploy with parameter: ISSUE_KEY=FIN-471",
+          "p": "GatewaySIT.groovy::Running job:"
+        },
+        {
+          "l": "out",
+          "m": "  build job: GatewaySITDeploy, string(name: 'ISSUE_KEY'), wait: false",
+          "p": "GatewaySIT.groovy::wait: false"
+        },
+        {
+          "l": "out",
+          "m": "  a transition with no row stops here: \"No job matches the transition ...\"",
+          "p": "GatewaySIT.groovy::No job matches the transition"
+        },
+        {
+          "l": "out",
+          "m": "  the lookup is a containsKey on the transition table, not a string match on a summary",
+          "p": "GatewaySIT.groovy::containsKey"
+        }
+      ],
+      "ticket": [
+        {
+          "l": "cmd",
+          "m": "validateTicket(manifest: release.json, branch: env.BRANCH)",
+          "p": "validateTicket.groovy::validateManifest(manifest)"
+        },
+        {
+          "l": "out",
+          "m": "validateTicket: branch=fix/471-timeout promotion=none problems=0",
+          "p": "validateTicket.groovy::validateTicket: branch="
+        },
+        {
+          "l": "out",
+          "m": "release standard met: 3 service(s) for v1.4.2",
+          "p": "validateTicket.groovy::release standard met:"
+        },
+        {
+          "l": "out",
+          "m": "  every problem is reported at once: stopping at the first one teaches people to fix one field and re-run",
+          "p": "validateTicket.groovy::Every"
+        },
+        {
+          "l": "out",
+          "m": "  the problems go back to the ticket before the build is failed",
+          "p": "validateTicket.groovy::commentOnTicket"
+        }
+      ],
+      "labels": [
+        {
+          "l": "cmd",
+          "m": "getReleaseLabels(allLabels)",
+          "p": "GatewaySIT.groovy::getReleaseLabels"
+        },
+        {
+          "l": "out",
+          "m": "  labels on FIN-471: R1.4, regression, settlement",
+          "p": "GatewaySIT.groovy::releasePattern"
+        },
+        {
+          "l": "out",
+          "m": "  /^R1\\.\\d+$/ matched R1.4",
+          "p": "GatewaySIT.groovy::releasePattern"
+        },
+        {
+          "l": "out",
+          "m": "  which release this ticket belongs to, read off the ticket rather than typed into a form",
+          "p": "GatewaySIT.groovy::findAll"
+        },
+        {
+          "l": "out",
+          "m": "  the artifact can also come from the ticket itself: the latest attachment matching a pattern",
+          "p": "GatewaySIT.groovy::getJiraAttachmentUrl"
+        }
+      ],
+      "credentials": [
+        {
+          "l": "cmd",
+          "m": "vaultCredentials(role: 'sit-deploy', ttl: '10m') { ... }",
+          "p": "vaultCredentials.groovy::vaultCredentials: role is required"
+        },
+        {
+          "l": "out",
+          "m": "+ printf %s <jwt> | vault write -field=token -no-table jwt/issue/sit-deploy ttl=10m -",
+          "p": "vaultCredentials.groovy::vault write -field=token"
+        },
+        {
+          "l": "out",
+          "m": "lease issued role=sit-deploy mount=jwt ttl=10m",
+          "p": "vaultCredentials.groovy::lease issued role="
+        },
+        {
+          "l": "out",
+          "m": "lease revoking role=sit-deploy",
+          "p": "vaultCredentials.groovy::lease revoking role="
+        },
+        {
+          "l": "out",
+          "m": "+ vault token revoke -self",
+          "p": "vaultCredentials.groovy::vault token revoke -self"
+        },
+        {
+          "l": "out",
+          "m": "  the token is never echoed and never a command argument: arguments land in the step log and in ps",
+          "p": "vaultCredentials.groovy::never echoed"
+        },
+        {
+          "l": "out",
+          "m": "  the token arrives inside withEnv as an environment variable, never as an argument",
+          "p": "vaultCredentials.groovy::withEnv"
+        },
+        {
+          "l": "out",
+          "m": "  the lease is still revoked when the stage fails halfway: the finally block is the only exit",
+          "p": "vaultCredentials.groovy::finally"
+        }
+      ],
+      "quality": [
+        {
+          "l": "cmd",
+          "m": "qualityGate(deploy: result, quality: sq, scan: scan, issue: ISSUE_KEY)",
+          "p": "qualityGate.groovy::GateResult.evaluate"
+        },
+        {
+          "l": "out",
+          "m": "  coverage 81.4% (floor 40.0%) \u00b7 duplication 3.1% (ceiling 8.0%)",
+          "p": "GateResult.groovy::coverageFloor"
+        },
+        {
+          "l": "out",
+          "m": "Quality gate: passed. 1 medium finding accepted for this release",
+          "p": "qualityGate.groovy::Quality gate: passed"
+        },
+        {
+          "l": "out",
+          "m": "  the comment is written before the build is failed, so the engineer who reads it tomorrow gets a reason",
+          "p": "qualityGate.groovy::written before the build is failed"
+        },
+        {
+          "l": "out",
+          "m": "  the same comment path the GitLab job uses, reached from the other engine",
+          "p": "qualityGate.groovy::commentOnTicket"
+        }
+      ],
+      "gate": [
+        {
+          "l": "cmd",
+          "m": "GateResult.evaluate([deploy: deployResult, quality: sq, scan: scan])",
+          "p": "GateResult.groovy::static Map evaluate(Map input)"
+        },
+        {
+          "l": "out",
+          "m": "THRESHOLDS critical=0 high=5 coverageFloor=40.0 duplicationCeiling=8.0",
+          "dyn": "thresholds",
+          "p": "GateResult.groovy::criticalVulnerabilities"
+        },
+        {
+          "l": "out",
+          "m": "  deploy: success \u00b7 quality: passed \u00b7 scan: 3 findings, sbom present",
+          "p": "GateResult.groovy::severityCounts"
+        },
+        {
+          "l": "ok",
+          "m": "gate passed",
+          "p": "GateResult.groovy::gate passed",
+          "when": "passed"
+        },
+        {
+          "l": "out",
+          "m": "  absent evidence fails: a scanner that timed out and a clean image look identical unless the code says otherwise",
+          "p": "GateResult.groovy::no report, treated as unscanned"
+        },
+        {
+          "l": "out",
+          "m": "  one of the failure strings is exact: sbom: not produced, a release nobody can inventory",
+          "p": "GateResult.groovy::sbom: not produced"
+        },
+        {
+          "l": "err",
+          "m": "gate failed: vulnerabilities: 1 critical (allowed 0)",
+          "p": "GateResult.groovy::gate failed: ",
+          "when": "refused"
+        }
+      ],
+      "plan": [
+        {
+          "l": "cmd",
+          "m": "deployPlan(manifest: release.json, env: 'sit', issue: ISSUE_KEY)",
+          "p": "deployPlan.groovy::DeploymentPlan.build"
+        },
+        {
+          "l": "out",
+          "m": "plan: 3 service(s) in 2 wave(s)",
+          "p": "deployPlan.groovy::plan: "
+        },
+        {
+          "l": "out",
+          "m": "  deploy 1001 (jar) wm 4e21c7f0",
+          "p": "deployPlan.groovy::triggerServicePipeline"
+        },
+        {
+          "l": "out",
+          "m": "  deploy 1006 (image) wm 9b3b1d55",
+          "p": "deployPlan.groovy::triggerServicePipeline"
+        },
+        {
+          "l": "out",
+          "m": "  deploy 1020 (web) wm 2c8f6a10",
+          "p": "deployPlan.groovy::triggerServicePipeline"
+        },
+        {
+          "l": "out",
+          "m": "  a wave that partially failed stops the next one: the release is the unit of correctness",
+          "p": "deployPlan.groovy::wave "
+        },
+        {
+          "l": "out",
+          "m": "  rendered into jenkins/templates/deployment.yaml, applied to ci-sit-ledger-service",
+          "p": "deployment.yaml::{NAMESPACE}"
+        },
+        {
+          "l": "out",
+          "m": "  a service already on the environment is announced as skipped, not dropped quietly",
+          "p": "deployPlan.groovy::skip"
+        }
+      ],
+      "promote": [
+        {
+          "l": "cmd",
+          "m": "ReleaseRules.validatePromotion('sit', 'uat')",
+          "p": "ReleaseRules.groovy::validatePromotion"
+        },
+        {
+          "l": "out",
+          "m": "  ENV_TARGET_BRANCH maps each environment to the branch a promotion merges into",
+          "p": "ReleaseRules.groovy::ENV_TARGET_BRANCH"
+        },
+        {
+          "l": "out",
+          "m": "  the button is here; the right to press it is the approval chain",
+          "p": "mergeApprove.groovy::approvalChainProblems"
+        }
+      ],
+      "notify": [
+        {
+          "l": "cmd",
+          "m": "mergeApprove(approvals: chain, merger: currentActor, issue: ISSUE_KEY)",
+          "p": "mergeApprove.groovy::approvalChainProblems"
+        },
+        {
+          "l": "out",
+          "m": "approval chain: layers=5 problems=0 merger=eng-manager-3",
+          "p": "mergeApprove.groovy::approval chain: layers="
+        },
+        {
+          "l": "out",
+          "m": "merge approved by chain: eng-manager-3 merging as be-core-lead",
+          "p": "mergeApprove.groovy::merge approved by chain:",
+          "when": "passed"
+        },
+        {
+          "l": "out",
+          "m": "  whoever signed the last layer may not merge it: checked where the merge happens, not where the approval was recorded",
+          "p": "mergeApprove.groovy::Segregation of duties"
+        },
+        {
+          "l": "out",
+          "m": "  the refusal is a count of problems; the detail is on the ticket",
+          "p": "mergeApprove.groovy::merge refused"
+        },
+        {
+          "l": "err",
+          "m": "merge refused: 1 problem(s)",
+          "p": "mergeApprove.groovy::merge refused",
+          "when": "refused"
+        }
+      ]
+    }
+  },
+  "gate": [
+    {
+      "l": "cmd",
+      "m": "$ release-rules evaluate --manifest release.json --scan trivy-report.json --quality sonar-gate.json",
+      "p": "run-gate.groovy::--manifest"
+    },
+    {
+      "l": "out",
+      "m": "THRESHOLDS  critical=0  high=5  coverageFloor=40.0  duplicationCeiling=8.0",
+      "p": "GateResult.groovy::criticalVulnerabilities",
+      "dyn": "thresholds"
+    },
+    {
+      "l": "out",
+      "m": "scan.findings   critical 0  high 2  medium 1  low 0",
+      "p": "GateResult.groovy::severityCounts",
+      "dyn": "counts"
+    },
+    {
+      "l": "out",
+      "m": "approvals       team business product architecture engineering  (distinct identities required)",
+      "p": "ReleaseRules.groovy::approvalChainProblems"
+    },
+    {
+      "l": "out",
+      "m": "plan            core-api tier 1  messaging tier 1  portal tier 3",
+      "p": "DeploymentPlan.groovy::TIER",
+      "dyn": "plan"
+    },
+    {
+      "l": "out",
+      "m": "waves           1: core-api,messaging  2: portal",
+      "p": "DeploymentPlan.groovy::waves"
+    },
+    {
+      "l": "ok",
+      "m": "gate passed",
+      "p": "GateResult.groovy::gate passed",
+      "dyn": "summary"
+    },
+    {
+      "l": "warn",
+      "m": "  warning: 1 medium finding accepted for this release",
+      "p": "GateResult.groovy::medium findings accepted",
+      "dyn": "warnings"
+    },
+    {
+      "l": "out",
+      "m": "refused, when it happens, reads: deploy: no result reported \u00b7 quality gate: no status received, treated as failed \u00b7 vulnerability scan: no report, treated as unscanned \u00b7 sbom: not produced, a release nobody can inventory",
+      "p": "GateResult.groovy::treated as unscanned"
+    },
+    {
+      "l": "err",
+      "m": "",
+      "p": "GateResult.groovy::treated as unscanned",
+      "dyn": "failures"
+    },
+    {
+      "l": "out",
+      "m": "the same lines are what GateResult.evaluate returns in Groovy, and rules/fixture.json is what holds the port to them",
+      "p": "GateResult.groovy::static Map verdict"
+    }
+  ]
+}

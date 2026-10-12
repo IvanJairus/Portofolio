@@ -87,8 +87,8 @@ file = file.replace(mail, (match, attrs, content) => {
 
 /* ---------- 3. containers rebuilt the way main.js builds them ---------- */
 
-// Mencari penutup yang cocok untuk sebuah div bersarang, karena blok timeline
-// berisi div di dalam div dan pola non-greedy akan berhenti terlalu cepat.
+// Find the matching close for a nested div, because the timeline block
+// holds divs inside divs and a non-greedy pattern would stop too early.
 function innerBlock(startTag) {
   const at = file.indexOf(startTag);
   if (at < 0) return null;
@@ -148,4 +148,4 @@ if (check && touched) {
 }
 
 if (!check && touched) fs.writeFileSync(path.join(root, "index.html"), file);
-console.log(`${check ? "parity ok" : "synced"}: ${touched} tempat diubah, ${Object.keys(STRINGS).length} kunci i18n, ${PROFILE.experience.length} entri pengalaman, ${PROFILE.links.length} tautan`);
+console.log(`${check ? "parity ok" : "synced"}: ${touched} places changed, ${Object.keys(STRINGS).length} i18n keys, ${PROFILE.experience.length} experience entries, ${PROFILE.links.length} links`);

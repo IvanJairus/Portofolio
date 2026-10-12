@@ -36,9 +36,84 @@ All notable changes to this repository are documented here. The format follows
   rows, each pointing at the file or the job on this page where the tool actually
   appears, so a reader can check the claim by scrolling instead of by trusting a
   list.
+- **A console line now has to name the statement that prints it.**
+  `scripts/check-traces.mjs` used to be satisfied when a line's probe substring
+  appeared anywhere in the pinned file, which is a weak claim: a log line could
+  cite a comment three hundred lines away from the code that logs it. A line that
+  presents itself as output (`log`, `ok`, `warn`, `err`, and not tool output) now
+  has to resolve to a line containing a printing statement (`echo`, `printf`,
+  `log INFO`, `log(...)`, `failures <<`, `error(...)`) or to a string literal the
+  message begins with. Of the 217 lines on the page, 62 are traced to the
+  statement that prints them, 25 are attributed to a tool the pinned file
+  invokes, and the remainder are command lines and the annotations that point at
+  the code they explain.
+- **The pin line says what it counted.** `32 files pinned by SHA-256` and `217
+  console lines` are both read out of the lock and the trace data as the page
+  loads, so neither number can go stale the way a typed one does.
+- **The page hashes the file it is showing.** When a source panel finishes
+  fetching a vendored file, it computes that file's SHA-256 in the browser
+  (`assets/js/release-rules.mjs`, the same pure implementation the golden checks
+  use) and compares it with the lock. The panel head then says either `sha256
+  3b4326204192 matches the pin` or `DOES NOT MATCH the pin ...`. CI proving
+  byte-identity upstream and the page proving it here are two different things,
+  and only the second one is evidence for the reader.
+- **The vendored files are fetched by a script.** `scripts/sync-sources.mjs`
+  downloads every file listed by `assets/data/sources.json` at the pinned commit,
+  validates each highlight range and each job-to-file mapping before writing
+  anything, and regenerates the bodies, the line counts in `sources.json` and
+  `rules.lock.json` together. Before this, adding a file meant editing four
+  places by hand and hoping.
+
+### Changed
+
+- **The consoles are three times longer.** The page drew 65 console lines from an
+  array written next to the source data; it now draws 217 from
+  `assets/data/traces.json`, one entry per line, each with its own probe. The
+  extra length is not padding: the GitLab panel now narrates the scan jobs, the
+  contract job and the promotion windows, and the Jenkins panel narrates the
+  webhook payload, the label matching and the Vault lease, which is where the
+  interesting logic actually is.
+- **The consoles are a table.** Every line is four columns now (time, level,
+  scope, message) on a CSS grid whose rows are `display: contents`, so the columns
+  line up down the whole panel instead of drifting with the length of each
+  message. Measured after the fix: at 1440 the four tracks are 90 / 14 / 14 / 378
+  px and every row starts at x 199, 297, 319, 341; at 390 the scope column
+  collapses to 0 and rows start at x 21, 119, 149. Pinning `grid-column` per cell
+  was necessary: a hidden scope cell otherwise re-orders the auto-placement of
+  everything after it.
+- **The trivy console stopped claiming it printed a table row.** Three lines were
+  composed by the page and probed against a threshold constant: a HIGH finding
+  with "2 of 5 allowed" glued to it, a "within thresholds" verdict, and a CRITICAL
+  row with "allowed 0". The two finding rows are now attributed to trivy, which is
+  what produces them, and the threshold comparison is an annotation that points at
+  `GateResult.THRESHOLDS` and says the gate adds no failure. The `✓` line is gone,
+  because nothing in the repository prints it.
+- **The last Indonesian on the site was in the sample SAST email.** The callout,
+  the section heading, the two status pills, the attachment note and one word in a
+  subject line are English now, which also retires the note that explained why the
+  report text "stays in Indonesian". The arrow between the two ecosystems read
+  "migrated the standard, not just the tools"; it says "same standard, different
+  tools", which is the same fact without the construction.
+- **The comments followed the copy.** 593 comment lines in 14 files (`base.css`,
+  `showcase.css`, `components.css`, `main.js`, `showcase.js`, `index.html`, the
+  two workflows, and six smaller ones) were still Indonesian, written as notes to
+  myself. They are English now, including six CI messages that only a person
+  reading an Actions log would see, and the parity script's own summary line. The
+  change is provably comment-only: stripping every comment from the two versions
+  of each file leaves byte-identical code.
 
 ### Fixed
 
+- **The page contradicted itself about the scan findings.** The trivy console
+  printed `Total: 3 (CRITICAL: 0, HIGH: 2, MEDIUM: 1, LOW: 0)` under a command
+  that asked for `--severity CRITICAL,HIGH`, and the gate card below it computed
+  `critical 0 high 1 medium 1 low 1` from a findings list that had nothing to do
+  with the table above. Three separate untruths in one screen. The severity list
+  is now `CRITICAL,HIGH,MEDIUM` in the three stage templates that scan images
+  (`0774a5b` upstream), the gate's input is the finding list those two example
+  reports actually contain, and the refused run got its own `Total: 4` line
+  instead of borrowing the passing one. The consoles and the gate card now agree
+  on every count in both outcomes: 0/2/1/0 passed, 1/2/1/0 refused.
 - **A panel could name a file it never loaded.** `v1.4.0` was tagged at `52e3298`;
   this landed after it. Deep-linking into the Jenkins gate selected a job whose
   source is `GateResult.groovy`, and the panel printed the file name with no line

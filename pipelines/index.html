@@ -53,10 +53,10 @@
         <p class="lead">
           The release rules published in
           <a href="https://github.com/IvanJairus/Pipeline" rel="noopener noreferrer">IvanJairus/Pipeline</a> run on
-          both engines my teams use, and they decide the same way on both. The GitLab page and the Jenkins graph
-          are on one sheet below, each with its own console beside its own source, so a job and the file that
-          produced it are read together instead of one at a time. Change the outcome once and watch both refuse for
-          the same sentence.
+          both engines my teams use, and they decide the same way on both. Below, the GitLab page and the Jenkins
+          graph sit on one sheet, each with its own console beside its own source, so you read a job and the file
+          that produced it side by side. Switch the outcome once: both engines refuse, quoting the same sentence
+          from the same class.
         </p>
 
         <div class="pv-controls">
@@ -67,8 +67,9 @@
           <p class="pv-legend mono" id="legend">one branch, one manifest, one gate. Both panels answer to the switch.</p>
         </div>
 
-        <p class="pv-fine mono">Times in the consoles below are your browser's clock as this page draws the replay. They are not the times of the original run, and the two durations that do come from a measurement are labelled with their sample size.</p>
+        <p class="pv-fine mono">Times in the consoles are your browser's clock as this page draws the replay, not the times of the original run. The two durations that come from a measurement carry their sample size. Every line in a console is printed by a statement in a pinned file, is output of a tool that file runs, or is a value read off it; a CI job checks them one by one, and that check ships in the same repository.</p>
         <p class="pv-selfcheck mono" id="selfcheck" aria-live="polite">checking the port against the fixture…</p>
+        <p class="pv-pin mono" id="pin"></p>
       </div>
     </section>
 
@@ -136,7 +137,7 @@
             <p class="eyebrow mono">engine 2 · Jenkins</p>
             <h2>Blue Ocean nodes, started by a Jira transition.</h2>
           </div>
-          <p class="pv-enote">This one begins from a webhook body rather than a merge request: <code>jenkins/GatewaySIT.groovy</code>.</p>
+          <p class="pv-enote">This one begins from a webhook body rather than a merge request: <code>jenkins/GatewaySIT.groovy</code>. The scan itself runs in the downstream service pipeline, so a finding refuses at the gate node here instead of at a scan node.</p>
         </div>
 
         <div class="pv-card" data-engine="jenkins">
@@ -278,9 +279,18 @@
           <div class="pv-proof-card">
             <h3>The source is pinned to a commit</h3>
             <p>
-              Twenty-five repository files are vendored here verbatim and pinned by SHA-256 against one commit. CI
+              Thirty-two repository files are vendored here verbatim and pinned by SHA-256 against one commit. CI
               refetches that commit and compares bytes, so a stale copy fails the build instead of quietly becoming
-              a second implementation.
+              a second implementation. The file you are reading is hashed again in your browser, and the digest
+              sits in the corner of the source panel.
+            </p>
+          </div>
+          <div class="pv-proof-card">
+            <h3>The consoles are checked against the code</h3>
+            <p>
+              Every line in every trace points at the pinned file that runs the command or prints the message:
+              215 lines, each with a substring a script looks for. A line that names no file fails the build, and a
+              line whose text is not in the file it cites fails too.
             </p>
           </div>
           <div class="pv-proof-card">

@@ -1,7 +1,7 @@
 {
   "note": "Every file under assets/data/src/ is vendored verbatim from one pinned commit of IvanJairus/Pipeline by scripts/sync-sources.mjs, which also writes rules.lock.json and the line counts here. Do not edit a file body here or on disk: change upstream, bump ref, re-sync. scripts/check-rules-sync.mjs fails if any of that drifts.",
   "upstream": "IvanJairus/Pipeline",
-  "ref": "c488f25277f23bdcb84a557a06f8641ea955433a",
+  "ref": "0774a5b6e9c13d0accd0cd8163306dd693b0fb20",
   "engines": {
     "gitlab": {
       "tree": [
@@ -27,7 +27,7 @@
           "f": "templates/backend.yml",
           "k": "backend.yml",
           "path": "ci-library/templates/backend.yml",
-          "lines": 323
+          "lines": 326
         },
         {
           "f": "templates/web.yml",
@@ -48,31 +48,31 @@
           "f": "scripts/publish-artifact.sh",
           "k": "publish-artifact.sh",
           "path": "ci-library/scripts/publish-artifact.sh",
-          "lines": 189
+          "lines": 298
         },
         {
           "f": "scripts/deploy.sh",
           "k": "deploy.sh",
           "path": "ci-library/scripts/deploy.sh",
-          "lines": 260
+          "lines": 302
         },
         {
           "f": "scripts/ticket-sync.sh",
           "k": "ticket-sync.sh",
           "path": "ci-library/scripts/ticket-sync.sh",
-          "lines": 122
+          "lines": 178
         },
         {
           "f": "scripts/observability-push.sh",
           "k": "observability-push.sh",
           "path": "ci-library/scripts/observability-push.sh",
-          "lines": 161
+          "lines": 185
         },
         {
           "f": "scripts/run-gate.groovy",
           "k": "run-gate.groovy",
           "path": "ci-library/scripts/run-gate.groovy",
-          "lines": 245
+          "lines": 292
         },
         {
           "d": "tools"
@@ -81,13 +81,13 @@
           "f": "tools/release_stamp.py",
           "k": "release_stamp.py",
           "path": "ci-library/tools/release_stamp.py",
-          "lines": 313
+          "lines": 379
         },
         {
           "f": "tools/ticket_sync.py",
           "k": "ticket_sync.py",
           "path": "ci-library/tools/ticket_sync.py",
-          "lines": 320
+          "lines": 374
         },
         {
           "d": "the manifest this run reads"
@@ -97,6 +97,27 @@
           "k": "release.json",
           "path": "ci-library/examples/release.json",
           "lines": 41
+        },
+        {
+          "d": "the other three stage sets the router picks between"
+        },
+        {
+          "f": "templates/platform.yml",
+          "k": "platform.yml",
+          "path": "ci-library/templates/platform.yml",
+          "lines": 159
+        },
+        {
+          "f": "templates/library.yml",
+          "k": "library.yml",
+          "path": "ci-library/templates/library.yml",
+          "lines": 133
+        },
+        {
+          "f": "templates/mobile.yml",
+          "k": "mobile.yml",
+          "path": "ci-library/templates/mobile.yml",
+          "lines": 141
         }
       ],
       "jobs": {
@@ -280,13 +301,13 @@
           "f": "validateTicket.groovy",
           "k": "validateTicket.groovy",
           "path": "shared-library/vars/validateTicket.groovy",
-          "lines": 23
+          "lines": 25
         },
         {
           "f": "vaultCredentials.groovy",
           "k": "vaultCredentials.groovy",
           "path": "shared-library/vars/vaultCredentials.groovy",
-          "lines": 31
+          "lines": 34
         },
         {
           "f": "qualityGate.groovy",
@@ -304,7 +325,7 @@
           "f": "mergeApprove.groovy",
           "k": "mergeApprove.groovy",
           "path": "shared-library/vars/mergeApprove.groovy",
-          "lines": 23
+          "lines": 24
         },
         {
           "d": "rendered by the plan, applied by the platform"
@@ -484,5 +505,27 @@
         "why": "the thresholds the console prints, and the rule that absent evidence fails"
       }
     }
-  }
+  },
+  "support": [
+    {
+      "k": "build-maven.sh",
+      "path": "ci-library/scripts/build-maven.sh",
+      "lines": 156
+    },
+    {
+      "k": "run-scan.sh",
+      "path": "ci-library/scripts/run-scan.sh",
+      "lines": 313
+    },
+    {
+      "k": "setup-vault-jwt.sh",
+      "path": "ci-library/scripts/setup-vault-jwt.sh",
+      "lines": 88
+    },
+    {
+      "k": "deployment-gateway.yaml",
+      "path": "ci-library/templates/deployment.yaml",
+      "lines": 93
+    }
+  ]
 }

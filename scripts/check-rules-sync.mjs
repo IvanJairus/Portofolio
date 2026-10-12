@@ -84,7 +84,7 @@ for (const [local, spec] of Object.entries(lock.files)) {
 const sources = JSON.parse(readFileSync(join(root, 'assets/data/sources.json'), 'utf8'));
 const localFor = (k) => (k === 'fixture.json' ? 'assets/data/fixture.json' : `assets/data/src/${k}`);
 const listed = new Map();
-for (const group of [...Object.values(sources.engines).map((e) => e.tree), sources.gate.tree]) {
+for (const group of [...Object.values(sources.engines).map((e) => e.tree), sources.gate.tree, sources.support || []]) {
   for (const node of group) if (node.k) listed.set(node.k, node);
 }
 for (const [k, node] of listed) {

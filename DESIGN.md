@@ -132,6 +132,24 @@ the console header and each line keeps only its time: a 150-character-wide stamp
 inside a 350px panel leaves the message unreadable, and the date is the same on
 every line anyway.
 
+## What a console line is allowed to say
+
+A console on this page is a claim about software that exists elsewhere, so every
+line carries a probe: `<fileKey>::<substring>`, where the substring has to appear
+literally in the pinned file. `scripts/check-traces.mjs` enforces that in CI, and
+it enforces one step further. A line that presents itself as something the
+pipeline printed has to resolve to the statement that prints it (`echo`, `printf`,
+`log INFO`, `log(...)`, `failures <<`, `error(...)`) or to a string literal the
+message begins with. A line attributed to `maven`, `trivy`, `semgrep`, `gitleaks`,
+`syft`, `sonar` or `kaniko` has to name the pinned file that invokes that tool, so
+the claim is "this pipeline runs trivy" rather than "imagine what trivy printed".
+
+The consequence is worth stating plainly: some lines in these consoles are not
+output. An indented line under a command is an annotation about the code the probe
+points at, and it is drawn without a level so it cannot be mistaken for a log.
+When the page cannot find a statement that prints something, the line does not go
+on the page.
+
 ## Geometry reserved for JavaScript
 
 `/pipelines/` is painted by a module that runs after the browser has shown the
@@ -141,6 +159,12 @@ keeps its three states to one line. Without that, the page moved 82px under the
 reader on load and measured CLS 0.30 while the site publishes CLS 0. The numbers
 are re-measured with `_pv2.html` whenever the default state changes; they are
 comments in the CSS, not folklore.
+
+Inside `.pv-log` the rows are a four-column grid (time, level, scope, message) and
+each row is `display: contents`, so a message that wraps lands under the message
+column instead of under the timestamp. `grid-column` is pinned on every cell
+because a hidden scope cell otherwise re-starts auto-placement and shifts the rest
+of the row one column to the left.
 
 ## The one dark side of this file
 

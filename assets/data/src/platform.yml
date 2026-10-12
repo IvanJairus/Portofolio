@@ -1,0 +1,159 @@
+# Pipeline template for the platform layer: config server, service discovery, edge.
+#
+# What sets this apart is not the runtime but what counts as broken. For a business
+# service, a failure means one team is slowed down. For the platform layer, a
+# failure means NO service can find any other service. That is why this file has
+# one thing no other template has: a rollback step that the deploy job runs
+# automatically, instead of a human reading logs at two in the morning.
+
+image: maven:3.9-eclipse-temurin-17
+
+variables:
+  GIT_DEPTH: "0"
+  REGISTRY: "registry.example.internal/platform"
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+  TIER: "2"
+
+cache:
+  key:
+    files:
+      - pom.xml
+  paths:
+    - .m2/repository
+  policy: pull-push
+
+stages:
+  - build
+  - test
+  - scan
+  - gate
+  - deploy
+  - promote
+  - feedback
+
+build:release-stamp:
+  stage: build
+  needs: []
+  script:
+    - python3 ci-library/tools/release_stamp.py --tag-prefix "P" --output "build-info.json"
+  artifacts:
+    paths:
+      - build-info.json
+
+build:maven-package:
+  stage: build
+  needs:
+    - job: build:release-stamp
+      artifacts: true
+  script:
+    - bash ci-library/scripts/build-maven.sh package "$CI_PROJECT_DIR"
+  artifacts:
+    paths:
+      - target/*.jar
+
+build:docker-image:
+  stage: build
+  needs:
+    - job: build:maven-package
+      artifacts: true
+  image:
+    name: gcr.io/kaniko-project/executor:v1.23.2-debug
+    entrypoint: [""]
+  script:
+    - bash ci-library/scripts/publish-artifact.sh push
+  artifacts:
+    paths:
+      - image-digest.txt
+
+test:unit:
+  stage: test
+  needs:
+    - job: build:maven-package
+      artifacts: true
+  script:
+    - bash ci-library/scripts/build-maven.sh test "$CI_PROJECT_DIR"
+  artifacts:
+    when: always
+    reports:
+      junit: target/surefire-reports/TEST-*.xml
+
+test:config-contract:
+  stage: test
+  # CI checks the config contract against the schema that around 40 other repos
+  # use. One changed key in the config server can stop another team's service from
+  # starting, and that has to surface here, not in a production namespace.
+  needs: []
+  script:
+    - python3 ci-library/tools/release_stamp.py --check-config config/schema.json
+  artifacts:
+    when: always
+    paths:
+      - config-contract.json
+
+scan:container-trivy:
+  stage: scan
+  needs:
+    - job: build:docker-image
+      artifacts: true
+  image: aquasec/trivy:0.53.0
+  script:
+    - trivy image --severity CRITICAL,HIGH,MEDIUM --format json --output trivy-report.json "$REGISTRY/$CI_PROJECT_NAME@$(cat image-digest.txt)"
+  artifacts:
+    when: always
+    paths:
+      - trivy-report.json
+
+gate:release-rules:
+  stage: gate
+  needs:
+    - job: scan:container-trivy
+      artifacts: true
+    - job: build:release-stamp
+      artifacts: true
+  image: groovy:4.0-jdk17
+  script:
+    - groovy -cp shared-library/src ci-library/scripts/run-gate.groovy
+      --manifest release.json --scan trivy-report.json
+  artifacts:
+    when: always
+    paths:
+      - gate-verdict.json
+      - gate-summary.txt
+
+deploy:sit:
+  stage: deploy
+  resource_group: platform-sit
+  needs:
+    - job: gate:release-rules
+      artifacts: true
+    - job: build:docker-image
+      artifacts: true
+  script:
+    - bash ci-library/scripts/deploy.sh apply --env sit --digest "$(cat image-digest.txt)"
+    - bash ci-library/scripts/deploy.sh wait --env sit --timeout 240 --auto-rollback
+  environment:
+    name: sit
+  # Auto-rollback is for the platform layer only. On a business service it would
+  # hide the cause of the failure from the team that has to fix it.
+  after_script:
+    - bash ci-library/scripts/observability-push.sh deploy || true
+
+promote:uat:
+  stage: promote
+  needs:
+    - job: deploy:sit
+  script:
+    - bash ci-library/scripts/deploy.sh promote --from sit --to uat
+  environment:
+    name: uat
+  when: manual
+  allow_failure: false
+
+feedback:observability:
+  stage: feedback
+  when: always
+  needs:
+    - job: gate:release-rules
+      artifacts: true
+  script:
+    - bash ci-library/scripts/observability-push.sh pipeline

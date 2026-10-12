@@ -42,7 +42,7 @@ const PORTED = [
 
 const localFor = (k) => (k === 'fixture.json' ? 'assets/data/fixture.json' : `assets/data/src/${k}`);
 
-const trees = [...Object.values(sources.engines).map((e) => e.tree), sources.gate.tree];
+const trees = [...Object.values(sources.engines).map((e) => e.tree), sources.gate.tree, sources.support || []];
 const entries = [];
 for (const group of trees) {
   for (const node of group) if (node.k) entries.push({ local: localFor(node.k), upstream: node.path, node });

@@ -4,20 +4,20 @@ on:
   pull_request:
   workflow_dispatch:
   schedule:
-    # Cek header produksi sekali sehari. Ini bukan pemeriksaan kode, tapi
-    # pemeriksaan apa yang benar-benar dikirim ke pengunjung: kalau Vercel
-    # suatu hari mengabaikan vercel.json, temuan ini muncul di sini, bukan di
-    # laporan audit tahun depan.
+    # Checks the production headers once a day. This is not a code review, it is a
+    # check of what actually reaches visitors: if Vercel one day ignores
+    # vercel.json, that finding shows up here, not in
+    # next year's audit report.
     - cron: "17 6 * * *"
 permissions:
   contents: read
 
-# Halaman ini dijual dengan klaim "gates enforced", dan halaman itu sendiri
-# menerbitkan angka Lighthouse. Angka itu sampai sekarang tidak ditegakkan oleh
-# CI mana pun: security.yml menjalankan gitleaks, lychee dan html-validate, tapi
-# tidak ada satu job pun yang mengukur performa atau aksesibilitas. Workflow ini
-# menutup celah itu tanpa menyentuh security.yml dan tanpa menambah dependency ke
-# repo (tetap tidak ada package.json, tidak ada bundler, tidak ada CDN).
+# This page is sold with the claim "gates enforced", and the page itself
+# publishes Lighthouse numbers. Until now no
+# CI enforced them: security.yml runs gitleaks, lychee and html-validate, but
+# no job measures performance or accessibility. This workflow
+# closes that gap without touching security.yml and without adding a dependency to the
+# repo (still no package.json, no bundler, no CDN).
 jobs:
   lighthouse:
     name: Lighthouse gate (mobile)
@@ -28,21 +28,21 @@ jobs:
         with:
           node-version: 20
 
-      # Situs diukur persis seperti cara ia dijalankan secara lokal: file statis
-      # yang disajikan python3 -m http.server, bukan lewat domain produksi, supaya
-      # hasil ini tidak bergantung pada jaringan atau pada status deploy.
-      # Server, pengukuran dan gerbang berada dalam satu step agar server tidak
-      # bisa hidup lebih panjang daripada pengukuran, dan 127.0.0.1 ditulis apa
-      # adanya - bukan "localhost" - karena nama itu bisa resolve ke ::1 sementara
-      # http.server di sini hanya bind ke IPv4.
-      # Batas jujur dari gerbang ini: Lighthouse mengukur halaman seperti yang
-      # disajikan saat dimuat. State yang butuh interaksi - tab replica terpilih,
-      # chip lifecycle, langkah walkthrough - tidak pernah dibuka, jadi temuan
-      # kontras di state itu lolos dari pemeriksaan color-contrast di bawah dan
-      # harus tetap dicari dengan sapuan kontras manual, bukan dianggap aman.
-      # Untuk /pipelines/ yang sama: pane Source dan Rules ber-display:none saat
-      # dimuat, jadi warna di dalamnya tidak diperiksa axe dan harus disentuh
-      # manual (sapuan 2026-10-10: 15 pasangan, satu diperbaiki).
+      # The site is measured exactly the way it runs locally: static files
+      # served by python3 -m http.server, not through the production domain, so this
+      # result depends on neither the network nor the deploy status.
+      # Server, measurement and gate live in one step so the server cannot
+      # outlive the measurement, and 127.0.0.1 is written exactly
+      # as it is, not "localhost", because that name can resolve to ::1 while
+      # the http.server here binds to IPv4 only.
+      # The honest limit of this gate: Lighthouse measures the page as it is
+      # served on load. States that need interaction (the selected replica tab,
+      # the lifecycle chips, the walkthrough steps) are never opened, so contrast
+      # findings in those states slip past the color-contrast check below and
+      # must still be hunted with a manual contrast sweep, not assumed safe.
+      # For the same /pipelines/: the Source and Rules panes are display:none at
+      # load, so their colors are never checked by axe and have to be covered
+      # by hand (2026-10-10 sweep: 15 pairs, one fixed).
       - name: Serve locally, measure, assert
         run: |
           python3 -m http.server 8731 --bind 127.0.0.1 >/tmp/httpd.log 2>&1 &
@@ -58,41 +58,41 @@ jobs:
             sleep 1
           done
           if [ "$ready" != 1 ]; then
-            echo "server lokal tidak menjawab di 127.0.0.1:8731" >&2
+            echo "local server not answering on 127.0.0.1:8731" >&2
             cat /tmp/httpd.log >&2
             exit 1
           fi
 
-          # Versi di-pin persis ke 13.5.0, angka yang sama yang dipakai untuk
-          # mengukur baseline di laporan ini (FCP 2.1s, LCP 2.9s, 345 KiB).
-          # npx mengambil tooling saat CI berjalan - sama seperti job
-          # html-validate di security.yml - jadi tidak ada dependency yang masuk
-          # ke repo.
+          # The version is pinned exactly to 13.5.0, the same number used to
+          # measure the baseline in this report (FCP 2.1s, LCP 2.9s, 345 KiB).
+          # npx pulls the tooling while CI runs, like the
+          # html-validate job in security.yml, so no dependency ends up
+          # in the repo.
           #
-          # --force-prefers-reduced-motion dipakai supaya CI mengukur konfigurasi
-          # yang SAMA dengan angka yang situs ini publikasikan: setiap baseline di
-          # riwayat commit diukur dengan flag itu, dan situs memang menghormati
-          # prefers-reduced-motion. Tanpa flag ini, run pertama di runner melaporkan
-          # Performance 84 dan Total Blocking Time 369 ms (artifact lighthouse-mobile,
-          # run 37716948530) karena jalur beranimasi berjalan di bawah throttle 4x
-          # CPU bersama. Angka itu dicatat di sini, bukan disembunyikan: ia adalah
-          # biaya jalur animasi di mesin lemah, dan kalau nanti ingin dikejar, itu
-          # pekerjaan menunda render showcase.js - bukan menaikkan budget.
-          # Runner bersama berisik: satu pengukuran bisa 369 ms TBT lalu 120 ms untuk
-          # kode yang sama. Karena itu gerbang ini dijalankan maksimal dua kali dan
-          # LULUS jika salah satu run memenuhi semua budget (berhenti lebih awal begitu
-          # lolos). Yang diulang adalah kesempatannya, bukan ambangnya - angka budget di
-          # assert-lighthouse.mjs tetap ketat dan tidak dinaikkan demi mengakomodasi
-          # noise. Ini pola yang sama dipakai Lighthouse CI (median dari N run).
+          # --force-prefers-reduced-motion is used so CI measures the configuration
+          # that MATCHES the numbers this site publishes: every baseline in the
+          # commit history was measured with that flag, and the site does honor
+          # prefers-reduced-motion. Without this flag the first run on the runner reported
+          # Performance 84 and 369 ms Total Blocking Time (artifact lighthouse-mobile,
+          # run 37716948530) because the animated path runs under a 4x
+          # CPU throttle on a shared runner. That number is written down here, not hidden: it is
+          # the cost of the animated path on a weak machine, and if it is ever chased, that is
+          # a job for deferring the showcase.js render, not for raising the budget.
+          # Shared runners are noisy: one measurement can be 369 ms TBT and the next 120 ms for
+          # the same code. That is why this gate runs at most twice and
+          # PASSES if either run meets every budget (it stops early once
+          # it passes). What repeats is the attempt, not the threshold: the budget numbers in
+          # assert-lighthouse.mjs stay strict and are not raised to absorb
+          # noise. This is the pattern Lighthouse CI uses (median of N runs).
           #
-          # Laporan yang di-upload adalah laporan yang dipakai untuk mengambil keputusan,
-          # supaya kegagalan bisa dibaca dari artifact, bukan dari satu baris "exit 1".
+          # The uploaded report is the report the decision was actually taken with,
+          # so a failure can be read from the artifact instead of one "exit 1" line.
           #
-          # Dua halaman diukur dengan ambang yang sama. Baseline /pipelines/ diukur
-          # lokal dengan flag yang sama pada 2026-10-10: Performance 99, Accessibility
+          # Two pages are measured with the same thresholds. The /pipelines/ baseline was measured
+          # locally with the same flags on 2026-10-10: Performance 99, Accessibility
           # 100, Best-Practices 100, SEO 100, FCP 1.36 s, LCP 1.97 s, TBT 0 ms,
-          # CLS 0.015, 145 KiB tanpa kompresi. CLS-nya bukan 0: judul run tumbuh dari
-          # satu ke dua baris saat modul mengisi header.
+          # CLS 0.015, 145 KiB uncompressed. Its CLS is not 0: the run title grows from
+          # one line to two while the module fills the header.
           fail=0
           for page in "root:http://127.0.0.1:8731/" "pipelines:http://127.0.0.1:8731/pipelines/"; do
             name=${page%%:*}
@@ -113,19 +113,19 @@ jobs:
                 break
               fi
               if [ "$i" = 1 ]; then
-                echo "::notice::$name: run #1 tidak memenuhi budget; mencoba sekali lagi."
+                echo "::notice::$name: run #1 did not meet the budget; trying once more."
               fi
             done
             if [ "$ok" != 1 ]; then
               cp /tmp/lh-$name-2.json /tmp/lighthouse-$name.json
-              echo "::error::Lighthouse gagal memenuhi budget di $name pada dua run berturut-turut."
+              echo "::error::Lighthouse failed to meet the budget for $name on two consecutive runs."
               fail=1
             fi
           done
           exit $fail
 
-      # Kalau gerbang jatuh, laporan mentahnya harus bisa dibaca, bukan hanya
-      # satu baris "exit 1".
+      # If the gate fails, the raw report must be readable instead of only
+      # one "exit 1" line.
       - name: Upload the Lighthouse report
         if: ${{ always() }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -136,21 +136,21 @@ jobs:
 
   headers:
     name: Published headers check
-    # Hanya di main (deploy produksi benar-benar terjadi di sana), atau lewat
-    # tombol Run workflow / jadwal harian. Pada pull request job ini dilewati:
-    # URL yang diperiksa adalah situs produksi, bukan cabang yang sedang di-review.
+    # Only on main (the production deploy really happens there), or via the
+    # Run workflow button / the daily schedule. On pull requests this job is skipped:
+    # the URL checked is the production site, not the branch being reviewed.
     if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
     runs-on: ubuntu-latest
     steps:
-      # Push ke main memicu build Vercel; pemeriksaan ini bisa tiba beberapa detik
-      # sebelum deploy selesai. Karena itu header diperiksa ulang sampai 12 kali
-      # dengan jeda 15 detik: yang diulang adalah kesempatan, bukan hasilnya -
-      # langkah ini tetap gagal kalau setelah 3 menit header-nya masih salah.
+      # A push to main triggers a Vercel build; this check can arrive a few seconds
+      # before the deploy finishes. So the headers are re-checked up to 12 times,
+      # 15 seconds apart: what repeats is the attempt, not the result;
+      # this step still fails if the headers are wrong after 3 minutes.
       #
-      # style-src 'self' dan tanpa unsafe-inline adalah dua hal berbeda: yang
-      # pertama harus ada, yang kedua tidak boleh ada di header mana pun. Cek
-      # dilakukan per baris, jadi pola 'unsafe-inline' hanya bisa dipicu oleh
-      # baris CSP itu sendiri.
+      # style-src 'self' and no unsafe-inline are two different things: the
+      # first must be present, the second must not appear in any header. Checks run
+      # line by line, so the 'unsafe-inline' pattern can only be triggered by
+      # the CSP line itself.
       - name: Assert the live response headers
         run: |
           url="https://www.ivanjairus.xyz"
@@ -178,22 +178,22 @@ jobs:
             check -  "^x-content-type-options: *nosniff"           || ok=0
             check -  "^permissions-policy:.*camera=()"             || ok=0
             check -  "^permissions-policy:.*payment=()"            || ok=0
-            # clipboard-write di-izinkan ke self dengan sengaja: tombol saldi
-            # email dan tombol copy di halaman ini memakai
-            # navigator.clipboard.writeText, jadi menolaknya akan merusak fitur.
+            # clipboard-write is allowed to self on purpose: the email copy
+            # button and the copy buttons on this page use
+            # navigator.clipboard.writeText, so denying it would break a feature.
             check -  "^permissions-policy:.*clipboard-write=(self)" || ok=0
 
             if [ "$ok" = "1" ]; then
               compliant=1
-              echo "header produksi patuh (percobaan $attempt, HTTP $last_status)"
+              echo "production headers compliant (attempt $attempt, HTTP $last_status)"
               break
             fi
-            echo "percobaan $attempt: header belum sesuai, HTTP $last_status" >&2
+            echo "attempt $attempt: headers not matching yet, HTTP $last_status" >&2
             sleep 15
           done
 
           if [ "$compliant" != "1" ]; then
-            echo "header produksi gagal memenuhi kebijakan setelah 12 percobaan (HTTP $last_status)" >&2
+            echo "production headers failed the policy after 12 attempts (HTTP $last_status)" >&2
             cat "$raw" >&2
             exit 1
           fi
@@ -207,24 +207,33 @@ jobs:
         with:
           node-version: 20
 
-      # Teks halaman ada di dua tempat: sebagai nilai di i18n.js dan sebagai
-      # fallback di index.html. Kalau keduanya berbeda, halaman pertama yang
-      # dilihat pengunjung bukan halaman yang sama setelah JS jalan. Step ini
-      # memaksa i18n.js jadi satu-satunya sumber: jalankan
-      # `node scripts/sync-i18n.mjs` setiap mengeditnya.
+      # The page text exists in two places: as values in i18n.js and as the
+      # fallback in index.html. If the two differ, the first page a visitor
+      # sees is not the same page once JS runs. This step forces
+      # i18n.js to be the single source: run
+      # `node scripts/sync-i18n.mjs` after every edit to it.
       - name: HTML fallback must equal i18n.js
         run: node scripts/sync-i18n.mjs --check
 
-      # Aturan penulisannya: tanda hubung panjang tidak dipakai sebagai penyambung
-      # kalimat. Yang diperiksa bukan hanya karakternya, tapi juga bentuk yang
-      # sampai ke pembaca: escape Unicode di JS dan entity HTML di markup. Keduanya
-      # tidak terlihat oleh grep biasa.
+      # The writing rule: a long dash never joins two sentences. What is checked
+      # is not only the character, but also the form that
+      # reaches the reader: Unicode escapes in JS and HTML entities in markup. Both are
+      # invisible to a plain grep.
       - name: No dash used as a connector
         run: node scripts/assert-copy.mjs --strict
 
-      # /pipelines/ menjalankan salinan vendored dari aturan rilis yang hidup di
-      # pipeline-gateway-reference. Salinan yang dibiarkan melaju adalah implementasi
-      # kedua yang memakai nama implementasi pertama, jadi hash-nya dibandingkan
-      # dengan apa yang benar-benar disajikan repo itu.
+      # /pipelines/ runs a vendored copy of the release rules that live in
+      # pipeline-gateway-reference. A copy left to drift is a second implementation
+      # carrying the first one's name, so its hash is compared
+      # with what that repo really serves.
       - name: Vendored rules must equal upstream
         run: node scripts/check-rules-sync.mjs
+
+      # The console in /pipelines/ is text hand-written into assets/data/traces.json.
+      # This step demands that every line point at a file that actually contains
+      # that text: a command line points at the template that calls it, a log line
+      # points at the script that prints it, and a third-party tool line still
+      # has to point at the file that runs that tool. Without this gate the page
+      # could invent output and nobody would notice.
+      - name: Every console line must exist in the pinned source
+        run: node scripts/check-traces.mjs

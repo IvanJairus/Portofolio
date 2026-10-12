@@ -22,6 +22,7 @@
 */
 
 import * as R from './release-rules.mjs';
+import { __sha256Hex } from './release-rules.mjs';
 
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -73,17 +74,22 @@ const FIVE = {
 const QUALITY = { status: 'passed', coverage: 81.4, duplication: 3.1 };
 const gateInput = (scan) => ({ deploy: { result: 'success' }, quality: QUALITY, scan });
 
+/* The severities below are the contents of ci-library/examples/trivy-report.json
+   and trivy-refused.json at the pinned commit, one entry per finding. The
+   consoles quote those two files, so changing one side without the other makes
+   the page disagree with itself: the trivy table and the gate's counts are the
+   same three findings. */
 const RUNS = {
   passed: {
     branch: 'fix/471-timeout', tag: 'v1.4.2', approvals: FIVE,
-    scan: { sbom: true, findings: [{ severity: 'HIGH' }, { severity: 'MEDIUM' }, { severity: 'LOW' }] },
+    scan: { sbom: true, findings: [{ severity: 'HIGH' }, { severity: 'HIGH' }, { severity: 'MEDIUM' }] },
     hops: [['sit', 'uat'], ['uat', 'prod']],
     gitlabTitle: "Merge branch 'fix/471-timeout' into 'master'",
     jenkinsTitle: 'ledger-service v1.4.2 from tracker FIN-471',
   },
   refused: {
     branch: 'fix/471-timeout', tag: 'v1.4.2', approvals: FIVE,
-    scan: { sbom: true, findings: [{ severity: 'CRITICAL' }, { severity: 'HIGH' }, { severity: 'MEDIUM' }] },
+    scan: { sbom: true, findings: [{ severity: 'CRITICAL' }, { severity: 'HIGH' }, { severity: 'HIGH' }, { severity: 'MEDIUM' }] },
     hops: [['sit', 'uat'], ['uat', 'prod']],
     gitlabTitle: "Merge branch 'fix/471-timeout' into 'master'",
     jenkinsTitle: 'ledger-service v1.4.2 from tracker FIN-471',
@@ -95,8 +101,6 @@ const MEASURED = {
   'sonarqube-checks': '80 s · median, n = 30',
   'deploy-sit': '93 s · median, n = 13',
 };
-
-const L = (lvl, m, scope) => ({ lvl, m, scope });
 
 /* ---------- the run, computed ---------- */
 
@@ -119,160 +123,39 @@ function compute(engine, key) {
   const planned = plan.map((p) => `  ${p.name} ${p.artifact} ${sc.tag} wm ${p.watermark.slice(0, 8)}`);
 
   const gitlab = [
-    { id: 'release-stamp', stage: 'build', scope: 'build:release-stamp', problems: [], log: [
-      L('cmd', '$ python3 ci-library/tools/release_stamp.py --tag-prefix R --output build-info.json'),
-      L('log', 'stamped version=R1.4.3 commit=a1b2c3d artifacts=1 status=success'),
-      L('log', `audit release=R1.4.3 pipeline=1421 branch=${sc.branch}`),
-      L('out', '  one bump rule for five templates; next_version() is on the right'),
-    ] },
-    { id: 'maven-package', stage: 'build', scope: 'build:maven-package', problems: [...branch, ...tag], log: [
-      L('cmd', '$ bash ci-library/scripts/build-maven.sh package'),
-      L('out', `  branch ${sc.branch} matched the pattern in ReleaseRules`),
-      L('out', `  artifact jar  target/core-api-${sc.tag}.jar`),
-      L('out', '  cache key = sha256 of pom.xml, not of the branch name'),
-    ] },
-    { id: 'docker-image', stage: 'build', scope: 'build:docker-image', problems: [], log: [
-      L('cmd', '$ bash ci-library/scripts/publish-artifact.sh push'),
-      L('log', 'resolved version=R1.4.3 commit=a1b2c3d'),
-      L('log', 'push ref=registry.example.internal/platform/core-api:R1.4.3 kaniko=true'),
-      L('log', 'digest written file=image-digest.txt algorithm=sha256'),
-      L('out', '  no latest tag is ever written: a deploy you cannot point at is one you cannot repeat'),
-    ] },
-    { id: 'unit', stage: 'test', scope: 'test:unit', problems: [], log: [
-      L('cmd', '$ bash ci-library/scripts/build-maven.sh test'),
-      L('out', '  128 tests · 0 failures · 0 skipped'),
-      L('out', '  junit handed forward as a report, not as a log line to squint at'),
-    ] },
-    { id: 'contract', stage: 'test', scope: 'test:contract', problems: [...manifest], log: [
-      L('cmd', '$ bash ci-library/scripts/build-maven.sh verify -Pcontracts'),
-      L('out', `  ${plan.length} services in the plan · artifacts ${R.ARTIFACTS.join(' ')}`),
-      ...planned,
-    ] },
-    { id: 'sast-semgrep', stage: 'scan', scope: 'scan:sast-semgrep', problems: [], log: [
-      L('cmd', '$ semgrep ci --config auto --sarif-file-output semgrep.sarif'),
-      L('out', '  1 finding (medium) · allow_failure: true'),
-      L('out', '  allowed to fail, not allowed to be silent: the sarif still reaches the gate'),
-    ] },
-    { id: 'secret-detect', stage: 'scan', scope: 'scan:secret-detect', problems: [], log: [
-      L('cmd', '$ gitleaks detect --source . --redact --report-format json'),
-      L('out', '  0 findings across 218 files'),
-    ] },
-    { id: 'container-trivy', stage: 'scan', scope: 'scan:container-trivy', problems: scanFail, log: [
-      L('cmd', '$ trivy image --severity CRITICAL,HIGH --format json'),
-      L('out', `  Total: ${total} (CRITICAL: ${counts.critical}, HIGH: ${counts.high}, MEDIUM: ${counts.medium}, LOW: ${counts.low})`),
-      ...(refused ? [L('err', `  CRITICAL  jackson-databind 2.9.10  allowed ${R.THRESHOLDS.criticalVulnerabilities}`)] : []),
-      ...(!refused && counts.high ? [L('warn', `  HIGH      jackson-databind 2.13.4  ${counts.high} of ${R.THRESHOLDS.highVulnerabilities} allowed`)] : []),
-      ...(scanFail.length ? scanFail.map((f) => L('err', `  ${f}`)) : [L('ok', '  ✓ within thresholds')]),
-    ] },
-    { id: 'sbom-index', stage: 'scan', scope: 'scan:sbom-index', problems: [], log: [
-      L('cmd', '$ syft "dir:target" -o cyclonedx-json=sbom.json'),
-      L('cmd', '$ python3 ci-library/tools/release_stamp.py --verify-sbom sbom.json'),
-      L('log', 'verify-sbom file=sbom.json problems=0'),
-      L('out', '  an SBOM with zero components is a refusal here, not a clean bill'),
-    ] },
-    { id: 'sonarqube-checks', stage: 'quality', scope: 'quality:sonarqube-checks', problems: qualityFail, log: [
-      L('cmd', '$ sonar-scanner -Dsonar.host.url=$SONAR_HOST'),
-      L('out', `  coverage ${QUALITY.coverage}% (floor ${gdec(R.THRESHOLDS.coverageFloor)}%) · duplication ${QUALITY.duplication}% (ceiling ${gdec(R.THRESHOLDS.duplicationCeiling)}%)`),
-      L(qualityFail.length ? 'err' : 'ok', qualityFail.length ? `  ${qualityFail.join('; ')}` : '  ✓ quality gate passed'),
-    ] },
-    { id: 'release-rules', stage: 'gate', scope: 'gate:release-rules', problems: [...approvals, ...(gate.passed ? [] : ['composite gate refused'])], log: [
-      L('cmd', '$ groovy -cp shared-library/src ci-library/scripts/run-gate.groovy --manifest release.json'),
-      L('log', `validateManifest problems=${manifest.length}`),
-      L('log', `GateResult.evaluate passed=${gate.passed} failures=${gate.failures.length} warnings=${gate.warnings.length}`),
-      L('log', `DeploymentPlan.build env=sit services=${plan.length} waves=${waves.length}`),
-      L(gate.passed ? 'ok' : 'err', `  ${gate.summary}`),
-      ...gate.warnings.map((w) => L('warn', `  warning: ${w}`)),
-    ] },
-    { id: 'ticket-sync', stage: 'gate', scope: 'gate:ticket-sync', problems: [], log: [
-      L('cmd', '$ bash ci-library/scripts/ticket-sync.sh post'),
-      L('log', 'resolve gitlab_issue=471 jira_issue=FIN-471 source=commit'),
-      L('log', 'posted target=gitlab status=201 attempt=1'),
-      L('out', refused ? `  the comment is the verdict: ${gate.summary}` : '  a retry of this job will not post the same comment twice'),
-    ] },
-    { id: 'deploy-sit', stage: 'deploy', scope: 'deploy:sit', problems: [], log: [
-      L('cmd', '$ bash ci-library/scripts/deploy.sh apply --env sit --digest $(cat image-digest.txt)'),
-      L('log', 'verdict checked file=gate-verdict.json env=sit allowed=true'),
-      L('log', 'rendered template=jenkins/templates/deployment.yaml out=rendered/sit.yaml env=sit namespace=ci-sit-ledger-service'),
-      L('log', 'applied env=sit digest=6f1a2c34d5e6 namespace=ci-sit-ledger-service'),
-      L('log', 'ready env=sit timeout=300s'),
-    ] },
-    { id: 'promote-uat', stage: 'promote', scope: 'promote:uat', manual: true, problems: hops[0].problems, log: [
-      L('cmd', `$ release-rules promote ${hops[0].from} -> ${hops[0].to} (${R.ENV_TARGET_BRANCH.uat})`),
-      L(hops[0].problems.length ? 'err' : 'out', hops[0].problems.length ? `  ${hops[0].problems.join('; ')}` : '  waiting for a human. The ladder is not automatic.'),
-    ] },
-    { id: 'promote-prod', stage: 'promote', scope: 'promote:prod', manual: true, problems: [...hops[1].problems], log: [
-      L('cmd', `$ release-rules promote ${hops[1].from} -> ${hops[1].to} (${R.ENV_TARGET_BRANCH.prod})`),
-      L('out', '  and inside deploy.sh: a change window of Mon-Thu 09:00-17:00, checked before anything is applied'),
-    ] },
-    { id: 'observability', stage: 'feedback', scope: 'feedback:observability', problems: [], log: [
-      L('cmd', '$ bash ci-library/scripts/observability-push.sh pipeline'),
-      L('log', `audit release=R1.4.3 project=core-api passed=${gate.passed ? 1 : 0} warnings=${gate.warnings.length} pipeline=1421`),
-      L('warn', 'skipped metric=duration_seconds reason=not_reported_by_runner'),
-      L('out', '  a metric is never written for a number nobody measured'),
-    ] },
+    { id: 'release-stamp', stage: 'build', scope: 'build:release-stamp', problems: [] },
+    { id: 'maven-package', stage: 'build', scope: 'build:maven-package', problems: [...branch, ...tag] },
+    { id: 'docker-image', stage: 'build', scope: 'build:docker-image', problems: [] },
+    { id: 'unit', stage: 'test', scope: 'test:unit', problems: [] },
+    { id: 'contract', stage: 'test', scope: 'test:contract', problems: [...manifest] },
+    { id: 'sast-semgrep', stage: 'scan', scope: 'scan:sast-semgrep', problems: [] },
+    { id: 'secret-detect', stage: 'scan', scope: 'scan:secret-detect', problems: [] },
+    { id: 'container-trivy', stage: 'scan', scope: 'scan:container-trivy', problems: scanFail },
+    { id: 'sbom-index', stage: 'scan', scope: 'scan:sbom-index', problems: [] },
+    { id: 'sonarqube-checks', stage: 'quality', scope: 'quality:sonarqube-checks', problems: qualityFail },
+    { id: 'release-rules', stage: 'gate', scope: 'gate:release-rules', problems: [...approvals, ...(gate.passed ? [] : ['composite gate refused'])] },
+    { id: 'ticket-sync', stage: 'gate', scope: 'gate:ticket-sync', problems: [] },
+    { id: 'deploy-sit', stage: 'deploy', scope: 'deploy:sit', problems: [] },
+    { id: 'promote-uat', stage: 'promote', scope: 'promote:uat', manual: true, problems: hops[0].problems },
+    { id: 'promote-prod', stage: 'promote', scope: 'promote:prod', manual: true, problems: [...hops[1].problems] },
+    { id: 'observability', stage: 'feedback', scope: 'feedback:observability', problems: [] },
   ];
 
+
+
   const jenkins = [
-    { id: 'trigger', stage: 'Trigger Jobs', scope: 'Trigger Jobs', problems: [], log: [
-      L('cmd', "stage('Trigger Jobs') { readJSON text: DATA }"),
-      L('out', '  issue.key        FIN-471'),
-      L('out', '  changelog[0]     "In Development" -> "Ready for SIT"'),
-      L('out', '  customfield_10744 SIT'),
-      L('log', 'the run identity comes from the webhook body, not from someone typing it twice'),
-    ] },
-    { id: 'route', stage: 'Route transition', scope: 'Route transition', problems: [], log: [
-      L('cmd', 'def jobKey = "${FROM_STATUS}:${TO_STATUS}"'),
-      L('out', '  "in development:ready for sit" -> GatewaySITDeploy'),
-      L('out', '  build job: GatewaySITDeploy, string(ISSUE_KEY, FIN-471), wait: false'),
-      L('log', 'a transition with no row in the table stops here, with a printed reason'),
-    ] },
-    { id: 'ticket', stage: 'Validate ticket', scope: 'Validate ticket', problems: [], log: [
-      L('cmd', 'validateTicket(issueKey: ISSUE_KEY, env: "sit")'),
-      L('out', '  ticket open · labels include R1.4 · assignee is not the approver'),
-    ] },
-    { id: 'labels', stage: 'Release labels', scope: 'Release labels', problems: [], log: [
-      L('cmd', 'getReleaseLabels(allLabels)'),
-      L('out', '  /^R1\\.\\d+$/ matched R1.4'),
-      L('out', '  which release this ticket belongs to, read off the ticket itself'),
-    ] },
-    { id: 'credentials', stage: 'Issue credentials', scope: 'Issue credentials', problems: [], log: [
-      L('cmd', 'vaultCredentials(role: "sit-deploy") { ... }'),
-      L('log', 'lease issued ttl=10m renewable=false'),
-      L('log', 'lease revoked in finally'),
-    ] },
-    { id: 'quality', stage: 'Quality gate', scope: 'Quality gate', problems: qualityFail, log: [
-      L('cmd', 'qualityGate(projectKey: "core-api")'),
-      L('out', `  coverage ${QUALITY.coverage}% (floor ${gdec(R.THRESHOLDS.coverageFloor)}%) · duplication ${QUALITY.duplication}% (ceiling ${gdec(R.THRESHOLDS.duplicationCeiling)}%)`),
-      L(qualityFail.length ? 'err' : 'ok', qualityFail.length ? `  ${qualityFail.join('; ')}` : '  ✓ quality gate passed'),
-    ] },
-    { id: 'scan', stage: 'Scan', scope: 'Scan', problems: scanFail, log: [
-      L('cmd', 'trivy image --severity CRITICAL,HIGH --format json'),
-      L('out', `  Total: ${total} (CRITICAL: ${counts.critical}, HIGH: ${counts.high}, MEDIUM: ${counts.medium}, LOW: ${counts.low})`),
-      ...(refused ? [L('err', `  CRITICAL  jackson-databind 2.9.10  allowed ${R.THRESHOLDS.criticalVulnerabilities}`)] : []),
-      ...(scanFail.length ? scanFail.map((f) => L('err', `  ${f}`)) : [L('ok', '  ✓ within thresholds')]),
-    ] },
-    { id: 'gate', stage: 'Composite gate', scope: 'Composite gate', problems: [...approvals, ...(gate.passed ? [] : ['composite gate refused'])], log: [
-      L('cmd', 'GateResult.evaluate(deploy: deployResult, quality: sq, scan: scan)'),
-      L('log', `THRESHOLDS critical=${R.THRESHOLDS.criticalVulnerabilities} high=${R.THRESHOLDS.highVulnerabilities} coverageFloor=${gdec(R.THRESHOLDS.coverageFloor)} duplicationCeiling=${gdec(R.THRESHOLDS.duplicationCeiling)}`),
-      L(gate.passed ? 'ok' : 'err', `  ${gate.summary}`),
-      ...gate.warnings.map((w) => L('warn', `  warning: ${w}`)),
-    ] },
-    { id: 'plan', stage: 'Deploy SIT', scope: 'Deploy SIT', problems: [], log: [
-      L('cmd', 'deployPlan(manifest: release.json, env: "sit")'),
-      L('out', `  ${plan.length} services in ${waves.length} waves, ordered by tier`),
-      ...planned,
-      L('out', '  rendered from jenkins/templates/deployment.yaml into ci-sit-ledger-service'),
-    ] },
-    { id: 'promote', stage: 'Promote UAT', scope: 'Promote UAT', manual: true, problems: hops[0].problems, log: [
-      L('cmd', `ReleaseRules.validatePromotion("${hops[0].from}", "${hops[0].to}")`),
-      L(hops[0].problems.length ? 'err' : 'out', hops[0].problems.length ? `  ${hops[0].problems.join('; ')}` : '  the button is here; the right to press it is the approval chain'),
-    ] },
-    { id: 'notify', stage: 'Notify', scope: 'Notify', problems: [], log: [
-      L('cmd', 'mergeApprove(ticket: ISSUE_KEY, approvals: chain)'),
-      L('log', `layers team business product architecture engineering · distinct=${approvals.length === 0}`),
-      L('log', refused ? `refused ${gate.summary}` : `posted verdict to ${RUNS[key].jenkinsTitle.split(' from ')[1]}`),
-    ] },
+    { id: 'trigger', stage: 'Trigger Jobs', scope: 'Trigger Jobs', problems: [] },
+    { id: 'route', stage: 'Route transition', scope: 'Route transition', problems: [] },
+    { id: 'ticket', stage: 'Validate ticket', scope: 'Validate ticket', problems: [] },
+    { id: 'labels', stage: 'Release labels', scope: 'Release labels', problems: [] },
+    { id: 'credentials', stage: 'Issue credentials', scope: 'Issue credentials', problems: [] },
+    { id: 'quality', stage: 'Quality gate', scope: 'Quality gate', problems: qualityFail },
+    { id: 'gate', stage: 'Composite gate', scope: 'Composite gate', problems: [...approvals, ...(gate.passed ? [] : ['composite gate refused'])] },
+    { id: 'plan', stage: 'Deploy SIT', scope: 'Deploy SIT', problems: [] },
+    { id: 'promote', stage: 'Promote UAT', scope: 'Promote UAT', manual: true, problems: hops[0].problems },
+    { id: 'notify', stage: 'Notify', scope: 'Notify', problems: [] },
   ];
+
 
   const jobs = engine === 'jenkins' ? jenkins : gitlab;
   const firstBad = jobs.findIndex((j) => j.problems.length);
@@ -297,30 +180,51 @@ function compute(engine, key) {
   };
 }
 
-/* ---------- the gate panel ---------- */
-
-function gateLines(run) {
-  const t = R.THRESHOLDS;
-  const g = run.gate;
-  return [
-    L('cmd', '$ release-rules evaluate --manifest release.json'),
-    L('out', `THRESHOLDS  critical=${t.criticalVulnerabilities}  high=${t.highVulnerabilities}  coverageFloor=${gdec(t.coverageFloor)}  duplicationCeiling=${gdec(t.duplicationCeiling)}`),
-    L('out', `scan.findings   critical ${run.counts.critical}  high ${run.counts.high}  medium ${run.counts.medium}  low ${run.counts.low}`),
-    L('out', 'approvals       team business product architecture engineering  (distinct identities required)'),
-    L('out', `plan            ${run.plan.map((p) => `${p.name} tier ${p.tier}`).join('  ')}`),
-    L(g.passed ? 'ok' : 'err', g.summary),
-    ...g.failures.map((f) => L('err', `  ${f}`)),
-    ...g.warnings.map((w) => L('warn', `  warning: ${w}`)),
-    L('out', ''),
-    L('out', 'the same lines are what GateResult.evaluate returns in Groovy'),
-  ];
-}
-
 /* ---------- panels ---------- */
 
 const SOURCES = { data: null };
+const TRACES = { data: null };
+const LOCK = { data: null };
 const FILE_TEXT = {};
 const STATE_LABEL = { bad: 'failed', manual: 'waiting for input', hollow: 'not run', ok: 'passed' };
+
+/*
+  The console lines live in assets/data/traces.json, and scripts/check-traces.mjs
+  refuses to build when a line cannot be pointed at in the pinned source. Two
+  things are filled in at draw time instead:
+
+    when   "passed" or "refused": the line only belongs to that outcome
+    dyn    a value the gate computes, so the number on screen is the number the
+           rules produced for the run you are looking at
+*/
+function traceFor(engine, job, run) {
+  if (!TRACES.data) return [];
+  const list = engine === 'gate'
+    ? TRACES.data.gate
+    : ((TRACES.data.engines[engine] || {})[job] || []);
+  const out = [];
+  for (const line of list) {
+    if (line.when && line.when !== run.key) continue;
+    if (!line.dyn) { out.push(line); continue; }
+    const g = run.gate;
+    if (line.dyn === 'summary') {
+      out.push({ l: g.passed ? 'ok' : 'err', m: g.summary });
+    } else if (line.dyn === 'failures') {
+      g.failures.forEach((f) => out.push({ l: 'err', m: `  ${f}` }));
+    } else if (line.dyn === 'warnings') {
+      g.warnings.forEach((w) => out.push({ l: 'warn', m: `  warning: ${w}` }));
+    } else if (line.dyn === 'counts') {
+      const c = run.counts;
+      out.push({ l: 'out', m: `scan.findings   critical ${c.critical}  high ${c.high}  medium ${c.medium}  low ${c.low}` });
+    } else if (line.dyn === 'plan') {
+      out.push({ l: 'out', m: `plan            ${run.plan.map((p) => `${p.name} tier ${p.tier}`).join('  ')}` });
+    } else if (line.dyn === 'thresholds') {
+      const t = R.THRESHOLDS;
+      out.push({ l: 'out', m: `THRESHOLDS  critical=${t.criticalVulnerabilities}  high=${t.highVulnerabilities}  coverageFloor=${gdec(t.coverageFloor)}  duplicationCeiling=${gdec(t.duplicationCeiling)}` });
+    }
+  }
+  return out;
+}
 
 /* A strip that scrolls sideways has to look like it. The class is set from the
    real numbers, not from a breakpoint, because whether the stage columns
@@ -433,7 +337,7 @@ class Panel {
     const log = this.r.log;
     log.textContent = '';
     const job = run.jobs.find((j) => j.id === this.selected) || run.jobs[0];
-    const lines = this.engine === 'gate' ? gateLines(run) : (job ? job.log : []);
+    const lines = traceFor(this.engine, this.selected, run);
     const state = this.engine === 'gate' ? (run.gate.passed ? 'ok' : 'bad') : (job ? job.state : 'ok');
 
     this.r.jname.textContent = this.engine === 'gate' ? 'GateResult.evaluate' : (job ? job.id : '');
@@ -462,10 +366,11 @@ class Panel {
     const put = (line) => {
       if (token !== this.draw) return;
       const row = el('div', `pv-ll ${line.lvl}`);
-      const ts = el('span', 'ts');
+      /* One time per line, the date and the zone once in the panel head. A log
+         that repeats the same date down a column spends the width the messages
+         need, and says nothing new. */
       const p = stampParts(new Date());
-      ts.append(el('span', 'dt', p.date), el('span', 'tm', p.time), el('span', 'tz', p.zone));
-      row.append(ts);
+      row.append(el('span', 'ts', p.time));
       const tag = line.lvl === 'err' ? 'ERROR' : line.lvl === 'warn' ? 'WARN' : line.lvl === 'log' ? 'INFO' : '';
       const scope = this.engine === 'jenkins' ? (job ? job.scope : '') : (job ? job.id : '');
       /* A command line keeps its own "$" in the message: that is how the runner
@@ -522,7 +427,22 @@ class Panel {
     this.r['code-name'].textContent = entry.f || this.srcKey || '';
     this.r['code-why'].textContent = job && job.file === this.srcKey ? job.why
       : this.engine === 'gate' ? 'both engines compile these' : 'no job mapped to this file';
-    this.r['code-count'].textContent = `${lines.length} lines · ${hl.size ? `${hl.size} marked` : 'nothing marked'}`;
+    /*
+      The digest is computed here, from the bytes this browser just fetched, and
+      compared with the digest pinned in rules.lock.json. That is the whole claim
+      of the panel reduced to something the visitor can check without trusting a
+      word of it: if the file served by this site and the file the lock names ever
+      disagree, this line says so.
+    */
+    const pinned = LOCK.data && LOCK.data.files[`assets/data/src/${this.srcKey}`];
+    let hashNote = '';
+    if (pinned && text) {
+      const got = __sha256Hex(text);
+      hashNote = got === pinned.sha256
+        ? ` · sha256 ${got.slice(0, 12)} matches the pin`
+        : ` · sha256 ${got.slice(0, 12)} DOES NOT MATCH the pin ${pinned.sha256.slice(0, 12)}`;
+    }
+    this.r['code-count'].textContent = `${lines.length} lines · ${hl.size ? `${hl.size} marked` : 'nothing marked'}${hashNote}`;
   }
 
   select(id) {
@@ -662,7 +582,31 @@ async function selfCheck() {
   selfCheck();
 
   try {
-    SOURCES.data = await (await fetch('../assets/data/sources.json', { cache: 'no-store' })).json();
+    const [sources, traces, lock] = await Promise.all([
+      (await fetch('../assets/data/sources.json', { cache: 'no-store' })).json(),
+      (await fetch('../assets/data/traces.json', { cache: 'no-store' })).json(),
+      (await fetch('../assets/data/rules.lock.json', { cache: 'no-store' })).json(),
+    ]);
+    SOURCES.data = sources;
+    TRACES.data = traces;
+    LOCK.data = lock;
+    const pin = document.getElementById('pin');
+    if (pin) {
+      const short = sources.ref.slice(0, 7);
+      pin.textContent = '';
+      pin.append(el('span', '', `Source: ${sources.upstream} @ `));
+      const a = el('a', 'mono', short);
+      a.href = `https://github.com/${sources.upstream}/tree/${sources.ref}`;
+      a.rel = 'noopener noreferrer';
+      pin.append(a);
+      const n = Object.keys(lock.files).length;
+      pin.append(el('span', '', ` · ${n} files pinned by SHA-256, hashed again in this browser as you open them`));
+      /* Counted from the data the consoles draw from, so the number cannot drift
+         away from the file it describes. */
+      let traced = traces.gate.length;
+      for (const jobs of Object.values(traces.engines)) for (const list of Object.values(jobs)) traced += list.length;
+      pin.append(el('span', '', ` · ${traced} console lines, each one checked against those files by scripts/check-traces.mjs`));
+    }
   } catch (e) {
     panels.forEach((p) => { if (p.r['code-why']) p.r['code-why'].textContent = `source files unavailable (${e.message})`; });
     return;

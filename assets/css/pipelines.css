@@ -23,6 +23,8 @@
 .pv-seg button:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: -2px; }
 .pv-legend { margin: 0; font-size: 11.5px; color: var(--ink-faint); }
 
+.pv-pin { margin: 10px 0 0; font-size: 11px; color: var(--ink-faint); min-height: 18px; }
+.pv-pin a { color: var(--accent-strong); text-decoration: underline; text-underline-offset: 2px; }
 .pv-fine { margin: 20px 0 0; max-width: 68ch; font-size: 11px; line-height: 1.6; color: var(--ink-faint); }
 .pv-selfcheck {  margin-top: 22px;
   display: inline-flex; align-items: center; gap: 9px;
@@ -51,11 +53,12 @@
 .pv-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); overflow: hidden; }
 .pv-ns { margin: 0; padding: 12px 16px; border-bottom: 1px solid var(--line); font-size: 11.5px; line-height: 1.7; color: var(--ink-dim); background: var(--bg-3); }
 
-/* The minimums below are the FILLED height of the default run, measured at 390px
-   and 1440px with the geometry harness (_pv2.html). The card is painted by a
-   module that runs after the browser has already shown the shell, so an empty
-   container that is shorter than its own content moves everything under it.
-   Re-measure after changing the default state. */
+/* The minimums below are the FILLED height of the default run, measured with
+   _pv2.html. The card is painted by a module that runs after the browser has
+   already shown the shell, so an empty container that is shorter than its own
+   content moves everything under it. Re-measure after changing the default
+   state. The consoles use a fixed height rather than a minimum: their lines are
+   drawn one at a time, and a box that grows while it fills is a layout shift. */
 .pv-rhead { min-height: 72px; }
 .pv-skin { min-height: 180px; padding: 4px 10px 18px; overflow-x: auto; }
 .pv-log { height: 320px; }
@@ -148,20 +151,34 @@
 .pv-cstate.hollow { color: var(--ink-faint); }
 .pv-chead .sp { margin-left: auto; font-size: 10.5px; color: var(--ink-faint); }
 
+/* The console is a table: time, level, scope, message. The grid lives on the
+   container and each row uses display:contents, so a column is exactly as wide
+   as the widest cell in it across every line - which is what makes the left
+   edge of the messages line up. A per-row flex would align nothing, because
+   every row would size its own columns. */
 .pv-log {
   background: var(--surface-dark); color: var(--on-dark);
   font-family: var(--font-mono); font-size: 12px; line-height: 1.62;
   padding: 10px 0; overflow: auto;
+  display: grid; grid-template-columns: auto auto auto minmax(0, 1fr);
+  column-gap: 8px;
 }
 .pv-log:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: -2px; }
-.pv-ll { display: flex; gap: 8px; padding: 0 14px; }
-.pv-ll .ts { flex: none; color: rgba(250, 247, 242, 0.55); font-size: 10.5px; white-space: nowrap; align-self: flex-start; padding-top: 1px; }
-.pv-ll .ts .dt { margin-right: 5px; }
-.pv-ll .ts .tz { margin-left: 3px; }
-.pv-clock { display: none; font-size: 10.5px; color: var(--ink-faint); }
-.pv-ll .lv { flex: none; width: 34px; color: rgba(250, 247, 242, 0.5); font-size: 10.5px; text-align: right; }
-.pv-ll .sc { flex: none; max-width: 15ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: rgba(250, 247, 242, 0.58); font-size: 10.5px; }
-.pv-ll .t { white-space: pre-wrap; word-break: break-word; min-width: 0; flex: 1; }
+.pv-ll { display: contents; }
+/* Every cell is pinned to its own track. Without this, a row whose scope column
+   is hidden hands its spare item to the next row and the whole table drifts one
+   column per line. */
+.pv-ll > .ts { grid-column: 1; }
+.pv-ll > .lv { grid-column: 2; }
+.pv-ll > .sc { grid-column: 3; }
+.pv-ll > .t { grid-column: 4; }
+.pv-ll > * { padding: 0 0 0 14px; }
+.pv-ll > .t { padding-right: 18px; }
+.pv-ll .ts { color: rgba(250, 247, 242, 0.55); font-size: 10.5px; white-space: nowrap; align-self: start; }
+.pv-ll .lv { font-size: 10.5px; text-align: right; white-space: nowrap; color: rgba(250, 247, 242, 0.5); align-self: start; }
+.pv-ll .sc { font-size: 10.5px; color: rgba(250, 247, 242, 0.58); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 22ch; align-self: start; }
+.pv-ll .t { white-space: pre-wrap; word-break: break-word; color: var(--on-dark); }
+.pv-clock { margin-left: auto; font-size: 10.5px; color: var(--ink-faint); }
 .pv-ll.cmd .t { color: #9ad48f; font-weight: 600; }
 .pv-ll.err .t { color: #ff9d94; } .pv-ll.err .lv { color: #ff9d94; }
 .pv-ll.warn .t { color: #f0b46a; } .pv-ll.warn .lv { color: #f0b46a; }
@@ -260,15 +277,6 @@
 .pv-skin.scrolling, .pv-tree.scrolling {
   -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 34px), transparent);
   mask-image: linear-gradient(to right, #000 calc(100% - 34px), transparent);
-}
-
-@media (max-width: 640px) {
-  /* A full RFC3339 stamp costs about 150px of a 350px panel. The date and the
-     zone move up into the console head, where they are stated once, and each
-     line keeps the part that actually differs. */
-  .pv-ll .ts .dt, .pv-ll .ts .tz { display: none; }
-  .pv-chead .sp { margin-left: 0; }
-  .pv-clock { display: block; margin-left: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {

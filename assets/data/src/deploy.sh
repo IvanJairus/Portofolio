@@ -1,9 +1,9 @@
 #!/bin/bash
-# Menaikkan artefak ke sebuah environment, dan menunggu sampai benar-benar hidup.
+# Push the artifact to an environment, and wait until it is actually live.
 #
-# Dipakai oleh deploy:sit, promote:uat dan promote:prod di semua template.
+# Used by deploy:sit, promote:uat and promote:prod in all templates.
 #
-# Pemakaian:
+# Usage:
 #   deploy.sh apply   --env sit  --digest sha256:<hex>
 #   deploy.sh wait    --env sit  --timeout 300 [--auto-rollback]
 #   deploy.sh promote --from uat --to prod [--require-backend]
@@ -12,18 +12,19 @@
 #   deploy.sh --selftest
 #
 # Environment:
-#   DRY_RUN=1            cetak perintah, jangan jalankan
-#   NAMESPACE_TEMPLATE   pola namespace, default "ci-{env}-ledger-service"
-#   CHANGE_WINDOW        0 untuk mematikan jendela perubahan (hanya untuk uji)
-#   RULES_CHECK_CMD      perintah pemeriksa aturan promotion
+#   DRY_RUN=1            print the command, do not run it
+#   NAMESPACE_TEMPLATE   namespace pattern, default "ci-{env}-ledger-service"
+#   CHANGE_WINDOW        0 disables the change window (for tests only)
+#   RULES_CHECK_CMD      command that checks the promotion rules
 #
-# Tiga hal yang membuat file ini bukan sekadar `kubectl apply`:
-#   1. Ia membaca gate-verdict.json. Tombol di GitLab bukan hak; yang memberi
-#      hak adalah verdict, dan kalau verdict-nya tidak ada, tidak ada deploy.
-#   2. Ia tidak menganggap "apply sukses" sama dengan "layanan hidup". Yang
-#      ditunggu adalah rollout, dan kegagalannya bisa memutar balik sendiri.
-#   3. Produksi punya jendela perubahan. Di luar jam itu, perintahnya ditolak
-#      dengan alasan yang bisa dibaca, bukan dengan timeout yang misterius.
+# Three things that make this file more than `kubectl apply`:
+#   1. It reads gate-verdict.json. The button in GitLab is not the permission;
+#      the verdict is what grants it, and if the verdict is missing, there is
+#      no deploy.
+#   2. It does not treat "apply succeeded" as "the service is live". What it
+#      waits for is the rollout, and a failure can roll itself back.
+#   3. Production has a change window. Outside those hours the command is
+#      refused with a readable reason, not a mysterious timeout.
 
 set -euo pipefail
 
@@ -33,9 +34,9 @@ source "$SCRIPT_DIR/lib/log.sh"
 
 DRY_RUN="${DRY_RUN:-0}"
 VERDICT_FILE="${VERDICT_FILE:-gate-verdict.json}"
-TEMPLATE="${TEMPLATE:-jenkins/templates/deployment.yaml}"
-# Dipisah dari ${VAR:-default} karena bash melakukan brace expansion pada nilai
-# default di dalam ekspansi parameter: "ci-{env}-x" keluar sebagai "ci-{envx}".
+if [ -z "${TEMPLATE:-}" ]; then TEMPLATE='ci-library/templates/deployment.yaml'; fi
+# Split from ${VAR:-default} because bash runs brace expansion on the default
+# value inside a parameter expansion: "ci-{env}-x" comes out as "ci-{envx}".
 if [ -z "${NAMESPACE_TEMPLATE:-}" ]; then NAMESPACE_TEMPLATE='ci-{env}-ledger-service'; fi
 CHANGE_WINDOW="${CHANGE_WINDOW:-1}"
 RULES_CHECK_CMD="${RULES_CHECK_CMD:-groovy -cp shared-library/src ci-library/scripts/run-gate.groovy --promote}"
@@ -68,8 +69,8 @@ require_digest() {
   esac
 }
 
-# Verdict dibaca, bukan dipercaya. Tiga keadaan dibedakan dengan sengaja:
-# tidak ada berkas, berkas ada tapi menolak, dan berkas ada dan lulus.
+# The verdict is read, not trusted. Three states are deliberately kept apart:
+# no file, a file that exists and refuses, and a file that exists and passes.
 verdict_allows() {
   local env="$1"
   [ -f "$VERDICT_FILE" ] || die no_verdict "file=$VERDICT_FILE refusing to deploy to $env with no decision on disk"
@@ -86,11 +87,25 @@ PY
     why="$(python3 -c 'import json,sys;print("; ".join(json.load(open(sys.argv[1],encoding="utf-8")).get("failures") or ["gate did not pass"]))' "$VERDICT_FILE")"
     die gate_refused "env=$env reason=$why"
   fi
+  local summary
+  summary="$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1],encoding="utf-8")).get("summary","(no summary)"))' "$VERDICT_FILE")"
+  log INFO "verdict summary=$summary"
   log INFO "verdict checked file=$VERDICT_FILE env=$env allowed=true"
 }
 
-# Jendela perubahan: Senin sampai Kamis, 09.00-17.00. Bukan takhayul - ini jam
-# di mana orang yang bisa membalikkan sebuah keputusan masih ada di kursinya.
+# Checked before anything is sent: a runner without kubectl, or pointed at the
+# wrong context, fails here with the context named instead of halfway through a
+# rollout in a namespace nobody meant to touch.
+preflight() {
+  local env="$1" bin
+  bin="$(command -v "$KUBECTL" || true)"
+  [ -n "$bin" ] || die no_kubectl "binary=$KUBECTL env=$env"
+  log INFO "preflight kubectl=$bin context=${KUBE_CONTEXT:-ci-runner} namespace=$(namespace_for "$env")"
+  [ -f "$TEMPLATE" ] || die no_template "file=$TEMPLATE"
+}
+
+# Change window: Monday through Thursday, 09:00-17:00. Not superstition: these
+# are the hours when the people who can reverse a decision are still at their desks.
 window_open() {
   local now="${1:-$(date +%u_%H)}"
   local day hour
@@ -104,9 +119,15 @@ render() {
   local env="$1" digest="$2" out="$3"
   [ -f "$TEMPLATE" ] || die no_template "file=$TEMPLATE"
   sed -e "s|__ENV__|$env|g" -e "s|__NAMESPACE__|$(namespace_for "$env")|g" -e "s|__DIGEST__|$digest|g" \
+      -e "s|__IMAGE_NAME__|$CI_PROJECT_NAME|g" \
       -e "s|__IMAGE__|${REGISTRY:-registry.example.internal/platform}/$CI_PROJECT_NAME|g" \
       "$TEMPLATE" > "$out"
-  log INFO "rendered template=$TEMPLATE out=$out env=$env namespace=$(namespace_for "$env")"
+  # Checked, not assumed. A placeholder left in a manifest does not fail: the
+  # cluster happily runs a deployment whose image line still says __IMAGE__.
+  local left
+  left="$(grep -o '__[A-Z_]*__' "$out" | sort -u | tr '\n' ',' || true)"
+  [ -z "$left" ] || die unresolved_placeholder "file=$out tokens=$left"
+  log INFO "rendered template=$TEMPLATE out=$out env=$env namespace=$(namespace_for "$env") image=${REGISTRY:-registry.example.internal/platform}/$CI_PROJECT_NAME@${digest:7:12}"
 }
 
 cmd_apply() {
@@ -114,9 +135,11 @@ cmd_apply() {
   while [ $# -gt 0 ]; do case "$1" in
     --env) env="$2"; shift 2;; --digest) digest="$2"; shift 2;; *) die bad_arg "arg=$1";; esac; done
   need_env "$env"; require_digest "$digest"
+  preflight "$env"
   verdict_allows "$env"
   mkdir -p rendered
   render "$env" "$digest" "rendered/$env.yaml"
+  log DEBUG "apply flags=server-side file=rendered/$env.yaml"
   run "$KUBECTL" -n "$(namespace_for "$env")" apply --server-side -f "rendered/$env.yaml"
   log INFO "applied env=$env digest=${digest:7:12} namespace=$(namespace_for "$env")"
 }
@@ -126,8 +149,10 @@ cmd_wait() {
   while [ $# -gt 0 ]; do case "$1" in
     --env) env="$2"; shift 2;; --timeout) timeout="$2"; shift 2;; --auto-rollback) auto=1; shift;; *) die bad_arg "arg=$1";; esac; done
   need_env "$env"
+  preflight "$env"
+  log DEBUG "rollout requested env=$env timeout=${timeout}s autoRollback=$auto"
   if run "$KUBECTL" -n "$(namespace_for "$env")" rollout status deployment/"$CI_PROJECT_NAME" --timeout="${timeout}s"; then
-    log INFO "ready env=$env timeout=${timeout}s"
+    log INFO "ready env=$env timeout=${timeout}s replicas=${REPLICAS:-3}"
     return 0
   fi
   log_error "failed reason=rollout_timeout env=$env timeout=${timeout}s"
@@ -143,14 +168,19 @@ cmd_promote() {
   while [ $# -gt 0 ]; do case "$1" in
     --from) from="$2"; shift 2;; --to) to="$2"; shift 2;; --require-backend) require_backend=1; shift;; *) die bad_arg "arg=$1";; esac; done
   need_env "$from"; need_env "$to"
-  if [ "$to" = "prod" ] && ! window_open "${NOW_OVERRIDE:-$(date +%u_%H)}"; then
-    die change_window "to=prod outside=window-mon-thu-09-17 escape=CHANGE_WINDOW-0-only-for-tests"
+  local now="${NOW_OVERRIDE:-$(date +%u_%H)}"
+  if [ "$to" = "prod" ]; then
+    log INFO "window env=prod day=${now%_*} hour=${now#*_} enforced=$CHANGE_WINDOW"
+    if ! window_open "$now"; then
+      die change_window "to=prod outside=window-mon-thu-09-17 escape=CHANGE_WINDOW-0-only-for-tests"
+    fi
   fi
-  # Aturan urutan environment hidup di ReleaseRules, bukan di sini. Yang di sini
-  # hanya memastikan aturan itu benar-benar ditanyakan.
+  # The environment ordering rules live in ReleaseRules, not here. All this file
+  # does is make sure those rules are actually asked.
   if ! $RULES_CHECK_CMD "$from:$to" > /dev/null 2>&1; then
     die promotion_refused "from=$from to=$to source=ReleaseRules.validatePromotion"
   fi
+  log INFO "rules checked promotion=$from->$to allowed=true"
   if [ "$require_backend" = "1" ]; then
     python3 - "$VERDICT_FILE" <<'PY' || die wave_order "reason=web_before_backend fix=deploy\ the\ backend\ tier\ first"
 import json, sys
@@ -197,50 +227,62 @@ selftest() {
   try()       { "$@" >out.txt 2>err.txt || true; }
 
   tmp="$(mktemp -d)"; cd "$tmp"
-  mkdir -p jenkins/templates shared-library/src
-  printf '%s\n' 'metadata: { name: __IMAGE__ }' 'spec:' '  template: { metadata: { annotations: { digest: "__DIGEST__" } } }' > jenkins/templates/deployment.yaml
+  # The real template, not a stand-in: the point of these cases is that the
+  # placeholders in the file the platform actually applies are all resolved.
+  mkdir -p ci-library/templates shared-library/src
+  cp "$SCRIPT_DIR/../templates/deployment.yaml" ci-library/templates/deployment.yaml
   export CI_PROJECT_NAME=core-api
 
-  # Environment di luar daftar tidak bisa disebut dengan cara apa pun.
+  # An environment outside the list cannot be named by any means.
   try env DRY_RUN=1 bash "$SCRIPT_DIR/deploy.sh" apply --env staging --digest "sha256:$(printf 'a%.0s' {1..64})"
-  says err.txt "reason=bad_env" "environment liar tertolak"
+  says err.txt "reason=bad_env" "stray environment refused"
 
-  # Digest pendek ditolak: itu biasanya hasil dari command substitution yang kosong.
+  # A short digest is refused: it is usually the output of an empty command substitution.
   try env DRY_RUN=1 bash "$SCRIPT_DIR/deploy.sh" apply --env sit --digest "sha256:abc"
-  says err.txt "reason=bad_digest" "digest pendek tertolak"
+  says err.txt "reason=bad_digest" "short digest refused"
 
-  # Tanpa verdict, tidak ada deploy - walaupun tombolnya sudah ditekan.
+  # Without a verdict there is no deploy, even when the button has been pressed.
   try env DRY_RUN=1 bash "$SCRIPT_DIR/deploy.sh" apply --env sit --digest "sha256:$(printf 'a%.0s' {1..64})"
-  says err.txt "reason=no_verdict" "verdict hilang menahan deploy"
+  says err.txt "reason=no_verdict" "missing verdict holds the deploy"
 
-  # Verdict menolak: alasannya ikut terbawa sampai baris log.
+  # A refusing verdict: its reason travels all the way into the log line.
   printf '%s\n' '{"passed":false,"failures":["vulnerabilities: 1 critical (allowed 0)"],"plan":[]}' > gate-verdict.json
   try env DRY_RUN=1 bash "$SCRIPT_DIR/deploy.sh" apply --env sit --digest "sha256:$(printf 'a%.0s' {1..64})"
-  says err.txt "1 critical" "alasan penolakan ikut tertulis"
+  says err.txt "1 critical" "the refusal reason is written along too"
 
-  # Verdict lulus: apply jalan, namespace ikut terisi.
+  # A passing verdict: apply runs, and the namespace is filled in.
   printf '%s\n' '{"passed":true,"failures":[],"plan":[{"id":"core-api","tier":1,"action":"redeploy"}]}' > gate-verdict.json
   try env DRY_RUN=1 bash "$SCRIPT_DIR/deploy.sh" apply --env sit --digest "sha256:$(printf 'a%.0s' {1..64})"
-  says err.txt "applied env=sit" "verdict lulus tidak menaikkan deploy"
-  says err.txt "namespace=ci-sit-ledger-service" "namespace tidak terisi"
-  never_says rendered/sit.yaml "__IMAGE__" "placeholder masih mentah di berkas hasil render"
+  says err.txt "applied env=sit" "a passing verdict does not deploy"
+  says err.txt "namespace=ci-sit-ledger-service" "namespace not filled in"
+  # Positive assertions on the rendered file: "no placeholder left" is only
+  # meaningful once something was required to be there.
+  says rendered/sit.yaml "namespace: ci-sit-ledger-service" "the rendered namespace is not the one asked for"
+  says rendered/sit.yaml "image: registry.example.internal/platform/core-api@sha256:aaaaaaaaaaaaaaaa" "the rendered image line does not carry the digest"
+  says rendered/sit.yaml "env: sit" "the rendered environment label is missing"
 
-  # Jendela perubahan produksi, diuji dengan jam yang diputar, bukan dengan harapan.
+  # A token render() does not know must stop the deploy rather than reach the cluster.
+  printf '%s\n' 'metadata: { name: __MYSTERY__ }' > ci-library/templates/deployment.yaml
+  try env DRY_RUN=1 bash "$SCRIPT_DIR/deploy.sh" apply --env sit --digest "sha256:$(printf 'a%.0s' {1..64})"
+  says err.txt "reason=unresolved_placeholder" "an unresolved placeholder was allowed through"
+  cp "$SCRIPT_DIR/../templates/deployment.yaml" ci-library/templates/deployment.yaml
+
+  # The production change window, tested with a turned clock rather than with hope.
   try env DRY_RUN=1 NOW_OVERRIDE=6_22 RULES_CHECK_CMD="true" CHANGE_WINDOW=1 \
     bash "$SCRIPT_DIR/deploy.sh" promote --from uat --to prod
-  says err.txt "reason=change_window" "Sabtu malam tidak ditolak"
+  says err.txt "reason=change_window" "Saturday night was not refused"
   try env DRY_RUN=1 NOW_OVERRIDE=2_10 RULES_CHECK_CMD="true" CHANGE_WINDOW=1 \
     bash "$SCRIPT_DIR/deploy.sh" promote --from uat --to prod
-  never_says err.txt "reason=change_window" "Selasa pagi ditolak sebagai di luar jam"
+  never_says err.txt "reason=change_window" "Tuesday morning refused as outside the hours"
 
-  # Aturan promotion tetap ditanyakan, dan jawabannya yang menolak.
+  # The promotion rules are still asked, and the answer refuses.
   try env DRY_RUN=1 NOW_OVERRIDE=2_10 CHANGE_WINDOW=1 RULES_CHECK_CMD="false" \
     bash "$SCRIPT_DIR/deploy.sh" promote --from prod --to sit
-  says err.txt "reason=promotion_refused" "promotion mundur diterima"
+  says err.txt "reason=promotion_refused" "backward promotion accepted"
 
   cd /; rm -rf "$tmp"
   if [ "$fails" = "0" ]; then echo "deploy selftest: ok" >&2; return 0; fi
-  echo "deploy selftest: $fails kegagalan" >&2; return 1
+  echo "deploy selftest: $fails failures" >&2; return 1
 }
 
 main() {
