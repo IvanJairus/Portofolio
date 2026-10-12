@@ -1,7 +1,7 @@
 /*
-  Komponen interaktif portofolio: rel pipeline di hero, konveyor matriks stack,
-  storyboard board GitLab, chip ChatOps, dan replika UI release control plane.
-  Semua data di dalam replika dummy yang sudah disanitasi.
+  Interactive portfolio components: the hero pipeline rail, the stack matrix conveyor,
+  the GitLab board storyboard, ChatOps chips and the release control plane UI replica.
+  All data inside the replica is dummy data and sanitized.
 */
 
 (function () {
@@ -20,17 +20,17 @@
     }
   }
 
-  /* rel pipeline di hero */
+  /* pipeline rail in the hero */
   function initHeroFlow() {
     var rail = document.querySelector('[data-flow="hero"]');
     if (!rail) return;
     var nodes = rail.querySelectorAll(".hf-node");
-    /* tanpa gerak: semua tahap menyala, informasi tetap lengkap tanpa animasi */
+    /* no motion: every stage lights up, the information stays complete without animation */
     if (RM) { nodes.forEach(function (n) { n.classList.add("lit"); }); return; }
 
     var period = 7000;
-    var busy = false;   /* satu putaran berjalan */
-    var started = false;/* putaran pertama sudah pernah dipicu */
+    var busy = false;   /* one lap running */
+    var started = false;/* the first lap has already fired */
 
     function cycle() {
       nodes.forEach(function (n, i) {
@@ -42,12 +42,12 @@
       });
     }
 
-    /* satu putaran: paket melintas sekali lalu diam di ujung */
+    /* one lap: the package crosses once then rests at the end */
     function run() {
       if (busy) return;
       busy = true;
       rail.classList.remove("run");
-      void rail.offsetWidth; /* reflow paksa agar animasi bisa diulang */
+      void rail.offsetWidth; /* forced reflow so the animation can replay */
       rail.classList.add("run");
       cycle();
       setTimeout(function () { busy = false; }, period);
@@ -67,10 +67,10 @@
       ? new IntersectionObserver(maybeStart, { threshold: 0.4 })
       : null;
     if (io) { io.observe(rail); } else { started = true; run(); }
-    /* tab yang dibuka di latar belakang: jalankan saat pertama kali terlihat */
+    /* a tab opened in the background: run it the first time it is seen */
     document.addEventListener("visibilitychange", maybeStart);
 
-    /* pengulangan hanya atas interaksi pengunjung, bukan loop tak berujung */
+    /* repeat only on visitor interaction, not an endless loop */
     rail.addEventListener("pointerenter", run);
     rail.addEventListener("focusin", run);
   }
@@ -197,8 +197,8 @@
 
     bd.breakBtn = root.querySelector("[data-bd-break]");
     if (bd.breakBtn) bd.breakBtn.addEventListener("click", function () { setBreak(!bd.breaking); });
-    /* navigasi apa pun mengakhiri counter-example: tidak ada mode tersembunyi
-       yang membuat langkah berikutnya terlihat salah */
+    /* any navigation ends the counter-example: there is no hidden mode
+       that makes the next step look wrong */
     function nav(fn) {
       return function () { stop(); if (bd.breaking) setBreak(false); fn(); };
     }
@@ -215,7 +215,7 @@
 
     go(0);
 
-    /* autoplay saat terlihat, berhenti saat keluar layar */
+    /* autoplay while visible, stop when off screen */
     if ("IntersectionObserver" in window) {
       var started = false;
       var io = new IntersectionObserver(function (en) {
@@ -251,7 +251,7 @@
     bd.idx = i;
     var s = STEPS[i];
 
-    /* posisi kartu */
+    /* card position */
     var body = bd.cols[s.col].querySelector(".bd-colbody");
     if (bd.card.parentElement !== body) {
       body.appendChild(bd.card);
@@ -267,7 +267,7 @@
       c.querySelector(".cc").textContent = String(n);
     });
 
-    /* header kartu */
+    /* card header */
     bd.phase.textContent = s.phase;
     bd.approve.replaceChildren();
     s.approvals.forEach(function (a) {
@@ -278,7 +278,7 @@
     });
     bd.botmark.classList.toggle("on", !!s.botmark);
 
-    /* feed aktivitas: kumulatif */
+    /* activity feed: cumulative */
     if (bd.rendered > countActs(i)) { bd.feed.replaceChildren(); bd.rendered = 0; }
     var flat = [];
     for (var k = 0; k <= i; k++) flat = flat.concat(STEPS[k].acts);
@@ -286,7 +286,7 @@
     bd.rendered = flat.length;
     bd.feed.scrollTop = bd.feed.scrollHeight;
 
-    /* narasi + progres */
+    /* narration + progress */
     setSafeHtml(bd.narr, T(s.narr));
     bd.cur.textContent = String(i + 1);
     bd.dots.forEach(function (d, di) {
@@ -295,7 +295,7 @@
     });
   }
 
-  /* satu entri feed; dipakai alur normal dan counter-example di bawah */
+  /* one feed entry; used by the normal flow and the counter-example below */
   function actEl(a) {
     var el = document.createElement("div");
     el.className = "act " + a.cls;
@@ -322,11 +322,11 @@
     return el;
   }
 
-  /* ---------- "break the gate": counter-example, bukan langkah ke-9 ----------
-     Tiga hal di bawah ini sudah diklaim situs di tempat lain (kartu langkah 6,
-     guard langkah 7, kartu "Gates fail closed" di Decisions). Tidak ada perilaku
-     baru yang diumumkan di sini; yang berubah adalah pengunjung boleh melihat
-     klaim itu bekerja, bukan membacanya sebagai janji. */
+  /* ---------- "break the gate": counter-example, not step 9 ----------
+     The three things below are claimed elsewhere on the site (the step 6 card,
+     the step 7 guard, the "Gates fail closed" card in Decisions). No new behavior
+     is announced here; what changes is that the visitor gets to see
+     the claim work instead of reading it as a promise. */
   var BREAK = {
     col: 3,
     phase: "Merged \u00b7 refused",
@@ -360,9 +360,9 @@
     });
   }
 
-  /* Dua ketukan: percobaan, lalu penolakannya. Kalau kartu langsung digambar di
-     kolom asal, "reverted" cuma jadi kalimat, dan yang dijual panel ini justru
-     melihatnya terjadi. */
+  /* Two taps: the attempt, then the refusal. If the card were drawn straight into
+     its source column, "reverted" would be only a sentence, and what this panel sells is
+     watching it happen. */
   function paintBreak() {
     clearTimeout(bd.breakTimer);
     setSafeHtml(bd.narr, T("board.narr.break"));
@@ -423,7 +423,7 @@
         show(active);
       });
     });
-    /* tampilkan perintah pertama sebagai default */
+    /* show the first command as the default */
     active = chips[0].dataset.co;
     chips[0].classList.add("on");
     show(active);
@@ -431,7 +431,7 @@
   }
 
   /* ============================================================
-     5. REPLIKA RELEASE CONTROL PLANE
+     5. RELEASE CONTROL PLANE REPLICA
      ============================================================ */
   var SVC = [
     { n: "ledger-service", t: "jar", cat: "Backend", sit: "3.14.2", uat: "3.13.0", st: "diff" },
@@ -589,7 +589,7 @@
     P.viewEl.addEventListener("click", onViewClick);
     P.viewEl.addEventListener("change", onViewChange);
 
-    /* jam + denyut SSE berkala */
+    /* clock + periodic SSE pulse */
     var clock = root.querySelector("[data-rp-clock]");
     setInterval(function () {
       if (!clock || document.hidden) return;
@@ -651,7 +651,7 @@
     if (projSel && projSel.value !== P.proj) projSel.value = P.proj;
     P.crumb.textContent = TITLES[P.view] || "";
     setSafeHtml(P.viewEl, VIEW[P.view] ? VIEW[P.view]() : "");
-    /* rasa "aplikasi": konten baru masuk dengan satu gerakan pendek, bukan kedip */
+    /* "application" feel: new content arrives in one short move, not a blink */
     P.viewEl.classList.remove("swapped");
     void P.viewEl.offsetWidth;
     P.viewEl.classList.add("swapped");
@@ -660,9 +660,9 @@
     syncHint();
   }
 
-  /* Petunjuk geser hanya boleh tampil kalau view yang sedang dibuka memang lebih
-     lebar dari kotaknya. Terukur di 390px: hanya view Board yang begitu (598 vs
-     348); tujuh sisanya muat penuh, dan hint yang selalu ada itu bohong. */
+  /* The swipe hint may only show when the view being opened really is wider
+     than its box. Measured at 390px: only the Board view is (598 vs
+     348); the other seven fit in full, and a hint that is always there lies. */
   function syncHint() {
     if (!P.hint || !P.viewEl) return;
     P.hint.hidden = P.viewEl.scrollWidth <= P.viewEl.clientWidth + 1;
@@ -878,9 +878,9 @@
       panel("Per-repository results", "live",
         "<table class='rp-tbl'><tr><th>repo</th><th>gate</th><th>rating</th><th>bugs</th><th>vulns</th><th>smells</th><th>coverage</th><th>dupl.</th><th>trivy C/H/M</th><th></th></tr>" + rows + "</table>",
         "Container scanning covers vulnerabilities, embedded secrets and misconfiguration, and a CycloneDX SBOM is archived beside every image.") +
-      /* Ringkasan ini turunan murni dari tabel di atasnya: 3 + 4 + 96 = 103,
-         satu trivy critical, coverage terendah dan duplikasi tertinggi dari
-         enam baris. Tidak ada angka di luar tabel. */
+      /* This summary is a pure derivative of the table above it: 3 + 4 + 96 = 103,
+         one trivy critical, the lowest coverage and the highest duplication of the
+         six rows. No numbers from outside the table. */
       '<div class="rp-ai"><div class="rp-ai-h"><span class="rp-ai-tag mono">written by the pipeline</span><span class="rp-ai-b mono">a note on the merge request</span></div>' +
       "<p>notification-worker is the only failed gate in this run. Of its 103 findings, 96 are maintainability smells and 4 are vulnerabilities; the single critical trivy result is the one blocking promotion. Its coverage, 41.2%, is the lowest of the six and its duplication, 6.8%, the highest.</p>" +
       "<p class=\"rp-ai-n\">The gate below this paragraph is arithmetic. It does not read the paragraph.</p></div>";
@@ -1153,10 +1153,10 @@
     return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
   }
 
-  /* ---------- diagram gateway: sorot jalur yang benar-benar dipakai ----------
-     Menyentuh satu kotak repo menyalakan garisnya sampai ke gateway, dan
-     meredam sisanya. Ini bukan hiasan: klaim diagram adalah "banyak repo, satu
-     gateway", dan interaksi ini menunjukkannya per kotak. */
+  /* ---------- gateway diagram: highlight the path actually used ----------
+     Touching one repo box lights its line all the way to the gateway and
+     dims the rest. This is not decoration: the diagram claims "many repos, one
+     gateway", and this interaction shows it box by box. */
   function initDiagramFocus() {
     var shell = document.querySelector('[data-diagram="gateway"]');
     if (!shell) return;
@@ -1183,8 +1183,8 @@
     if (!bar || !("IntersectionObserver" in window)) return;
     var links = {};
     bar.querySelectorAll(".wsn").forEach(function (a) { links[a.dataset.wsn] = a; });
-    /* di ponsel barisnya satu lajur yang bisa digeser: chip aktif harus ikut
-       terlihat, kalau tidak penanda posisi justru hilang di luar layar */
+    /* on a phone the row is one swipeable lane: the active chip has to stay
+       in view, otherwise the position marker is the thing lost off screen */
     function bringIntoView(chip) {
       if (bar.scrollWidth <= bar.clientWidth) return;
       var left = chip.offsetLeft - (bar.clientWidth - chip.offsetWidth) / 2;
@@ -1235,7 +1235,7 @@
       btns.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.filter === tier)); });
     }
     btns.forEach(function (b) { b.addEventListener("click", function () { apply(b.dataset.filter); }); });
-    apply("daily"); /* default saat JS aktif; tanpa JS semua tampil (noscript.css menyembunyikan bar) */
+    apply("daily"); /* default when JS is on; without JS everything shows (noscript.css hides the bar) */
   }
 
   /* ---------- mail preview tabs ---------- */
@@ -1286,9 +1286,9 @@
       if (RM) { pauseBtn.disabled = true; }
     }
     nodes.forEach(function (n) {
-      /* tidak ada lagi div berpura-pura tombol: .lc-node dan .lc-chip sama-sama
-         <button type="button">, jadi Tab/Enter bekerja tanpa role tambahan.
-         Klik menghentikan rotasi; tombol jeda memberi kontrol eksplisit (2.2.2). */
+      /* no more divs pretending to be buttons: .lc-node and .lc-chip are both
+         <button type="button">, so Tab/Enter work with no extra role.
+         Clicking stops the rotation; the pause button gives explicit control (2.2.2). */
       n.addEventListener("click", function () { stop(); show(+n.dataset.lc); });
     });
     if (RM) {

@@ -1,6 +1,6 @@
 /*
-  Halaman 404. Berdiri sendiri: hanya token dari base.css yang dipakai, supaya
-  satu halaman error tidak menarik seluruh stylesheet halaman utama.
+  404 page. Standalone: only base.css tokens are used, so that
+  one error page does not pull in the whole main page stylesheet.
 */
 
 .error {

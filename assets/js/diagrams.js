@@ -1,7 +1,7 @@
 /*
-  Urutan animasi diagram arsitektur, pipeline dan gate. Setiap diagram hanya
-  bermain saat masuk viewport, sekali saja, dan dimatikan total bila
-  prefers-reduced-motion aktif.
+  Animation sequence for the architecture, pipeline and gate diagrams. Each diagram
+  plays only when it enters the viewport, once, and is fully off when
+  prefers-reduced-motion is on.
 */
 
 (function () {
@@ -9,13 +9,13 @@
 
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ukur panjang tiap garis SVG supaya animasi "draw" presisi */
+  /* measure each SVG line length so the "draw" animation is exact */
   function measureLinks(scope) {
     scope.querySelectorAll(".dg-link").forEach((p) => {
       try {
         const len = Math.ceil(p.getTotalLength());
         p.style.setProperty("--len", len);
-      } catch (e) { /* elemen non-path: abaikan */ }
+      } catch (e) { /* non-path element: skip */ }
     });
   }
 
@@ -50,7 +50,7 @@
     }, 400 + checks.length * 800 + 300);
   }
 
-  /* ---------- observer umum ---------- */
+  /* ---------- shared observer ---------- */
   function observeDiagrams() {
     const targets = document.querySelectorAll("[data-diagram]");
     if (!targets.length) return;
@@ -77,7 +77,7 @@
         const kind = entry.target.dataset.diagram;
         if (kind === "gateway") playGateway(entry.target);
         else if (kind === "gate") playGate(entry.target);
-        else entry.target.classList.add("play"); /* flow: murni CSS */
+        else entry.target.classList.add("play"); /* flow: pure CSS */
       });
     }, { threshold: 0.35 });
 

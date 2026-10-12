@@ -1,38 +1,38 @@
 /*
-  Token, reset, tipografi, layout, header dan hero.
-  Satu tema: broken white hangat dengan oranye GitLab sebagai warna utama.
-  Warna status memakai warna alat aslinya (Jenkins, OpenShift, Jira, Docker,
-  GitHub) supaya konsisten dengan diagram di halaman.
+  Tokens, reset, typography, layout, header and hero.
+  One theme: warm broken white with GitLab orange as the main color.
+  Status colors use the real tool colors (Jenkins, OpenShift, Jira, Docker,
+  GitHub) so they match the diagrams on the page.
 */
 
 :root {
   color-scheme: light;
 
-  /* bidang: halaman putih; warna hangat bertahan hanya sebagai tint cekung.
-     bg-2 sengaja sama dengan bg: pemisah kartu/blok selalu garis, bukan warna,
-     jadi tidak ada pasangan yang kehilangan pemisahnya di atas putih. */
+  /* surfaces: the page is white; warm colors survive only as a recessed tint.
+     bg-2 is deliberately equal to bg: card/block separators are always lines, never color,
+     so no pair loses its separator on top of white. */
   --bg: #ffffff;
   --bg-2: #ffffff;
   --bg-3: #faf7f2;
-  --surface-dark: #241c17; /* satu-satunya bidang gelap: terminal & cuplikan kode */
+  --surface-dark: #241c17; /* the only dark surface: terminal & code snippets */
 
-  /* teks: semua >= 4.5:1 di bg, bg-2 maupun bg-3 */
+  /* text: all >= 4.5:1 on bg, bg-2 and bg-3 */
   --ink: #1c1917;        /* 15.7 - 17.2 */
   --ink-dim: #5c5348;    /* 6.4 - 7.4 */
   --ink-faint: #766b5f;  /* 4.7 - 5.1 */
   --line: rgba(28, 25, 23, 0.12);
   --line-strong: rgba(28, 25, 23, 0.26);
 
-  /* merek: oranye GitLab. Varian B -> #C2410C untuk teks/bidang,
-     #FC6D26 hanya untuk garis rel, hover, dan aksen kecil */
+  /* brand: GitLab orange. Variant B -> #C2410C for text/surfaces,
+     #FC6D26 only for rail lines, hover, and small accents */
   --accent: #c2410c;
-  --accent-strong: #a8360a;  /* oranye untuk teks DI ATAS tint --accent-dim: 5.49:1 */
+  --accent-strong: #a8360a;  /* orange for text on top of the --accent-dim tint: 5.49:1 */
   --accent-bright: #fc6d26;
-  --accent-ink: #ffffff;                       /* teks di atas --accent: 5.18:1 */
+  --accent-ink: #ffffff;                       /* text on top of --accent: 5.18:1 */
   --accent-dim: rgba(194, 65, 12, 0.08);
   --accent-line: rgba(194, 65, 12, 0.42);
 
-  /* status = alat nyata. Versi "teks" selalu >= 4.5:1, versi brand untuk dekor */
+  /* status = real tools. The "text" versions are always >= 4.5:1, the brand versions are for decoration */
   --pass: #2e7d32; --pass-strong: #256a2b;  --pass-brand: #63a955;  --pass-dim: rgba(99, 169, 85, 0.12); /* Jenkins */
   --danger: #b42318;      --danger-brand: #da291c; --danger-dim: rgba(218, 41, 28, 0.07); /* OpenShift */
   --warn: #a94e09;        --warn-brand: #d97706;   --warn-dim: rgba(180, 83, 9, 0.08);    /* amber */
@@ -48,9 +48,9 @@
   --section: clamp(84px, 11vw, 148px);
   --radius: 4px;
   --ease: cubic-bezier(0.22, 0.68, 0.24, 1);
-  /* Tinggi chrome lengket, dipakai bersama oleh posisi sub-nav dan jarak anchor.
-     Di layar sempit subnav jadi satu baris, jadi tingginya ikut berubah di sini,
-     bukan di dua tempat yang harus diingat orang. */
+  /* Height of the sticky chrome, shared by the sub-nav position and the anchor offset.
+     On narrow screens the subnav becomes one row, so its height changes here too,
+     not in two places a person has to remember. */
   --header-h: 65px;
   --subnav-h: 53px;
 }
@@ -70,10 +70,10 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* clip, bukan hidden: hidden membuat body jadi scroll container dan bisa
-     merusak position:sticky di dalamnya. Nilai hidden dibiarkan di depan
-     sebagai fallback untuk browser yang belum mengenal clip.
-     Bukan untuk menutupi overflow - sapuan overflow adalah bagian dari CI. */
+  /* clip, not hidden: hidden turns body into a scroll container and can
+     break position:sticky inside it. The hidden value is left in front
+     as a fallback for browsers that do not know clip.
+     Not there to cover overflow: the overflow sweep is part of CI. */
   overflow-x: hidden;
   overflow-x: clip;
 }
@@ -83,7 +83,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 ul { list-style: none; padding: 0; }
 ::selection { background: var(--accent); color: var(--accent-ink); }
 
-/* latar grid halus */
+/* subtle grid background */
 body::before {
   content: "";
   position: fixed;
@@ -109,7 +109,7 @@ main, header, footer { position: relative; z-index: 1; }
 section { padding-block: var(--section); }
 section + section { border-top: 1px solid var(--line); }
 
-/* ---------- tipografi ---------- */
+/* ---------- typography ---------- */
 .kicker {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -138,8 +138,8 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
 .dim { color: var(--ink-dim); }
 
 .section-head { margin-bottom: clamp(40px, 6vw, 68px); }
-/* eyebrow sudah hilang di sebagian besar section: judul mengambil alih posisinya
-   supaya jarak tepi section ke teks pertama tidak berubah */
+/* the eyebrow is already gone in most sections: the title takes over its position
+   so the distance from the section edge to the first text does not change */
 .section-head > h2:first-child,
 .hero-id > h1:first-child { margin-top: 0; }
 
@@ -211,16 +211,16 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
 .tool-btn:hover { border-color: var(--accent); color: var(--accent); }
 .tool-btn[aria-pressed="true"] { background: var(--accent-dim); border-color: var(--accent-line); color: var(--accent); }
 
-/* ---------- C2: dua kedalaman baca ----------
-   Default = deep: semua section ada di DOM dan terbaca crawler maupun Tech Lead.
-   Skim hanya menyembunyikan case study, tidak menghapus kontennya. */
+/* ---------- C2: two reading depths ----------
+   Default = deep: every section is in the DOM and readable by crawlers and by a Tech Lead.
+   Skim only hides the case studies, it does not delete their content. */
 .depth-row {
   display: none;
   align-items: baseline;
   gap: 10px 14px;
   margin-top: 22px;
 }
-/* tanpanya kontrolnya cuma tombol mati, jadi tidak ditampilkan */
+/* without it the control is just a dead button, so it is not shown */
 html[data-js] .depth-row { display: flex; flex-wrap: wrap; }
 .depth-hint {
   font-size: 12px;
@@ -231,9 +231,9 @@ html[data-js] .depth-row { display: flex; flex-wrap: wrap; }
   .depth-btn { min-height: 44px; display: inline-flex; align-items: center; }
 }
 html[data-depth="skim"] [data-deep] { display: none; }
-/* Penanda di tempat keenam case study tadi. Tanpanya tombol "hide" hanya
-   menghilangkan isi dan pengguna ditinggal menebak. Author style di atas
-   mengalahkan [hidden] bawaan UA, jadi tanpa JS ia tetap tersembunyi. */
+/* Marker where the six case studies used to sit. Without it the "hide" button
+   only removes content and leaves the user guessing. The author style above
+   beats the UA default [hidden], so without JS it stays hidden. */
 .skim-note {
   display: none;
   align-items: center;
@@ -247,7 +247,7 @@ html[data-depth="skim"] [data-deep] { display: none; }
   color: var(--ink-dim);
 }
 html[data-depth="skim"] .skim-note { display: flex; }
-/* cetak = dokumen lengkap, apa pun mode di layar */
+/* print = the complete document, whatever the mode on screen */
 @media print {
   html[data-depth="skim"] [data-deep] { display: block; }
   .skim-note { display: none; }
@@ -273,10 +273,10 @@ html[data-depth="skim"] .skim-note { display: flex; }
   .nav.open { transform: none; opacity: 1; visibility: visible; }
   .nav a { padding: 12px 10px; font-size: 14px; border-bottom: 1px solid var(--line); }
   .menu-btn { display: inline-flex; justify-content: center; align-items: center; padding: 7px 0; }
-  /* Glyph "≡" (U+2261) sudah rata kotak (offX 0, offY -0.4px di dalam 44x44),
-     tapi lebarnya cuma 8.5px dan ia duduk di math axis, bukan di tengah visual
-     - itu yang membuat tombolnya terlihat miring. Ikon SVG 18px ikut warna
-     teksnya, jadi tengahnya benar-benar tengah. */
+  /* The "≡" glyph (U+2261) is already box-aligned (offX 0, offY -0.4px inside 44x44),
+     but it is only 8.5px wide and it sits on the math axis, not on the visual center.
+     That is what makes the button look crooked. The 18px SVG icon takes the
+     text color, so its center is a true center. */
   .menu-btn .mi { display: block; }
 }
 
@@ -286,9 +286,9 @@ html[data-depth="skim"] .skim-note { display: flex; }
   padding-bottom: clamp(56px, 8vw, 96px);
   border-top: none;
 }
-/* Di ponsel 16vh berarti 135px: header 65px, lalu 70px kosong sebelum namanya.
-   Ruang itu tidak membeli apa pun di layar 844px - yang dibayar adalah rel yang
-   turun dari fold. Sisakan satu napas pendek di bawah chrome. */
+/* On a phone 16vh means 135px: 65px header, then 70px empty before the name.
+   That space buys nothing on an 844px screen; what it pays for is the rail
+   dropping out of the fold. Leave one short breath under the chrome. */
 @media (max-width: 860px) {
   .hero { padding-top: calc(var(--header-h) + 30px); }
 }
@@ -304,9 +304,9 @@ html[data-depth="skim"] .skim-note { display: flex; }
   row-gap: clamp(26px, 3.6vw, 40px);
   align-items: center;
 }
-/* Laptop 1280x720 (target F1): rel didahulukan di atas strip stack, supaya
-   terminal naik ke layar pertama. Di <=860px aturan satu kolom di bawah yang
-   menang, jadi mobile tidak berubah. */
+/* Laptop 1280x720 (F1 target): the rail is placed above the stack strip so the
+   terminal rises into the first screen. At <=860px the one-column rule below
+   wins, so mobile does not change. */
 @media (max-width: 1300px) {
   .hero-grid {
     grid-template-areas:
@@ -318,11 +318,11 @@ html[data-depth="skim"] .skim-note { display: flex; }
 }
 .hero-id { grid-area: id; }
 .hero-after { grid-area: after; }
-/* terminal dan kartu include berdampingan; di layar sempit mereka menumpuk */
+/* terminal and include card side by side; on narrow screens they stack */
 .hero-after { display: flex; flex-wrap: wrap; gap: 22px; align-items: stretch; }
 
-/* kartu include: bentuk nyata file pipeline sebuah service repo.
-   Sengaja terang - hero hanya boleh punya satu blok gelap, yaitu terminal. */
+/* include card: the real shape of a service repo pipeline file.
+   Deliberately light: the hero is allowed one dark block only, the terminal. */
 .hero-yml {
   flex: 1 1 400px;
   min-width: 0;
@@ -357,7 +357,7 @@ html[data-depth="skim"] .skim-note { display: flex; }
 .hy-v { color: var(--ink); }
 .hy-c { color: var(--ink-faint); }
 @media (max-width: 620px) {
-  /* nama file dan keterangan tidak saling mendorong di kepala kartu */
+  /* the file name and the caption do not push each other in the card head */
   .hy-head { flex-direction: column; align-items: flex-start; gap: 2px; }
   .hy-where { margin-left: 0; }
 }
@@ -370,8 +370,8 @@ html[data-depth="skim"] .skim-note { display: flex; }
   color: var(--ink-faint);
 }
 
-/* strip stack di bawah tombol hero: satu baris mark + nama, tanpa wadah.
-   Di 390 strip ikut di atas rel, jadi rel terdorong turun. */
+/* stack strip under the hero button: one row of mark + name, no container.
+   At 390 the strip also sits above the rail, so the rail gets pushed down. */
 .hero-stack {
   grid-area: stack;
   display: flex;
@@ -389,15 +389,15 @@ html[data-depth="skim"] .skim-note { display: flex; }
   flex: none;
 }
 .hs-row { display: flex; flex-wrap: wrap; gap: 8px 18px; }
-/* Hero compact di layar sempit (audit F1, P0). Terukur di 390x844: strip stack
-   172px karena 16 chip membungkus jadi 5 baris, sehingga rel pipeline mulai di
-   y=731 dan NOL dari 7 node utuh di atas fold. Strip dijadikan satu baris yang
-   bisa digeser (hemat ~120px) supaya rel - gambar yang menjual pekerjaan ini -
-   benar-benar terlihat. Bayangan tepi kanan adalah petunjuk bahwa baris
-   berlanjut; labelnya tetap di kiri. */
+/* Compact hero on narrow screens (audit F1, P0). Measured at 390x844: the stack strip was
+   172px because 16 chips wrapped into 5 rows, so the pipeline rail started at
+   y=731 and ZERO of the 7 whole nodes were above the fold. The strip becomes one row that
+   can be swiped (saves ~120px) so the rail, the image that sells this work,
+   is actually visible. The right edge shadow is the hint that the row
+   continues; the label stays on the left. */
 @media (max-width: 860px) {
-  /* min-width: 0 wajib: tanpa ini ukuran minimum otomatis item grid sebesar
-     isi baris chip (terukur 1315px) dan seluruh halaman ikut melebar */
+  /* min-width: 0 is mandatory: without it the automatic minimum size of a grid item equals
+     the chip row content (measured 1315px) and the whole page gets wider too */
   .hero-stack { flex-direction: column; align-items: stretch; gap: 8px; min-width: 0; }
   .hs-row { width: 100%; max-width: 100%; min-width: 0; }
   .hs-row {
@@ -413,15 +413,15 @@ html[data-depth="skim"] .skim-note { display: flex; }
   .hs-row > .sc { flex: 0 0 auto; scroll-snap-align: start; }
 }
 
-/* ---------- strip stack: papan nama yang bisa digeser ----------
-   Dua set identik berdampingan. Yang menggesernya adalah scrollLeft barisnya
-   sendiri (bukan transform), jadi satu kontrol melayani dua arah: lajur berjalan
-   pelan 26px/s, dan jari yang menariknya tetap bekerja seperti menggeser baris
-   biasa. Selama disentuh/di-scroll/difokus lajur diam; 1,4 detik setelah
-   interaksi terakhir ia lanjut dari posisi itu, bukan dari awal.
-   Tidak ada tombol pause - yang berhenti adalah animasinya, bukan hak pengguna.
-   Tanpa JS atau dengan reduced-motion: tidak ada kloning, barisnya tetap bisa
-   digeser seperti sebelumnya. */
+/* ---------- stack strip: a swipeable name board ----------
+   Two identical sets side by side. What moves it is the row's own scrollLeft
+   (not a transform), so one control serves two directions: the lane drifts
+   slowly at 26px/s, and a finger pulling it still works like swiping an
+   ordinary row. While touched/scrolled/focused the lane holds still; 1.4 seconds after
+   the last interaction it continues from that position, not from the start.
+   There is no pause button: what stops is the animation, not the user's right.
+   Without JS or with reduced-motion: no cloning, the row stays
+   swipeable like before. */
 @media (max-width: 860px) {
   .hs-row.hs-marquee { scroll-snap-type: none; padding-bottom: 0; }
   .hs-track { display: flex; width: max-content; }
@@ -445,14 +445,14 @@ html[data-depth="skim"] .skim-note { display: flex; }
   max-width: 52ch;
   margin-top: 18px;
 }
-/* baris fakta untuk pemindai cepat (HR): total tahun, peran sekarang, lokasi */
+/* fact row for fast scanners (HR): total years, current role, location */
 .hero-facts {
   font-size: 13px;
   color: var(--ink);
   margin-top: 12px;
   letter-spacing: 0.01em;
 }
-/* baris bukti skala: angka yang sama dipakai di seluruh situs, tidak ada klaim baru */
+/* scale evidence row: the same numbers used across the whole site, no new claims */
 .hero-proof {
   font-size: 13px;
   letter-spacing: 0.02em;
@@ -483,7 +483,7 @@ html[data-depth="skim"] .skim-note { display: flex; }
 .btn-ghost { color: var(--ink-dim); border-color: var(--line); background: transparent; }
 .btn-ghost:hover { border-color: var(--accent-line); color: var(--ink); }
 
-/* terminal: dua baris visual (perintah + keluaran berdampingan) */
+/* terminal: two visual rows (command + output side by side) */
 .terminal {
   margin-top: 0;
   flex: 1 1 420px;
@@ -518,13 +518,13 @@ html[data-depth="skim"] .skim-note { display: flex; }
   column-gap: 16px;
   row-gap: 4px;
 }
-/* min-height menjaga tinggi blok tetap saat teks diketik (tanpa CLS) */
+/* min-height keeps the block height fixed while text is typed (no CLS) */
 .terminal-body .ln { white-space: pre-wrap; min-height: 1.6em; }
 .terminal-body .cmd { color: var(--on-dark); }
-.terminal-body .out { color: var(--accent-bright); }   /* 5.87:1 di atas bidang gelap */
+.terminal-body .out { color: var(--accent-bright); }   /* 5.87:1 on the dark surface */
 .terminal-body .out.dim-out { color: #a9a29a; }               /* 6.64:1 */
 
-/* foto */
+/* photo */
 .hero-photo { position: relative; justify-self: end; width: min(100%, 240px); grid-area: photo; }
 .photo-frame {
   position: relative;
@@ -541,9 +541,9 @@ html[data-depth="skim"] .skim-note { display: flex; }
   filter: grayscale(1) contrast(1.06) brightness(0.98);
   transition: filter 0.6s var(--ease), transform 0.9s var(--ease);
 }
-/* warna foto adalah keadaan hover-nya. Di perangkat tanpa hover keadaan itu
-   tidak pernah tercapai, jadi foto ditampilkan seperti memang adanya -
-   bukan hitam-putih permanen karena satu aturan yang tidak bisa dipicu. */
+/* the photo color is its hover state. On devices without hover that state
+   is never reached, so the photo shows as it actually is:
+   not permanently black and white because of one rule that cannot fire. */
 @media (hover: none) {
   .photo-frame img { filter: grayscale(0) contrast(1.02); }
 }
@@ -557,10 +557,10 @@ html[data-depth="skim"] .skim-note { display: flex; }
   border-left: 1px solid var(--accent-line);
 }
 
-/* Di ponsel potret 161px di ujung hero menyisakan ruang kosong yang lebih lebar
-   dari fotonya sendiri. Ia tidak dibuang: dipindah ke kartu kontak oleh main.js,
-   tempat wajah memang diharapkan - lihat .contact-meta di components.css untuk
-   cara ia duduk di sana. Tanpa JS ia tetap di hero, hanya tersembunyi. */
+/* On a portrait phone, 161px at the end of the hero leaves empty space wider
+   than the photo itself. It is not dropped: main.js moves it into the contact card,
+   a place where a face is expected. See .contact-meta in components.css for
+   how it sits there. Without JS it stays in the hero, only hidden. */
 @media (max-width: 860px) {
   .hero-photo { display: none; }
 }
@@ -571,12 +571,12 @@ html[data-depth="skim"] .skim-note { display: flex; }
     grid-template-areas: "id" "flow" "stack" "after" "photo";
     row-gap: 24px;
   }
-  /* rel naik ke bawah kolom nama; foto turun ke paling bawah agar rel muat di layar pertama */
+  /* the rail rises under the name column; the photo drops to the very bottom so the rail fits on the first screen */
   .hero-photo { justify-self: start; width: min(46%, 190px); }
 }
-/* F7: setelah hero dipadatkan, foto 161px di kiri meninggalkan ruang kosong
-   yang lebih lebar dari fotonya sendiri. Diperbesar sampai 60% membuat potret
-   itu membaca sebagai potret, bukan sebagai sisa layout. */
+/* F7: after the hero was compacted, the 161px photo on the left left empty space
+   wider than the photo itself. Enlarging it to 60% makes the portrait
+   read as a portrait, not as leftover layout. */
 @media (max-width: 620px) {
   .hero-photo { width: min(60%, 216px); }
 }
@@ -623,9 +623,9 @@ html[data-depth="skim"] .skim-note { display: flex; }
   outline-offset: 2px;
   border-radius: 2px;
 }
-/* situs ini punya hover dan focus ring, tapi tidak pernah punya state tertekan
-   (0 aturan :active sebelumnya), jadi sentuh/klik tidak memberi umpan balik sama sekali.
-   Hanya kontrol nyata; rel hero (.hf-node) sengaja tidak ikut, sesuai veto Anda. */
+/* this site has hover and focus rings, but never had a pressed state
+   (0 :active rules before this), so touch/click gave no feedback at all.
+   Real controls only; the hero rail (.hf-node) is deliberately left out, per your veto. */
 .btn:active, .wsn:active, .ms-tab:active, .tf-btn:active, .bd-btn:active, .bd-dot:active,
 .tool-btn:active, .lc-node:active, .lc-chip:active, .copy-btn:active, [data-act]:active {
   transform: translateY(1px);
@@ -641,7 +641,7 @@ html[data-depth="skim"] .skim-note { display: flex; }
 }
 
 
-/* ---------- print: semua konten & status akhir widget (audit v2 #10) ---------- */
+/* ---------- print: all content & final widget state (audit v2 #10) ---------- */
 @media print {
   .gate-check .box { background: #2e7d32 !important; border-color: #2e7d32 !important; color: #fff !important; }
   .gate-result { border-color: #2e7d32 !important; background: #e7f2e6 !important; }
@@ -649,15 +649,15 @@ html[data-depth="skim"] .skim-note { display: flex; }
   .gate-result .g-state::before { content: attr(data-ready); font-size: 22px; font-weight: 700; }
   .hf-packet, .lc-packet, .rp-sse i, .bd-live i { display: none !important; }
   .rp-view::before, .bd-narr::before { content: "Interactive demo. See the written description."; font-family: var(--font-mono); font-size: 12px; color: #555; }
-  .dg-link { stroke-dashoffset: 0 !important; } /* animasi dimatikan di cetak: garis diagram harus tetap terlihat */
+  .dg-link { stroke-dashoffset: 0 !important; } /* animation off in print: diagram lines must stay visible */
   * { animation: none !important; transition: none !important; }
 }
 
-/* Progres baca: satu garis 2px di bawah header, murni CSS (animation-timeline),
-   tanpa JS dan tanpa reveal-on-scroll. Hilang total di reduced-motion. */
+/* Reading progress: one 2px line under the header, pure CSS (animation-timeline),
+   no JS and no reveal-on-scroll. Gone entirely under reduced-motion. */
 @supports (animation-timeline: scroll()) {
-  /* jangan mengubah position header: header fixed, dan sticky akan menempatkannya
-     di aliran dokumen sehingga seluruh hero turun 65px (terukur) */
+  /* do not change the header position: the header is fixed, and sticky would put it
+     in the document flow so the whole hero drops 65px (measured) */
   .site-header::after {
     content: "";
     position: absolute;
@@ -677,9 +677,9 @@ html[data-depth="skim"] .skim-note { display: flex; }
   .site-header::after { display: none; }
 }
 
-/* ---------- C4: satu jalur kontak di ponsel ----------
-   Kontak sebelumnya hanya ada di paling bawah, dan tombol CV hanya di hero.
-   Satu pil, bukan tiga tombol, supaya chrome bawah tidak menumpuk. */
+/* ---------- C4: one contact path on phones ----------
+   Contact used to exist only at the very bottom, and the CV button only in the hero.
+   One pill, not three buttons, so the bottom chrome does not pile up. */
 .mcta { display: none; }
 @media (max-width: 760px) {
   .mcta:not([hidden]) {
@@ -704,11 +704,11 @@ html[data-depth="skim"] .skim-note { display: flex; }
 }
 @media print { .mcta { display: none; } }
 
-/* ---------- B2: efek hover hanya untuk perangkat yang punya hover ----------
-   Disentuh, :hover menempel sampai ketukan berikutnya: kartu tetap terangkat
-   dan baris tabel tetap tersorot. Yang diblokir di sini efek posisi/warna besar;
-   perubahan warna tautan dan tombol dibiarkan, karena di sentuh itu umpan balik,
-   bukan hiasan. */
+/* ---------- B2: hover effects only for devices that have hover ----------
+   On touch, :hover sticks until the next tap: the card stays lifted
+   and the table row stays highlighted. Blocked here are the big position/color effects;
+   link and button color changes are left alone, because on touch that is feedback,
+   not decoration. */
 @media (hover: hover) {
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px -12px var(--accent-line); }
 .hero-photo:hover .photo-frame img { filter: grayscale(0) contrast(1.02); transform: scale(1.025); }

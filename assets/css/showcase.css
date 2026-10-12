@@ -1,20 +1,20 @@
 /*
-  Hero flow rail, stack matrix, board storyboard dan replika UI release
-  control plane. Semua di sini aditif: tidak menimpa base.css maupun
-  components.css. Token warna dimiliki base.css dan tidak dideklarasikan
-  ulang di berkas ini.
+  Hero flow rail, stack matrix, board storyboard and the release
+  control plane UI replica. Everything here is additive: it does not override base.css
+  or components.css. Color tokens belong to base.css and are not
+  redeclared in this file.
 */
 
 /* ============================================================
-   HERO: rel pipeline
+   HERO: pipeline rail
    ============================================================ */
 .hero-flow-wrap { grid-area: flow; margin-top: 0; }
 .hero-flow {
   position: relative;
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  /* tanpa celah antar kolom, sublabel yang lebih lebar dari selnya menempel
-     ke tetangga (terukur 10px jaraknya di 1440, 0px di 390) */
+  /* with no gap between columns, a sublabel wider than its cell sticks
+     to the neighbor (measured 10px apart at 1440, 0px at 390) */
   column-gap: 10px;
   padding-top: 26px;
 }.hf-line {
@@ -30,8 +30,8 @@
   border-radius: 50%;
   background: var(--accent);
   box-shadow: 0 0 0 4px var(--accent-dim), 0 0 16px var(--accent-line);
-  /* satu putaran lalu diam: animasi hanya ada saat rel punya kelas .run,
-     jadi melepas kelas itu benar-benar menyiapkan ulang perjalanan paket */
+  /* one lap then still: the animation only exists while the rail has the .run class,
+     so removing that class really does reset the package trip */
   opacity: 0;
   animation: none;
 }
@@ -42,7 +42,7 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  /* tiap tahap diwarnai oleh alat yang mengerjakannya, bukan sebagai hiasan */
+  /* each stage is colored by the tool that does it, not as decoration */
   --node: var(--ink-dim);
 }
 .hf-node[data-hf="0"] { --node: var(--tool-ink); }      /* commit - GitHub */
@@ -76,8 +76,8 @@
 .hf-node.lit span { color: var(--ink); }
 .hf-node.hf-prod.lit i { transform: scale(1.25); }
 
-/* dua tahap yang bisa menghentikan rilis: dibedakan bentuknya, bukan hanya warnanya.
-   lingkaran = tahap biasa, belah ketupat = scan, kotak = gate. */
+/* two stages can stop a release: told apart by shape, not only by color.
+   circle = normal stage, diamond = scan, square = gate. */
 .hf-node.hf-scan i {
   transform: rotate(45deg);
   border-radius: 2px;
@@ -94,10 +94,10 @@
 .hf-legend .lm-gate { color: var(--danger); }
 @media (max-width: 620px) {
   .hf-line, .hf-packet { display: none; }
-  /* Garis penghubungnya hilang di sini, dan tanpa itu tujuh bentuk ini jadi
-     satu kumpulan kotak, bukan satu urutan. Nomor yang mengembalikan artinya:
-     ini 1 sampai 7, bukan 7 hal yang berdiri sendiri. Tata letaknya sendiri
-     diatur di blok .hero-flow yang lebih belakang di berkas ini. */
+  /* The connecting line is gone here, and without it these seven shapes become
+     a pile of boxes instead of one sequence. The numbers restore the meaning:
+     these are 1 to 7, not 7 standalone things. The layout itself
+     is set in the .hero-flow block further down this file. */
   .hero-flow { counter-reset: hf; }
   .hf-node { counter-increment: hf; }
   .hf-node > span::before {
@@ -109,7 +109,7 @@
 }
 
 /* ============================================================
-   STACKS: konveyor dan matriks artefak
+   STACKS: conveyor and artifact matrix
    ============================================================ */
 .conveyor { position: relative; }
 .cv-rail {
@@ -222,9 +222,9 @@
 }
 .sf span { font-size: 12.2px; color: var(--ink-dim); line-height: 1.5; }
 @media (max-width: 860px) { .stack-facts, .rp-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-/* lima fakta tidak genap di grid dua kolom: sel keenam bukan elemen, ia lubang
-   tempat background garis grid itu sendiri terlihat. Sel terakhir membentang
-   penuh supaya genap - tanpa mengarang angka keenam. */
+/* five facts do not divide evenly in a two-column grid: the sixth cell is not an element, it is a hole
+   where the grid line background itself shows through. The last cell stretches
+   full width so the count stays even, without inventing a sixth number. */
 @media (max-width: 860px) { .rp-facts .sf:last-child { grid-column: 1 / -1; } }
 
 .stack-note {
@@ -239,7 +239,7 @@
 .stack-note .mono { color: var(--accent); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; margin-right: 6px; }
 
 /* ============================================================
-   BOARD: storyboard interaktif
+   BOARD: interactive storyboard
    ============================================================ */
 .bd {
   margin-top: clamp(26px, 3.6vw, 40px);
@@ -261,9 +261,9 @@
   row-gap: 8px;
 }
 .bd-bar-l, .bd-bar-r { display: flex; align-items: center; gap: 12px; }
-/* Kiri memuat live + penghitung + tombol + bendera "counter-example": di 360px
-   keempatnya tidak muat satu baris dan benderanya terpotong 19px di luar
-   viewport. Yang kanan tetap satu baris - cuma tiga tombol kecil. */
+/* The left holds live + counter + buttons + the "counter-example" flag: at 360px
+   those four do not fit one row and the flag is cut 19px outside the
+   viewport. The right side stays one row: only three small buttons. */
 .bd-bar-l { flex-wrap: wrap; row-gap: 6px; }
 .bd-live {
   display: inline-flex; align-items: center; gap: 8px;
@@ -272,7 +272,7 @@
 }
 .bd-live i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s var(--ease) infinite; }
 
-/* kontrol "break the gate": tombol kecil, hasilnya besar */
+/* "break the gate" control: small button, big result */
 .bd-break {
   white-space: nowrap;
   font-family: var(--font-mono);
@@ -299,7 +299,7 @@
 .bd.breaking .act-in { animation: act-in 0.45s var(--ease) both; }
 @media (prefers-reduced-motion: reduce) { .bd.breaking .act-in { animation: none; } }
 
-/* tanpa JS tombol ini tidak melakukan apa pun, jadi tidak ditampilkan */
+/* without JS this button does nothing, so it is not shown */
 html:not([data-js]) .bd-break { display: none; }
 .bd-count { font-size: 12px; color: var(--ink-faint); letter-spacing: 0.08em; }
 .bd-count b { color: var(--ink); }
@@ -323,8 +323,8 @@ html:not([data-js]) .bd-break { display: none; }
 .bd-dot {
   flex: 1;
   min-width: 26px;
-  /* tombolnya setinggi 24px (target sentuh minimum WCAG 2.2 AA); bar 3px yang
-     lama digambar oleh ::after supaya tampilannya tidak berubah sedikit pun */
+  /* the button is 24px tall (WCAG 2.2 AA minimum touch target); the old 3px bar is
+     drawn by ::after so the look does not change at all */
   position: relative;
   height: 24px;
   padding: 0;
@@ -349,8 +349,8 @@ html:not([data-js]) .bd-break { display: none; }
 
 .bd-grid {
   display: grid;
-  /* papan 5 kolom butuh ruang lebih dari panel tiket: dengan 1.05/0.95 tiap
-     kolom cuma 97px dan badge "Dev Planning" keluar kartu sampai 36px */
+  /* the 5-column board needs more room than the ticket panel: at 1.05/0.95 each
+     column is only 97px and the "Dev Planning" badge leaves the card by up to 36px */
   grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
   gap: 1px;
   background: var(--line);
@@ -467,8 +467,8 @@ html:not([data-js]) .bd-break { display: none; }
 .bt-title { font-size: 12.5px; font-weight: 600; }
 .bt-sub { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin-top: 3px; }
 .bt-feed { margin-top: 12px; display: flex; flex-direction: column; gap: 9px; overflow-y: auto; max-height: 340px; padding-right: 4px; }
-/* kartu boleh mengecil sekecil kolomnya; tanpa ini tabel di dalamnya
-   memaksa feed 384px jadi 644px dan memunculkan scroll horizontal di panel */
+/* the card may shrink to as small as its column; without this the table inside it
+   forces a 384px feed into 644px and creates horizontal scroll in the panel */
 .bt-feed > .act { min-width: 0; }
 .bt-feed::-webkit-scrollbar { width: 5px; }
 .bt-feed::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 3px; }
@@ -534,7 +534,7 @@ html:not([data-js]) .bd-break { display: none; }
   margin-bottom: 7px;
 }
 
-/* ---------- panel gerbang & insiden ---------- */
+/* ---------- gate & incident panel ---------- */
 .board-panels {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -627,7 +627,7 @@ html:not([data-js]) .bd-break { display: none; }
 .co-text .no { color: var(--danger); }
 
 /* ============================================================
-   PLATFORM: replika UI release control plane
+   PLATFORM: release control plane UI replica
    ============================================================ */
 .rp {
   border: 1px solid var(--line-strong);
@@ -670,8 +670,8 @@ html:not([data-js]) .bd-break { display: none; }
   transition: all 0.3s var(--ease);
 }
 .rp-sse i { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-faint); transition: background 0.3s var(--ease); }
-/* teks terpilih di atas tint: accent #C2410C diukur 4,32:1 di atas accent-dim + bg-3,
-   jadi memakai --accent-strong (5,49:1) yang memang token untuk kasus ini */
+/* selected text on the tint: accent #C2410C measured 4.32:1 on accent-dim + bg-3,
+   so it uses --accent-strong (5.49:1), the token meant for exactly this case */
 .rp-sse.on { color: var(--accent-strong); border-color: var(--accent-line); background: var(--accent-dim); }
 .rp-sse.on i { background: var(--accent); animation: pulse 1.6s var(--ease) infinite; }
 
@@ -751,7 +751,7 @@ html:not([data-js]) .bd-break { display: none; }
 .rp-clock { margin-left: auto; font-size: 11px; color: var(--ink-faint); letter-spacing: 0.06em; }
 .rp-view { padding: 16px; overflow-x: auto; flex: 1; }
 
-/* --- komponen dalam replika --- */
+/* --- components inside the replica --- */
 .rp-h { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
 .rp-h h4 { font-size: 14.5px; letter-spacing: -0.01em; }
 .rp-h .sub { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
@@ -885,7 +885,7 @@ html:not([data-js]) .bd-break { display: none; }
   margin-bottom: 14px;
 }
 
-/* kanban replika */
+/* replica kanban */
 .rp-kanban { display: grid; grid-template-columns: repeat(5, minmax(110px, 1fr)); gap: 8px; }
 .rp-kcol { border: 1px solid var(--line); border-radius: 2px; background: var(--bg); padding: 8px; }
 .rp-kcol h6 {
@@ -1109,7 +1109,7 @@ html:not([data-js]) .bd-break { display: none; }
   line-height: 1.7;
 }
 
-/* ---------- tautan demo di kartu proyek ---------- */
+/* ---------- demo links on the project card ---------- */
 .w-demo {
   margin-top: auto;
   padding-top: 16px;
@@ -1127,7 +1127,7 @@ html:not([data-js]) .bd-break { display: none; }
 }
 
 /* ============================================================
-   5. KEYFRAMES baru
+   5. New KEYFRAMES
    ============================================================ */
 @keyframes hf-travel {
   0%   { left: 0%;   opacity: 0; }
@@ -1155,7 +1155,7 @@ html:not([data-js]) .bd-break { display: none; }
   to   { opacity: 1; transform: none; }
 }
 
-/* sinkronisasi kartu stack dengan paket konveyor: 6s loop, 5 kolom */
+/* sync the stack card with the conveyor package: 6s loop, 5 columns */
 .stack-card { animation: none; }
 .conveyor.run .stack-card { animation: stack-hit 6s linear infinite; animation-delay: calc(0.6s + var(--i) * 1.2s); }
 @keyframes stack-hit {
@@ -1196,18 +1196,18 @@ html:not([data-js]) .bd-break { display: none; }
   color: var(--ink-faint);
   margin-top: -4px;
   text-align: center;
-  /* nowrap membuat sublabel yang lebih lebar dari kolomnya meluber ke
-     tetangga; biarkan membungkus di dalam kolom sendiri */
+  /* nowrap makes a sublabel wider than its column spill onto
+     the neighbor; let it wrap inside its own column */
   white-space: normal;
 }
 @media (max-width: 620px) { .hf-sub { text-align: left; } }
 
-/* --- chip stack di hero ---
-   Kelas .t-daily/.t-regular dari components.css yang memberi warna teks.
-   /* Strip hero: satu warna tinta untuk mark dan nama. Tier hijau/biru sengaja tidak
-   dipakai di sini - di hero yang dibaca adalah DAFTARNYA, rincian seberapa sering
-   tiap alat dipakai ada di Toolbox. .sc tetap mengalahkan .t-* (showcase.css dimuat
-   setelah components.css) supaya chip lama yang masih membawa kelas tier tidak bocor. */
+/* --- stack chips in the hero ---
+   The .t-daily/.t-regular classes from components.css supply the text color.
+   /* Hero strip: one ink color for mark and name. The green/blue tiers are deliberately not
+   used here: in the hero what gets read is the LIST, the detail of how often
+   each tool is used lives in the Toolbox. .sc still beats .t-* (showcase.css loads
+   after components.css) so old chips still carrying tier classes do not leak. */
 .sc {
   font-family: var(--font-mono);
   font-size: 12.5px;
@@ -1220,13 +1220,13 @@ html:not([data-js]) .bd-break { display: none; }
   align-items: center;
   gap: 7px;
 }
-/* mark ikut warna teks chip: satu tinta, bukan warna brand */
+/* the mark takes the chip text color: one ink, not the brand color */
 .sc-ic { width: 14px; height: 14px; flex: none; fill: currentColor; }
-/* --- lima tipe artefak: bentuk dulu, label kemudian ---
-   Tanpa kotak: bingkai membuat tiap item sebesar teksnya plus padding, dan lima
-   bingkai tidak pernah muat satu baris di HP. Yang tersisa adalah glyph + nama,
-   satu baris di 360-412px. Caption platform (JVM/OCI/...) hanya tampil di atas
-   620px - di ponsel glyph-nya sudah cukup menjelaskan. */
+/* --- five artifact types: shape first, label after ---
+   No boxes: frames make every item its text plus padding, and five
+   frames never fit one row on a phone. What is left is glyph + name,
+   one row at 360-412px. The platform caption (JVM/OCI/...) shows only above
+   620px; on a phone the glyph already explains it. */
 .artifacts {
   display: flex;
   flex-wrap: wrap;
@@ -1289,9 +1289,9 @@ html:not([data-js]) .bd-break { display: none; }
   padding: 16px;
   min-width: 0;
 }
-/* Sisi "before" dibuat surut lewat warna, bukan opacity: opacity di bawah 1
-   ikut menurunkan kontras teksnya sampai di bawah AA (Lighthouse color-contrast).
-   Teks di dalam blok ini memakai --ink-faint, yang sudah 6.4:1 (gelap) / 5.5:1 (terang). */
+/* The "before" side is muted through color, not opacity: opacity below 1
+   also drags its text contrast under AA (Lighthouse color-contrast).
+   Text inside this block uses --ink-faint, already 6.4:1 (dark) / 5.5:1 (light). */
 .ba-before { border-color: var(--line); }
 .ba-tag {
   font-size: 12px;
@@ -1303,11 +1303,11 @@ html:not([data-js]) .bd-break { display: none; }
 .ba-tag em { font-style: normal; color: var(--ink-dim); }
 .ba-after .ba-tag em { color: var(--accent); }
 .ba-cols { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 8px; }
-/* tanpa min-width:0, satu kolom memaksa dirinya lebih lebar dari yang lain
-   (terukur 40px vs 67px dalam lima kolom yang seharusnya rata) */
+/* without min-width:0 one column forces itself wider than the others
+   (measured 40px vs 67px across five columns that should be equal) */
 .ba-col { min-width: 0; }
-/* setelah .ba-card boleh membesar, tinggi kotak dalam satu baris jadi tidak rata
-   (34/43/34/43/43); biarkan kotak non-placeholder mengisi tinggi kolomnya */
+/* once .ba-card may grow, box heights in one row stop being even
+   (34/43/34/43/43); let the non-placeholder boxes fill their column height */
 .ba-col { display: flex; flex-direction: column; }
 .ba-col > .ba-card:not(.sm) { flex: 1; }
 .ba-col h3 {
@@ -1331,8 +1331,8 @@ html:not([data-js]) .bd-break { display: none; }
   border: 1px solid var(--line);
   border-radius: 2px;
   background: var(--bg-3);
-  /* min-height, bukan height: dengan height tetap, teks yang membungkus
-     keluar dari garis kotak (terukur 4-20px di 1440, sampai 36px di 390) */
+  /* min-height, not height: with a fixed height, wrapping text
+     breaks out of the box lines (measured 4-20px at 1440, up to 36px at 390) */
   min-height: 34px;
   margin-bottom: 6px;
   padding: 5px 7px;
@@ -1369,8 +1369,8 @@ html:not([data-js]) .bd-break { display: none; }
   color: var(--accent);
   letter-spacing: 0.12em;
   margin-right: 5px;
-  /* lima tanda centang ini satu "kata" yang tidak bisa putus; di kolom 57px
-     ia mendorong keluar kotak 2px. Boleh putus antar-tanda. */
+  /* these five check marks are one "word" that cannot break; in a 57px column
+     they push 2px out of the box. Breaking between marks is fine. */
   word-break: break-all;
 }
 .ba-note { font-size: 12px; color: var(--ink-faint); margin-top: 12px; line-height: 1.5; }
@@ -1398,7 +1398,7 @@ html:not([data-js]) .bd-break { display: none; }
   .ba-arrow-txt { max-width: none; }
 }
 
-/* --- gate di dalam architecture --- */
+/* --- gate inside architecture --- */
 .arch-gate { margin-top: 40px; }
 .ag-title {
   font-size: 12px;
@@ -1412,11 +1412,11 @@ html:not([data-js]) .bd-break { display: none; }
 @media (max-width: 760px) { .arch-gate .gate { min-width: 0; } }
 
 /* ============================================================
-   8. TAHAP 6: proof cards, subnav, decisions, threat, scan
+   8. STAGE 6: proof cards, subnav, decisions, threat, scan
    ============================================================ */
 
 /* --- proof cards (About) --- */
-/* satu strip dengan garis pemisah, bukan empat kotak */
+/* one strip with separators, not four boxes */
 .pf-strip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1451,15 +1451,15 @@ html:not([data-js]) .bd-break { display: none; }
   .pf-strip { grid-template-columns: 1fr; }
   .pf-card { border-left: none; border-top: 1px solid var(--line); }
   .pf-card:first-child { border-top: none; }
-  /* kolom 57px: header tidak boleh dipotong jadi "IN REV…" (12px mono = 65px,
-     10px = 54px masih satu baris, sama seperti label papan walkthrough 9.5px),
-     dan badge Intake yang di-position absolute menimpa teks "#471" */
+  /* 57px column: the header must not be cut to "IN REV…" (12px mono = 65px,
+     10px = 54px is still one line, like the walkthrough board label at 9.5px),
+     and the absolutely positioned Intake badge covers the "#471" text */
   .ba-col h3 { font-size: 10px; }
   .ba-card .ba-badge { position: static; display: inline-block; margin-left: 4px; }
 }
 @media (max-width: 480px) {
-  /* lima kolom tinggal 51-75px sempitnya: "IN REVIEW" 56px pada 10px, jadi lebih
-     baik pindah baris daripada terpotong jadi "IN REV…" */
+  /* the five columns are only 51-75px wide: "IN REVIEW" is 56px at 10px, so it is
+     better to wrap than to be cut to "IN REV…" */
   .ba-col h3 { white-space: normal; line-height: 1.25; }
 }
 
@@ -1494,8 +1494,8 @@ html:not([data-js]) .bd-break { display: none; }
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
-/* satu baris yang bisa digeser: enam chip + label tidak pernah jadi tiga
-   baris di ponsel (terukur 93px), dan tingginya tidak lagi menggeser anchor */
+/* one swipeable row: six chips + label never become three
+   rows on a phone (measured 93px), and its height no longer shifts the anchor */
 @media (max-width: 760px) {
   .work-subnav {
     flex-wrap: nowrap;
@@ -1513,8 +1513,8 @@ html:not([data-js]) .bd-break { display: none; }
       color-mix(in srgb, var(--bg) 82%, transparent);
   }
   .work-subnav::-webkit-scrollbar { display: none;
-    /* dua lapis backdrop-filter yang menumpuk itu murah di desktop dan mahal
-       di Android kelas bawah; header saja yang tetap blur */
+    /* two stacked backdrop-filter layers are cheap on desktop and expensive
+       on low-end Android; only the header keeps the blur */
   }
   .work-subnav { backdrop-filter: none; -webkit-backdrop-filter: none; }
   .work-subnav > * { flex: 0 0 auto; }
@@ -1544,8 +1544,8 @@ html:not([data-js]) .bd-break { display: none; }
   padding: 20px 20px 14px;
 }
 .dec-card h3 { font-size: 16.5px; letter-spacing: -0.01em; margin-bottom: 14px; }
-/* kolom label 86px, padahal "ALTERNATIVE" pada 12px mono + tracking 0.14em
-   lebarnya 97px: label menumpang 11px ke gap 14px, sisa 3px sebelum isinya */
+/* the label column is 86px, while "ALTERNATIVE" at 12px mono + 0.14em tracking
+   is 97px wide: the label leans 11px into the 14px gap, 3px left before its content */
 .dec-card dl { display: grid; grid-template-columns: 98px minmax(0, 1fr); gap: 6px 14px; }
 .dec-card dt {
   font-family: var(--font-mono);
@@ -1556,9 +1556,9 @@ html:not([data-js]) .bd-break { display: none; }
   padding-top: 3px;
 }
 .dec-card dd { font-size: 13.5px; line-height: 1.55; color: var(--ink-dim); }
-/* kartu build-vs-buy: empat baris penuh lebarnya jadi paragraf 1.100px. Dibelah dua
-   kolom (decision|alternative, why|cost) sehingga tetap satu baris per pasangan.
-   Urutan DOM dt tidak berubah, jadi pewarnaan nth-child di bawah tetap berlaku. */
+/* build-vs-buy card: four full-width rows became 1,100px paragraphs. Split into two
+   columns (decision|alternative, why|cost) so each pair still takes one row.
+   The DOM order of dt is unchanged, so the nth-child coloring below still applies. */
 .dec-wide { grid-column: 1 / -1; }
 .dec-wide dl { grid-template-columns: 98px minmax(0, 1fr) 98px minmax(0, 1fr); }
 @media (max-width: 860px) {
@@ -1566,11 +1566,11 @@ html:not([data-js]) .bd-break { display: none; }
 }
 .dec-card dt:nth-child(4n+1) { color: var(--accent); }
 .dec-card dt:nth-child(4n+3) { color: var(--warn); }
-/* kartu penutup runtime: satu paragraf, tanpa baris decision/alternative/why/cost */
+/* runtime closing card: one paragraph, no decision/alternative/why/cost rows */
 .rt-body { font-size: 13.5px; line-height: 1.6; color: var(--ink-dim); margin: 0; }
 
-/* --- C2: accordeon untuk sepuluh kartu Runtime + Decisions ---
-   Hanya berlaku di layar sempit; tanpa JS semua kartu tetap terbuka. */
+/* --- C2: accordion for the ten Runtime + Decisions cards ---
+   Only applies on narrow screens; without JS all cards stay open. */
 .dec-card h3 { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .dec-fold {
   flex: none;
@@ -1593,16 +1593,16 @@ html:not([data-js]) .dec-fold { display: none; }
 @media (min-width: 761px) {
   .dec-fold { display: none; }
 }
-/* di layar sentuh yang sempit, labelnya jadi target sentuh 44px */
+/* on narrow touch screens the label becomes a 44px touch target */
 @media (max-width: 760px) and (pointer: coarse) {
   .dec-fold { min-height: 44px; display: inline-flex; align-items: center; }
 }
 
 /* --- threat model --- */
 .tm-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); }
-/* Kolom ketiga tabel ini justru yang paling menarik ("the gate that closes it")
-   dan ia di luar layar pada 390px tanpa affordance. Tabel tidak bisa dipadatkan
-   tanpa menghancurkan keterbacaannya, jadi tetap digeser tapi diberi tanda. */
+/* The third column of this table is the most interesting one ("the gate that closes it")
+   and it is off screen at 390px with no affordance. The table cannot be compacted
+   without destroying its readability, so it still scrolls but gets a marker. */
 @media (max-width: 700px) {
   .tm-wrap {
     -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent);
@@ -1646,7 +1646,7 @@ html:not([data-js]) .dec-fold { display: none; }
   color: var(--ink-dim);
 }
 @media (max-width: 620px) {
-  /* label + judul panjang saling mendorong; biarkan turun baris, bukan terpotong */
+  /* label + long title push each other; let them wrap the line, not get cut */
   .sc-head { flex-wrap: wrap; align-items: flex-start; gap: 8px; }
   .sc-tag { margin-left: 0; }
 }
@@ -1761,7 +1761,7 @@ html:not([data-js]) .dec-fold { display: none; }
 .lc-gate > i { border-radius: 2px; transform: rotate(45deg); }
 .lc-prod > i { width: 13px; height: 13px; }
 
-/* fan-out node: tiga check paralel */
+/* fan-out node: three parallel checks */
 .lc-fan { flex: 1 1 120px; }
 .lc-fan em {
   font-style: normal;
@@ -1800,8 +1800,8 @@ html:not([data-js]) .dec-fold { display: none; }
   padding: 10px 14px;
   cursor: pointer;
   flex: 1 1 150px;
-  /* chip sekarang <button> sungguhan supaya bisa di-Tab dan di-Enter:
-       buang gaya bawaan tombol, pertahankan tampilan yang lama */
+  /* the chip is now a real <button> so it can be tabbed and entered:
+       drop the default button styles, keep the old look */
   appearance: none;
   -webkit-appearance: none;
   margin: 0;
@@ -1813,19 +1813,19 @@ html:not([data-js]) .dec-fold { display: none; }
 }
 .lc-chip:hover, .lc-chip.on { border-color: var(--accent-line); border-style: solid; }
 .lc-chip.on { background: var(--accent-dim); }
-/* sublabel chip terpilih: --ink-faint di atas accent-dim + bg-3 terukur 4,34:1 (axe,
-   dan Lighthouse tidak menemukannya karena state ini butuh klik). Naikkan ke
-   --ink-dim = 6,30:1; penanda terpilih tetap garis tepi + latar, bukan warna teks. */
+/* selected chip sublabel: --ink-faint on accent-dim + bg-3 measured 4.34:1 (axe,
+   and Lighthouse never found it because this state needs a click). Raised to
+   --ink-dim = 6.30:1; the selected marker stays border + background, not text color. */
 .lc-chip.on span { color: var(--ink-dim); }
 .lc-chip b { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--ink); }
 .lc-chip span { font-size: 12px; color: var(--ink-faint); }
 .lc-sep { align-self: center; color: var(--ink-faint); font-size: 13px; }
 .lc-mail-chip b { color: var(--accent); }
 
-/* --- enam aturan baku (std-band) ---
-   Sinyal senior yang sebelumnya hanya muncul setelah klik di rel lifecycle atau
-   kartu board. Bidang cekung yang sama dipakai .mailshow supaya section ini punya
-   satu bahasa visual; angka aksen adalah ornamen, teks tetap --ink-dim (7,05:1 di atas --bg-3). */
+/* --- the six standard rules (std-band) ---
+   Senior signal that used to appear only after a click on the lifecycle rail or a
+   board card. This reuses the recessed surface .mailshow uses so the section has
+   one visual language; the accent numbers are ornament, text stays --ink-dim (7.05:1 on --bg-3). */
 .std-band {
   margin-top: 30px;
   border: 1px solid var(--line);
@@ -2010,8 +2010,8 @@ html:not([data-js]) .dec-fold { display: none; }
    ============================================================ */
 .mailshow {
   max-width: 720px;
-  /* wadahnya 1044px di desktop: tanpa ini panel duduk di kiri dengan sisa 324px
-     di kanan (terukur gapLeft 0 / gapRight 324) */
+  /* the container is 1044px on desktop: without this the panel sits left with 324px left
+     over on the right (measured gapLeft 0 / gapRight 324) */
   margin-inline: auto;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
@@ -2072,7 +2072,7 @@ html:not([data-js]) .dec-fold { display: none; }
 .ms.t { border-top-color: var(--ink); }
 .ms.c { border-top-color: var(--danger); }
 .ms.h { border-top-color: var(--warn-brand); }
-.ms.m { border-top-color: var(--warn); }   /* ungu Terraform dicoret -> amber */
+.ms.m { border-top-color: var(--warn); }   /* struck-through Terraform purple -> amber */
 .ms.l { border-top-color: var(--info-brand); }   /* Docker blue */
 .ms.ok2 { border-top-color: var(--pass); }
 .ms.p { border-top-color: var(--pass); }
@@ -2093,8 +2093,8 @@ html:not([data-js]) .dec-fold { display: none; }
   padding: 2px 8px;
   border-left: 3px solid;
 }
-/* sama: pass #2E7D32 di atas pass-dim + bg-3 = 4,33:1; --pass-strong = 5,58:1.
-   Garis tepi tetap --pass supaya warna status tidak berubah makna */
+/* same: pass #2E7D32 on pass-dim + bg-3 = 4.33:1; --pass-strong = 5.58:1.
+   The border stays --pass so the status color keeps its meaning */
 .pill.ok { color: var(--pass-strong); border-color: var(--pass); background: var(--pass-dim); }
 .pill.bad { color: var(--danger); border-color: var(--danger); background: var(--danger-dim); }
 .pill.dim { color: var(--ink-faint); border-color: var(--line-strong); background: var(--bg-3); }
@@ -2117,10 +2117,10 @@ html:not([data-js]) .dec-fold { display: none; }
 }
 @media (max-width: 760px) { .ms2 { grid-template-columns: repeat(3, 1fr); } }
 
-/* anchor jump tidak tertutup chrome lengket. Dua aturan, bukan satu:
-   hanya seksi di dalam Work yang punya sub-nav sticky, jadi sisanya cukup
-   tinggi header saja. Kalau keduanya pakai nilai penuh, anchor di luar
-   Work mendarat 56px terlalu dalam. */
+/* the anchor jump is not covered by the sticky chrome. Two rules, not one:
+   only sections inside Work have a sticky sub-nav, so the rest need
+   the header height only. If both used the full value, anchors outside
+   Work land 56px too deep. */
 #board, #platform, #architecture, #runtime, #decisions, #threat {
   scroll-margin-top: calc(var(--header-h) + var(--subnav-h) + 8px);
 }
@@ -2129,7 +2129,7 @@ html:not([data-js]) .dec-fold { display: none; }
 }
 
 
-/* work grid: 3 kartu = 3 kolom di layar lebar */
+/* work grid: 3 cards = 3 columns on wide screens */
 @media (min-width: 1080px) { .work-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* exp education line */
@@ -2152,13 +2152,13 @@ html:not([data-js]) .dec-fold { display: none; }
 @keyframes gw-pulse { 0%, 100% { stroke-opacity: 1; } 50% { stroke-opacity: 0.4; } }
 
 @media (max-width: 620px) {
-  /* Satu baris tujuh-tujuh. Dua baris 4+3 membuat tujuh tahap terbaca sebagai
-     sekumpulan kotak: urutan ada di mana-mana kecuali di mata. Dengan satu baris
-     garis penghubungnya bisa kembali - dan garis itulah penanda urutan, jadi
-     nomornya tidak perlu memakan lebar lagi. Nama tahap dipadatkan ke 10,5px
-     (lantai B1): terpanjang "COMMIT" 40px di kolom 50px, tidak menempel.
-     Sublabel alat dibuang; alatnya hidup di Lifecycle dan Toolbox. Paket
-     perjalanannya tetap tersembunyi - cukup satu hal yang bergerak di hero. */
+  /* One row, all seven. Two rows of 4+3 made the seven stages read as
+     a pile of boxes: the order was everywhere except in the eye. With one row
+     the connecting line can come back, and that line is the order marker, so
+     the numbers no longer have to eat width. Stage names are compacted to 10.5px
+     (the B1 floor): the longest, "COMMIT", is 40px in a 50px column, never touching.
+     Tool sublabels are dropped; the tools live in Lifecycle and Toolbox. The package
+     trip stays hidden: one moving thing in the hero is enough. */
   .hero-flow { grid-template-columns: repeat(7, minmax(0, 1fr)); column-gap: 6px; row-gap: 0; }
   .hf-line { display: block; }
   .hf-node { gap: 8px; align-items: center; }
@@ -2168,8 +2168,8 @@ html:not([data-js]) .dec-fold { display: none; }
   .lc-node { min-width: 0; }
   .lc-node > span { font-size: 12px; }
 }
-/* Di 380px ke bawah tujuh kolom tidak muat walau namanya 10,5px: kembali ke
-   4 kolom bernomor 1-7, yang di layout itu justru satu-satunya penanda urutan. */
+/* At 380px and below, seven columns do not fit even at 10.5px names: back to
+   4 columns numbered 1-7, where the numbers are the only order marker left. */
 @media (max-width: 380px) {
   .hero-flow { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 22px; }
   .hf-line { display: none; }
@@ -2178,7 +2178,7 @@ html:not([data-js]) .dec-fold { display: none; }
   .hf-node > span::before { content: counter(hf); }
 }
 
-/* papan walkthrough: geser horizontal, bukan saling menimpa */
+/* walkthrough board: scroll horizontally, do not overlap */
 @media (max-width: 760px) {
   .bd-board { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; }
   .bd-col { flex: 0 0 130px; }
@@ -2187,7 +2187,7 @@ html:not([data-js]) .dec-fold { display: none; }
   .bd-card { width: 100%; }
 }
 
-/* gate: tumpuk vertikal di layar sempit */
+/* gate: stack vertically on narrow screens */
 @media (max-width: 760px) {
   .arch-gate .gate { grid-template-columns: 1fr; }
   .arch-gate .gate-result { min-width: 0; width: 100%; }
@@ -2201,7 +2201,7 @@ html:not([data-js]) .dec-fold { display: none; }
   .n-gateway rect { animation: none; }
 }
 
-/* ---------- CSP-safe utility classes (menggantikan style="..." di JS & HTML) ---------- */
+/* ---------- CSP-safe utility classes (replace style="..." in JS & HTML) ---------- */
 .profile-links { display: grid; gap: 6px; }
 .rp-note--plain { border-top: none; }
 .rp-sel--pad { padding-top: 12px; }
@@ -2250,13 +2250,13 @@ html:not([data-js]) .dec-fold { display: none; }
 .tf-btn[aria-pressed="true"] { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
 
 /* ============================================================
-   12. CHROME SITUS MEMAKAI SANS (Batch D #9)
-   Mono dipertahankan untuk kode, perintah, versi dan nilai teknis
-   (rail hero, chip tool, nomor, artefak, periode, ID proyek) serta
-   untuk seluruh isi replika (.rp-*), storyboard board (.bd-*, .ba-*,
-   .bt-*), diagram (.lc-*, .eco-*, .ag-*) dan mockup email (.mail-*,
-   .ms-*). Blok ini berada di akhir berkas supaya menang atas kelas
-   utilitas .mono dari base.css tanpa mengubah kelas tersebut.
+   12. SITE CHROME USES SANS (Batch D #9)
+   Mono is kept for code, commands, versions and technical values
+   (hero rail, tool chips, numbers, artifacts, periods, project IDs) plus
+   the whole replica body (.rp-*), the board storyboard (.bd-*, .ba-*,
+   .bt-*), diagrams (.lc-*, .eco-*, .ag-*) and email mockups (.mail-*,
+   .ms-*). This block sits at the end of the file so it wins over the
+   .mono utility class from base.css without changing that class.
    ============================================================ */
 .kicker,
 .brand, .nav a, .tool-btn,
@@ -2273,11 +2273,11 @@ html:not([data-js]) .dec-fold { display: none; }
 .tier,
 .exp-edu { font-family: var(--font-sans); }
 
-/* --- petunjuk konten yang bisa digeser (audit B3, P0) ---
-   Terukur di 390px: diagram gateway menyembunyikan 49% isinya dan tabel threat
-   model 46%, tanpa tanda apa pun bahwa ada sisa di luar layar. Petunjuk ini teks
-   sungguhan (bukan hanya bayangan), di-stick ke kiri supaya tetap terbaca saat
-   kontainer digeser, dan hanya muncul di lebar sentuh. */
+/* --- swipeable content hint (audit B3, P0) ---
+   Measured at 390px: the gateway diagram hides 49% of its content and the threat
+   model table 46%, with no sign that anything is left off screen. This hint is real
+   text (not only a shadow), stuck left so it stays readable while
+   the container scrolls, and it only appears at touch widths. */
 .scroll-hint { display: none; }
 @media (max-width: 620px) {
   .scroll-hint {
@@ -2290,14 +2290,14 @@ html:not([data-js]) .dec-fold { display: none; }
     color: var(--ink-faint);
   }
   .scroll-hint::before { content: "↔ "; color: var(--accent); }
-  /* Hint replika berada di luar kotak geser. Isinya dirender JS, jadi tidak bisa
-     ditaruh di dalamnya. Ia tidak ikut bergeser, melainkan berdiri
-     tetap di atas area itu */
+  /* The replica hint sits outside the swipe box. Its content is rendered by JS, so it cannot
+     be placed inside. It does not scroll along; it stands
+     still fixed over that area */
   .rp-hint { position: static; padding: 0 16px; margin: 0 0 2px; }
   .rp-hint[hidden] { display: none; }
   .bd-hint { position: static; padding: 0; margin: 0 0 10px; }
 }
-/* bayangan tepi: sinyal visual kedua bahwa tepi kanan bukan batas konten */
+/* edge shadow: the second visual signal that the right edge is not the content limit */
 @media (max-width: 620px) {
   .diagram-shell, .tm-wrap, .rp-view {
     background:
@@ -2308,32 +2308,32 @@ html:not([data-js]) .dec-fold { display: none; }
       var(--bg-2);
   }
 }
-/* tombol jeda untuk rail lifecycle (WCAG 2.2.2: konten yang bergerak otomatis
-   lebih dari 5 detik harus bisa dijeda; rotasi ini 3,8 detik per node) */
+/* pause button for the lifecycle rail (WCAG 2.2.2: content that moves automatically
+   for more than 5 seconds must be pausable; this rotation is 3.8 seconds per node) */
 .lc-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 16px; }
 .lc-pause { min-height: 30px; }
 @media (pointer: coarse) {
   .lc-pause { min-height: 44px; }
 }
 
-/* F1, bagian kedua: di <=430px rel harus muat seluruhnya. Sublabel alat
-   (git push / maven · gradle / trivy · sonar ...) sengaja disembunyikan di lebar
-   itu - keenam alat yang sama sudah tertulis di strip "Stack I work in daily"
-   tepat di atasnya, jadi tidak ada informasi yang hilang, hanya duplikasi yang
-   dibuang. Hasil terukur: tinggi node 114px -> 46px, dan 7 dari 7 tahap utuh di
-   atas fold 390x844 (sebelumnya 0). */
+/* F1, second part: at <=430px the rail must fit in full. Tool sublabels
+   (git push / maven · gradle / trivy · sonar ...) are deliberately hidden at that
+   width: the same six tools are already written in the "Stack I work in daily"
+   strip right above, so no information is lost, only duplication is
+   dropped. Measured result: node height 114px -> 46px, and 7 of 7 stages whole above
+   the 390x844 fold (previously 0). */
 @media (max-width: 430px) {
   .hero-flow { padding-top: 16px; column-gap: 6px; }
   .hf-node { gap: 6px; }
   .hf-sub { display: none; }
 }
 
-/* ---------- B1: lantai ukuran teks di layar sempit ----------
-   Teks kecil di replica dashboard itu disengaja: ia meniru UI aslinya. Tapi di
-   390px ada label yang turun sampai 8,5px dan itu bukan "real UI", itu tidak
-   terbaca. Yang dinaikkan di sini hanya label yang membawa makna; penanda
-   dekoratif (::after pada bingkai jendela, sumbu bar, watermark, inisial avatar)
-   dibiarkan sesuai desainnya. */
+/* ---------- B1: text size floor on narrow screens ----------
+   The small text in the dashboard replica is deliberate: it copies the real UI. But at
+   390px some labels drop to 8.5px and that is not "real UI", that is
+   unreadable. Only labels that carry meaning are raised here; decorative
+   markers (::after on window frames, the bar axis, watermark, avatar initials)
+   stay as designed. */
 @media (max-width: 620px) {
   .bc-iid, .bc-phase, .bc-lbl, .ap-chip, .bc-bot span, .bc-bot code,
   .act-who, .mini-tbl, .mini-tbl th, .bd-col h3,
@@ -2345,15 +2345,15 @@ html:not([data-js]) .dec-fold { display: none; }
   .mail-att span, .sc-tags span, .ba-card, .ba-badge {
     font-size: 10.5px;
   }
-  /* .ba-col h3 sengaja tidak ikut: kolomnya 57px dan "In Review" sudah 59px
-     pada 10,5px, dipotong jadi "IN REV…" (aturan di atas menahan 10px) */
+  /* .ba-col h3 is deliberately left out: its column is 57px and "In Review" is already 59px
+     at 10.5px, cut to "IN REV…" (the rule above holds 10px) */
 }
 
-/* ---------- B2: efek hover hanya untuk perangkat yang punya hover ----------
-   Disentuh, :hover menempel sampai ketukan berikutnya: kartu tetap terangkat
-   dan baris tabel tetap tersorot. Yang diblokir di sini efek posisi/warna besar;
-   perubahan warna tautan dan tombol dibiarkan, karena di sentuh itu umpan balik,
-   bukan hiasan. */
+/* ---------- B2: hover effects only for devices that have hover ----------
+   On touch, :hover sticks until the next tap: the card stays lifted
+   and the table row stays highlighted. Blocked here are the big position/color effects;
+   link and button color changes are allowed, because on touch that is feedback,
+   not decoration. */
 @media (hover: hover) {
 .co-chip:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
 .rp-ni:hover { color: var(--ink); background: var(--bg-3); }
@@ -2363,14 +2363,14 @@ html:not([data-js]) .dec-fold { display: none; }
 .tm-tbl tr:hover td { background: var(--bg-3); }
 }
 
-/* ---------- B5: target sentuh ----------
-   Semua sudah di atas minimum WCAG 2.2 (24px), tapi di bawah 44px yang enak buat
-   ibu jari. Blok ini ada di file terakhir yang menata komponen, bukan di base.css,
-   karena .bd-btn dan .wsn didefinisikan di sini kemudian dan akan menang atas aturan
-   umum (terukur: 30px vs 44px sebelum dipindah). Chip kecil di dalam teks (.ref) tidak
-   boleh membesar - ia bagian dari kalimat - jadi area sentuhnya yang diperluas.
-   Catatan: .depth-btn, .dec-fold, .wsn dan .lc-pause sudah 44px di bloknya masing-masing;
-   yang di bawah ini sisanya. */
+/* ---------- B5: touch targets ----------
+   All are already above the WCAG 2.2 minimum (24px), but below the 44px that is
+   comfortable for a thumb. This block is in the last file that styles components, not in base.css,
+   because .bd-btn and .wsn get defined here later and would win over the general
+   rules (measured: 30px vs 44px before the move). Small chips inside text (.ref) must
+   not grow: they are part of a sentence, so the touch area is what expands.
+   Note: .depth-btn, .dec-fold, .wsn and .lc-pause are already 44px in their own blocks;
+   what follows below is the rest. */
 @media (pointer: coarse) {
   .tool-btn, .copy-btn, .tf-btn, .ms-tab, .lc-chip, .co-chip, .rp-btn, .dec-fold, .wsn, .bd-break {
     min-height: 44px;
@@ -2381,18 +2381,18 @@ html:not([data-js]) .dec-fold { display: none; }
   .menu-btn { min-width: 44px; }
   .bd-play { width: 52px; }
   .ref { position: relative; }
-    /* 18px teks + 13px atas-bawah = 44px area sentuh, tampilan tidak berubah */
+    /* 18px text + 13px top-bottom = 44px touch area, the look does not change */
   .ref::after { content: ""; position: absolute; inset: -13px -6px; }
 }
-/* chip .wsn setinggi 44px hanya muat kalau barisnya ikut naik; di ponsel sudah
-   56px, sisanya (tablet lebar) dapat nilai ini */
+/* a 44px .wsn chip only fits if its row grows too; on a phone it is already
+   56px, the rest (wide tablets) get this value */
 @media (pointer: coarse) and (min-width: 761px) {
   :root { --subnav-h: 64px; }
 }
 
-/* --- ringkasan hasil scan yang ditulis pipeline ---
-   Bidang cekung + garis kiri amber (warna scan di tempat lain di situs ini),
-   supaya ia terlihat seperti output mesin, bukan seperti pesan manusia. */
+/* --- scan result summary written by the pipeline ---
+   Recessed surface + amber left line (the scan color elsewhere on this site),
+   so it looks like machine output, not like a human message. */
 .rp-ai {
   margin-top: 14px;
   border: 1px solid var(--line);
@@ -2410,16 +2410,16 @@ html:not([data-js]) .dec-fold { display: none; }
 @keyframes rp-ai-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .rp-ai { animation: none; } }
 
-/* --- C: transisi antar view replika ---
-   Sekali gerakan 260ms saat konten berganti. Mati total di reduced-motion. */
+/* --- C: transition between replica views ---
+   One 260ms move when the content changes. Fully off in reduced-motion. */
 @keyframes rp-swap { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 .rp-view.swapped { animation: rp-swap 0.26s var(--ease) both; }
 @media (prefers-reduced-motion: reduce) { .rp-view.swapped { animation: none; } }
 
-/* --- D: jalur yang disentuh menyala, sisanya mundur ---
-   Parallax sengaja tidak dipakai di sini: garis hubungan adalah elemen
-   terpisah dari kotaknya, jadi menggeser satu kolom akan melepas kabelnya dan
-   membuat diagram berbohong tentang arsitekturnya. */
+/* --- D: the touched path lights up, the rest recedes ---
+   Parallax is deliberately not used here: the connector lines are elements
+   separate from their boxes, so shifting one column would unplug its cables and
+   make the diagram lie about the architecture. */
 .diagram-shell .dg-node { cursor: default; }
 .diagram-shell .dg-node rect { transition: fill 0.2s var(--ease), stroke 0.2s var(--ease); }
 .diagram-shell .dg-link { transition: opacity 0.22s var(--ease), stroke 0.22s var(--ease), stroke-width 0.22s var(--ease); }
@@ -2435,25 +2435,25 @@ html:not([data-js]) .dec-fold { display: none; }
   .diagram-shell.focusing .dg-link { opacity: 0.35; }
 }
 
-/* ---------- B8: content-visibility diuji lalu ditolak, dengan angka ----------
-   Kandidatnya #runtime, #decisions, #threat, #toolbox, #experience, #contact.
-   Diukur pada 390px dengan CPU 6x throttle, menggulir seluruh halaman:
-     tanpa CV : 1229ms, 0 long frame, tinggi 25.743px
-     dengan CV: 1128ms, 0 long frame, tinggi 23.200px
-   Hemat 101ms pada gulir scripted, tidak menghilangkan satu long frame pun
-   (halaman ini memang tidak memblok), dan membuat tinggi halaman salah 2.543px
-   - yang berarti scroll indicator, read-progress, dan jarak anchor ikut
-   berbohong selama section belum ter-layout. Tidak ada keuntungan yang bisa
-   dilihat pengguna; yang bisa dilihat pengguna justru kerugiannya. Jangan
-   dipasang ulang tanpa angka yang lebih baik dari ini. */
-/* ---------- rail lifecycle di ponsel: stepper vertikal ----------
-   Di atas 620px rail ini satu baris dengan garis dan paket yang melintas.
-   Di ponsel 13 node membungkus jadi tiga baris dan garis itu kehilangan
-   artinya: urutan tidak terbaca lagi, padahal urutan justru satu-satunya
-   hal yang ditunjukkan komponen ini. Jadi di bawah 620px ia jadi kolom:
-   satu node per baris, garis di kiri, detail node aktif tetap di bawah.
-   Paket horizontal disembunyikan, bukan dipindah - animasi menyamping untuk
-   alur yang sekarang vertikal justru membingungkan. */
+/* ---------- B8: content-visibility tested then rejected, with numbers ----------
+   Candidates: #runtime, #decisions, #threat, #toolbox, #experience, #contact.
+   Measured at 390px with 6x CPU throttle, scrolling the whole page:
+     no CV   : 1229ms, 0 long frames, height 25,743px
+     with CV: 1128ms, 0 long frames, height 23,200px
+   Saves 101ms on scripted scroll, removes not one long frame
+   (this page never blocks), and makes the page height wrong by 2,543px,
+   which means the scroll indicator, read-progress and anchor distances
+   lie too while a section has not been laid out. There is no gain a user
+   can see; what a user can see is the cost. Do not
+   reinstall it without better numbers than these. */
+/* ---------- lifecycle rail on phones: vertical stepper ----------
+   Above 620px this rail is one row with a line and a package crossing it.
+   On a phone the 13 nodes wrap into three rows and the line loses
+   its meaning: the order is no longer readable, and the order is the only
+   thing this component shows. So below 620px it becomes a column:
+   one node per row, the line on the left, the active node detail stays below.
+   The horizontal package is hidden, not moved: a sideways animation for
+   a flow that is now vertical would only confuse. */
 @media (max-width: 620px) {
   .lc-rail { flex-direction: column; align-items: stretch; gap: 0; padding-top: 6px; }
   .lc-line {
@@ -2474,14 +2474,14 @@ html:not([data-js]) .dec-fold { display: none; }
   .lc-sep { display: none; }
   .lc-detail { margin-top: 10px; }
 }
-/* ---------- papan before/after di ponsel: LIMA kolom jadi lima baris ----------
-   Terukur 51px per kolom di 360px: "approval" dan "pipeline + audit" tidak muat
-   bahkan pada 10,5px, dan mengecilkannya lagi berarti kembali ke teks yang tidak
-   terbaca. Jadi papannya berputar: nama kolom di kiri, isinya di kanan.
-   Tidak ada scroll horizontal, tidak ada tipe yang dikecilkan.
-   HANYA papan ".five". Panel "out of the box" punya tiga kolom kosong dan
-   placeholder bergaris - di situ justru tiga kolom berdampingan yang bercerita
-   ("just columns"), dan versi baris membuatnya tampak rusak. */
+/* ---------- before/after board on phones: FIVE columns become five rows ----------
+   Measured 51px per column at 360px: "approval" and "pipeline + audit" do not fit
+   even at 10.5px, and shrinking more means going back to text that is not
+   readable. So the board rotates: column name on the left, content on the right.
+   No horizontal scroll, no type shrunk.
+   ONLY the ".five" board. The "out of the box" panel has three empty columns and
+   lined placeholders: there the three side-by-side columns carry the story
+   ("just columns"), and a row version makes it look broken. */
 @media (max-width: 620px) {
   .ba-cols.five { display: flex; flex-direction: column; gap: 6px; }
   .ba-cols.five .ba-col { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: start; gap: 10px; min-height: 0; }

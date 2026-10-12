@@ -1,13 +1,13 @@
-/* Dimuat hanya saat JavaScript nonaktif (via <noscript><link>). CSP-safe: tanpa inline <style>.
-   Batch D: reveal global sudah hilang, jadi isi file ini hanya keadaan akhir untuk
-   widget yang masih beranimasi. */
+/* Loaded only when JavaScript is off (via <noscript><link>). CSP-safe: no inline <style>.
+   Batch D: the global reveal is gone, so this file only holds the final state of the
+   widgets that still animate. */
 .gate-check .box { background: var(--pass); border-color: var(--pass); color: var(--bg-2); }
 .gate-result { border-color: var(--pass); background: var(--pass-dim); }
 .gate-result .g-state { font-size: 0; color: var(--pass); }
 .gate-result .g-state::before { content: attr(data-ready); font-size: clamp(18px, 2.4vw, 26px); font-weight: 700; letter-spacing: .04em; }
 .rp-view::before, .bd-narr::before { content: "Interactive demo requires JavaScript. The written descriptions and diagrams remain fully readable."; display: block; padding: 16px; font-family: var(--font-mono); font-size: 12px; color: var(--ink-dim); }
-/* Toolbox: tanpa JS, semua item tampil (filter tidak aktif) */
+/* Toolbox: without JS every item shows (the filters are inactive) */
 .skill-item { display: block !important; }
 .tier-filter { display: none; }
-/* Diagram gateway: garis "digambar" oleh animasi; tanpa JS garis harus tetap ada */
+/* Gateway diagram: lines are "drawn" by animation; without JS the lines must stay put */
 .dg-link { stroke-dashoffset: 0 !important; }

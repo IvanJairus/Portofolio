@@ -1,19 +1,19 @@
 /*
-  i18n, profil, navigasi, counter dan terminal halaman.
+  i18n, profile, navigation, counters and the page terminal.
 */
 
 (function () {
   "use strict";
 
-  const lang = "en"; /* situs ditetapkan English-only */
+  const lang = "en"; /* the site is set to English-only */
 
-  /* penanda: kontrol yang butuh JS tidak boleh tampil sebagai tombol mati tanpa JS */
+  /* marker: controls that need JS must not appear as dead buttons without JS */
   document.documentElement.dataset.js = "1";
 
   const t = (key) => (window.I18N[lang] && window.I18N[lang][key]) || (window.I18N.en[key] || key);
   const pick = (obj) => (obj && (obj[lang] || obj.en)) || "";
 
-  /* diakses showcase.js agar komponen yang dirender JS ikut dua bahasa */
+  /* read by showcase.js so components rendered by JS follow both languages */
   window.PF = {
     t: t,
     lang: () => lang,
@@ -31,7 +31,7 @@
     }
   }
 
-  /* ---------- terjemahan statis ---------- */
+  /* ---------- static translations ---------- */
   function applyI18n() {
     document.documentElement.lang = lang;
     document.querySelectorAll("[data-i18n]").forEach((el) => {
@@ -46,7 +46,7 @@
         if (attr && key) el.setAttribute(attr.trim(), t(key.trim()));
       });
     });
-    /* teks siap untuk gate, dipakai diagrams.js */
+    /* ready text for the gate, used by diagrams.js */
     document.querySelectorAll(".g-state").forEach((el) => {
       el.dataset.ready = t("sec.gate.ready");
       if (el.closest(".gate-result").classList.contains("ready")) {
@@ -55,7 +55,7 @@
     });
   }
 
-  /* ---------- data pribadi dari config.js ---------- */
+  /* ---------- personal data from config.js ---------- */
   function renderProfile() {
     const P = window.PROFILE || {};
     const set = (sel, val) => {
@@ -77,7 +77,7 @@
 
     document.title = (P.name || "Portfolio") + ", " + pick(P.role);
 
-    /* tautan sosial */
+    /* social links */
     const linksBox = document.querySelector("[data-profile='links']");
     if (linksBox) {
       linksBox.replaceChildren();
@@ -91,7 +91,7 @@
       });
     }
 
-    /* timeline pengalaman */
+    /* experience timeline */
     const tl = document.querySelector("[data-profile='experience']");
     if (tl) {
       tl.replaceChildren();
@@ -138,7 +138,7 @@
     ));
   }
 
-  /* ---------- counter statistik ---------- */
+  /* ---------- stat counters ---------- */
   function initCounters() {
     const els = document.querySelectorAll("[data-count]");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -178,7 +178,7 @@
     els.forEach((el) => io.observe(el));
   }
 
-  /* ---------- terminal mengetik ---------- */
+  /* ---------- typing terminal ---------- */
   function initTerminal() {
     const body = document.querySelector(".terminal-body");
     if (!body) return;
@@ -204,14 +204,14 @@
       };
       setTimeout(tick, isCmd ? 200 : 40);
     }
-    /* mulai saat hero terlihat */
+    /* start once the hero is visible */
     const io = new IntersectionObserver((en) => {
       if (en[0].isIntersecting) { io.disconnect(); typeLine(); }
     }, { threshold: 0.4 });
     io.observe(body);
   }
 
-  /* ---------- nav: active section + menu mobile ---------- */
+  /* ---------- nav: active section + mobile menu ---------- */
   function initNav() {
     const links = Array.from(document.querySelectorAll(".nav a[href^='#']"));
     const map = new Map();
@@ -227,7 +227,7 @@
       links.forEach((l) => l.classList.remove("active"));
       let best = null;
       visible.forEach((sec) => { if (!best || sec.offsetTop < best.offsetTop) best = sec; });
-      if (best) map.get(best).classList.add("active"); /* di hero: tidak ada yang aktif */
+      if (best) map.get(best).classList.add("active"); /* in the hero: nothing is active */
     }, { rootMargin: "-45% 0px -50% 0px" });
     map.forEach((_, sec) => io.observe(sec));
 
@@ -244,7 +244,7 @@
     }
   }
 
-  /* ---------- referensi skill → kartu proyek ---------- */
+  /* ---------- skill references → project cards ---------- */
   function initSkillRefs() {
     document.querySelectorAll(".ref").forEach((a) => {
       const target = document.getElementById(a.dataset.ref);
@@ -255,12 +255,12 @@
       };
       a.addEventListener("mouseenter", flash);
       a.addEventListener("focus", flash);
-      /* anchor membawa user ke proyek; flash menyusul setelah scroll */
+      /* the anchor takes the user to the project; the flash follows after the scroll */
       a.addEventListener("click", () => setTimeout(flash, 500));
     });
   }
 
-  /* ---------- dua kedalaman baca (Skim / Deep) ---------- */
+  /* ---------- two reading depths (Skim / Deep) ---------- */
   function initDepth() {
     const root = document.documentElement;
     const btns = [].slice.call(document.querySelectorAll("[data-depth-btn]"));
@@ -269,13 +269,13 @@
     const set = (on) => {
       root.dataset.depth = on ? "skim" : "deep";
       btns.forEach((b) => b.setAttribute("aria-pressed", String(on)));
-      /* tombolnya berubah kata kerja, bukan cuma berubah state: "Highlights only
-         · off" tidak memberi tahu apa yang terjadi setelah ditekan */
+      /* the button changes its verb, not only its state: "Highlights only
+         · off" never says what happens once it is pressed */
       if (label) label.textContent = t(on ? "depth.deep" : "depth.skim");
     };
     btns.forEach((b) => b.addEventListener("click", () => set(!skim())));
     if (new URLSearchParams(location.search).get("view") === "skim") set(true);
-    /* tautan ke section yang sedang disembunyikan: buka dulu, baru lompat */
+    /* link to a section that is hidden: open it first, then jump */
     document.addEventListener("click", (e) => {
       const a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
       if (!a || !skim()) return;
@@ -284,7 +284,7 @@
     });
   }
 
-  /* ---------- potret: di ponsel ia pindah ke kartu kontak ---------- */
+  /* ---------- portrait: on a phone it moves into the contact card ---------- */
   function initPhotoSlot() {
     const mq = window.matchMedia("(max-width: 860px)");
     const photo = document.querySelector(".hero-photo");
@@ -299,24 +299,24 @@
     mq.addEventListener("change", (e) => place(e.matches));
   }
 
-  /* ---------- strip stack: papan nama yang bisa digeser ----------
-     Yang digerakkan adalah scrollLeft barisnya sendiri, bukan transform, jadi
-     satu kontrol melayani dua arah: lajur berjalan pelan, dan jari yang menarik
-     tetap bekerja seperti menggeser baris biasa. Selama disentuh / di-scroll /
-     difokus ia diam, lalu lanjut 1,4 detik setelah interaksi terakhir - dari
-     posisi itu, bukan dari awal. Tidak ada tombol pause: yang berhenti adalah
-     animasinya, bukan hak penggunanya.
-     Isinya diduplikasi sekali supaya putarannya tidak pernah berakhir; salinan
-     itu aria-hidden sehingga pembaca layar menyebut setiap alat satu kali.
-     Tanpa JS atau dengan reduced-motion: tidak ada kloning, barisnya tetap bisa
-     digeser seperti semula. */
+  /* ---------- stack strip: a swipeable name board ----------
+     What moves is the row's own scrollLeft, not a transform, so
+     one control serves both directions: the lane drifts slowly, and a finger pulling it
+     still works like swiping an ordinary row. While touched / scrolled /
+     focused it holds still, then resumes 1.4 seconds after the last interaction, from
+     that position, not from the start. There is no pause button: what stops is
+     the animation, not the user's right.
+     The content is duplicated once so the loop never ends; the copy
+     is aria-hidden so a screen reader names each tool one time.
+     Without JS or with reduced-motion: no cloning, the row stays
+     swipeable as before. */
   function initStackMarquee() {
     const row = document.querySelector(".hs-row");
     if (!row) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const chips = [].slice.call(row.children);
     if (chips.length < 2) return;
-    if (row.scrollWidth <= row.clientWidth + 8) return;   /* muat seluruhnya: tidak perlu berjalan */
+    if (row.scrollWidth <= row.clientWidth + 8) return;   /* fits in full: no need to run */
 
     const set = document.createElement("div");
     set.className = "hs-set";
@@ -330,41 +330,41 @@
     row.appendChild(track);
     row.classList.add("hs-marquee");
 
-    /* satu putaran = lebar satu set, termasuk gap pemisah di akhirnya. Posisi p
-       dan p + period menampilkan isi yang sama, jadi memelotkan scrollLeft ke
-       dalam [0, period) tidak pernah terlihat sebagai lompatan. */
+    /* one lap = the width of one set, including the separator gap at its end. Positions p
+       and p + period show the same content, so clamping scrollLeft into
+       [0, period) is never seen as a jump. */
     const period = set.getBoundingClientRect().width + 12;
-    const SPEED = 26;                 /* px per detik - tetap, tidak bergantung panjang isi */
+    const SPEED = 26;                 /* px per second, fixed, independent of how long the content is */
     const RESUME_AFTER = 1400;
     let idleAt = 0, hovered = false, focused = false, offscreen = false;
     const hold = () => { idleAt = performance.now() + RESUME_AFTER; };
     ["touchstart", "touchend", "pointerdown", "pointerup", "wheel", "keydown"]
       .forEach((ev) => row.addEventListener(ev, hold, { passive: true }));
-    /* hover hanya bila perangkatnya memang punya hover - di layar sentuh :hover
-       menempel sampai sentuhan berikutnya, jadi itu bukan "masih dibaca" */
+    /* hover only if the device really has hover: on touch screens :hover
+       sticks until the next touch, so it does not mean "still being read" */
     if (window.matchMedia("(hover: hover)").matches) {
       row.addEventListener("mouseenter", () => { hovered = true; });
       row.addEventListener("mouseleave", () => { hovered = false; });
     }
     row.addEventListener("focusin", () => { focused = true; });
     row.addEventListener("focusout", () => { focused = false; });
-    /* jangan menggerakkan sesuatu yang tidak terlihat */
+    /* do not move something that is not visible */
     if ("IntersectionObserver" in window) {
       new IntersectionObserver((es) => { offscreen = !es[0].isIntersecting; },
         { threshold: 0 }).observe(row);
     }
     let last = performance.now();
-    /* scrollLeft dibaca-back dalam bilangan bulat pada DPR 1, dan satu frame
-       hanya 0,42px di 26px/s - kalau posisinya diambil ulang dari scrollLeft,
-       pembulatan itu membuatnya selalu kembali ke angka tadi dan lajur tidak
-       pernah jalan. x adalah posisinya yang sebenarnya; scrollLeft cuma dibayar
-       ke browser setiap frame. */
+    /* scrollLeft reads back as an integer at DPR 1, and one frame
+       is only 0.42px at 26px/s. If the position were re-read from scrollLeft,
+       that rounding would snap it back to the same value every time and the lane would
+       never move. x is the real position; scrollLeft is only paid back
+       to the browser each frame. */
     let x = 0;
     const frame = (now) => {
-      const dt = Math.min((now - last) / 1000, 0.1);   /* tab yang ditinggal tidak boleh melompat */
+      const dt = Math.min((now - last) / 1000, 0.1);   /* a left-behind tab must not jump */
       last = now;
       if (now < idleAt || hovered || focused || offscreen) {
-        x = row.scrollLeft;                            /* jari yang pegang: ikuti, jangan dilawan */
+        x = row.scrollLeft;                            /* a finger holding on: follow it, do not fight it */
       } else {
         x = (x + SPEED * dt) % period;
         row.scrollLeft = x;
@@ -374,7 +374,7 @@
     requestAnimationFrame(frame);
   }
 
-  /* ---------- accordeon Runtime + Decisions (C2) ---------- */
+  /* ---------- accordion Runtime + Decisions (C2) ---------- */
   function initFold() {
     const narrow = window.matchMedia("(max-width: 760px)");
     const cards = document.querySelectorAll("#runtime .dec-card, #decisions .dec-card");
@@ -387,11 +387,11 @@
         btn.setAttribute("aria-expanded", String(on));
         if (label) label.textContent = t(on ? "dec.fold.hide" : "dec.fold.show");
       };
-      /* kartu pertama tiap seksi tetap terbuka supaya pembaca tahu isinya bisa dibuka */
+      /* the first card of each section stays open so readers know the rest can open */
       setOpen(!(narrow.matches && card.previousElementSibling));
       btn.addEventListener("click", () => setOpen(card.dataset.fold === "closed"));
     });
-    /* layar melebar: status tersembunyi tidak berlaku lagi, label disamakan */
+    /* the screen widens: the hidden state no longer applies, labels are synced */
     narrow.addEventListener("change", (e) => {
       if (!e.matches) {
         cards.forEach((c) => {
@@ -407,7 +407,7 @@
     });
   }
 
-  /* ---------- C4: pil kontak yang menunggu sampai hero lewat ---------- */
+  /* ---------- C4: the contact pill that waits until the hero is past ---------- */
   function initMobileCta() {
     const cta = document.querySelector("[data-mcta]");
     const hero = document.querySelector(".hero");
@@ -419,7 +419,7 @@
     new IntersectionObserver((es) => { inContact = es[0].isIntersecting; sync(); }).observe(contact);
   }
 
-  /* ---------- salin email ---------- */
+  /* ---------- copy email ---------- */
   function initCopy() {
     const btn = document.querySelector("[data-copy-btn]");
     if (!btn) return;

@@ -1,7 +1,7 @@
 /*
-  Keyframes untuk animasi yang mengomunikasikan sesuatu: rel hero, diagram
-  yang digambar berurutan, dan respons atas aksi pengunjung. Tidak ada
-  reveal-on-scroll; konten tampil langsung.
+  Keyframes for animations that communicate something: the hero rail, diagrams
+  drawn in sequence, and reactions to visitor actions. There is no
+  reveal-on-scroll; content shows immediately.
 */
 
 /* ---------- keyframes ---------- */
@@ -10,10 +10,10 @@
   50% { box-shadow: 0 0 0 5px transparent; }
 }
 
-/* garis diagram "digambar" dari kiri ke kanan */
+/* diagram lines get "drawn" from left to right */
 @keyframes draw { to { stroke-dashoffset: 0; } }
 
-/* titik data berjalan menyusuri garis lurus (pakai CSS var tx/ty) */
+/* a data point travels along a straight line (uses the CSS vars tx/ty) */
 @keyframes packet {
   0%   { opacity: 0; transform: translate(0, 0); }
   12%  { opacity: 1; }
@@ -21,7 +21,7 @@
   100% { opacity: 0; transform: translate(var(--tx, 0px), var(--ty, 0px)); }
 }
 
-/* titik berjalan menyusuri rail pipeline (lebar penuh) */
+/* a point travels along the pipeline rail (full width) */
 @keyframes travel {
   0%   { left: 0%;    opacity: 0; }
   4%   { opacity: 1; }
@@ -29,11 +29,11 @@
   100% { left: calc(100% - 12px); opacity: 0; }
 }
 
-/* gate checks & hasil: urutan dinyalakan oleh diagrams.js via class .ok / .ready */
+/* gate checks & results: the sequence is lit up by diagrams.js through the .ok / .ready classes */
 .gate-check, .gate-result { transition: all 0.45s var(--ease); }
 
-/* stage pipeline menyala berurutan, sinkron dengan flow-dot (5.6s / 7 stage).
-   .flow-rail dan .flow-dot adalah child 1-2, jadi stage mulai dari child 3. */
+/* pipeline stages light up in order, in sync with flow-dot (5.6s / 7 stages).
+   .flow-rail and .flow-dot are children 1-2, so the stages start at child 3. */
 .play .flow-stage:nth-child(3) { animation: stagelit 5.6s linear infinite; animation-delay: 0s; }
 .play .flow-stage:nth-child(4) { animation: stagelit 5.6s linear infinite; animation-delay: 0.8s; }
 .play .flow-stage:nth-child(5) { animation: stagelit 5.6s linear infinite; animation-delay: 1.6s; }
@@ -62,7 +62,7 @@
   .flow-stage { border-color: var(--line-strong); background: var(--bg-3); }
 }
 
-/* ---------- delay utility classes (menggantikan style="--d:..."; CSP-safe) ---------- */
+/* ---------- delay utility classes (replace style="--d:..."; CSP-safe) ---------- */
 .d1{--d:.08s}   .d2{--d:.1s}    .d3{--d:.16s}  .d4{--d:.2s}   .d5{--d:.24s}
 .d6{--d:.3s}    .d7{--d:.5s}    .d8{--d:.6s}   .d9{--d:.7s}   .d10{--d:.8s}
 .d11{--d:1.3s}  .d12{--d:1.4s}  .d13{--d:1.5s} .d14{--d:2.2s} .d15{--d:2.3s}

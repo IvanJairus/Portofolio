@@ -1,8 +1,8 @@
 /*
-  Kartu, diagram, proyek, skill, timeline dan kontak.
+  Cards, diagrams, projects, skills, timeline and contact.
 */
 
-/* ---------- kartu kapabilitas ---------- */
+/* ---------- capability cards ---------- */
 .cap-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -50,9 +50,9 @@
   overflow-x: auto;
 }
 .diagram-shell svg { width: 100%; min-width: 640px; height: auto; display: block; }
-/* Di ponsel 640px tidak muat di kotak 350px: 326px konten hilang tanpa tanda apa
-   pun bahwa kotak itu bisa digeser. Ditahan pada 560px dan tepi kanannya diberi
-   pudar, jadi sisa yang terpotong lebih kecil dan terbaca sebagai "ada lagi". */
+/* On a phone 640px does not fit inside a 350px box: 326px of content is lost with no sign
+   at all that the box can be swiped. It is held at 560px and the right edge gets a
+   fade, so the cut remainder is smaller and reads as "there is more". */
 @media (max-width: 700px) {
   .diagram-shell svg { min-width: 560px; }
   .diagram-shell {
@@ -215,7 +215,7 @@
 .gate-result.ready { border-color: var(--pass); background: var(--pass-dim); box-shadow: 0 0 40px -18px rgba(99, 169, 85, 0.6); }
 .gate-result.ready .g-state { color: var(--pass); }
 
-/* ---------- proyek ---------- */
+/* ---------- projects ---------- */
 .work-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 2.6vw, 28px); }
 .work-card {
   border: 1px solid var(--line);
@@ -232,7 +232,7 @@
   transform: translateY(-4px);
 }
 .work-card h3 { font-size: clamp(18px, 2.2vw, 23px); margin-top: 12px; }
-.work-card h3:first-child { margin-top: 0; } /* penomoran "/ 01" sudah hilang: judul naik ke posisi awal kartu */
+.work-card h3:first-child { margin-top: 0; } /* the "/ 01" numbering is gone: the title moves up to the card's start position */
 .work-card .w-desc { margin-top: 12px; color: var(--ink-dim); font-size: 14.4px; }
 .work-card .w-impact { margin-top: 18px; display: grid; gap: 9px; }
 .work-card .w-impact li {
@@ -260,7 +260,7 @@
 }
 @media (max-width: 760px) { .work-grid { grid-template-columns: minmax(0, 1fr); } }
 
-/* ---------- skill: tier + bukti ---------- */
+/* ---------- skills: tier + evidence ---------- */
 .tier {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -272,8 +272,8 @@
   white-space: nowrap;
   color: var(--ink-dim);
 }
-/* tiga tingkat keahlian = tiga warna alat, bukan tiga tingkat abu-abu.
-   Semua pasangan teks/latar >= 4.5:1 di atas tint-nya masing-masing. */
+/* three skill levels = three tool colors, not three shades of gray.
+   Every text/background pair is >= 4.5:1 on its own tint. */
 .t-daily { color: var(--pass-strong); border-color: rgba(99, 169, 85, 0.55); background: var(--pass-dim); }        /* Jenkins */
 .t-regular { color: var(--info); border-color: rgba(0, 82, 204, 0.42); background: var(--info-dim); }        /* Jira */
 .t-exposure { color: var(--warn); border-color: rgba(169, 78, 9, 0.45); background: var(--warn-dim); border-style: dashed; } /* amber */
@@ -345,7 +345,7 @@
 .tl-points li { position: relative; padding-left: 18px; font-size: 14px; color: var(--ink-dim); }
 .tl-points li::before { content: "\00B7"; position: absolute; left: 0; color: var(--ink-faint); }
 
-/* ---------- kontak ---------- */
+/* ---------- contact ---------- */
 .contact-in { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(32px, 5vw, 72px); align-items: start; }
 .mail-line {
   margin-top: 30px;
@@ -389,23 +389,23 @@
   background: var(--accent-dim);
   border-radius: 999px; padding: 7px 14px;
 }
-/* "open to work" adalah fakta yang tidak berubah selama berjam-jam, jadi titiknya
-   tidak berdenyut. Tiga dot lain tetap berdenyut karena menandai keadaan yang
-   memang sedang berlangsung: walkthrough berjalan, SSE aktif, deploy sedang build. */
+/* "open to work" is a fact that does not change for hours, so its dot
+   does not pulse. The other three dots keep pulsing because they mark states that
+   are genuinely in progress: a running walkthrough, live SSE, a deploy being built. */
 .status-pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
 @media (max-width: 760px) { .contact-in { grid-template-columns: minmax(0, 1fr); } }
 
-/* Di ponsel kartu kontak menerima potret (dipindah oleh main.js): potret di
-   atas, penanda status tepat di bawahnya, lalu detailnya. justify-items:start
-   supaya pil tidak direntangkan selebar kartu - sebagai gantinya ia tetap
-   selebar teksnya dan white-space menjaga teksnya satu baris. Aturan ini ada
-   di sini, bukan di base.css, karena .contact-meta di atas memakai
-   display: grid dengan spesifisitas sama: di base.css ia tidak pernah menang. */
+/* On a phone the contact card receives the portrait (moved there by main.js): portrait at
+   the top, the status marker right below it, then the details. justify-items:start
+   so the pill is not stretched to the card width; instead it stays
+   as wide as its text and white-space keeps that text on one line. This rule is
+   here, not in base.css, because the .contact-meta above uses
+   display: grid with the same specificity: in base.css it never wins. */
 @media (max-width: 860px) {
   .contact-meta { gap: 16px; }
-  /* grid-area: auto wajib: .hero-photo masih membawa grid-area: photo dari hero
-     grid, dan nama area yang tidak ada di grid ini membuat track hantu kedua -
-     potret pindah ke kolom kanan dan baris label ikut menyempit */
+  /* grid-area: auto is required: .hero-photo still carries grid-area: photo from the hero
+     grid, and an area name missing from this grid creates a second ghost track:
+     the portrait moves to the right column and the label row narrows with it */
   .contact-meta .hero-photo { display: block; grid-area: auto; width: 104px; margin: 0; }
   .contact-meta .status-pill { justify-self: start; white-space: nowrap; }
 }
@@ -414,22 +414,22 @@
 .site-footer { border-top: 1px solid var(--line); padding: 30px 0 40px; }
 .footer-in { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 12px; color: var(--ink-faint); letter-spacing: 0.04em; }
 .footer-in a:hover { color: var(--accent); }
-/* kalimat penutup ini milik sendiri, jadi tidak perlu tanda kutip atau atribusi;
-   bedanya hanya tinta - satu baris paling gelap di footer, tanpa ornamen baru */
+/* this closing line stands on its own, so it needs no quotes and no attribution;
+   the only difference is ink: the darkest line in the footer, no new ornament */
 .ftr-creed { color: var(--ink); }
 
-/* ---------- B2: efek hover hanya untuk perangkat yang punya hover ----------
-   Disentuh, :hover menempel sampai ketukan berikutnya: kartu tetap terangkat
-   dan baris tabel tetap tersorot. Yang diblokir di sini efek posisi/warna besar;
-   perubahan warna tautan dan tombol dibiarkan, karena di sentuh itu umpan balik,
-   bukan hiasan. */
+/* ---------- B2: hover effects only for devices that have hover ----------
+   On touch, :hover sticks until the next tap: the card stays lifted
+   and the table row stays highlighted. Blocked here are the big position/color effects;
+   link and button color changes are allowed, because on touch that is feedback,
+   not decoration. */
 @media (hover: hover) {
 .cap:hover { background: var(--bg-2); }
 .work-card:hover { transform: translateY(-4px); border-color: var(--accent-line); }
 }
 
-/* alamat email panjangnya 196px; di 320px ia mendorong kartu. Biarkan putus,
-   jangan biarkan halaman melebar */
+/* the email address is 196px long; at 320px it pushes the card. Let it break,
+   do not let the page get wider */
 @media (max-width: 360px) {
   .cm-row .cm-v, .mail-link { overflow-wrap: anywhere; }
 }

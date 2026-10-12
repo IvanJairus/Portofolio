@@ -1,6 +1,6 @@
 /*
-   Identitas yang dipakai halaman ini. Satu-satunya file yang perlu disentuh
-   untuk personalisasi. Tidak ada data internal perusahaan di file ini.
+   The identity this page uses. The only file that needs to be touched
+   for personalization. No company internal data lives in this file.
 */
 
 window.PROFILE = {
@@ -16,11 +16,11 @@ window.PROFILE = {
     { id: "dashboard", label: "Release board reference", href: "https://github.com/IvanJairus/release-dashboard" }
   ],
 
-  /* Riwayat kerja. Tambah objek baru bila perlu.
-     company ditulis generik karena halaman ini disanitasi penuh.
-     Setiap field teks berbentuk { en: ... } karena main.js membaca lewat
-     pick(), dan halaman ini sudah tetap di satu bahasa.
-     Contoh entri tambahan:
+  /* Work history. Add new objects when needed.
+     company is written generically because this page is fully sanitized.
+     Every text field is shaped { en: ... } because main.js reads through
+     pick(), and this page is now fixed to one language.
+     Example of an extra entry:
      {
        period: { en: "2020–2022" },
        title:  { en: "DevOps Engineer" },
@@ -46,9 +46,9 @@ window.PROFILE = {
       }
     },
     {
-      /* Periode sebelum peran saat ini. Ketiga butir di bawah diambil dari
-         CV pemiliknya (Backend Developer, Januari 2022 - Januari 2024), hanya
-         disalin ke bahasa situs; nama perusahaan tetap disanitasi seperti peran di atas. */
+      /* Period before the current role. The three items below come from the
+         owner's CV (Backend Developer, January 2022 to January 2024), only
+         copied into the site language; company names stay sanitized like the roles above. */
       period: { en: "2022–2024" },
       title: { en: "Backend Developer" },
       company: { en: "State-owned banking group, Indonesia" },
