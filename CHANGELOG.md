@@ -225,6 +225,20 @@ All notable changes to this repository are documented here. The format follows
 
 ### Fixed
 
+- **The atlas contradicted the landing about how many services there are.** The
+  three archetype labels read `mobile · wallet : 26 services`,
+  `portal · core : 38 services`, `identity · ledger : 39 services`, which is 103,
+  while `index.html` says 53 services in seven places, the hero line and a node of
+  its own gateway diagram among them. The lab's internal edition states
+  `103 services` five times across four files, so the three numbers were one
+  population split three ways, not two measures of two different things. No basis
+  could be named for either figure, so the counts are gone and the labels
+  carry the domain names only: `grep -o ">[^<]*services[^<]*<" diagrams/index.html`
+  now returns nothing, the archetype boxes lost no layout, and the page moved
+  137,661 B to 137,619 B with Performance 99 and CLS 0 unchanged. **What this did
+  not settle:** the 53 on the landing is still published without a source or a
+  counting basis, which is the rule in `DESIGN.md` it has yet to meet.
+
 - **`/diagrams/` downloaded a 42 KB dictionary that nothing read.** The page loaded
   `i18n.js` but not `main.js`, and `main.js` is the only consumer of `window.I18N`,
   so the 262 `data-i18n` attributes on the page were inert and the fallback text
