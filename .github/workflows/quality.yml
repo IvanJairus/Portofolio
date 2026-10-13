@@ -172,7 +172,7 @@ jobs:
 
           compliant=0
           for attempt in $(seq 1 12); do
-            last_status=$(curl -sS -o /dev/null -D "$raw" -w '%{http_code}' "$url/" || echo "000")
+            last_status=$(curl -sS -o /dev/null -D "$raw" -w '%{http_code}' "$url" || echo "000")
             ok=1
             [ "$last_status" = "200" ] || ok=0
             check -  "^content-security-policy:.*style-src 'self'" || ok=0
