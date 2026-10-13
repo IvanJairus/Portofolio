@@ -66,11 +66,11 @@
     <section id="state-governance" class="dg-plate" data-motion-root data-motion-mode="loop" data-step-count="6" data-step-current="6" data-frame="end" data-static-frame="complete">
       <div class="wrap">
         <div class="dg-plate-head">
-          <p class="eyebrow">State Machine · GOLD 1 · Interactive Motion · Reference</p>
+          <p class="eyebrow">State machine · reference implementation · Interactive</p>
           <a class="dg-plate-link" href="#state-governance">#state-governance</a>
         </div>
-        <h2>Release Orchestrator: 21-Phase Kanban Governance &amp; State Machine</h2>
-        <p class="deck">GOLD 1 (Board-as-State-Machine · Interactive Step Mode): How a bare GitLab issue board enforces 12 sequential upstream governance phases (PHASE_FLOW), 5-layer role approvals, 4 automated execution statuses (In Dev, In Review, Merged, Deploy), 4-layer anti-loop guards, and 9 downstream testing/promotion phases (MULTIPLE_FLOW).</p>
+        <h2>21-phase Kanban governance and state machine</h2>
+        <p class="deck">The board itself carries the state. Twelve sequential upstream phases (PHASE_FLOW), five-layer role approvals, four automated execution statuses (In Dev, In Review, Merged, Deploy), four anti-loop guard layers, and nine downstream testing and promotion phases (MULTIPLE_FLOW) are all enforced by it.</p>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 680" xmlns="http://www.w3.org/2000/svg" role="img"
            aria-labelledby="state-gov-public-title state-gov-public-desc">
@@ -219,11 +219,11 @@
     <section id="control-plane" class="dg-plate" data-motion-root data-motion-mode="loop" data-step-count="5" data-step-current="5" data-frame="end" data-static-frame="complete">
       <div class="wrap">
         <div class="dg-plate-head">
-          <p class="eyebrow">Architecture · GOLD 2 · Interactive Motion · Reference</p>
+          <p class="eyebrow">Architecture · reference implementation · Interactive</p>
           <a class="dg-plate-link" href="#control-plane">#control-plane</a>
         </div>
-        <h2>Release Orchestrator: Control Plane, Archetypes &amp; Anti-Loop</h2>
-        <p class="deck">GOLD 2 / Variant 3 (Planes &amp; Archetypes · Interactive Step Mode): Separates the Control Plane, the Execution Plane grouped by the three real implementation archetypes (Router+Container/Mobile, Hybrid SSH VM+OCP, and Template/Shell OCP), and the closed-loop webhook return path guarded by Rule 0.</p>
+        <h2>Control plane, three execution archetypes, and the loop back</h2>
+        <p class="deck">One control plane, three execution archetypes. The orchestrator reads the board and dispatches; the execution plane runs the same contract three ways (Router+Container/Mobile, Hybrid SSH VM+OCP, Template/Shell OCP), and the dashed return is the closed webhook loop that Rule 0 stops.</p>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 672" xmlns="http://www.w3.org/2000/svg" role="img"
            aria-labelledby="arch-v3-public-title arch-v3-public-desc">
@@ -370,11 +370,11 @@
     <section id="event-router" class="dg-plate" data-motion-root data-motion-mode="loop" data-step-count="6" data-step-current="6" data-frame="end" data-static-frame="complete">
       <div class="wrap">
         <div class="dg-plate-head">
-          <p class="eyebrow">Flowchart · GOLD 3 · Interactive Motion · Reference</p>
+          <p class="eyebrow">Flowchart · reference implementation · Interactive</p>
           <a class="dg-plate-link" href="#event-router">#event-router</a>
         </div>
-        <h2>Release Orchestrator: Dual-Track Event Router Flowchart</h2>
-        <p class="deck">GOLD 3 / Variant 3 (Dual-Track Router · Interactive Step Mode): Shows how release-orchestrator splits events after the 4-layer anti-loop filter into two parallel tracks: the Work-Item &amp; MR Release Lifecycle Track on the left, and the ChatOps &amp; Scheduled Security Track on the right.</p>
+        <h2>Dual-track event router after the four-layer guard</h2>
+        <p class="deck">Every event enters one router. Past the four-layer anti-loop filter it splits into two parallel tracks: the Work-Item and MR release lifecycle on the left, ChatOps and the scheduled security jobs on the right.</p>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 760" xmlns="http://www.w3.org/2000/svg" role="img"
            aria-labelledby="flow-orch-v3-public-title flow-orch-v3-public-desc">
@@ -507,11 +507,11 @@
     <section id="dependency-graph" class="dg-plate" data-motion-root data-motion-mode="loop" data-step-count="5" data-step-current="5" data-frame="end" data-static-frame="complete">
       <div class="wrap">
         <div class="dg-plate-head">
-          <p class="eyebrow">Dependency graph · GOLD 4A · Interactive Motion · Reference</p>
+          <p class="eyebrow">Dependency graph · reference implementation · Interactive</p>
           <a class="dg-plate-link" href="#dependency-graph">#dependency-graph</a>
         </div>
         <h2>What the six domain pipelines converge on</h2>
-        <p class="deck">GOLD 4A (Dependency Graph · Interactive Step Mode): Ranked by dependency depth. The orchestrator reads one routing table and triggers six domain pipelines; those six deploy into the product repositories and converge on two shared projects. The dashed line is the one that is not a tree: a merged MR arrives back at the orchestrator as a webhook event, which is what the anti-loop guard exists to stop.</p>
+        <p class="deck">Ranked by dependency depth. The orchestrator reads one routing table and triggers six domain pipelines; those six deploy into the product repositories and converge on two shared projects. The dashed line is the one that is not a tree: a merged MR arrives back at the orchestrator as a webhook event, which is what the anti-loop guard exists to stop.</p>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 700" xmlns="http://www.w3.org/2000/svg" role="img"
            aria-labelledby="deps-public-title deps-public-desc">
