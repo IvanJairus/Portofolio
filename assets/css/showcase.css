@@ -2706,7 +2706,6 @@ html:not([data-js]) .dec-fold { display: none; }
 .spotlight-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
   margin-top: auto;
   padding-top: 8px;
 }
@@ -2725,21 +2724,6 @@ html:not([data-js]) .dec-fold { display: none; }
 .sl-cta:hover {
   background: var(--accent-strong);
 }
-.sl-sub {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--ink);
-  background: transparent;
-  border: 1px solid var(--line-strong);
-  padding: 8px 16px;
-  border-radius: 999px;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.sl-sub:hover {
-  background: var(--bg-2);
-}
 @media (max-width: 860px) {
   .spotlight-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -2750,17 +2734,6 @@ html:not([data-js]) .dec-fold { display: none; }
   .spotlight-card {
     padding: 20px 18px;
   }
-  .spotlight-actions {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-  .sl-cta,
-  .sl-sub {
-    width: 100%;
-    text-align: center;
-    box-sizing: border-box;
-    padding: 10px 16px;
-  }
 }
+
 
