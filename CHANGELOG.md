@@ -165,6 +165,22 @@ All notable changes to this repository are documented here. The format follows
 
 ### Changed
 
+- **The portfolio now answers at `/portfolio/`.** `vercel.json` gained
+  `trailingSlash` and an internal rewrite from `/portfolio/:path*` to `/:path*`, so
+  no file moves and the mounted path and the project's own origin resolve to the
+  same bytes. The five asset header rules became `/(portfolio/)?assets/...`,
+  because a header is matched against the request path and not the rewritten one;
+  without that the CSS and images would quietly lose their cache policy the day the
+  domain moves. Canonical, `og:url`, `og:image` and the JSON-LD subject carry the
+  prefix on all five pages, and the sitemap gained it too, along with the
+  `/diagrams/` entry that has been missing since that page shipped. `404.html` is
+  absolute everywhere now, since a 404 can be raised at any depth and a relative
+  href would resolve against the wrong directory, and its link list names the three
+  pages it had never heard of. `.well-known/security.txt` moved to the gateway,
+  which owns the domain root. Measured on a threaded local server at the mounted
+  path: five pages 200, an unknown path 404 with the styled page, 48 same-origin
+  assets resolved with no failure, and Lighthouse on `/pipelines/` passes every
+  budget with `errors-in-console` 0 on both revisions, 342,807 B to 342,827 B.
 - **The spotlight moved to the front of the work and got the heading it was
   missing.** It sat between `#architecture` and `#decisions`, at 17,161 to 18,132
   on a 390px screen, the nineteenth screen of a twenty-five screen page, which is

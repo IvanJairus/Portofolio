@@ -156,7 +156,9 @@ jobs:
       # the CSP line itself.
       - name: Assert the live response headers
         run: |
-          url="https://www.ivanjairus.xyz"
+          # The domain root now belongs to the gateway, so the portfolio's own headers
+          # can only be read at its mounted path.
+          url="https://www.ivanjairus.xyz/portfolio/"
           raw=/tmp/live-headers.txt
           last_status=000
 

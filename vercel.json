@@ -1,4 +1,5 @@
 {
+  "trailingSlash": true,
   "headers": [
     {
       "source": "/(.*)",
@@ -34,34 +35,55 @@
       ]
     },
     {
-      "source": "/assets/img/(.*)",
+      "source": "/(portfolio/)?assets/img/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
+        }
       ]
     },
     {
-      "source": "/assets/og/(.*)",
+      "source": "/(portfolio/)?assets/og/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
+        }
       ]
     },
     {
-      "source": "/assets/cv/(.*)",
+      "source": "/(portfolio/)?assets/cv/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=600" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, stale-while-revalidate=600"
+        }
       ]
     },
     {
-      "source": "/assets/css/(.*)",
+      "source": "/(portfolio/)?assets/css/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
     },
     {
-      "source": "/assets/js/(.*)",
+      "source": "/(portfolio/)?assets/js/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/portfolio/:path*",
+      "destination": "/:path*"
     }
   ],
   "redirects": [
@@ -73,7 +95,7 @@
           "value": "portofolio-six-delta-18\\.vercel\\.app"
         }
       ],
-      "destination": "https://www.ivanjairus.xyz/$1",
+      "destination": "https://www.ivanjairus.xyz/portfolio/$1",
       "statusCode": 308
     }
   ]
