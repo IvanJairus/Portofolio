@@ -2720,6 +2720,7 @@ html:not([data-js]) .dec-fold { display: none; }
   border-radius: 999px;
   text-decoration: none;
   font-weight: 500;
+  white-space: nowrap;
 }
 .sl-cta:hover {
   background: var(--accent-strong);
@@ -2734,6 +2735,7 @@ html:not([data-js]) .dec-fold { display: none; }
   padding: 8px 16px;
   border-radius: 999px;
   text-decoration: none;
+  white-space: nowrap;
 }
 .sl-sub:hover {
   background: var(--bg-2);
@@ -2744,3 +2746,21 @@ html:not([data-js]) .dec-fold { display: none; }
     gap: 16px;
   }
 }
+@media (max-width: 640px) {
+  .spotlight-card {
+    padding: 20px 18px;
+  }
+  .spotlight-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .sl-cta,
+  .sl-sub {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 10px 16px;
+  }
+}
+
