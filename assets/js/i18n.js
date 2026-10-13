@@ -12,6 +12,7 @@ window.I18N = {
     "nav.security": "Security",
     "nav.work": "Work",
     "nav.pipelines": "Pipelines",
+    "nav.diagrams": "Diagrams",
     "nav.contact": "Contact",
 
     /* hero flow rail */
@@ -189,10 +190,13 @@ window.I18N = {
     "plat.p4.body": "Three roles, per-project assignment, revocable API keys for pipelines, an audit log for every destructive action, and a platform-update button that redeploys the dashboard itself.",
 
     "work.demo.board": "See the interactive walkthrough",
+    "work.demo.diagrams": "Open the 5-plate architecture & state atlas",
     "work.demo.platform": "Try the interactive replica",
     "work.demo.architecture": "See the gateway diagram",
+    "work.demo.depgraph": "Explore the 6-domain convergence graph",
     "work.demo.pipeline": "Read the reference implementation",
     "work.demo.controlplane": "Read the control-plane reference",
+    "lc.out.diagrams": "the five interactive system diagrams: 21-phase board governance, control plane, event router, dependency convergence, and SIT sequence",
 
     "hero.role": "I build the machines that build the software.",
     "hero.tagline": "Platform engineer who turns release days into non-events. CI/CD pipelines, security gates and release automation for banking-grade systems.",
