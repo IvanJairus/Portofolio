@@ -331,7 +331,7 @@ window.I18N = {
     "sl.p1.eyebrow": "Architecture Blueprint",
     "sl.p1.badge": "5 plates",
     "sl.p1.title": "Five Interactive System Models",
-    "sl.p1.desc": "Interactive state governance, dual-track router, control plane archetypes, dependency convergence, and SIT release sequence.",
+    "sl.p1.desc": "21-phase board governance, control plane and three archetypes, dual-track event router, where the six pipelines converge, and one card from In Dev to SIT.",
     "sl.p1.cta": "explore diagram atlas",
     "sl.p1.sub": "state machine",
     "sl.p2.eyebrow": "Execution Proof",
