@@ -1,7 +1,8 @@
 /*
   Interactive diagram atlas styles (/diagrams/).
-  Extracted from the five public diagram plates so all five share a single
-  stylesheet under strict CSP (style-src 'self').
+  Shared across all five public diagram plates under strict CSP (style-src 'self').
+  Animations run automatically and loop continuously by default, and stop
+  cleanly under prefers-reduced-motion: reduce or print.
 */
 
 .dg-intro {
@@ -89,10 +90,9 @@
   --color-soft: #5a6580;
   --color-accent: #a8360a;
   --color-rule: rgba(45, 49, 66, 0.14);
-  --motion-fast: 160ms;
-  --motion-step: 480ms;
-  --motion-hold: 900ms;
-  --motion-total: 5400ms;
+  --motion-fast: 120ms;
+  --motion-step: 260ms;
+  --motion-hold: 420ms;
   --motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   width: 100%;
   min-width: 0;
@@ -146,82 +146,6 @@
   to { stroke-dashoffset: 0; }
 }
 
-[data-motion-controls] {
-  display: none;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 14px;
-  padding: 12px 14px;
-  border: 1px solid var(--color-rule);
-  border-radius: 6px;
-  background: #ffffff;
-}
-
-.motion-ready [data-motion-controls] {
-  display: flex;
-}
-
-[data-motion-controls][hidden] {
-  display: none !important;
-}
-
-[data-motion-controls] button {
-  min-width: 44px;
-  min-height: 44px;
-  padding: 8px 14px;
-  border: 1px solid var(--color-muted);
-  border-radius: 4px;
-  color: var(--color-ink);
-  background: var(--color-paper);
-  font: 600 12px/1 var(--font-sans);
-  cursor: pointer;
-}
-
-[data-motion-controls] button[aria-pressed="true"] {
-  border-color: var(--color-accent);
-  background: rgba(168, 54, 10, 0.08);
-  color: var(--color-accent);
-}
-
-[data-motion-controls] button:hover {
-  border-color: var(--color-accent);
-}
-
-[data-motion-controls] button:focus-visible {
-  outline: 3px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-[data-motion-controls] button:disabled {
-  cursor: not-allowed;
-  opacity: 0.45;
-}
-
-.keyboard-help {
-  color: var(--color-muted);
-  font: 400 11.5px/1.4 var(--font-mono);
-  margin-left: 8px;
-}
-
-[data-motion-status-visible] {
-  margin-left: auto;
-  color: var(--color-ink);
-  font: 600 12px/1.4 var(--font-mono);
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 noscript p {
   margin: 12px 0 0;
   color: var(--color-muted);
@@ -258,7 +182,6 @@ noscript p {
   color: var(--ink-faint);
 }
 
-html[data-motion="static"] [data-motion-controls],
 html[data-motion="static"] [data-motion-decorative] {
   display: none !important;
 }
@@ -270,7 +193,6 @@ html[data-motion="static"] [data-motion-item] {
   transition: none !important;
 }
 
-html[data-motion="step"] [data-motion-controls],
 html[data-motion="step"] [data-motion-decorative] {
   display: none !important;
 }
@@ -288,9 +210,6 @@ html[data-motion="step"] [data-motion-item] {
   [data-motion-decorative] {
     display: none !important;
   }
-  [data-motion-controls] {
-    display: none !important;
-  }
 }
 
 @media print {
@@ -300,7 +219,6 @@ html[data-motion="step"] [data-motion-item] {
   .diagram-container svg {
     min-width: 0;
   }
-  [data-motion-controls],
   [data-motion-decorative] {
     display: none !important;
   }
