@@ -19,7 +19,6 @@
     });
   }
 
-  /* diagram 1: gateway */
   function playGateway(scope) {
     scope.classList.add("play");
     const seq = [
@@ -37,7 +36,6 @@
     });
   }
 
-  /* diagram 3: security gate */
   function playGate(scope) {
     scope.classList.add("play");
     const checks = scope.querySelectorAll(".gate-check");
@@ -50,7 +48,6 @@
     }, 400 + checks.length * 800 + 300);
   }
 
-  /* shared observer */
   function observeDiagrams() {
     const targets = document.querySelectorAll("[data-diagram]");
     if (!targets.length) return;
@@ -77,7 +74,7 @@
         const kind = entry.target.dataset.diagram;
         if (kind === "gateway") playGateway(entry.target);
         else if (kind === "gate") playGate(entry.target);
-        else entry.target.classList.add("play"); /* flow: pure CSS */
+        else entry.target.classList.add("play");
       });
     }, { threshold: 0.35 });
 

@@ -211,7 +211,7 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
 .tool-btn:hover { border-color: var(--accent); color: var(--accent); }
 .tool-btn[aria-pressed="true"] { background: var(--accent-dim); border-color: var(--accent-line); color: var(--accent); }
 
-/* ---------- C2: two reading depths ----------
+/* C2: two reading depths.
    Default = deep: every section is in the DOM and readable by crawlers and by a Tech Lead.
    Skim only hides the case studies, it does not delete their content. */
 .depth-row {
@@ -425,7 +425,7 @@ html[data-depth="skim"] .skim-note { display: flex; }
   .hs-row > .sc { flex: 0 0 auto; scroll-snap-align: start; }
 }
 
-/* ---------- stack strip: a swipeable name board ----------
+/* Stack strip: a swipeable name board.
    Two identical sets side by side. What moves it is the row's own scrollLeft
    (not a transform), so one control serves two directions: the lane drifts
    slowly at 26px/s, and a finger pulling it still works like swiping an
@@ -689,7 +689,7 @@ html[data-depth="skim"] .skim-note { display: flex; }
   .site-header::after { display: none; }
 }
 
-/* ---------- C4: one contact path on phones ----------
+/* C4: one contact path on phones.
    Contact used to exist only at the very bottom, and the CV button only in the hero.
    One pill, not three buttons, so the bottom chrome does not pile up. */
 .mcta { display: none; }
@@ -716,7 +716,7 @@ html[data-depth="skim"] .skim-note { display: flex; }
 }
 @media print { .mcta { display: none; } }
 
-/* ---------- B2: hover effects only for devices that have hover ----------
+/* B2: hover effects only for devices that have hover.
    On touch, :hover sticks until the next tap: the card stays lifted
    and the table row stays highlighted. Blocked here are the big position/color effects;
    link and button color changes are left alone, because on touch that is feedback,

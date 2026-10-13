@@ -5,7 +5,7 @@
 (function () {
   "use strict";
 
-  const lang = "en"; /* the site is set to English-only */
+  const lang = "en";
 
   /* marker: controls that need JS must not appear as dead buttons without JS */
   document.documentElement.dataset.js = "1";
@@ -31,7 +31,6 @@
     }
   }
 
-  /* static translations */
   function applyI18n() {
     document.documentElement.lang = lang;
     document.querySelectorAll("[data-i18n]").forEach((el) => {
@@ -77,7 +76,6 @@
 
     document.title = (P.name || "Portfolio") + ", " + pick(P.role);
 
-    /* social links */
     const linksBox = document.querySelector("[data-profile='links']");
     if (linksBox) {
       linksBox.replaceChildren();
@@ -91,7 +89,6 @@
       });
     }
 
-    /* experience timeline */
     const tl = document.querySelector("[data-profile='experience']");
     if (tl) {
       tl.replaceChildren();
@@ -138,7 +135,6 @@
     ));
   }
 
-  /* stat counters */
   function initCounters() {
     const els = document.querySelectorAll("[data-count]");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -178,7 +174,6 @@
     els.forEach((el) => io.observe(el));
   }
 
-  /* typing terminal */
   function initTerminal() {
     const body = document.querySelector(".terminal-body");
     if (!body) return;
@@ -299,7 +294,7 @@
     mq.addEventListener("change", (e) => place(e.matches));
   }
 
-  /* ---------- stack strip: a swipeable name board ----------
+  /* Stack strip: a swipeable name board.
      What moves is the row's own scrollLeft, not a transform, so
      one control serves both directions: the lane drifts slowly, and a finger pulling it
      still works like swiping an ordinary row. While touched / scrolled /
@@ -386,7 +381,6 @@
     new IntersectionObserver((es) => { inContact = es[0].isIntersecting; sync(); }).observe(contact);
   }
 
-  /* copy email */
   function initCopy() {
     const btn = document.querySelector("[data-copy-btn]");
     if (!btn) return;
@@ -412,7 +406,6 @@
     });
   }
 
-  /* boot */
   document.addEventListener("DOMContentLoaded", () => {
     renderProfile();
     applyI18n();
@@ -425,6 +418,5 @@
     initPhotoSlot();
     initMobileCta();
     initCopy();
-
   });
 })();

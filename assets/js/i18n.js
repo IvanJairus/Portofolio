@@ -14,8 +14,6 @@ window.I18N = {
     "nav.pipelines": "Pipelines",
     "nav.diagrams": "Diagrams",
     "nav.contact": "Contact",
-
-    /* hero flow rail */
     "hero.yml.where": "the whole file, in a GitLab-native repo",
     "hero.yml.foot": "the real format. Most services carry no CI file at all, so the board runs them from the pipeline repository",
     "hero.flow.legend": "one change, seven stages. Nobody runs these by hand · <span class=\"lm-scan\" aria-hidden=\"true\">◇</span> scan · <span class=\"lm-gate\" aria-hidden=\"true\">■</span> gate",
@@ -130,10 +128,6 @@ window.I18N = {
     "eco.n3": "state lives inside the ticket, as watermarks in its notes. There is no extra database that can drift from it.",
     "eco.n4": "the same gates survived the move: approval chain, scans, fail-closed",
     "eco.arrow": "same standard, different tools",
-
-    /* stacks */
-
-    /* masterpiece I : board */
     "board.kicker": "Case study I: release orchestration",
     "board.title": "I turned a bare GitLab board into a release system",
     "board.lead": "A GitLab issue board has almost none of what a regulated release needs: no approval chain, no phase enforcement, no persistent state, no deploy trigger. Instead of buying a tool, I made the board itself drive the pipeline. Engineers move a card, and branches, merge requests, scans, approvals, deploys and audit comments follow. Every result is written back into the ticket.",
@@ -169,8 +163,6 @@ window.I18N = {
     "board.ba.arrow": "1 card moved → 6 automated actions",
     "board.ba.after": "phase badge · approval chips · bot comments · deploy trigger: the board runs the release",
     "board.co.line": "/retry · /sonarqube · /diff <domain> · /deploy-secure · /sync · /follow #iid · /summarypic · /notif. The board doubles as a command line; every command is anchored, gated by ticket status and bot-proof.",
-
-    /* masterpiece II : platform */
     "plat.kicker": "Case study II: release control plane",
     "plat.title": "The dashboard that replaced five tools and a spreadsheet",
     "plat.lead": "A release management platform I built and maintain: version drift between environments, build and deploy triggering, live console streaming, quality gates, secret changes, mobile test recordings and role-based access, all on one page and updated in realtime. Below is an interactive replica with sanitized dummy data. Click anything.",
@@ -193,7 +185,7 @@ window.I18N = {
     "work.demo.diagrams": "Open the 5-plate architecture & state atlas",
     "work.demo.platform": "Try the interactive replica",
     "work.demo.architecture": "See the gateway diagram",
-    "work.demo.depgraph": "Explore the 6-domain convergence graph",
+    "work.demo.depgraph": "Inspect the 6-domain convergence graph",
     "work.demo.pipeline": "Read the reference implementation",
     "work.demo.controlplane": "Read the control-plane reference",
     "lc.out.diagrams": "the five interactive system diagrams: 21-phase board governance, control plane, event router, dependency convergence, and SIT sequence",
@@ -269,7 +261,7 @@ window.I18N = {
     "work.3.i2": "Role-based access: admin / devsecops / developer",
     "work.3.i3": "Live updates over SSE; API-key auth for machine callers",
 
-    "skills.title": "Toolbox, honestly rated",
+    "skills.title": "Toolbox by production mileage",
     "skills.lead": "Percentages would not be falsifiable, so there are none. Each skill carries a usage tier and a pointer to the project that proves it. Hover or tap a reference to see where the evidence lives.",
     "tier.daily": "production daily",
     "tier.regular": "production regular",
@@ -334,8 +326,7 @@ window.I18N = {
     "exp.edu": "S1 Informatics, Universitas Tarumanagara",
 
     "footer.creed": "If the process needs a hero, the process is wrong.",
-
-    /* diagrams atlas */
+    "arch.atlas.link": "open the interactive control-plane and runner topology plate in the diagram atlas →",
     "dg.brand.mark": "IJ",
     "dg.brand.name": "Ivan Jairus",
     "dg.brand.slash": "/",
