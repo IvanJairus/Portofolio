@@ -30,18 +30,18 @@
   <header class="site-header">
     <div class="wrap header-in">
       <a class="brand" href="../">
-        <span class="mark" data-i18n="dg.brand.mark">IJ</span>
-        <span data-i18n="dg.brand.name">Ivan Jairus</span>
-        <span class="slash" data-i18n="dg.brand.slash">/</span>
-        <span class="dim" data-i18n="dg.brand.section">diagrams</span>
+        <span class="mark">IJ</span>
+        <span>Ivan Jairus</span>
+        <span class="slash">/</span>
+        <span class="dim">diagrams</span>
       </a>
       <nav class="nav" aria-label="Primary">
-        <a href="../#about" data-i18n="nav.about">About</a>
-        <a href="../#work" data-i18n="nav.work">Work</a>
-        <a href="../pipelines/" data-i18n="nav.pipelines">Pipelines</a>
-        <a href="./" data-i18n="nav.diagrams">Diagrams</a>
-        <a href="../#toolbox" data-i18n="nav.toolbox">Toolbox</a>
-        <a href="../#contact" data-i18n="nav.contact">Contact</a>
+        <a href="../#about">About</a>
+        <a href="../#work">Work</a>
+        <a href="../pipelines/">Pipelines</a>
+        <a href="./">Diagrams</a>
+        <a href="../#toolbox">Toolbox</a>
+        <a href="../#contact">Contact</a>
       </nav>
     </div>
   </header>
@@ -50,15 +50,15 @@
 
     <section class="dg-intro">
       <div class="wrap">
-        <p class="eyebrow mono" data-i18n="dg.intro.eyebrow">Interactive reference · five system plates</p>
-        <h1 data-i18n="dg.intro.title">The release machinery, drawn in full.</h1>
-        <p class="lead" data-i18n="dg.intro.lead">Five interactive diagrams covering the twenty-one-phase issue-board state machine, the control-plane and runner topology, the dual-track webhook router, the six-domain pipeline convergence graph, and the end-to-end sequence of a single card from In Dev to SIT. Each plate animates and loops automatically when scripts run, and renders in full without JavaScript.</p>
+        <p class="eyebrow mono">Interactive reference · five system plates</p>
+        <h1>The release machinery, drawn in full.</h1>
+        <p class="lead">Five interactive diagrams covering the twenty-one-phase issue-board state machine, the control-plane and runner topology, the dual-track webhook router, the six-domain pipeline convergence graph, and the end-to-end sequence of a single card from In Dev to SIT. Each plate animates and loops automatically when scripts run, and renders in full without JavaScript.</p>
         <p class="dg-jump mono">
-          <a href="#state-governance" data-i18n="dg.jump.p1">01 · 21-phase governance &amp; state machine</a>
-          <a href="#control-plane" data-i18n="dg.jump.p2">02 · control plane, archetypes &amp; anti-loop</a>
-          <a href="#event-router" data-i18n="dg.jump.p3">03 · dual-track event router flowchart</a>
-          <a href="#dependency-graph" data-i18n="dg.jump.p4">04 · six-domain dependency convergence</a>
-          <a href="#sequence-sit" data-i18n="dg.jump.p5">05 · one card from In Dev to SIT</a>
+          <a href="#state-governance">01 · 21-phase governance &amp; state machine</a>
+          <a href="#control-plane">02 · control plane, archetypes &amp; anti-loop</a>
+          <a href="#event-router">03 · dual-track event router flowchart</a>
+          <a href="#dependency-graph">04 · six-domain dependency convergence</a>
+          <a href="#sequence-sit">05 · one card from In Dev to SIT</a>
         </p>
       </div>
     </section>
@@ -66,16 +66,16 @@
     <section id="state-governance" class="dg-plate" data-motion-root data-motion-mode="loop" data-step-count="6" data-step-current="6" data-frame="end" data-static-frame="complete">
       <div class="wrap">
         <div class="dg-plate-head">
-          <p class="eyebrow" data-i18n="dg.p1.eyebrow">State Machine · GOLD 1 · Interactive Motion · Reference</p>
-          <a class="dg-plate-link" href="#state-governance" data-i18n="dg.p1.link">#state-governance</a>
+          <p class="eyebrow">State Machine · GOLD 1 · Interactive Motion · Reference</p>
+          <a class="dg-plate-link" href="#state-governance">#state-governance</a>
         </div>
-        <h2 data-i18n="dg.p1.title">Release Orchestrator: 21-Phase Kanban Governance &amp; State Machine</h2>
-        <p class="deck" data-i18n="dg.p1.deck">GOLD 1 (Board-as-State-Machine · Interactive Step Mode): How a bare GitLab issue board enforces 12 sequential upstream governance phases (PHASE_FLOW), 5-layer role approvals, 4 automated execution statuses (In Dev, In Review, Merged, Deploy), 4-layer anti-loop guards, and 9 downstream testing/promotion phases (MULTIPLE_FLOW).</p>
+        <h2>Release Orchestrator: 21-Phase Kanban Governance &amp; State Machine</h2>
+        <p class="deck">GOLD 1 (Board-as-State-Machine · Interactive Step Mode): How a bare GitLab issue board enforces 12 sequential upstream governance phases (PHASE_FLOW), 5-layer role approvals, 4 automated execution statuses (In Dev, In Review, Merged, Deploy), 4-layer anti-loop guards, and 9 downstream testing/promotion phases (MULTIPLE_FLOW).</p>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 680" xmlns="http://www.w3.org/2000/svg" role="img"
            aria-labelledby="state-gov-public-title state-gov-public-desc">
-        <title id="state-gov-public-title" data-i18n="dg.p1.svg_title">Twenty-one phase kanban governance and release state machine</title>
-        <desc id="state-gov-public-desc" data-i18n="dg.p1.svg_desc">Three-band state machine showing 12 upstream governance phases with auto-revert, 4 execution triggers with anti-loop protection, and 9 downstream release promotion phases.</desc>
+        <title id="state-gov-public-title">Twenty-one phase kanban governance and release state machine</title>
+        <desc id="state-gov-public-desc">Three-band state machine showing 12 upstream governance phases with auto-revert, 4 execution triggers with anti-loop protection, and 9 downstream release promotion phases.</desc>
         <defs>
           <marker id="p1-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
           <marker id="p1-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#bf4520"/></marker>
@@ -85,13 +85,13 @@
         <rect width="100%" height="100%" fill="#f5f5f5"/>
         <rect x="48" y="48" width="1184" height="152" rx="8" fill="rgba(45,49,66,0.02)" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
   <rect x="60" y="52" width="496" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="68" y="62" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em" data-i18n="dg.p1.t1">1 · UPSTREAM GOVERNANCE (PHASE_FLOW · 12 SEQUENTIAL PHASES)</text>
+  <text x="68" y="62" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em">1 · UPSTREAM GOVERNANCE (PHASE_FLOW · 12 SEQUENTIAL PHASES)</text>
         <rect x="48" y="240" width="1184" height="168" rx="8" fill="rgba(45,49,66,0.02)" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
   <rect x="60" y="244" width="184" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="68" y="254" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em" data-i18n="dg.p1.t2">2 · EXECUTION ENGINE</text>
+  <text x="68" y="254" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em">2 · EXECUTION ENGINE</text>
         <rect x="48" y="448" width="1184" height="160" rx="8" fill="rgba(45,49,66,0.02)" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
   <rect x="60" y="590" width="576" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="68" y="600" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em" data-i18n="dg.p1.t3">3 · DOWNSTREAM TESTING &amp; RELEASE PROMOTION (MULTIPLE_FLOW · 9 PHASES)</text>
+  <text x="68" y="600" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em">3 · DOWNSTREAM TESTING &amp; RELEASE PROMOTION (MULTIPLE_FLOW · 9 PHASES)</text>
         <path d="M 328,118 H 357" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p1-arrow)"/>
   <path data-motion-item data-step="3" data-motion-decorative aria-hidden="true" focusable="false" pathLength="1" class="draw-path" d="M 1076,148 V 210 Q 1076,218 1068,218 H 272 Q 264,218 264,226 V 273"/>
   <path data-motion-item data-step="5" data-motion-decorative aria-hidden="true" focusable="false" pathLength="1" class="draw-path" d="M 1076,344 V 420 Q 1076,428 1068,428 H 208 Q 200,428 200,436 V 477"/>
@@ -99,19 +99,19 @@
   <path d="M 912,118 H 941" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p1-arrow)"/>
   <path d="M 784,148 V 176 H 208 Q 200,176 200,168 V 155" fill="none" stroke="#4f5d75" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#p1-arrow)"/>
   <rect x="262" y="159" width="460" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="492" y="169" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p1.t4">SKIPPED PHASE OR MISSING ROLE → AUTO-REVERT CARD + COMMENT</text>
+  <text x="492" y="169" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em">SKIPPED PHASE OR MISSING ROLE → AUTO-REVERT CARD + COMMENT</text>
   <path d="M 1076,148 V 210 Q 1076,218 1068,218 H 272 Q 264,218 264,226 V 273" fill="none" stroke="#bf4520" stroke-width="1.4" marker-end="url(#p1-arrow-accent)"/>
   <rect x="432" y="200" width="472" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="668" y="210" fill="#a8360a" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p1.t5">5-LAYER APPROVAL PASSED (TEAM → BUSINESS → PRODUCT → ARCH → ENG)</text>
+  <text x="668" y="210" fill="#a8360a" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em">5-LAYER APPROVAL PASSED (TEAM → BUSINESS → PRODUCT → ARCH → ENG)</text>
   <path d="M 328,312 H 357" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p1-arrow)"/>
   <path d="M 620,312 H 649" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p1-arrow)"/>
   <path d="M 912,312 H 941" fill="none" stroke="#bf4520" stroke-width="1.4" marker-end="url(#p1-arrow-accent)"/>
   <path d="M 492,344 V 384 H 784 V 344" fill="none" stroke="#2e5aa8" stroke-width="1.2" stroke-dasharray="4,3"/>
   <rect x="438" y="367" width="400" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="638" y="377" fill="#2e5aa8" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p1.t6">4-LAYER GUARD: RULE 0 · BOT FILTER · REGEX · WATERMARK</text>
+  <text x="638" y="377" fill="#2e5aa8" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em">4-LAYER GUARD: RULE 0 · BOT FILTER · REGEX · WATERMARK</text>
   <path d="M 1076,344 V 420 Q 1076,428 1068,428 H 208 Q 200,428 200,436 V 477" fill="none" stroke="#bf4520" stroke-width="1.4" marker-end="url(#p1-arrow-accent)"/>
   <rect x="420" y="410" width="440" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="640" y="420" fill="#a8360a" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p1.t7">POST /TRIGGER/PIPELINE (SERVICES · ISSUE_IID · MILESTONE)</text>
+  <text x="640" y="420" fill="#a8360a" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em">POST /TRIGGER/PIPELINE (SERVICES · ISSUE_IID · MILESTONE)</text>
   <path d="M 328,516 H 357" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p1-arrow)"/>
   <path d="M 620,516 H 649" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p1-arrow)"/>
   <path d="M 912,516 H 941" fill="none" stroke="#bf4520" stroke-width="1.4" marker-end="url(#p1-arrow-accent)"/>
@@ -119,116 +119,116 @@
   <rect x="72" y="88" width="256" height="60" rx="6" fill="#f5f5f5"/>
   <rect x="72" y="88" width="256" height="60" rx="6" fill="rgba(79,93,117,0.10)" stroke="#5a6580" stroke-width="1.2"/>
   <rect x="82" y="94" width="43" height="12" rx="2" fill="none" stroke="#5a6580" stroke-width="0.8"/>
-  <text x="103.5" y="103" fill="#5a6580" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p1.t8">P1–P3</text>
-  <text x="200.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p1.t9">Phases 1–3 · Intake &amp; Triage</text>
-  <text x="200.0" y="134" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p1.t10">Intake → TBD → SM Lead Review</text>
+  <text x="103.5" y="103" fill="#5a6580" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">P1–P3</text>
+  <text x="200.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Phases 1–3 · Intake &amp; Triage</text>
+  <text x="200.0" y="134" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">Intake → TBD → SM Lead Review</text>
   <rect x="364" y="88" width="256" height="60" rx="6" fill="#f5f5f5"/>
   <rect x="364" y="88" width="256" height="60" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
   <rect x="374" y="94" width="43" height="12" rx="2" fill="none" stroke="#2d3142" stroke-width="0.8"/>
-  <text x="395.5" y="103" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p1.t11">P4–P6</text>
-  <text x="492.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p1.t12">Phases 4–6 · Business Analysis</text>
-  <text x="492.0" y="134" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p1.t13">BA Discovery → BA FSD → BA Lead</text>
+  <text x="395.5" y="103" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">P4–P6</text>
+  <text x="492.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Phases 4–6 · Business Analysis</text>
+  <text x="492.0" y="134" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">BA Discovery → BA FSD → BA Lead</text>
   <rect x="656" y="88" width="256" height="60" rx="6" fill="#f5f5f5"/>
   <rect x="656" y="88" width="256" height="60" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
   <rect x="666" y="94" width="43" height="12" rx="2" fill="none" stroke="#2d3142" stroke-width="0.8"/>
-  <text x="687.5" y="103" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p1.t14">P7–P9</text>
-  <text x="784.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p1.t15">Phases 7–9 · Product &amp; Arch</text>
-  <text x="784.0" y="134" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p1.t16">PO Approval → SA Design → SA Lead</text>
+  <text x="687.5" y="103" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">P7–P9</text>
+  <text x="784.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Phases 7–9 · Product &amp; Arch</text>
+  <text x="784.0" y="134" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">PO Approval → SA Design → SA Lead</text>
 </g>
   <g data-motion-item data-step="2" aria-label="Step 2: Dev readiness (P10 to P12) and fail-closed auto-revert guard">
   <rect x="948" y="88" width="256" height="60" rx="6" fill="#f5f5f5"/>
   <rect x="948" y="88" width="256" height="60" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
   <rect x="958" y="94" width="55" height="12" rx="2" fill="none" stroke="#2d3142" stroke-width="0.8"/>
-  <text x="985.5" y="103" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p1.t17">P10–P12</text>
-  <text x="1076.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p1.t18">Phases 10–12 · Dev Readiness</text>
-  <text x="1076.0" y="134" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p1.t19">ARF → Dev Planning → Development</text>
+  <text x="985.5" y="103" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">P10–P12</text>
+  <text x="1076.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Phases 10–12 · Dev Readiness</text>
+  <text x="1076.0" y="134" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">ARF → Dev Planning → Development</text>
 </g>
   <g data-motion-item data-step="3" aria-label="Step 3: Five-layer approval passed; branch and MR opened in In Dev and In Review">
   <rect x="72" y="280" width="256" height="64" rx="6" fill="#f5f5f5"/>
   <rect x="72" y="280" width="256" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
   <rect x="82" y="286" width="43" height="12" rx="2" fill="none" stroke="#2d3142" stroke-width="0.8"/>
-  <text x="103.5" y="295" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p1.t20">JOB 1</text>
-  <text x="200.0" y="312" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p1.t21">Status: In Dev</text>
-  <text x="200.0" y="326" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p1.t22">create-branch · dev/{ms}/issue-{iid}</text>
+  <text x="103.5" y="295" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">JOB 1</text>
+  <text x="200.0" y="312" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Status: In Dev</text>
+  <text x="200.0" y="326" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">create-branch · dev/{ms}/issue-{iid}</text>
   <rect x="364" y="280" width="256" height="64" rx="6" fill="#f5f5f5"/>
   <rect x="364" y="280" width="256" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
   <rect x="374" y="286" width="43" height="12" rx="2" fill="none" stroke="#2d3142" stroke-width="0.8"/>
-  <text x="395.5" y="295" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p1.t23">JOB 2</text>
-  <text x="492.0" y="312" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p1.t24">Status: In Review</text>
-  <text x="492.0" y="326" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p1.t25">create-mr + status-sonarqube</text>
+  <text x="395.5" y="295" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">JOB 2</text>
+  <text x="492.0" y="312" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Status: In Review</text>
+  <text x="492.0" y="326" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">create-mr + status-sonarqube</text>
 </g>
   <g data-motion-item data-step="4" aria-label="Step 4: Merge state captured in ticket description with 4-layer anti-loop guard">
   <rect x="656" y="280" width="256" height="64" rx="6" fill="#f5f5f5"/>
   <rect x="656" y="280" width="256" height="64" rx="6" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1.2"/>
   <rect x="666" y="286" width="43" height="12" rx="2" fill="none" stroke="#4f5d75" stroke-width="0.8"/>
-  <text x="687.5" y="295" fill="#4f5d75" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p1.t26">JOB 3</text>
-  <text x="784.0" y="312" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p1.t27">Status: Merged</text>
-  <text x="784.0" y="326" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p1.t28">merge-gate + on_merge_v2 → STATE</text>
+  <text x="687.5" y="295" fill="#4f5d75" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">JOB 3</text>
+  <text x="784.0" y="312" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Status: Merged</text>
+  <text x="784.0" y="326" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">merge-gate + on_merge_v2 → STATE</text>
 </g>
   <g data-motion-item data-step="5" aria-label="Step 5: Status Deploy triggers downstream domain pipelines via API">
   <rect x="948" y="280" width="256" height="64" rx="6" fill="#f5f5f5"/>
   <rect x="948" y="280" width="256" height="64" rx="6" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1.2"/>
   <rect x="958" y="286" width="43" height="12" rx="2" fill="none" stroke="#bf4520" stroke-width="0.8"/>
-  <text x="979.5" y="295" fill="#a8360a" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p1.t29">JOB 4</text>
-  <text x="1076.0" y="312" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p1.t30">Status: Deploy (+ Closed)</text>
-  <text x="1076.0" y="326" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p1.t31">on_deploy → trigger 6 domains</text>
+  <text x="979.5" y="295" fill="#a8360a" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">JOB 4</text>
+  <text x="1076.0" y="312" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Status: Deploy (+ Closed)</text>
+  <text x="1076.0" y="326" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">on_deploy → trigger 6 domains</text>
   <rect x="72" y="484" width="256" height="64" rx="6" fill="#f5f5f5"/>
   <rect x="72" y="484" width="256" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
   <rect x="82" y="490" width="43" height="12" rx="2" fill="none" stroke="#2d3142" stroke-width="0.8"/>
-  <text x="103.5" y="499" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p1.t32">M1–M3</text>
-  <text x="200.0" y="516" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p1.t33">Integration &amp; TCB</text>
-  <text x="200.0" y="530" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p1.t34">Development → Int Test → TCB</text>
+  <text x="103.5" y="499" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">M1–M3</text>
+  <text x="200.0" y="516" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Integration &amp; TCB</text>
+  <text x="200.0" y="530" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">Development → Int Test → TCB</text>
 </g>
   <g data-motion-item data-step="6" aria-label="Step 6: Downstream SIT, UAT, security gates, RCB promotion, and release-manifest ledger">
   <rect x="364" y="484" width="256" height="64" rx="6" fill="#f5f5f5"/>
   <rect x="364" y="484" width="256" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
   <rect x="374" y="490" width="43" height="12" rx="2" fill="none" stroke="#2d3142" stroke-width="0.8"/>
-  <text x="395.5" y="499" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p1.t35">M4–M5</text>
-  <text x="492.0" y="516" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p1.t36">SIT &amp; UAT Rollout</text>
-  <text x="492.0" y="530" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p1.t37">SIT → UAT (OCP · SSH VM · Mobile)</text>
+  <text x="395.5" y="499" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">M4–M5</text>
+  <text x="492.0" y="516" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">SIT &amp; UAT Rollout</text>
+  <text x="492.0" y="530" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">SIT → UAT (OCP · SSH VM · Mobile)</text>
   <rect x="656" y="484" width="256" height="64" rx="6" fill="#f5f5f5"/>
   <rect x="656" y="484" width="256" height="64" rx="6" fill="rgba(46,90,168,0.05)" stroke="rgba(46,90,168,0.45)" stroke-width="1.2" stroke-dasharray="4,4"/>
   <rect x="666" y="490" width="43" height="12" rx="2" fill="none" stroke="rgba(46,90,168,0.45)" stroke-width="0.8"/>
-  <text x="687.5" y="499" fill="#2e5aa8" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p1.t38">M6–M7</text>
-  <text x="784.0" y="516" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p1.t39">Security &amp; Perf Gates</text>
-  <text x="784.0" y="530" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p1.t40">Pentest → Perf Test · SAST/Sonar</text>
+  <text x="687.5" y="499" fill="#2e5aa8" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">M6–M7</text>
+  <text x="784.0" y="516" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Security &amp; Perf Gates</text>
+  <text x="784.0" y="530" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">Pentest → Perf Test · SAST/Sonar</text>
   <rect x="948" y="484" width="256" height="64" rx="6" fill="#f5f5f5"/>
   <rect x="948" y="484" width="256" height="64" rx="6" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1.2"/>
   <rect x="958" y="490" width="43" height="12" rx="2" fill="none" stroke="#bf4520" stroke-width="0.8"/>
-  <text x="979.5" y="499" fill="#a8360a" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p1.t41">M8–M9</text>
-  <text x="1076.0" y="516" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p1.t42">RCB, Promote &amp; Ledger</text>
-  <text x="1076.0" y="530" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p1.t43">RCB → Promote · release-manifest</text>
+  <text x="979.5" y="499" fill="#a8360a" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">M8–M9</text>
+  <text x="1076.0" y="516" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">RCB, Promote &amp; Ledger</text>
+  <text x="1076.0" y="530" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">RCB → Promote · release-manifest</text>
 </g>
         <line x1="48" y1="638" x2="1232" y2="638" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
   <rect x="48" y="642" width="22" height="16" rx="4" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1.2"/>
-  <text x="78" y="654" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p1.t44">deploy trigger &amp; promote</text>
+  <text x="78" y="654" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">deploy trigger &amp; promote</text>
   <rect x="240.39999999999998" y="642" width="22" height="16" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="270.4" y="654" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p1.t45">board phase / job</text>
+  <text x="270.4" y="654" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">board phase / job</text>
   <rect x="393.59999999999997" y="642" width="22" height="16" rx="4" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1.2"/>
-  <text x="423.59999999999997" y="654" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p1.t46">ticket description state</text>
+  <text x="423.59999999999997" y="654" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">ticket description state</text>
   <line x1="586.0" y1="650" x2="608.0" y2="650" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p1-arrow)"/>
-  <text x="616.0" y="654" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p1.t47">phase transition</text>
+  <text x="616.0" y="654" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">phase transition</text>
   <line x1="733.6" y1="650" x2="755.6" y2="650" stroke="#4f5d75" stroke-width="1" stroke-dasharray="4,3"/>
-  <text x="763.6" y="654" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p1.t48">revert / anti-loop guard</text>
+  <text x="763.6" y="654" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">revert / anti-loop guard</text>
       </svg>
         </div>
-        <noscript><p data-i18n="dg.noscript">JavaScript is disabled. Showing the complete static diagram.</p></noscript>
+        <noscript><p>JavaScript is disabled. Showing the complete static diagram.</p></noscript>
       </div>
     </section>
 
     <section id="control-plane" class="dg-plate" data-motion-root data-motion-mode="loop" data-step-count="5" data-step-current="5" data-frame="end" data-static-frame="complete">
       <div class="wrap">
         <div class="dg-plate-head">
-          <p class="eyebrow" data-i18n="dg.p2.eyebrow">Architecture · GOLD 2 · Interactive Motion · Reference</p>
-          <a class="dg-plate-link" href="#control-plane" data-i18n="dg.p2.link">#control-plane</a>
+          <p class="eyebrow">Architecture · GOLD 2 · Interactive Motion · Reference</p>
+          <a class="dg-plate-link" href="#control-plane">#control-plane</a>
         </div>
-        <h2 data-i18n="dg.p2.title">Release Orchestrator: Control Plane, Archetypes &amp; Anti-Loop</h2>
-        <p class="deck" data-i18n="dg.p2.deck">GOLD 2 / Variant 3 (Planes &amp; Archetypes · Interactive Step Mode): Separates the Control Plane, the Execution Plane grouped by the three real implementation archetypes (Router+Container/Mobile, Hybrid SSH VM+OCP, and Template/Shell OCP), and the closed-loop webhook return path guarded by Rule 0.</p>
+        <h2>Release Orchestrator: Control Plane, Archetypes &amp; Anti-Loop</h2>
+        <p class="deck">GOLD 2 / Variant 3 (Planes &amp; Archetypes · Interactive Step Mode): Separates the Control Plane, the Execution Plane grouped by the three real implementation archetypes (Router+Container/Mobile, Hybrid SSH VM+OCP, and Template/Shell OCP), and the closed-loop webhook return path guarded by Rule 0.</p>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 672" xmlns="http://www.w3.org/2000/svg" role="img"
            aria-labelledby="arch-v3-public-title arch-v3-public-desc">
-        <title id="arch-v3-public-title" data-i18n="dg.p2.svg_title">Control plane, three execution archetypes, and anti-loop return path</title>
-        <desc id="arch-v3-public-desc" data-i18n="dg.p2.svg_desc">Three horizontal planes separating the orchestrator control plane, the three domain pipeline archetypes, and the shared repositories, runtimes, and manifest ledger, with a dashed feedback loop blocked by Rule 0.</desc>
+        <title id="arch-v3-public-title">Control plane, three execution archetypes, and anti-loop return path</title>
+        <desc id="arch-v3-public-desc">Three horizontal planes separating the orchestrator control plane, the three domain pipeline archetypes, and the shared repositories, runtimes, and manifest ledger, with a dashed feedback loop blocked by Rule 0.</desc>
         <defs>
           <marker id="p2-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
           <marker id="p2-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#bf4520"/></marker>
@@ -238,13 +238,13 @@
         <rect width="100%" height="100%" fill="#f5f5f5"/>
         <rect x="48" y="56" width="1184" height="144" rx="8" fill="rgba(45,49,66,0.02)" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
   <rect x="60" y="60" width="216" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="68" y="70" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em" data-i18n="dg.p2.t1">1 · CONTROL PLANE</text>
+  <text x="68" y="70" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em">1 · CONTROL PLANE</text>
         <rect x="48" y="256" width="1184" height="148" rx="8" fill="rgba(45,49,66,0.02)" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
   <rect x="60" y="260" width="176" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="68" y="270" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em" data-i18n="dg.p2.t2">2 · EXECUTION PLANE</text>
+  <text x="68" y="270" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em">2 · EXECUTION PLANE</text>
         <rect x="48" y="456" width="1184" height="144" rx="8" fill="rgba(45,49,66,0.02)" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
   <rect x="60" y="582" width="400" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="68" y="592" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em" data-i18n="dg.p2.t3">3 · INFRASTRUCTURE, REPOSITORIES &amp; LEDGER PLANE</text>
+  <text x="68" y="592" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em">3 · INFRASTRUCTURE, REPOSITORIES &amp; LEDGER PLANE</text>
         <path d="M 360,136 H 377" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p2-arrow)"/>
   <path data-motion-item data-step="3" data-motion-decorative aria-hidden="true" focusable="false" pathLength="1" class="draw-path" d="M 792,172 V 224 H 640 V 296"/>
   <path data-motion-item data-step="5" data-motion-decorative aria-hidden="true" focusable="false" pathLength="1" class="draw-path" d="M 96,516 H 32 Q 24,516 24,508 V 36 Q 24,28 32,28 H 320 Q 328,28 328,36 V 93"/>
@@ -256,7 +256,7 @@
   <path d="M 640,224 V 289" fill="none" stroke="#bf4520" stroke-width="1.4" marker-end="url(#p2-arrow-accent)"/>
   <path d="M 1000,224 V 289" fill="none" stroke="#bf4520" stroke-width="1.4" marker-end="url(#p2-arrow-accent)"/>
   <rect x="370" y="205" width="380" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="560" y="215" fill="#a8360a" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t4">TRIGGER API (SERVICES · NEXUS_SERVICES · ISSUE_IID)</text>
+  <text x="560" y="215" fill="#a8360a" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em">TRIGGER API (SERVICES · NEXUS_SERVICES · ISSUE_IID)</text>
   <path d="M 280,376 V 424 M 640,376 V 424 M 1000,376 V 424" fill="none" stroke="#4f5d75" stroke-width="1.2"/>
   <path d="M 240,424 H 1068" fill="none" stroke="#4f5d75" stroke-width="1.2"/>
   <path d="M 240,424 V 473" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p2-arrow)"/>
@@ -264,122 +264,122 @@
   <path d="M 800,424 V 473" fill="none" stroke="#4f5d75" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#p2-arrow)"/>
   <path d="M 1068,424 V 473" fill="none" stroke="#2e5aa8" stroke-width="1.2" marker-end="url(#p2-arrow-link)"/>
   <rect x="246" y="438" width="76" height="12" rx="2" fill="#f5f5f5"/>
-  <text x="284" y="447" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t5">CLONE / MR</text>
+  <text x="284" y="447" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em">CLONE / MR</text>
   <rect x="531" y="438" width="58" height="12" rx="2" fill="#f5f5f5"/>
-  <text x="560" y="447" fill="#a8360a" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t6">ROLLOUT</text>
+  <text x="560" y="447" fill="#a8360a" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em">ROLLOUT</text>
   <rect x="816" y="438" width="64" height="12" rx="2" fill="#f5f5f5"/>
-  <text x="848" y="447" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t7">MANIFEST</text>
+  <text x="848" y="447" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em">MANIFEST</text>
   <rect x="1083" y="438" width="58" height="12" rx="2" fill="#f5f5f5"/>
-  <text x="1112" y="447" fill="#2e5aa8" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t8">REPORTS</text>
+  <text x="1112" y="447" fill="#2e5aa8" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em">REPORTS</text>
   <path d="M 96,516 H 32 Q 24,516 24,508 V 36 Q 24,28 32,28 H 320 Q 328,28 328,36 V 93" fill="none" stroke="#bf4520" stroke-width="1.3" stroke-dasharray="5,4" marker-end="url(#p2-arrow-accent)"/>
   <rect x="340" y="20" width="440" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="560" y="30" fill="#a8360a" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t9">MR MERGE &amp; BOT CALLBACK LOOP (BLOCKED BY RULE 0 + WATERMARK)</text>
+  <text x="560" y="30" fill="#a8360a" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em">MR MERGE &amp; BOT CALLBACK LOOP (BLOCKED BY RULE 0 + WATERMARK)</text>
         <g data-motion-item data-step="1" aria-label="Step 1: Webhook ingress passes Rule 0 anti-loop filter and 5-layer approval validation">
   <rect x="96" y="100" width="264" height="72" rx="6" fill="#f5f5f5"/>
   <rect x="96" y="100" width="264" height="72" rx="6" fill="rgba(79,93,117,0.10)" stroke="#5a6580" stroke-width="1.2"/>
   <rect x="106" y="106" width="55" height="12" rx="2" fill="none" stroke="#5a6580" stroke-width="0.8"/>
-  <text x="133.5" y="115" fill="#5a6580" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t10">INGRESS</text>
-  <text x="228.0" y="132" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p2.t11">Webhook &amp; Rule 0 Filter</text>
-  <text x="228.0" y="146" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p2.t12">Block bots: rule 0 + BOT_USERNAMES</text>
+  <text x="133.5" y="115" fill="#5a6580" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">INGRESS</text>
+  <text x="228.0" y="132" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Webhook &amp; Rule 0 Filter</text>
+  <text x="228.0" y="146" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">Block bots: rule 0 + BOT_USERNAMES</text>
   <rect x="384" y="100" width="256" height="72" rx="6" fill="#f5f5f5"/>
   <rect x="384" y="100" width="256" height="72" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
   <rect x="394" y="106" width="61" height="12" rx="2" fill="none" stroke="#2d3142" stroke-width="0.8"/>
-  <text x="424.5" y="115" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t13">VALIDATE</text>
-  <text x="512.0" y="132" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p2.t14">Phase &amp; 5-Layer Approval</text>
-  <text x="512.0" y="146" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p2.t15">12-phase flow · check_approval</text>
+  <text x="424.5" y="115" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">VALIDATE</text>
+  <text x="512.0" y="132" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Phase &amp; 5-Layer Approval</text>
+  <text x="512.0" y="146" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">12-phase flow · check_approval</text>
 </g>
   <g data-motion-item data-step="2" aria-label="Step 2: Control plane state and deploy engine plus central security and branch sync">
   <rect x="664" y="100" width="256" height="72" rx="6" fill="#f5f5f5"/>
   <rect x="664" y="100" width="256" height="72" rx="6" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1.2"/>
   <rect x="674" y="106" width="61" height="12" rx="2" fill="none" stroke="#bf4520" stroke-width="0.8"/>
-  <text x="704.5" y="115" fill="#a8360a" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t16">DISPATCH</text>
-  <text x="792.0" y="132" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p2.t17">State &amp; Deploy Engine</text>
-  <text x="792.0" y="146" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p2.t18">mr_gate · on_merge_v2 · on_deploy</text>
+  <text x="704.5" y="115" fill="#a8360a" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">DISPATCH</text>
+  <text x="792.0" y="132" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">State &amp; Deploy Engine</text>
+  <text x="792.0" y="146" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">mr_gate · on_merge_v2 · on_deploy</text>
   <rect x="944" y="100" width="256" height="72" rx="6" fill="#f5f5f5"/>
   <rect x="944" y="100" width="256" height="72" rx="6" fill="rgba(46,90,168,0.05)" stroke="rgba(46,90,168,0.45)" stroke-width="1.2" stroke-dasharray="4,4"/>
   <rect x="954" y="106" width="61" height="12" rx="2" fill="none" stroke="rgba(46,90,168,0.45)" stroke-width="0.8"/>
-  <text x="984.5" y="115" fill="#2e5aa8" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t19">SECURITY</text>
-  <text x="1072.0" y="132" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p2.t20">Central Security &amp; Sync</text>
-  <text x="1072.0" y="146" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p2.t21">Semgrep ×5 · Sonar ×5 · branch_sync</text>
+  <text x="984.5" y="115" fill="#2e5aa8" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">SECURITY</text>
+  <text x="1072.0" y="132" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Central Security &amp; Sync</text>
+  <text x="1072.0" y="146" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">Semgrep ×5 · Sonar ×5 · branch_sync</text>
 </g>
   <g data-motion-item data-step="3" aria-label="Step 3: Trigger API fans out across three execution archetypes in the domain plane">
   <rect x="96" y="296" width="368" height="80" rx="6" fill="#f5f5f5"/>
   <rect x="96" y="296" width="368" height="80" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
   <rect x="106" y="302" width="74" height="12" rx="2" fill="none" stroke="#2d3142" stroke-width="0.8"/>
-  <text x="143.0" y="311" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t22">ROUTER+APP</text>
-  <text x="280.0" y="328" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p2.t23">Archetype A · Router + Container/App</text>
-  <text x="280.0" y="342" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p2.t24">mobile · wallet : 26 services</text>
+  <text x="143.0" y="311" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">ROUTER+APP</text>
+  <text x="280.0" y="328" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Archetype A · Router + Container/App</text>
+  <text x="280.0" y="342" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">mobile · wallet : 26 services</text>
   <rect x="488" y="296" width="304" height="80" rx="6" fill="#f5f5f5"/>
   <rect x="488" y="296" width="304" height="80" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
   <rect x="498" y="302" width="49" height="12" rx="2" fill="none" stroke="#2d3142" stroke-width="0.8"/>
-  <text x="522.5" y="311" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t25">VM+OCP</text>
-  <text x="640.0" y="328" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p2.t26">Archetype B · Hybrid SSH VM + OCP</text>
-  <text x="640.0" y="342" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p2.t27">portal · core : 38 services</text>
+  <text x="522.5" y="311" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">VM+OCP</text>
+  <text x="640.0" y="328" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Archetype B · Hybrid SSH VM + OCP</text>
+  <text x="640.0" y="342" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">portal · core : 38 services</text>
   <rect x="816" y="296" width="384" height="80" rx="6" fill="#f5f5f5"/>
   <rect x="816" y="296" width="384" height="80" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
   <rect x="826" y="302" width="74" height="12" rx="2" fill="none" stroke="#2d3142" stroke-width="0.8"/>
-  <text x="863.0" y="311" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t28">TMPL+SHELL</text>
-  <text x="1008.0" y="328" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p2.t29">Archetype C · Template &amp; Shell OCP</text>
-  <text x="1008.0" y="342" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p2.t30">identity · ledger : 39 services</text>
+  <text x="863.0" y="311" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">TMPL+SHELL</text>
+  <text x="1008.0" y="328" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Archetype C · Template &amp; Shell OCP</text>
+  <text x="1008.0" y="342" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">identity · ledger : 39 services</text>
 </g>
   <g data-motion-item data-step="4" aria-label="Step 4: Domain pipelines clone product repos, roll out to OpenShift/VM/Mobile, and update release-manifest">
   <rect x="96" y="480" width="264" height="76" rx="6" fill="#f5f5f5"/>
   <rect x="96" y="480" width="264" height="76" rx="6" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1.2"/>
   <rect x="106" y="486" width="49" height="12" rx="2" fill="none" stroke="#4f5d75" stroke-width="0.8"/>
-  <text x="130.5" y="495" fill="#4f5d75" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t31">SOURCE</text>
-  <text x="228.0" y="512" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p2.t32">Product Repositories</text>
-  <text x="228.0" y="526" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p2.t33">Multi-repo · dev/{ms}/issue-{iid}</text>
+  <text x="130.5" y="495" fill="#4f5d75" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">SOURCE</text>
+  <text x="228.0" y="512" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Product Repositories</text>
+  <text x="228.0" y="526" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">Multi-repo · dev/{ms}/issue-{iid}</text>
   <rect x="384" y="480" width="264" height="76" rx="6" fill="#f5f5f5"/>
   <rect x="384" y="480" width="264" height="76" rx="6" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1.2"/>
   <rect x="394" y="486" width="55" height="12" rx="2" fill="none" stroke="#bf4520" stroke-width="0.8"/>
-  <text x="421.5" y="495" fill="#a8360a" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t34">RUNTIME</text>
-  <text x="516.0" y="512" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p2.t35">OpenShift, VM &amp; Mobile</text>
-  <text x="516.0" y="526" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p2.t36">Harbor · Nexus · SIT / UAT / PROD</text>
+  <text x="421.5" y="495" fill="#a8360a" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">RUNTIME</text>
+  <text x="516.0" y="512" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">OpenShift, VM &amp; Mobile</text>
+  <text x="516.0" y="526" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">Harbor · Nexus · SIT / UAT / PROD</text>
 </g>
   <g data-motion-item data-step="5" aria-label="Step 5: Append-only release-manifest, security-scan reports, and closed-loop webhook guard">
   <rect x="672" y="480" width="256" height="76" rx="6" fill="#f5f5f5"/>
   <rect x="672" y="480" width="256" height="76" rx="6" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1.2"/>
   <rect x="682" y="486" width="61" height="12" rx="2" fill="none" stroke="#4f5d75" stroke-width="0.8"/>
-  <text x="712.5" y="495" fill="#4f5d75" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t37">MANIFEST</text>
-  <text x="800.0" y="512" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p2.t38">release-manifest</text>
-  <text x="800.0" y="526" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p2.t39">Append-only JSON · prepare-uat</text>
+  <text x="712.5" y="495" fill="#4f5d75" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">MANIFEST</text>
+  <text x="800.0" y="512" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">release-manifest</text>
+  <text x="800.0" y="526" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">Append-only JSON · prepare-uat</text>
   <rect x="952" y="480" width="248" height="76" rx="6" fill="#f5f5f5"/>
   <rect x="952" y="480" width="248" height="76" rx="6" fill="rgba(46,90,168,0.05)" stroke="rgba(46,90,168,0.45)" stroke-width="1.2" stroke-dasharray="4,4"/>
   <rect x="962" y="486" width="67" height="12" rx="2" fill="none" stroke="rgba(46,90,168,0.45)" stroke-width="0.8"/>
-  <text x="995.5" y="495" fill="#2e5aa8" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p2.t40">SEC/VAULT</text>
-  <text x="1076.0" y="512" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p2.t41">security-scan &amp; Vault</text>
-  <text x="1076.0" y="526" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p2.t42">5 domain dirs · KV v2 secrets</text>
+  <text x="995.5" y="495" fill="#2e5aa8" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">SEC/VAULT</text>
+  <text x="1076.0" y="512" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">security-scan &amp; Vault</text>
+  <text x="1076.0" y="526" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">5 domain dirs · KV v2 secrets</text>
 </g>
         <line x1="48" y1="630" x2="1232" y2="630" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
   <rect x="48" y="634" width="22" height="16" rx="4" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1.2"/>
-  <text x="78" y="646" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p2.t43">dispatch &amp; runtime</text>
+  <text x="78" y="646" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">dispatch &amp; runtime</text>
   <rect x="206.8" y="634" width="22" height="16" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="236.8" y="646" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p2.t44">execution archetype</text>
+  <text x="236.8" y="646" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">execution archetype</text>
   <rect x="371.2" y="634" width="22" height="16" rx="4" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1.2"/>
-  <text x="401.2" y="646" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p2.t45">repos &amp; manifest</text>
+  <text x="401.2" y="646" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">repos &amp; manifest</text>
   <line x1="518.8" y1="642" x2="540.8" y2="642" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p2-arrow)"/>
-  <text x="548.8" y="646" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p2.t46">trigger / rollout</text>
+  <text x="548.8" y="646" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">trigger / rollout</text>
   <line x1="672.0" y1="642" x2="694.0" y2="642" stroke="#4f5d75" stroke-width="1" stroke-dasharray="4,3"/>
-  <text x="702.0" y="646" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p2.t47">webhook return loop</text>
+  <text x="702.0" y="646" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">webhook return loop</text>
       </svg>
         </div>
-        <noscript><p data-i18n="dg.noscript">JavaScript is disabled. Showing the complete static diagram.</p></noscript>
+        <noscript><p>JavaScript is disabled. Showing the complete static diagram.</p></noscript>
       </div>
     </section>
 
     <section id="event-router" class="dg-plate" data-motion-root data-motion-mode="loop" data-step-count="6" data-step-current="6" data-frame="end" data-static-frame="complete">
       <div class="wrap">
         <div class="dg-plate-head">
-          <p class="eyebrow" data-i18n="dg.p3.eyebrow">Flowchart · GOLD 3 · Interactive Motion · Reference</p>
-          <a class="dg-plate-link" href="#event-router" data-i18n="dg.p3.link">#event-router</a>
+          <p class="eyebrow">Flowchart · GOLD 3 · Interactive Motion · Reference</p>
+          <a class="dg-plate-link" href="#event-router">#event-router</a>
         </div>
-        <h2 data-i18n="dg.p3.title">Release Orchestrator: Dual-Track Event Router Flowchart</h2>
-        <p class="deck" data-i18n="dg.p3.deck">GOLD 3 / Variant 3 (Dual-Track Router · Interactive Step Mode): Shows how release-orchestrator splits events after the 4-layer anti-loop filter into two parallel tracks: the Work-Item &amp; MR Release Lifecycle Track on the left, and the ChatOps &amp; Scheduled Security Track on the right.</p>
+        <h2>Release Orchestrator: Dual-Track Event Router Flowchart</h2>
+        <p class="deck">GOLD 3 / Variant 3 (Dual-Track Router · Interactive Step Mode): Shows how release-orchestrator splits events after the 4-layer anti-loop filter into two parallel tracks: the Work-Item &amp; MR Release Lifecycle Track on the left, and the ChatOps &amp; Scheduled Security Track on the right.</p>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 760" xmlns="http://www.w3.org/2000/svg" role="img"
            aria-labelledby="flow-orch-v3-public-title flow-orch-v3-public-desc">
-        <title id="flow-orch-v3-public-title" data-i18n="dg.p3.svg_title">Dual-track router flowchart for release and ChatOps tracks</title>
-        <desc id="flow-orch-v3-public-desc" data-i18n="dg.p3.svg_desc">Dual-track flowchart splitting incoming events into the release lifecycle track on the left and the ChatOps and scheduled security track on the right.</desc>
+        <title id="flow-orch-v3-public-title">Dual-track router flowchart for release and ChatOps tracks</title>
+        <desc id="flow-orch-v3-public-desc">Dual-track flowchart splitting incoming events into the release lifecycle track on the left and the ChatOps and scheduled security track on the right.</desc>
         <defs>
           <marker id="p3-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
           <marker id="p3-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#bf4520"/></marker>
@@ -389,10 +389,10 @@
         <rect width="100%" height="100%" fill="#f5f5f5"/>
         <rect x="48" y="228" width="560" height="396" rx="8" fill="rgba(45,49,66,0.02)" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
   <rect x="60" y="232" width="240" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="68" y="242" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em" data-i18n="dg.p3.t1">TRACK A · RELEASE LIFECYCLE</text>
+  <text x="68" y="242" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em">TRACK A · RELEASE LIFECYCLE</text>
         <rect x="672" y="228" width="560" height="396" rx="8" fill="rgba(45,49,66,0.02)" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
   <rect x="684" y="232" width="248" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="692" y="242" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em" data-i18n="dg.p3.t2">TRACK B · CHATOPS &amp; SECURITY</text>
+  <text x="692" y="242" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em">TRACK B · CHATOPS &amp; SECURITY</text>
         <path d="M 640,88 V 115" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p3-arrow)"/>
   <path data-motion-item data-step="2" data-motion-decorative aria-hidden="true" focusable="false" pathLength="1" class="draw-path" d="M 496,164 H 336 Q 328,164 328,172 V 265"/>
   <path data-motion-item data-step="4" data-motion-decorative aria-hidden="true" focusable="false" pathLength="1" class="draw-path" d="M 328,450 V 480 Q 328,488 336,488 H 428 Q 436,488 436,496 V 517"/>
@@ -408,115 +408,115 @@
   <path d="M 436,584 V 640 Q 436,648 444,648 H 473" fill="none" stroke="#bf4520" stroke-width="1.4" marker-end="url(#p3-arrow-accent)"/>
   <path d="M 952,584 V 640 Q 952,648 944,648 H 807" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p3-arrow)"/>
   <rect x="374" y="142" width="76" height="12" rx="2" fill="#f5f5f5"/>
-  <text x="412" y="151" fill="#a8360a" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p3.t3">ISSUE / MR</text>
+  <text x="412" y="151" fill="#a8360a" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em">ISSUE / MR</text>
   <rect x="827" y="142" width="82" height="12" rx="2" fill="#f5f5f5"/>
-  <text x="868" y="151" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p3.t4">NOTE / CRON</text>
+  <text x="868" y="151" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em">NOTE / CRON</text>
   <rect x="139" y="386" width="58" height="12" rx="2" fill="#f5f5f5"/>
-  <text x="168" y="395" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p3.t5">INVALID</text>
+  <text x="168" y="395" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em">INVALID</text>
   <rect x="365" y="466" width="46" height="12" rx="2" fill="#f5f5f5"/>
-  <text x="388" y="475" fill="#a8360a" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p3.t6">VALID</text>
+  <text x="388" y="475" fill="#a8360a" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em">VALID</text>
   <rect x="737" y="290" width="70" height="12" rx="2" fill="#f5f5f5"/>
-  <text x="772" y="299" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p3.t7">SLASH CMD</text>
+  <text x="772" y="299" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em">SLASH CMD</text>
   <rect x="1100" y="290" width="64" height="12" rx="2" fill="#f5f5f5"/>
-  <text x="1132" y="299" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p3.t8">SCHEDULE</text>
+  <text x="1132" y="299" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" letter-spacing="0.08em">SCHEDULE</text>
         <g data-motion-item data-step="1" aria-label="Step 1: Incoming event passes 4-layer anti-loop filter and enters category router">
   <rect x="480" y="40" width="320" height="48" rx="24" fill="#f5f5f5"/>
   <rect x="480" y="40" width="320" height="48" rx="24" fill="rgba(79,93,117,0.10)" stroke="#5a6580" stroke-width="1.2"/>
-  <text x="640.0" y="64" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p3.t9">Event Passed 4-Layer Anti-Loop</text>
-  <text x="640.0" y="78" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p3.t10">Verified human or schedule trigger</text>
+  <text x="640.0" y="64" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Event Passed 4-Layer Anti-Loop</text>
+  <text x="640.0" y="78" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">Verified human or schedule trigger</text>
   <polygon points="640,122 784,164 640,206 496,164" fill="#f5f5f5"/>
   <polygon points="640,122 784,164 640,206 496,164" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="640" y="161" fill="#2d3142" font-family="var(--font-sans)" font-size="11.5" font-weight="600" text-anchor="middle" data-i18n="dg.p3.t11">Event Category?</text>
-  <text x="640" y="175" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" data-i18n="dg.p3.t12">OBJECT_KIND &amp; source</text>
+  <text x="640" y="161" fill="#2d3142" font-family="var(--font-sans)" font-size="11.5" font-weight="600" text-anchor="middle">Event Category?</text>
+  <text x="640" y="175" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle">OBJECT_KIND &amp; source</text>
 </g>
   <g data-motion-item data-step="2" aria-label="Step 2: Track A validates sequential board phase and 5-layer approval gate">
   <rect x="188" y="272" width="280" height="60" rx="6" fill="#f5f5f5"/>
   <rect x="188" y="272" width="280" height="60" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
   <rect x="198" y="278" width="36" height="12" rx="2" fill="none" stroke="#2d3142" stroke-width="0.8"/>
-  <text x="216.0" y="287" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p3.t13">GATE</text>
-  <text x="328.0" y="304" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p3.t14">Validate Phase &amp; Approvals</text>
-  <text x="328.0" y="318" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p3.t15">phase-flow-check · check-approval</text>
+  <text x="216.0" y="287" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">GATE</text>
+  <text x="328.0" y="304" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Validate Phase &amp; Approvals</text>
+  <text x="328.0" y="318" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">phase-flow-check · check-approval</text>
   <polygon points="328,366 464,408 328,450 192,408" fill="#f5f5f5"/>
   <polygon points="328,366 464,408 328,450 192,408" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="328" y="405" fill="#2d3142" font-family="var(--font-sans)" font-size="11.5" font-weight="600" text-anchor="middle" data-i18n="dg.p3.t16">Gate Passed?</text>
-  <text x="328" y="419" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" data-i18n="dg.p3.t17">12-phase &amp; 5-layer check</text>
+  <text x="328" y="405" fill="#2d3142" font-family="var(--font-sans)" font-size="11.5" font-weight="600" text-anchor="middle">Gate Passed?</text>
+  <text x="328" y="419" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle">12-phase &amp; 5-layer check</text>
 </g>
   <g data-motion-item data-step="3" aria-label="Step 3: Invalid phase or missing approval reverts card status; valid gate proceeds to release">
   <rect x="68" y="536" width="160" height="48" rx="24" fill="#f5f5f5"/>
   <rect x="68" y="536" width="160" height="48" rx="24" fill="rgba(45,49,66,0.03)" stroke="rgba(45,49,66,0.30)" stroke-width="1.2"/>
-  <text x="148.0" y="560" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p3.t18">Revert Status</text>
-  <text x="148.0" y="574" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p3.t19">Post warning</text>
+  <text x="148.0" y="560" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Revert Status</text>
+  <text x="148.0" y="574" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">Post warning</text>
 </g>
   <g data-motion-item data-step="4" aria-label="Step 4: Track A executes branch, MR, ticket state capture, and domain deploy trigger">
   <rect x="284" y="524" width="304" height="60" rx="6" fill="#f5f5f5"/>
   <rect x="284" y="524" width="304" height="60" rx="6" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1.2"/>
   <rect x="294" y="530" width="55" height="12" rx="2" fill="none" stroke="#bf4520" stroke-width="0.8"/>
-  <text x="321.5" y="539" fill="#a8360a" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p3.t20">RELEASE</text>
-  <text x="436.0" y="556" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p3.t21">Branch → MR → State → Deploy</text>
-  <text x="436.0" y="570" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p3.t22">mr_gate → on_merge_v2 → on_deploy</text>
+  <text x="321.5" y="539" fill="#a8360a" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">RELEASE</text>
+  <text x="436.0" y="556" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Branch → MR → State → Deploy</text>
+  <text x="436.0" y="570" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">mr_gate → on_merge_v2 → on_deploy</text>
 </g>
   <g data-motion-item data-step="5" aria-label="Step 5: Track B routes note slash commands to ChatOps and cron triggers to central security scans">
   <polygon points="952,270 1088,312 952,354 816,312" fill="#f5f5f5"/>
   <polygon points="952,270 1088,312 952,354 816,312" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="952" y="309" fill="#2d3142" font-family="var(--font-sans)" font-size="11.5" font-weight="600" text-anchor="middle" data-i18n="dg.p3.t23">Note or Schedule?</text>
-  <text x="952" y="323" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle" data-i18n="dg.p3.t24">ChatOps vs Cron / Manual</text>
+  <text x="952" y="309" fill="#2d3142" font-family="var(--font-sans)" font-size="11.5" font-weight="600" text-anchor="middle">Note or Schedule?</text>
+  <text x="952" y="323" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" text-anchor="middle">ChatOps vs Cron / Manual</text>
   <rect x="692" y="412" width="224" height="60" rx="6" fill="#f5f5f5"/>
   <rect x="692" y="412" width="224" height="60" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
   <rect x="702" y="418" width="55" height="12" rx="2" fill="none" stroke="#2d3142" stroke-width="0.8"/>
-  <text x="729.5" y="427" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p3.t25">CHATOPS</text>
-  <text x="804.0" y="444" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p3.t26">ChatOps Dispatch</text>
-  <text x="804.0" y="458" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p3.t27">/retry · /diff · /sync · /sonar</text>
+  <text x="729.5" y="427" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">CHATOPS</text>
+  <text x="804.0" y="444" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">ChatOps Dispatch</text>
+  <text x="804.0" y="458" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">/retry · /diff · /sync · /sonar</text>
   <rect x="988" y="412" width="224" height="60" rx="6" fill="#f5f5f5"/>
   <rect x="988" y="412" width="224" height="60" rx="6" fill="rgba(46,90,168,0.05)" stroke="rgba(46,90,168,0.45)" stroke-width="1.2" stroke-dasharray="4,4"/>
   <rect x="998" y="418" width="36" height="12" rx="2" fill="none" stroke="rgba(46,90,168,0.45)" stroke-width="0.8"/>
-  <text x="1016.0" y="427" fill="#2e5aa8" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p3.t28">CRON</text>
-  <text x="1100.0" y="444" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p3.t29">Central Security &amp; Sync</text>
-  <text x="1100.0" y="458" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p3.t30">SAST ×5 · Sonar ×5 · DB Perf</text>
+  <text x="1016.0" y="427" fill="#2e5aa8" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">CRON</text>
+  <text x="1100.0" y="444" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Central Security &amp; Sync</text>
+  <text x="1100.0" y="458" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">SAST ×5 · Sonar ×5 · DB Perf</text>
   <rect x="812" y="524" width="280" height="60" rx="6" fill="#f5f5f5"/>
   <rect x="812" y="524" width="280" height="60" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
   <rect x="822" y="530" width="30" height="12" rx="2" fill="none" stroke="#2d3142" stroke-width="0.8"/>
-  <text x="837.0" y="539" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p3.t31">RUN</text>
-  <text x="952.0" y="556" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p3.t32">Execute Scan / Diff / Sync</text>
-  <text x="952.0" y="570" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p3.t33">Semgrep report · cascading MR · diff</text>
+  <text x="837.0" y="539" fill="#2d3142" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle" letter-spacing="0.08em">RUN</text>
+  <text x="952.0" y="556" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Execute Scan / Diff / Sync</text>
+  <text x="952.0" y="570" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">Semgrep report · cascading MR · diff</text>
 </g>
   <g data-motion-item data-step="6" aria-label="Step 6: Both tracks converge to post watermarked callback comments and status reports">
   <rect x="480" y="624" width="320" height="52" rx="26" fill="#f5f5f5"/>
   <rect x="480" y="624" width="320" height="52" rx="26" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1.2"/>
-  <text x="640.0" y="648" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle" data-i18n="dg.p3.t34">Callback Comment &amp; Watermark</text>
-  <text x="640.0" y="662" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" data-i18n="dg.p3.t35">Update ticket #ISSUE_IID · SMTP report</text>
+  <text x="640.0" y="648" fill="#2d3142" font-family="var(--font-sans)" font-size="12" font-weight="600" text-anchor="middle">Callback Comment &amp; Watermark</text>
+  <text x="640.0" y="662" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle">Update ticket #ISSUE_IID · SMTP report</text>
 </g>
         <line x1="48" y1="712" x2="1232" y2="712" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
   <rect x="48" y="720" width="24" height="12" rx="6" fill="rgba(45,49,66,0.03)" stroke="rgba(45,49,66,0.30)" stroke-width="1.2"/>
-  <text x="80" y="730" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p3.t36">start / end (oval)</text>
+  <text x="80" y="730" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">start / end (oval)</text>
   <rect x="236" y="720" width="24" height="12" rx="2" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="268" y="730" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p3.t37">step / action</text>
+  <text x="268" y="730" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">step / action</text>
   <polygon points="404,726 416,720 428,726 416,732" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="438" y="730" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p3.t38">decision (diamond)</text>
+  <text x="438" y="730" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">decision (diamond)</text>
   <rect x="596" y="720" width="24" height="12" rx="2" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1.2"/>
-  <text x="628" y="730" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p3.t39">focal / happy path</text>
+  <text x="628" y="730" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">focal / happy path</text>
   <line x1="784" y1="726" x2="808" y2="726" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p3-arrow)"/>
-  <text x="816" y="730" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p3.t40">branch / transition</text>
+  <text x="816" y="730" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">branch / transition</text>
   <circle cx="980" cy="726" r="4" fill="#2d3142"/>
-  <text x="992" y="730" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p3.t41">merge point</text>
+  <text x="992" y="730" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">merge point</text>
       </svg>
         </div>
-        <noscript><p data-i18n="dg.noscript">JavaScript is disabled. Showing the complete static diagram.</p></noscript>
+        <noscript><p>JavaScript is disabled. Showing the complete static diagram.</p></noscript>
       </div>
     </section>
 
     <section id="dependency-graph" class="dg-plate" data-motion-root data-motion-mode="loop" data-step-count="5" data-step-current="5" data-frame="end" data-static-frame="complete">
       <div class="wrap">
         <div class="dg-plate-head">
-          <p class="eyebrow" data-i18n="dg.p4.eyebrow">Dependency graph · GOLD 4A · Interactive Motion · Reference</p>
-          <a class="dg-plate-link" href="#dependency-graph" data-i18n="dg.p4.link">#dependency-graph</a>
+          <p class="eyebrow">Dependency graph · GOLD 4A · Interactive Motion · Reference</p>
+          <a class="dg-plate-link" href="#dependency-graph">#dependency-graph</a>
         </div>
-        <h2 data-i18n="dg.p4.title">What the six domain pipelines converge on</h2>
-        <p class="deck" data-i18n="dg.p4.deck">GOLD 4A (Dependency Graph · Interactive Step Mode): Ranked by dependency depth. The orchestrator reads one routing table and triggers six domain pipelines; those six deploy into the product repositories and converge on two shared projects. The dashed line is the one that is not a tree: a merged MR arrives back at the orchestrator as a webhook event, which is what the anti-loop guard exists to stop.</p>
+        <h2>What the six domain pipelines converge on</h2>
+        <p class="deck">GOLD 4A (Dependency Graph · Interactive Step Mode): Ranked by dependency depth. The orchestrator reads one routing table and triggers six domain pipelines; those six deploy into the product repositories and converge on two shared projects. The dashed line is the one that is not a tree: a merged MR arrives back at the orchestrator as a webhook event, which is what the anti-loop guard exists to stop.</p>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 700" xmlns="http://www.w3.org/2000/svg" role="img"
            aria-labelledby="deps-public-title deps-public-desc">
-        <title id="deps-public-title" data-i18n="dg.p4.svg_title">Release orchestrator dependency graph: six pipelines converging on manifest and scan</title>
-        <desc id="deps-public-desc" data-i18n="dg.p4.svg_desc">A routing table feeds the orchestrator, the orchestrator triggers six domain pipelines, those deploy into product repositories and converge on a release manifest and a security scan project, and merged merge requests return as webhook events guarded by anti-loop.</desc>
+        <title id="deps-public-title">Release orchestrator dependency graph: six pipelines converging on manifest and scan</title>
+        <desc id="deps-public-desc">A routing table feeds the orchestrator, the orchestrator triggers six domain pipelines, those deploy into product repositories and converge on a release manifest and a security scan project, and merged merge requests return as webhook events guarded by anti-loop.</desc>
         <defs>
           <marker id="p4-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
           <marker id="p4-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#bf4520"/></marker>
@@ -526,104 +526,104 @@
         <rect width="100%" height="100%" fill="#f5f5f5"/>
         <rect x="48" y="48" width="1184" height="128" rx="8" fill="rgba(45,49,66,0.02)" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
   <rect x="60" y="52" width="192" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="68" y="62" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em" data-i18n="dg.p4.t1">RANK 0 · ENTRY POINTS</text>
+  <text x="68" y="62" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em">RANK 0 · ENTRY POINTS</text>
         <path d="M 420,120.0 H 553" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p4-arrow)"/>
   <path data-motion-item data-step="2" data-motion-decorative aria-hidden="true" focusable="false" pathLength="1" class="draw-path" d="M 700.0,152 V 221"/>
   <path data-motion-item data-step="5" data-motion-decorative aria-hidden="true" focusable="false" pathLength="1" class="draw-path" d="M 90,400.0 H 88 Q 72,400.0 72,384.0 V 92 Q 72,76 88,76 H 688.0 Q 700.0,76 700.0,84 V 81"/>
   <rect x="470.76" y="96.0" width="38.480000000000004" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="490.0" y="106.0" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p4.t2">READ</text>
+  <text x="490.0" y="106.0" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">READ</text>
   <path d="M 700.0,152 V 221" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p4-arrow)"/>
   <rect x="730.4" y="174" width="75.2" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="768.0" y="184" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p4.t3">TRIGGER ×6</text>
+  <text x="768.0" y="184" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">TRIGGER ×6</text>
   <path d="M 544,292 V 312 Q 544,320 536,320 H 228.0 Q 220.0,320 220.0,328 V 361" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p4-arrow)"/>
   <rect x="356.64" y="298" width="50.72" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="382.0" y="308" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p4.t4">DEPLOY</text>
+  <text x="382.0" y="308" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">DEPLOY</text>
   <path d="M 592,292 V 328 Q 592,336 584,336 H 508.0 Q 500.0,336 500.0,344 V 361" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p4-arrow)"/>
   <rect x="517.58" y="314" width="56.84" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="546.0" y="324" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p4.t5">SCAN ×5</text>
+  <text x="546.0" y="324" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">SCAN ×5</text>
   <path d="M 760,292 V 344 Q 760,352 768,352 H 772.0 Q 780.0,352 780.0,360 V 361" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p4-arrow)"/>
   <rect x="735.46" y="330" width="69.08" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="770.0" y="340" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p4.t6">UPDATE ×6</text>
+  <text x="770.0" y="340" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">UPDATE ×6</text>
   <path d="M 820,292 V 312 Q 820,320 828,320 H 1052.0 Q 1060.0,320 1060.0,328 V 361" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p4-arrow)"/>
   <rect x="914.64" y="298" width="50.72" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="940.0" y="308" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p4.t7">DEPLOY</text>
+  <text x="940.0" y="308" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">DEPLOY</text>
   <path d="M 640,292 V 501" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p4-arrow)"/>
   <path d="M 90,400.0 H 88 Q 72,400.0 72,384.0 V 92 Q 72,76 88,76 H 688.0 Q 700.0,76 700.0,84 V 81" fill="none" stroke="#bf4520" stroke-width="1.2" stroke-dasharray="5,4" marker-end="url(#p4-arrow-accent)"/>
   <rect x="395.68" y="52" width="148.64000000000001" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="470" y="62" fill="#a8360a" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p4.t8">MR WEBHOOK · ANTI-LOOP</text>
+  <text x="470" y="62" fill="#a8360a" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">MR WEBHOOK · ANTI-LOOP</text>
         <g data-motion-item data-step="1" aria-label="Step 1: Rank 0 entry points read routing table into orchestrator pipeline">
   <rect x="180" y="88" width="240" height="64" rx="6" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1.2"/>
-  <text x="300.0" y="112" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle" data-i18n="dg.p4.t9">project_mapping.json</text>
-  <text x="300.0" y="127" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle" data-i18n="dg.p4.t10">one entry per service</text>
-  <rect x="372" y="94" width="42" height="14" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/><text x="393" y="104" fill="#5a6580" font-family="var(--font-mono)" font-size="8" text-anchor="middle" data-i18n="dg.p4.t11">1 in</text>
+  <text x="300.0" y="112" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle">project_mapping.json</text>
+  <text x="300.0" y="127" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle">one entry per service</text>
+  <rect x="372" y="94" width="42" height="14" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/><text x="393" y="104" fill="#5a6580" font-family="var(--font-mono)" font-size="8" text-anchor="middle">1 in</text>
   <rect x="560" y="88" width="280" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="700.0" y="112" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle" data-i18n="dg.p4.t12">release-orchestrator</text>
-  <text x="700.0" y="127" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle" data-i18n="dg.p4.t13">validate → run → post-run → security</text>
-  <rect x="792" y="94" width="42" height="14" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/><text x="813" y="104" fill="#5a6580" font-family="var(--font-mono)" font-size="8" text-anchor="middle" data-i18n="dg.p4.t14">1 in</text>
+  <text x="700.0" y="112" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle">release-orchestrator</text>
+  <text x="700.0" y="127" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle">validate → run → post-run → security</text>
+  <rect x="792" y="94" width="42" height="14" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/><text x="813" y="104" fill="#5a6580" font-family="var(--font-mono)" font-size="8" text-anchor="middle">1 in</text>
 </g>
   <g data-motion-item data-step="2" aria-label="Step 2: Orchestrator fans out triggers to the six domain pipelines in Rank 1">
   <rect x="520" y="228" width="360" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="700.0" y="252" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle" data-i18n="dg.p4.t15">6 domain pipelines</text>
-  <text x="700.0" y="267" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle" data-i18n="dg.p4.t16">mobile · portal · identity · ledger · core · wallet</text>
-  <rect x="832" y="234" width="42" height="14" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/><text x="853" y="244" fill="#5a6580" font-family="var(--font-mono)" font-size="8" text-anchor="middle" data-i18n="dg.p4.t17">1 in</text>
+  <text x="700.0" y="252" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle">6 domain pipelines</text>
+  <text x="700.0" y="267" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle">mobile · portal · identity · ledger · core · wallet</text>
+  <rect x="832" y="234" width="42" height="14" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/><text x="853" y="244" fill="#5a6580" font-family="var(--font-mono)" font-size="8" text-anchor="middle">1 in</text>
 </g>
   <g data-motion-item data-step="3" aria-label="Step 3: Domain pipelines deploy to product repositories and converge on security-scan (5 in)">
   <rect x="90" y="368" width="260" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="220.0" y="392" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle" data-i18n="dg.p4.t18">Product repositories</text>
-  <text x="220.0" y="407" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle" data-i18n="dg.p4.t19">one repo per service</text>
-  <rect x="302" y="374" width="42" height="14" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/><text x="323" y="384" fill="#5a6580" font-family="var(--font-mono)" font-size="8" text-anchor="middle" data-i18n="dg.p4.t20">1 in</text>
+  <text x="220.0" y="392" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle">Product repositories</text>
+  <text x="220.0" y="407" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle">one repo per service</text>
+  <rect x="302" y="374" width="42" height="14" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/><text x="323" y="384" fill="#5a6580" font-family="var(--font-mono)" font-size="8" text-anchor="middle">1 in</text>
   <rect x="370" y="368" width="260" height="64" rx="6" fill="rgba(46,90,168,0.05)" stroke="rgba(46,90,168,0.45)" stroke-width="1.2" stroke-dasharray="4,4"/>
-  <text x="500.0" y="392" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle" data-i18n="dg.p4.t21">security-scan</text>
-  <text x="500.0" y="407" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle" data-i18n="dg.p4.t22">5 per-domain scan directories</text>
-  <rect x="582" y="374" width="42" height="14" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/><text x="603" y="384" fill="#5a6580" font-family="var(--font-mono)" font-size="8" text-anchor="middle" data-i18n="dg.p4.t23">5 in</text>
+  <text x="500.0" y="392" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle">security-scan</text>
+  <text x="500.0" y="407" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle">5 per-domain scan directories</text>
+  <rect x="582" y="374" width="42" height="14" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/><text x="603" y="384" fill="#5a6580" font-family="var(--font-mono)" font-size="8" text-anchor="middle">5 in</text>
 </g>
   <g data-motion-item data-step="4" aria-label="Step 4: All six pipelines plus board prepare-uat converge on release-manifest (7 in) and mobile repos">
   <rect x="650" y="368" width="260" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="780.0" y="392" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle" data-i18n="dg.p4.t24">release-manifest</text>
-  <text x="780.0" y="407" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle" data-i18n="dg.p4.t25">update ×6 · prepare-uat · reconcile</text>
-  <rect x="862" y="374" width="42" height="14" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/><text x="883" y="384" fill="#5a6580" font-family="var(--font-mono)" font-size="8" text-anchor="middle" data-i18n="dg.p4.t26">7 in</text>
+  <text x="780.0" y="392" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle">release-manifest</text>
+  <text x="780.0" y="407" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle">update ×6 · prepare-uat · reconcile</text>
+  <rect x="862" y="374" width="42" height="14" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/><text x="883" y="384" fill="#5a6580" font-family="var(--font-mono)" font-size="8" text-anchor="middle">7 in</text>
   <rect x="930" y="368" width="260" height="64" rx="6" fill="rgba(45,49,66,0.03)" stroke="rgba(45,49,66,0.30)" stroke-width="1.2"/>
-  <text x="1060.0" y="392" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle" data-i18n="dg.p4.t27">Mobile repositories</text>
-  <text x="1060.0" y="407" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle" data-i18n="dg.p4.t28">separate group</text>
-  <rect x="1142" y="374" width="42" height="14" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/><text x="1163" y="384" fill="#5a6580" font-family="var(--font-mono)" font-size="8" text-anchor="middle" data-i18n="dg.p4.t29">1 in</text>
+  <text x="1060.0" y="392" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle">Mobile repositories</text>
+  <text x="1060.0" y="407" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle">separate group</text>
+  <rect x="1142" y="374" width="42" height="14" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/><text x="1163" y="384" fill="#5a6580" font-family="var(--font-mono)" font-size="8" text-anchor="middle">1 in</text>
 </g>
   <g data-motion-item data-step="5" aria-label="Step 5: Workloads roll out to OpenShift (SIT/UAT/PROD) while MR webhooks return through anti-loop guard">
   <rect x="500" y="508" width="280" height="64" rx="6" fill="rgba(45,49,66,0.03)" stroke="rgba(45,49,66,0.30)" stroke-width="1.2"/>
-  <text x="640.0" y="532" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle" data-i18n="dg.p4.t30">OpenShift</text>
-  <text x="640.0" y="547" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle" data-i18n="dg.p4.t31">SIT · UAT · PROD</text>
-  <rect x="732" y="514" width="42" height="14" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/><text x="753" y="524" fill="#5a6580" font-family="var(--font-mono)" font-size="8" text-anchor="middle" data-i18n="dg.p4.t32">1 in</text>
+  <text x="640.0" y="532" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle">OpenShift</text>
+  <text x="640.0" y="547" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle">SIT · UAT · PROD</text>
+  <rect x="732" y="514" width="42" height="14" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/><text x="753" y="524" fill="#5a6580" font-family="var(--font-mono)" font-size="8" text-anchor="middle">1 in</text>
 </g>
-        <text x="48" y="612" fill="#5a6580" font-family="var(--font-mono)" font-size="9" data-i18n="dg.p4.t33">Fan-in counts are per project, not per edge: the six pipelines are one node, so release-manifest reads 7 in (six pipelines plus the board /prepare-uat job).</text>
+        <text x="48" y="612" fill="#5a6580" font-family="var(--font-mono)" font-size="9">Fan-in counts are per project, not per edge: the six pipelines are one node, so release-manifest reads 7 in (six pipelines plus the board /prepare-uat job).</text>
         <line x1="48" y1="654" x2="1232" y2="654" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
   <rect x="48" y="658" width="22" height="16" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="78" y="670" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p4.t34">pipeline project</text>
+  <text x="78" y="670" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">pipeline project</text>
   <rect x="195.6" y="658" width="22" height="16" rx="4" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1.2"/>
-  <text x="225.6" y="670" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p4.t35">data the board reads</text>
+  <text x="225.6" y="670" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">data the board reads</text>
   <rect x="365.6" y="658" width="22" height="16" rx="4" fill="rgba(45,49,66,0.03)" stroke="rgba(45,49,66,0.30)" stroke-width="1.2"/>
-  <text x="395.6" y="670" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p4.t36">outside the pipeline group</text>
+  <text x="395.6" y="670" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">outside the pipeline group</text>
   <line x1="569.2" y1="666" x2="591.2" y2="666" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p4-arrow)"/>
-  <text x="599.2" y="670" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p4.t37">trigger / deploy</text>
+  <text x="599.2" y="670" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">trigger / deploy</text>
   <line x1="716.8000000000001" y1="666" x2="738.8000000000001" y2="666" stroke="#4f5d75" stroke-width="1" stroke-dasharray="4,3"/>
-  <text x="746.8000000000001" y="670" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p4.t38">return path</text>
+  <text x="746.8000000000001" y="670" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">return path</text>
       </svg>
         </div>
-        <noscript><p data-i18n="dg.noscript">JavaScript is disabled. Showing the complete static diagram.</p></noscript>
+        <noscript><p>JavaScript is disabled. Showing the complete static diagram.</p></noscript>
       </div>
     </section>
 
     <section id="sequence-sit" class="dg-plate" data-motion-root data-motion-mode="loop" data-step-count="6" data-step-current="6" data-frame="end" data-static-frame="complete">
       <div class="wrap">
         <div class="dg-plate-head">
-          <p class="eyebrow" data-i18n="dg.p5.eyebrow">Sequence · reference implementation · Interactive</p>
-          <a class="dg-plate-link" href="#sequence-sit" data-i18n="dg.p5.link">#sequence-sit</a>
+          <p class="eyebrow">Sequence · reference implementation · Interactive</p>
+          <a class="dg-plate-link" href="#sequence-sit">#sequence-sit</a>
         </div>
-        <h2 data-i18n="dg.p5.title">One card from In Dev to SIT</h2>
-        <p class="deck" data-i18n="dg.p5.deck">Time runs downward. Every board move triggers an orchestrator job guarded by sequential phase and five-layer approval checks: when a card passes approval, the merge gate passes the MR, on_merge_v2 records the service state, on_deploy triggers the domain pipeline, and the returning webhook is stopped by the Rule 0 anti-loop guard.</p>
+        <h2>One card from In Dev to SIT</h2>
+        <p class="deck">Time runs downward. Every board move triggers an orchestrator job guarded by sequential phase and five-layer approval checks: when a card passes approval, the merge gate passes the MR, on_merge_v2 records the service state, on_deploy triggers the domain pipeline, and the returning webhook is stopped by the Rule 0 anti-loop guard.</p>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 980" xmlns="http://www.w3.org/2000/svg" role="img"
            aria-labelledby="seq-public-title seq-public-desc">
-        <title id="seq-public-title" data-i18n="dg.p5.svg_title">Sequence: a GitLab issue board status change drives the orchestrator pipeline, which opens a merge request, verifies five-layer approval, triggers a domain pipeline and deploys to SIT</title>
-        <desc id="seq-public-desc" data-i18n="dg.p5.svg_desc">A developer moves a card, the orchestrator validates it and opens a branch and merge request, an approval frame decides merge-gate pass and state capture or revert, the orchestrator triggers a domain pipeline that deploys to SIT, and the returning webhook is rejected by the anti-loop guard.</desc>
+        <title id="seq-public-title">Sequence: a GitLab issue board status change drives the orchestrator pipeline, which opens a merge request, verifies five-layer approval, triggers a domain pipeline and deploys to SIT</title>
+        <desc id="seq-public-desc">A developer moves a card, the orchestrator validates it and opens a branch and merge request, an approval frame decides merge-gate pass and state capture or revert, the orchestrator triggers a domain pipeline that deploys to SIT, and the returning webhook is rejected by the anti-loop guard.</desc>
         <defs>
           <marker id="p5-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
           <marker id="p5-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#bf4520"/></marker>
@@ -640,96 +640,96 @@
     <rect x="566" y="200" width="8" height="444" rx="1" fill="rgba(79,93,117,0.10)" stroke="#4f5d75" stroke-width="0.8"/>
     <rect x="796" y="636" width="8" height="120" rx="1" fill="rgba(79,93,117,0.10)" stroke="#4f5d75" stroke-width="0.8"/>
     <rect x="50.0" y="96" width="180" height="56" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="140.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle" data-i18n="dg.p5.t1">Developer</text>
-  <text x="140.0" y="135" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle" data-i18n="dg.p5.t2">human · board move</text>
+  <text x="140.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle">Developer</text>
+  <text x="140.0" y="135" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle">human · board move</text>
     <rect x="260.0" y="96" width="180" height="56" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="350.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle" data-i18n="dg.p5.t3">Issue board</text>
-  <text x="350.0" y="135" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle" data-i18n="dg.p5.t4">work item · state</text>
+  <text x="350.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle">Issue board</text>
+  <text x="350.0" y="135" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle">work item · state</text>
     <rect x="480.0" y="96" width="180" height="56" rx="6" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1.2"/>
-  <text x="570.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle" data-i18n="dg.p5.t5">release-orchestrator</text>
-  <text x="570.0" y="135" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle" data-i18n="dg.p5.t6">orchestrator pipeline</text>
+  <text x="570.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle">release-orchestrator</text>
+  <text x="570.0" y="135" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle">orchestrator pipeline</text>
     <rect x="710.0" y="96" width="180" height="56" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="800.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle" data-i18n="dg.p5.t7">Domain pipeline</text>
-  <text x="800.0" y="135" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle" data-i18n="dg.p5.t8">one of six</text>
+  <text x="800.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle">Domain pipeline</text>
+  <text x="800.0" y="135" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle">one of six</text>
     <rect x="940.0" y="96" width="180" height="56" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="1030.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle" data-i18n="dg.p5.t9">OpenShift / VM</text>
-  <text x="1030.0" y="135" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle" data-i18n="dg.p5.t10">SIT runtime</text>
+  <text x="1030.0" y="120" fill="#2d3142" font-family="var(--font-sans)" font-size="13" font-weight="600" text-anchor="middle">OpenShift / VM</text>
+  <text x="1030.0" y="135" fill="#4f5d75" font-family="var(--font-mono)" font-size="9.5" text-anchor="middle">SIT runtime</text>
 </g>
         <g data-motion-item data-step="2" aria-label="Card move to In Dev, validation, and MR creation">
   <path d="M 140,176 H 343" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p5-arrow)"/>
   <path data-motion-item data-step="5" data-motion-decorative aria-hidden="true" focusable="false" pathLength="1" class="draw-path" d="M 570,696 H 793"/>
     <rect x="179.86" y="156" width="130.28" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="245.0" y="166" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p5.t11">DRAG CARD TO IN DEV</text>
+  <text x="245.0" y="166" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">DRAG CARD TO IN DEV</text>
     <path d="M 350,224 H 563" fill="none" stroke="#4f5d75" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#p5-arrow-open)"/>
     <rect x="370.38" y="204" width="179.24" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="460.0" y="214" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p5.t12">WEBHOOK · NEW_STATUS=IN DEV</text>
+  <text x="460.0" y="214" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">WEBHOOK · NEW_STATUS=IN DEV</text>
     <path d="M 570,272 H 594 Q 602,272 602,280 V 288 Q 602,296 594,296 H 577" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p5-arrow)"/>
     <rect x="608" y="274" width="230" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="723" y="284" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p5.t13">VALIDATE PHASE &amp; 5-LAYER APPROVAL</text>
+  <text x="723" y="284" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">VALIDATE PHASE &amp; 5-LAYER APPROVAL</text>
     <path d="M 570,368 H 357" fill="none" stroke="#4f5d75" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#p5-arrow)"/>
     <rect x="376.5" y="348" width="167.0" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="460.0" y="358" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p5.t14">CREATE-BRANCH + MR OPENED</text>
+  <text x="460.0" y="358" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">CREATE-BRANCH + MR OPENED</text>
 </g>
         <g data-motion-item data-step="3" aria-label="Promotion move to Merged or Deploy and webhook arrival">
   <path d="M 140,416 H 343" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p5-arrow)"/>
     <rect x="167.62" y="396" width="154.76" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="245.0" y="406" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p5.t15">MOVE TO MERGED → DEPLOY</text>
+  <text x="245.0" y="406" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">MOVE TO MERGED → DEPLOY</text>
     <path d="M 350,464 H 563" fill="none" stroke="#4f5d75" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#p5-arrow-open)"/>
     <rect x="391.8" y="444" width="136.4" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="460.0" y="454" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p5.t16">WEBHOOK · NEW_STATUS</text>
+  <text x="460.0" y="454" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">WEBHOOK · NEW_STATUS</text>
 </g>
         <g data-motion-item data-step="4" aria-label="Alt frame: approval pass saves state, failure reverts card">
   <rect x="290" y="528" width="340" height="136" rx="4" fill="rgba(45,49,66,0.02)" stroke="rgba(45,49,66,0.22)" stroke-width="1"/>
     <rect x="290" y="528" width="40" height="16" rx="2" fill="#f5f5f5" stroke="rgba(45,49,66,0.22)" stroke-width="1"/>
-    <text x="310" y="540" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" letter-spacing="0.12em" data-i18n="dg.p5.t17">ALT</text>
-    <text x="302" y="556" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" data-i18n="dg.p5.t18">[five-layer approval complete]</text>
+    <text x="310" y="540" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" letter-spacing="0.12em">ALT</text>
+    <text x="302" y="556" fill="#4f5d75" font-family="var(--font-mono)" font-size="8">[five-layer approval complete]</text>
     <path d="M 570,588 H 357" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p5-arrow)"/>
     <rect x="398.62" y="566" width="154.76" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="476.0" y="576" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p5.t19">MERGE GATE + SAVE STATE</text>
+  <text x="476.0" y="576" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">MERGE GATE + SAVE STATE</text>
     <line x1="298" y1="606" x2="638" y2="606" stroke="rgba(45,49,66,0.22)" stroke-width="1" stroke-dasharray="4,3"/>
-    <text x="302" y="620" fill="#4f5d75" font-family="var(--font-mono)" font-size="8" data-i18n="dg.p5.t20">[else: missing approval or phase skip]</text>
+    <text x="302" y="620" fill="#4f5d75" font-family="var(--font-mono)" font-size="8">[else: missing approval or phase skip]</text>
     <path d="M 570,650 H 357" fill="none" stroke="#4f5d75" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#p5-arrow-open)"/>
     <rect x="407.8" y="628" width="136.4" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="476.0" y="638" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p5.t21">REVERT CARD · EXIT 1</text>
+  <text x="476.0" y="638" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">REVERT CARD · EXIT 1</text>
 </g>
         <g data-motion-item data-step="5" aria-label="Orchestrator triggers domain pipeline and SIT deployment">
   <path d="M 570,696 H 793" fill="none" stroke="#bf4520" stroke-width="1.6" marker-end="url(#p5-arrow-accent)"/>
     <rect x="577.02" y="676" width="215.96" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="685.0" y="686" fill="#a8360a" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p5.t22">POST /TRIGGER/PIPELINE · SERVICES</text>
+  <text x="685.0" y="686" fill="#a8360a" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">POST /TRIGGER/PIPELINE · SERVICES</text>
     <path d="M 800,744 H 1023" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p5-arrow)"/>
     <rect x="831.5" y="724" width="167.0" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="915.0" y="734" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p5.t23">DEPLOY SIT + HEALTH CHECK</text>
+  <text x="915.0" y="734" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">DEPLOY SIT + HEALTH CHECK</text>
 </g>
         <g data-motion-item data-step="6" aria-label="Returning bot webhook blocked by Rule 0 anti-loop guard">
   <path d="M 800,792 H 357" fill="none" stroke="#4f5d75" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#p5-arrow-open)"/>
     <rect x="467.02" y="772" width="215.96" height="13" rx="2" fill="#f5f5f5"/>
-  <text x="575.0" y="782" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p5.t24">BOT CALLBACK + MR WEBHOOK RETURNS</text>
+  <text x="575.0" y="782" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">BOT CALLBACK + MR WEBHOOK RETURNS</text>
     <path d="M 570,840 H 594 Q 602,840 602,848 V 856 Q 602,864 594,864 H 577" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p5-arrow)"/>
     <rect x="608" y="842" width="220" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="718" y="852" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em" data-i18n="dg.p5.t25">RULE 0 + WATERMARK: BOT IGNORED</text>
+  <text x="718" y="852" fill="#4f5d75" font-family="var(--font-mono)" font-size="8.5" text-anchor="middle" letter-spacing="0.08em">RULE 0 + WATERMARK: BOT IGNORED</text>
 </g>
-        <text x="48" y="888" fill="#5a6580" font-family="var(--font-mono)" font-size="9" data-i18n="dg.p5.t26">Six domain pipelines, one actor. The return event is the loop the guard rejects: a merged MR or bot callback arrives as a webhook like any other.</text>
+        <text x="48" y="888" fill="#5a6580" font-family="var(--font-mono)" font-size="9">Six domain pipelines, one actor. The return event is the loop the guard rejects: a merged MR or bot callback arrives as a webhook like any other.</text>
         <line x1="48" y1="922" x2="1232" y2="922" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
   <line x1="48" y1="934" x2="70" y2="934" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p5-arrow)"/>
-  <text x="78" y="938" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p5.t27">call</text>
+  <text x="78" y="938" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">call</text>
   <line x1="128.4" y1="934" x2="150.4" y2="934" stroke="#4f5d75" stroke-width="1" stroke-dasharray="4,3"/>
-  <text x="158.4" y="938" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p5.t28">return / async</text>
+  <text x="158.4" y="938" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">return / async</text>
   <rect x="264.8" y="926" width="22" height="16" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="1.2"/>
-  <text x="294.8" y="938" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em" data-i18n="dg.p5.t29">actor</text>
+  <text x="294.8" y="938" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">actor</text>
       </svg>
         </div>
-        <noscript><p data-i18n="dg.noscript">JavaScript is disabled. Showing the complete static diagram.</p></noscript>
+        <noscript><p>JavaScript is disabled. Showing the complete static diagram.</p></noscript>
       </div>
     </section>
 
     <section class="dg-end">
       <div class="wrap">
         <p class="dg-nav mono">
-          <a href="../pipelines/" data-i18n="dg.end.pipelines">the gate those pipelines enforce, with the source behind every line →</a>
-          <a href="../decisions/" data-i18n="dg.end.decisions">eleven architecture and production decisions →</a>
-          <a href="../" data-i18n="dg.end.home">back to the overview</a>
+          <a href="../pipelines/">the gate those pipelines enforce, with the source behind every line →</a>
+          <a href="../decisions/">eleven architecture and production decisions →</a>
+          <a href="../">back to the overview</a>
         </p>
-        <p class="care-note mono" data-i18n="dg.end.care">Sanitised: service names, group IDs, hosts and internal identifiers are replaced with synthetic ones. The topology, stage contracts, approval rules and state transitions are the real ones.</p>
+        <p class="care-note mono">Sanitised: service names, group IDs, hosts and internal identifiers are replaced with synthetic ones. The topology, stage contracts, approval rules and state transitions are the real ones.</p>
       </div>
     </section>
 
@@ -737,13 +737,12 @@
 
   <footer class="site-footer">
     <div class="wrap footer-in">
-      <span data-i18n="dg.footer.copy">© 2026 Ivan Jairus</span>
-      <span class="ftr-creed" data-i18n="footer.creed">If the process needs a hero, the process is wrong.</span>
+      <span>© 2026 Ivan Jairus</span>
+      <span class="ftr-creed">If the process needs a hero, the process is wrong.</span>
     </div>
   </footer>
 
   <script defer src="../assets/js/observability.js"></script>
-  <script defer src="../assets/js/i18n.js"></script>
   <script defer src="../assets/js/diagrams.js"></script>
 </body>
 </html>

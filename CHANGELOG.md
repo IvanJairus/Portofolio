@@ -31,6 +31,23 @@ All notable changes to this repository are documented here. The format follows
 
 ### Added
 
+- **`/diagrams/`, five plates, and the landing stayed link-only.** The architecture
+  suite that had lived in a local lab folder is now a sixth page: 21-phase board
+  governance, control plane and runner topology, dual-track event router, six-domain
+  dependency convergence, and the card-to-SIT sequence, each with its own deep link
+  (`#state-governance`, `#control-plane`, `#event-router`, `#dependency-graph`,
+  `#sequence-sit`). The SVG markup is inline, its CSS and JS sit in
+  `assets/css/diagrams.css` and the atlas branch of `assets/js/diagrams.js`, and
+  every plate carries `data-frame="end"` with `data-static-frame="complete"`, so a
+  reader without JavaScript gets the finished diagram rather than an empty frame.
+  The landing did not gain a fourth inline SVG: it gained links, one in the primary
+  nav, two on the work cards, one under the gateway diagram, one in the footer band.
+  That is a weight decision, not a taste one, because `index.html` already ships
+  371,996 B raw and 108,195 B gzipped against a 524,288 B ceiling. Commits
+  `47ac390` through `1dc1cda`. **Not yet measured:** Lighthouse has never run
+  against this page, so its Performance and CLS are unknown here, and the 390px
+  reading of each plate is a horizontal pan inside its container by design
+  (`min-width: 1080px`), not a reflow.
 - **`/decisions/`, a fourth page, and the landing finally got shorter.**
   `#runtime` and `#decisions` were eleven `decision / alternative / why / cost`
   cards and 1,252 words of prose sitting at the eighth and ninth screen of a
@@ -199,6 +216,26 @@ All notable changes to this repository are documented here. The format follows
   of each file leaves byte-identical code.
 
 ### Fixed
+
+- **`/diagrams/` downloaded a 42 KB dictionary that nothing read.** The page loaded
+  `i18n.js` but not `main.js`, and `main.js` is the only consumer of `window.I18N`,
+  so the 262 `data-i18n` attributes on the page were inert and the fallback text
+  was already what every visitor saw. Dropping the script tag and the attributes
+  left the rendered page byte-identical, proven by comparing the SHA-256 of a
+  1280x2600 screenshot before and after: `b69e1c8de1e5fd3a` both times. The page
+  went from 183,728 B to 135,487 B raw, 45,346 B to 29,679 B gzipped. The 251
+  `dg.*` keys nobody else referenced came out of `i18n.js` too, 579 keys to 328
+  and 42,287 B to 27,506 B, which lightened the landing as well, since that is the
+  page that really does load the dictionary. The convention was the tell: `pipelines/`,
+  `decisions/` and `reports/` carry no `data-i18n` at all, and `sync-i18n.mjs`
+  generates the fallback for `index.html` only. The atlas had invented a rule and
+  then not followed it.
+- **Two CI lists did not know the new page existed.** `security.yml` ran
+  `html-validate@8` over five named files and `check-visible.mjs` carried the same
+  five-item `PAGES` list, so `diagrams/index.html` was validated by neither. Both
+  lists include it now. The card gate is a no-op on that page today, it has no
+  `mail-card`, `dec-card`, `pf-card` or `wv` element, and it is added anyway so a
+  card copied there later cannot ship `hidden`.
 
 - **Two of the three reports were invisible on `/reports/`, found on a real
   phone.** The cards were copied out of the tabbed widget with their `hidden`
