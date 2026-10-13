@@ -177,10 +177,14 @@ All notable changes to this repository are documented here. The format follows
   absolute everywhere now, since a 404 can be raised at any depth and a relative
   href would resolve against the wrong directory, and its link list names the three
   pages it had never heard of. `.well-known/security.txt` moved to the gateway,
-  which owns the domain root. Measured on a threaded local server at the mounted
-  path: five pages 200, an unknown path 404 with the styled page, 48 same-origin
-  assets resolved with no failure, and Lighthouse on `/pipelines/` passes every
-  budget with `errors-in-console` 0 on both revisions, 342,807 B to 342,827 B.
+  which owns the domain root. The link check now excludes this domain: the absolute
+  URLs a page carries are its `canonical` and `og` declarations, which name where
+  the page will live, and on this branch that place does not exist yet, so the
+  check reported 404 for a promise rather than a broken link. Measured on a threaded
+  local server at the mounted path: five pages 200, an unknown path 404 with the
+  styled page, 48 same-origin assets resolved with no failure, and Lighthouse on
+  `/pipelines/` passes every budget with `errors-in-console` 0 on both revisions,
+  342,807 B to 342,827 B.
 - **The spotlight moved to the front of the work and got the heading it was
   missing.** It sat between `#architecture` and `#decisions`, at 17,161 to 18,132
   on a 390px screen, the nineteenth screen of a twenty-five screen page, which is
