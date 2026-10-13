@@ -88,13 +88,16 @@ jobs:
           # The uploaded report is the report the decision was actually taken with,
           # so a failure can be read from the artifact instead of one "exit 1" line.
           #
-          # Two pages are measured with the same thresholds. The /pipelines/ baseline was measured
+          # Five pages are measured with the same thresholds. The /pipelines/ baseline was measured
           # locally with the same flags on 2026-10-10: Performance 99, Accessibility
           # 100, Best-Practices 100, SEO 100, FCP 1.36 s, LCP 1.97 s, TBT 0 ms,
           # CLS 0.015, 145 KiB uncompressed. Its CLS is not 0: the run title grows from
-          # one line to two while the module fills the header.
+          # one line to two while the module fills the header. The /diagrams/ baseline
+          # was measured locally on 2026-10-13 with the same flags: Performance 99,
+          # Accessibility 100, Best-Practices 100, SEO 100, FCP 1.50 s, LCP 1.65 s,
+          # TBT 0 ms, CLS 0, 137,661 B transferred.
           fail=0
-          for page in "root:http://127.0.0.1:8731/" "pipelines:http://127.0.0.1:8731/pipelines/" "reports:http://127.0.0.1:8731/reports/" "decisions:http://127.0.0.1:8731/decisions/"; do
+          for page in "root:http://127.0.0.1:8731/" "pipelines:http://127.0.0.1:8731/pipelines/" "reports:http://127.0.0.1:8731/reports/" "decisions:http://127.0.0.1:8731/decisions/" "diagrams:http://127.0.0.1:8731/diagrams/"; do
             name=${page%%:*}
             url=${page#*:}
             ok=0

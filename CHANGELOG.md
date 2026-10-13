@@ -239,6 +239,14 @@ All notable changes to this repository are documented here. The format follows
   not settle:** the 53 on the landing is still published without a source or a
   counting basis, which is the rule in `DESIGN.md` it has yet to meet.
 
+- **The performance gate did not measure the page it was added for.** The
+  `for page in` list at `quality.yml:97` carried four URLs, so `/diagrams/` had no
+  Lighthouse budget on the runner, the same class of gap as the two CI file lists
+  above. It is the fifth page measured now, and its local baseline is written next
+  to the loop: Performance 99, Accessibility 100, FCP 1.50 s, LCP 1.65 s, TBT 0 ms,
+  CLS 0, 137,661 B. The comment above the loop said "Two pages are measured" while
+  four were, so the count there was wrong before this too.
+
 - **`/diagrams/` downloaded a 42 KB dictionary that nothing read.** The page loaded
   `i18n.js` but not `main.js`, and `main.js` is the only consumer of `window.I18N`,
   so the 262 `data-i18n` attributes on the page were inert and the fallback text
