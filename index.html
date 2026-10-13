@@ -811,6 +811,65 @@
       </div>
     </section>
 
+    <!-- spotlight: architecture atlas and pipeline verification -->
+    <section id="spotlight">
+      <div class="wrap">
+        <div class="spotlight-grid">
+          <!-- Panel Diagrams -->
+          <div class="spotlight-card">
+            <div>
+              <div class="spotlight-card-head">
+                <div class="spotlight-card-eyebrow">
+                  <span data-i18n="sl.p1.eyebrow">Architecture Blueprint</span>
+                  <span class="badge mono" data-i18n="sl.p1.badge">5 plates</span>
+                </div>
+                <h3 data-i18n="sl.p1.title">Five Interactive System Models</h3>
+                <p class="desc" data-i18n="sl.p1.desc">21-phase board governance, control plane and three archetypes, dual-track event router, where the six pipelines converge, and one card from In Dev to SIT.</p>
+              </div>
+              <div class="mini-topology" aria-hidden="true">
+                <span class="topo-node">Kanban Board</span>
+                <span class="topo-arrow">→</span>
+                <span class="topo-node hl">Anti-Loop</span>
+                <span class="topo-arrow">→</span>
+                <span class="topo-node">Dual Router</span>
+                <span class="topo-arrow">→</span>
+                <span class="topo-node">6 Domains</span>
+                <span class="topo-arrow">→</span>
+                <span class="topo-node">OpenShift</span>
+              </div>
+            </div>
+            <div class="spotlight-actions">
+              <a class="sl-cta" href="diagrams/" data-i18n="sl.p1.cta">explore diagram atlas</a>
+              <a class="sl-sub mono" href="diagrams/#state-governance" data-i18n="sl.p1.sub">state machine</a>
+            </div>
+          </div>
+
+          <!-- Panel Pipelines -->
+          <div class="spotlight-card">
+            <div>
+              <div class="spotlight-card-head">
+                <div class="spotlight-card-eyebrow">
+                  <span data-i18n="sl.p2.eyebrow">Execution Proof</span>
+                  <span class="badge mono" data-i18n="sl.p2.badge">dual engine</span>
+                </div>
+                <h3 data-i18n="sl.p2.title">Dual-Engine CI Verification</h3>
+                <p class="desc" data-i18n="sl.p2.desc">GitLab CI and Jenkins graphs evaluated against shared Groovy rules, with 217 console lines mapped to source files.</p>
+              </div>
+              <div class="mini-terminal" aria-hidden="true">
+                <div><span class="t-tag-gl">[gitlab-ci]</span> validateTicket → qualityGate <span class="t-ok">✓ PASS</span></div>
+                <div><span class="t-tag-jk">[jenkins]</span>   GatewaySIT: 11 stages synchronized <span class="t-ok">✓ OK</span></div>
+                <div class="t-dim">// 217 console lines mapped to source files</div>
+              </div>
+            </div>
+            <div class="spotlight-actions">
+              <a class="sl-cta" href="pipelines/" data-i18n="sl.p2.cta">inspect pipeline traces</a>
+              <a class="sl-sub mono" href="pipelines/#gate" data-i18n="sl.p2.sub">release gate</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- runtime -->
     <!-- The decision record moved to /decisions/. The band keeps the claim in
          place for a reader scrolling past, and names three of the cards by what

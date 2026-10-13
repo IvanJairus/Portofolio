@@ -31,6 +31,16 @@ All notable changes to this repository are documented here. The format follows
 
 ### Added
 
+- **`#spotlight`, two panels on the landing, and what they cost.** A band between
+  `#architecture` and `#decisions` now points at the two pages that had outgrown
+  their work cards: one for the diagram atlas, one for the pipeline consoles, each
+  with a mini topology strip and two links. Measured at 390px the section occupies
+  17,161 to 18,132, so 971px, and the landing went from 24,301px to 25,272px. The
+  landing transfers 414,636 B against the 524,288 B ceiling, 6,895 B more than
+  before it, at Performance 89 (was 90), FCP 2.40 s (was 2.26 s), TBT 21 ms (was
+  10 ms), CLS 0. The atlas panel names the five plates by their titles instead of
+  paraphrasing them a fourth time, and the fallback is generated through
+  `scripts/sync-i18n.mjs`, so `i18n.js` and the HTML cannot drift.
 - **`/diagrams/`, five plates, and the landing stayed link-only.** The architecture
   suite that had lived in a local lab folder is now a sixth page: 21-phase board
   governance, control plane and runner topology, dual-track event router, six-domain

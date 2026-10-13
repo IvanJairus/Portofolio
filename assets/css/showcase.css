@@ -2604,3 +2604,143 @@ html:not([data-js]) .dec-fold { display: none; }
   .dx { grid-template-columns: minmax(0, 1fr); gap: 18px; padding: 18px; }
   .dx h2 { font-size: 22px; }
 }
+
+/* Spotlight band: dual highlight for /diagrams/ and /pipelines/ */
+#spotlight {
+  scroll-margin-top: calc(var(--header-h) + var(--subnav-h) + 8px);
+}
+.spotlight-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+.spotlight-card {
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg-3);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.spotlight-card-head {
+  margin-bottom: 18px;
+}
+.spotlight-card-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-faint);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.spotlight-card-eyebrow .badge {
+  font-size: 9.5px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(45, 49, 66, 0.06);
+  color: var(--ink);
+}
+.spotlight-card h3 {
+  font-size: 22px;
+  line-height: 1.25;
+  margin: 0 0 8px;
+}
+.spotlight-card p.desc {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-dim);
+  margin: 0 0 16px;
+}
+.mini-topology {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  overflow-x: auto;
+}
+.topo-node {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.topo-node.hl {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+.topo-arrow {
+  color: var(--ink-faint);
+  font-size: 11px;
+  flex-shrink: 0;
+}
+.mini-terminal {
+  background: #1e222d;
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  color: #d1d5db;
+}
+.mini-terminal .t-tag-gl { color: #60a5fa; font-weight: 600; }
+.mini-terminal .t-tag-jk { color: #f59e0b; font-weight: 600; }
+.mini-terminal .t-ok { color: #34d399; }
+.mini-terminal .t-dim { color: #9ca3af; }
+.spotlight-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+.sl-cta {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent-ink);
+  background: var(--accent);
+  padding: 9px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 500;
+}
+.sl-cta:hover {
+  background: var(--accent-strong);
+}
+.sl-sub {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  padding: 8px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+.sl-sub:hover {
+  background: var(--bg-2);
+}
+@media (max-width: 860px) {
+  .spotlight-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+}
