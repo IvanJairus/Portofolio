@@ -155,6 +155,22 @@ All notable changes to this repository are documented here. The format follows
 
 ### Changed
 
+- **The plate list on `/diagrams/` now repeats each plate's own title, one per
+  line.** The hero list described every plate a second time, so four of five
+  entries disagreed with the heading they pointed at: `02 · control plane,
+  archetypes & anti-loop` sat above `Control plane, three execution archetypes,
+  and the loop back`. The rule is now that the list copies the title with its first
+  letter lowercased, which is what entry 05 already did. The titles were cut to the
+  subject only, because the eyebrow already names the kind and the deck already
+  carries the detail: `21-phase board governance`, `Control plane and three
+  archetypes`, `Dual-track event router`, `Where the six pipelines converge`,
+  `One card from In Dev to SIT`, and `Release Orchestrator:` is gone from all of
+  them. `&` survives only where width is the constraint: 26 of the page's 28
+  ampersands are inside SVG labels, and the two that were in prose are gone.
+  `.dg-jump` went from `flex-wrap: wrap` to a column. Measured in the page at 390px
+  every one of the five entries is 21px tall, a single line; before this pass the
+  two longest were 41px. At 1280 they are five distinct rows with equal left
+  offsets, and the longest label is 39 characters against a container that fits 46.
 - **The five plates on `/diagrams/` now speak with one voice.** Four still carried
   their lab tier (`State Machine · GOLD 1 · Interactive Motion · Reference`) and a
   deck opening `GOLD 3 / Variant 3 (Dual-Track Router · Interactive Step Mode):`,
