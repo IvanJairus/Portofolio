@@ -165,6 +165,22 @@ All notable changes to this repository are documented here. The format follows
 
 ### Changed
 
+- **The spotlight moved to the front of the work and got the heading it was
+  missing.** It sat between `#architecture` and `#decisions`, at 17,161 to 18,132
+  on a 390px screen, the nineteenth screen of a twenty-five screen page, which is
+  not what a spotlight is for; the same file already argues that content at the
+  eighth and ninth screens was deep enough to move off the landing. It now sits
+  between `#about` and `#work`, at 2,207 to 3,283, the fourth screen. It was also
+  the only landing section without an `h2`, so its two `h3` read in the outline as
+  belonging to whatever heading came before. `Two pages behind the cards` is that
+  heading, written into `i18n.js` and regenerated into the fallback with
+  `scripts/sync-i18n.mjs`. Measured: the section is 1,076px tall against 971px
+  before the heading, the landing went 24,301px to 25,377px at 390, root transfers
+  414,801 B, Performance 89, Accessibility 99, TBT 0, CLS 0, `errors-in-console` 0.
+  Moving it out of `#work` changes nothing in skim mode, because the fold is
+  driven by `data-deep` on each section and the spotlight never carried it. The
+  `heading-order` audit still scores 0 on this page, and it did before the change:
+  that item is still open and is not fixed by this move.
 - **The plate list on `/diagrams/` now repeats each plate's own title, one per
   line.** The hero list described every plate a second time, so four of five
   entries disagreed with the heading they pointed at: `02 · control plane,

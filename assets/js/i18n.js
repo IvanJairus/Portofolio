@@ -328,6 +328,7 @@ window.I18N = {
     "footer.creed": "If the process needs a hero, the process is wrong.",
     "arch.atlas.link": "open the interactive control-plane and runner topology plate in the diagram atlas →",
 
+    "sl.title": "Two pages behind the cards",
     "sl.p1.eyebrow": "Architecture Blueprint",
     "sl.p1.badge": "5 plates",
     "sl.p1.title": "Five Interactive System Models",
