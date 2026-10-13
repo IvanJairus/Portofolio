@@ -155,6 +155,19 @@ All notable changes to this repository are documented here. The format follows
 
 ### Changed
 
+- **The five plates on `/diagrams/` now speak with one voice.** Four still carried
+  their lab tier (`State Machine · GOLD 1 · Interactive Motion · Reference`) and a
+  deck opening `GOLD 3 / Variant 3 (Dual-Track Router · Interactive Step Mode):`,
+  which named a control that no longer exists: `665ce87` deleted the playback bar
+  and `1bbffe6` replaced stepping with a loop that pauses ten seconds on the
+  finished frame. The fifth plate had already been rewritten as
+  `Sequence · reference implementation · Interactive`, so the page disagreed with
+  itself. Every eyebrow now reads `<kind> · reference implementation
+  · Interactive`, every deck leads with what the plate shows, and three `h2` lost
+  the `Release Orchestrator:` prefix only three of five had carried. No claim
+  moved: the phase, layer, guard and status counts are the ones already published
+  on the landing and drawn inside the SVG. Measured after the pass: Performance 99,
+  Accessibility 100, SEO 100, LCP 1.66 s, 137,397 B transferred, 222 B lighter.
 - **The report widget lost its tabs, and the code with them.** One card stays on
   the landing, and the two that are not shown are named by their own numbers
   ("1 critical, 5 medium, 31 services scanned") so the link carries the claim
