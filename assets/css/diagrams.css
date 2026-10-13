@@ -1,0 +1,313 @@
+/*
+  Interactive diagram atlas styles (/diagrams/).
+  Extracted from the five public diagram plates so all five share a single
+  stylesheet under strict CSP (style-src 'self').
+*/
+
+.dg-intro {
+  padding: calc(var(--header-h) + clamp(36px, 6vw, 72px)) 0 clamp(28px, 4vw, 44px);
+}
+
+.dg-intro .eyebrow,
+.dg-plate .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  margin: 0 0 8px;
+}
+
+.dg-intro h1 {
+  font-size: clamp(34px, 5.8vw, 60px);
+  line-height: 1.04;
+  letter-spacing: -0.032em;
+  margin: 10px 0 18px;
+}
+
+.dg-intro .lead {
+  max-width: 74ch;
+  margin-top: 0;
+}
+
+.dg-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin: 22px 0 0;
+  font-size: 12.5px;
+}
+
+.dg-jump a {
+  color: var(--accent-strong);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.dg-plate {
+  padding: clamp(34px, 4.5vw, 56px) 0;
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+
+.dg-plate-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px 20px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.dg-plate-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent-strong);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.dg-plate h2 {
+  font-size: clamp(22px, 2.8vw, 32px);
+  line-height: 1.16;
+  letter-spacing: -0.022em;
+  margin: 0 0 10px;
+}
+
+.dg-plate p.deck {
+  font-size: 14.5px;
+  line-height: 1.62;
+  color: var(--ink-dim);
+  max-width: 78ch;
+  margin: 0 0 18px;
+}
+
+[data-motion-root] {
+  --color-paper: #f5f5f5;
+  --color-ink: #2d3142;
+  --color-muted: #4f5d75;
+  --color-soft: #5a6580;
+  --color-accent: #a8360a;
+  --color-rule: rgba(45, 49, 66, 0.14);
+  --motion-fast: 160ms;
+  --motion-step: 480ms;
+  --motion-hold: 900ms;
+  --motion-total: 5400ms;
+  --motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  width: 100%;
+  min-width: 0;
+}
+
+.diagram-container {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--color-paper);
+}
+
+.diagram-container svg {
+  width: 100%;
+  min-width: 1080px;
+  height: auto;
+  display: block;
+}
+
+.motion-ready [data-motion-item] {
+  opacity: 0.14;
+  transform: translateY(6px);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity var(--motion-step) var(--motion-ease),
+              transform var(--motion-step) var(--motion-ease);
+}
+
+.motion-ready [data-motion-item].is-visible,
+.motion-ready[data-frame="end"] [data-motion-item],
+.motion-ready[data-frame="static"] [data-motion-item] {
+  opacity: 1;
+  transform: none;
+}
+
+.draw-path {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 2.6;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  pointer-events: none;
+}
+
+.motion-ready .draw-path.is-visible {
+  animation: draw-path var(--motion-step) linear forwards;
+}
+
+@keyframes draw-path {
+  to { stroke-dashoffset: 0; }
+}
+
+[data-motion-controls] {
+  display: none;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-rule);
+  border-radius: 6px;
+  background: #ffffff;
+}
+
+.motion-ready [data-motion-controls] {
+  display: flex;
+}
+
+[data-motion-controls][hidden] {
+  display: none !important;
+}
+
+[data-motion-controls] button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--color-muted);
+  border-radius: 4px;
+  color: var(--color-ink);
+  background: var(--color-paper);
+  font: 600 12px/1 var(--font-sans);
+  cursor: pointer;
+}
+
+[data-motion-controls] button[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: rgba(168, 54, 10, 0.08);
+  color: var(--color-accent);
+}
+
+[data-motion-controls] button:hover {
+  border-color: var(--color-accent);
+}
+
+[data-motion-controls] button:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+[data-motion-controls] button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.keyboard-help {
+  color: var(--color-muted);
+  font: 400 11.5px/1.4 var(--font-mono);
+  margin-left: 8px;
+}
+
+[data-motion-status-visible] {
+  margin-left: auto;
+  color: var(--color-ink);
+  font: 600 12px/1.4 var(--font-mono);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+noscript p {
+  margin: 12px 0 0;
+  color: var(--color-muted);
+  font: 500 12px/1.4 var(--font-mono);
+}
+
+.dg-end {
+  padding: clamp(32px, 4.5vw, 52px) 0;
+}
+
+.dg-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin: 0 0 14px;
+  font-size: 13px;
+}
+
+.dg-nav a {
+  color: var(--accent-strong);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.dg-nav a + a {
+  color: var(--ink-dim);
+}
+
+.care-note {
+  margin: 0;
+  max-width: 72ch;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--ink-faint);
+}
+
+html[data-motion="static"] [data-motion-controls],
+html[data-motion="static"] [data-motion-decorative] {
+  display: none !important;
+}
+
+html[data-motion="static"] [data-motion-item] {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+html[data-motion="step"] [data-motion-controls],
+html[data-motion="step"] [data-motion-decorative] {
+  display: none !important;
+}
+
+html[data-motion="step"] [data-motion-item] {
+  animation: none !important;
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-motion-item] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  [data-motion-decorative] {
+    display: none !important;
+  }
+  [data-motion-controls] {
+    display: none !important;
+  }
+}
+
+@media print {
+  .diagram-container {
+    overflow-x: visible;
+  }
+  .diagram-container svg {
+    min-width: 0;
+  }
+  [data-motion-controls],
+  [data-motion-decorative] {
+    display: none !important;
+  }
+  [data-motion-item] {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
