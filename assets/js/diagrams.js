@@ -114,9 +114,10 @@
 
     roots.forEach((root) => {
       const count = Number(root.dataset.stepCount);
-      const hold =
-        parseFloat(getComputedStyle(root).getPropertyValue("--motion-hold")) ||
-        420;
+      const styles = getComputedStyle(root);
+      const hold = parseFloat(styles.getPropertyValue("--motion-hold")) || 420;
+      const loopPause =
+        parseFloat(styles.getPropertyValue("--motion-loop-pause")) || 10000;
       const parsedStep =
         requestedStep !== null && /^\d+$/.test(requestedStep)
           ? Number(requestedStep)
@@ -171,8 +172,8 @@
         }
         const nextStep = step + 1;
         render(nextStep);
-        /* Hold slightly longer on the complete frame before looping again */
-        const nextDelay = nextStep >= count ? Math.round(hold * 2.4) : hold;
+        /* Hold for 10 seconds on the completed frame before looping again */
+        const nextDelay = nextStep >= count ? loopPause : hold;
         timer = window.setTimeout(tick, nextDelay);
       }
 

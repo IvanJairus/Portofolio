@@ -93,6 +93,7 @@
   --motion-fast: 120ms;
   --motion-step: 260ms;
   --motion-hold: 420ms;
+  --motion-loop-pause: 10000ms;
   --motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   width: 100%;
   min-width: 0;
