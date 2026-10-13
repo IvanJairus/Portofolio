@@ -334,13 +334,11 @@ window.I18N = {
     "sl.p1.title": "Five Interactive System Models",
     "sl.p1.desc": "21-phase board governance, control plane and three archetypes, dual-track event router, where the six pipelines converge, and one card from In Dev to SIT.",
     "sl.p1.cta": "explore diagram atlas",
-    "sl.p1.sub": "state machine",
     "sl.p2.eyebrow": "Execution Proof",
     "sl.p2.badge": "dual engine",
     "sl.p2.title": "Dual-Engine CI Verification",
     "sl.p2.desc": "GitLab CI and Jenkins graphs evaluated against shared Groovy rules, with 217 console lines mapped to source files.",
     "sl.p2.cta": "inspect pipeline traces",
-    "sl.p2.sub": "release gate",
   }
 
 };
