@@ -82,20 +82,40 @@
   ],
   "rewrites": [
     {
+      "source": "/portfolio",
+      "destination": "/index.html"
+    },
+    {
       "source": "/portfolio/",
       "destination": "/index.html"
+    },
+    {
+      "source": "/portfolio/decisions",
+      "destination": "/decisions/index.html"
     },
     {
       "source": "/portfolio/decisions/",
       "destination": "/decisions/index.html"
     },
     {
+      "source": "/portfolio/reports",
+      "destination": "/reports/index.html"
+    },
+    {
       "source": "/portfolio/reports/",
       "destination": "/reports/index.html"
     },
     {
+      "source": "/portfolio/pipelines",
+      "destination": "/pipelines/index.html"
+    },
+    {
       "source": "/portfolio/pipelines/",
       "destination": "/pipelines/index.html"
+    },
+    {
+      "source": "/portfolio/diagrams",
+      "destination": "/diagrams/index.html"
     },
     {
       "source": "/portfolio/diagrams/",
