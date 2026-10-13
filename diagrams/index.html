@@ -54,10 +54,10 @@
         <h1>The release machinery, drawn in full.</h1>
         <p class="lead">Five interactive diagrams covering the twenty-one-phase issue-board state machine, the control-plane and runner topology, the dual-track webhook router, the six-domain pipeline convergence graph, and the end-to-end sequence of a single card from In Dev to SIT. Each plate animates and loops automatically when scripts run, and renders in full without JavaScript.</p>
         <p class="dg-jump mono">
-          <a href="#state-governance">01 · 21-phase governance &amp; state machine</a>
-          <a href="#control-plane">02 · control plane, archetypes &amp; anti-loop</a>
-          <a href="#event-router">03 · dual-track event router flowchart</a>
-          <a href="#dependency-graph">04 · six-domain dependency convergence</a>
+          <a href="#state-governance">01 · 21-phase board governance</a>
+          <a href="#control-plane">02 · control plane and three archetypes</a>
+          <a href="#event-router">03 · dual-track event router</a>
+          <a href="#dependency-graph">04 · where the six pipelines converge</a>
           <a href="#sequence-sit">05 · one card from In Dev to SIT</a>
         </p>
       </div>
@@ -69,7 +69,7 @@
           <p class="eyebrow">State machine · reference implementation · Interactive</p>
           <a class="dg-plate-link" href="#state-governance">#state-governance</a>
         </div>
-        <h2>21-phase Kanban governance and state machine</h2>
+        <h2>21-phase board governance</h2>
         <p class="deck">The board itself carries the state. Twelve sequential upstream phases (PHASE_FLOW), five-layer role approvals, four automated execution statuses (In Dev, In Review, Merged, Deploy), four anti-loop guard layers, and nine downstream testing and promotion phases (MULTIPLE_FLOW) are all enforced by it.</p>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 680" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -222,7 +222,7 @@
           <p class="eyebrow">Architecture · reference implementation · Interactive</p>
           <a class="dg-plate-link" href="#control-plane">#control-plane</a>
         </div>
-        <h2>Control plane, three execution archetypes, and the loop back</h2>
+        <h2>Control plane and three archetypes</h2>
         <p class="deck">One control plane, three execution archetypes. The orchestrator reads the board and dispatches; the execution plane runs the same contract three ways (Router+Container/Mobile, Hybrid SSH VM+OCP, Template/Shell OCP), and the dashed return is the closed webhook loop that Rule 0 stops.</p>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 672" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -373,7 +373,7 @@
           <p class="eyebrow">Flowchart · reference implementation · Interactive</p>
           <a class="dg-plate-link" href="#event-router">#event-router</a>
         </div>
-        <h2>Dual-track event router after the four-layer guard</h2>
+        <h2>Dual-track event router</h2>
         <p class="deck">Every event enters one router. Past the four-layer anti-loop filter it splits into two parallel tracks: the Work-Item and MR release lifecycle on the left, ChatOps and the scheduled security jobs on the right.</p>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 760" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -510,7 +510,7 @@
           <p class="eyebrow">Dependency graph · reference implementation · Interactive</p>
           <a class="dg-plate-link" href="#dependency-graph">#dependency-graph</a>
         </div>
-        <h2>What the six domain pipelines converge on</h2>
+        <h2>Where the six pipelines converge</h2>
         <p class="deck">Ranked by dependency depth. The orchestrator reads one routing table and triggers six domain pipelines; those six deploy into the product repositories and converge on two shared projects. The dashed line is the one that is not a tree: a merged MR arrives back at the orchestrator as a webhook event, which is what the anti-loop guard exists to stop.</p>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 700" xmlns="http://www.w3.org/2000/svg" role="img"
