@@ -221,8 +221,12 @@ All notable changes to this repository are documented here. The format follows
   `i18n.js` but not `main.js`, and `main.js` is the only consumer of `window.I18N`,
   so the 262 `data-i18n` attributes on the page were inert and the fallback text
   was already what every visitor saw. Dropping the script tag and the attributes
-  left the rendered page byte-identical, proven by comparing the SHA-256 of a
-  1280x2600 screenshot before and after: `b69e1c8de1e5fd3a` both times. The page
+  left the rendered page identical, proven two ways on `?motion=static` so the
+  capture is not a frame of a loop: the SHA-256 of a 1280x2600 screenshot is
+  `b69e1c8de1e5fd3a` on both revisions, and the visible text, scripts and SVG
+  markup stripped, is 552 words and byte-equal. A screenshot without that query
+  parameter is not a proof, it lands on a different frame of the auto-loop each
+  run. The page
   went from 183,728 B to 135,487 B raw, 45,346 B to 29,679 B gzipped. The 251
   `dg.*` keys nobody else referenced came out of `i18n.js` too, 579 keys to 328
   and 42,287 B to 27,506 B, which lightened the landing as well, since that is the
