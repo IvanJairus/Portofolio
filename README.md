@@ -18,6 +18,12 @@ python3 -m http.server 8731
 Push to `main`. Vercel serves the repo statically and `vercel.json` sets the CSP, the
 security headers, the cache policy and the apex redirect.
 
+The site is mounted at `https://www.ivanjairus.xyz/portfolio/` by the `ij-gateway`
+project, which owns the domain root. On its own `*.vercel.app` origin it also serves
+under `/portfolio/`, through the internal rewrite in `vercel.json`, so the mounted
+path and the origin path resolve to the same files. Files in the repo stay where they
+are: `assets/`, `pipelines/` and the rest are never moved.
+
 ## Notes
 
 - All figures, names, hosts and screenshots on the site are sanitized dummy data; the engineering described is real.

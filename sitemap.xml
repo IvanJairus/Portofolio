@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Four pages: the landing, /pipelines/, /reports/, /decisions/. -->
+<!-- Five pages: the landing, /pipelines/, /diagrams/, /reports/, /decisions/. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.ivanjairus.xyz/</loc>
+    <loc>https://www.ivanjairus.xyz/portfolio/</loc>
     <lastmod>2026-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.ivanjairus.xyz/decisions/</loc>
+    <loc>https://www.ivanjairus.xyz/portfolio/decisions/</loc>
     <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.ivanjairus.xyz/reports/</loc>
+    <loc>https://www.ivanjairus.xyz/portfolio/reports/</loc>
     <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.ivanjairus.xyz/pipelines/</loc>
+    <loc>https://www.ivanjairus.xyz/portfolio/diagrams/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ivanjairus.xyz/portfolio/pipelines/</loc>
     <lastmod>2026-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

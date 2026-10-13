@@ -22,14 +22,19 @@ jobs:
       - uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
           # lychee 0.18 no longer knows --root (replaced by --root-dir, which needs an
-          # absolute path). This site only uses relative links, so a root is not
-          # needed. localhost (sample README), mailto: and linkedin (returns
-          # 999 to automated agents / bot blocking) are excluded to avoid false positives.
+          # absolute path). Every link a visitor follows here is relative, so a root
+          # is not needed. localhost (sample README), mailto: and linkedin (returns
+          # 999 to automated agents / bot blocking) are excluded to avoid false
+          # positives. Own domain too: the absolute URLs on a page are its canonical
+          # and og declarations, which name where the page will live rather than a
+          # link to crawl, and the live copy of those headers is asserted by the
+          # Published headers check.
           args: >-
             --no-progress
             --exclude 'localhost'
             --exclude 'mailto:'
             --exclude 'linkedin\.com'
+            --exclude 'ivanjairus\.xyz'
             index.html pipelines/index.html README.md
           fail: true
         env:
