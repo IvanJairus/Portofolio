@@ -15,7 +15,7 @@
 
 import { readFileSync } from 'node:fs';
 
-const PAGES = ['index.html', '404.html', 'pipelines/index.html', 'reports/index.html', 'decisions/index.html'];
+const PAGES = ['index.html', '404.html', 'pipelines/index.html', 'reports/index.html', 'decisions/index.html', 'diagrams/index.html'];
 const CARD = /class="[^"]*\b(mail-card|dec-card|pf-card|wv)\b[^"]*"([^>]*)>/g;
 
 const problems = [];

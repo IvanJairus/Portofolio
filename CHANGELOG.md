@@ -31,6 +31,31 @@ All notable changes to this repository are documented here. The format follows
 
 ### Added
 
+- **`/diagrams/`, five plates, and the landing stayed link-only.** The architecture
+  suite that had lived in a local lab folder is now a sixth page: 21-phase board
+  governance, control plane and runner topology, dual-track event router, six-domain
+  dependency convergence, and the card-to-SIT sequence, each with its own deep link
+  (`#state-governance`, `#control-plane`, `#event-router`, `#dependency-graph`,
+  `#sequence-sit`). The SVG markup is inline, its CSS and JS sit in
+  `assets/css/diagrams.css` and the atlas branch of `assets/js/diagrams.js`, and
+  every plate carries `data-frame="end"` with `data-static-frame="complete"`, so a
+  reader without JavaScript gets the finished diagram rather than an empty frame.
+  The landing did not gain a fourth inline SVG: it gained links, one in the primary
+  nav, two on the work cards, one under the gateway diagram, one in the footer band.
+  That is a weight decision, not a taste one, because the landing already transfers
+  407,741 B against a 524,288 B ceiling. Measured on this branch with the flags CI
+  uses (`lighthouse@13.5.0`, mobile, `--force-prefers-reduced-motion`): `/diagrams/`
+  scores Performance 99, Accessibility 100, Best-Practices 100, SEO 100, FCP 1.502 s,
+  LCP 1.652 s, TBT 0 ms, CLS 0, and transfers 137,661 B, the lightest page on the
+  site. The landing itself moved 401,859 B to 407,741 B against `main`, +5,882 B for
+  the five new link labels, with LCP 3,307 ms to 3,306 ms and Performance 89 to 90.
+  The deep links were proven in a same-origin frame rather than by screenshot:
+  `#control-plane` lands the plate at 81 px from the top, which is exactly its
+  `scroll-margin-top`, and `#sequence-sit` at the same offset. A headless screenshot
+  of a fragment returns a blank frame either way and proves nothing about the page.
+  The 390px reading of each plate is a horizontal pan inside its container by design
+  (`min-width: 1080px`), not a reflow. Built across `47ac390` to `1dc1cda`, then
+  trimmed and wired into CI in `ea628ac`.
 - **`/decisions/`, a fourth page, and the landing finally got shorter.**
   `#runtime` and `#decisions` were eleven `decision / alternative / why / cost`
   cards and 1,252 words of prose sitting at the eighth and ninth screen of a
@@ -199,6 +224,52 @@ All notable changes to this repository are documented here. The format follows
   of each file leaves byte-identical code.
 
 ### Fixed
+
+- **The atlas contradicted the landing about how many services there are.** The
+  three archetype labels read `mobile · wallet : 26 services`,
+  `portal · core : 38 services`, `identity · ledger : 39 services`, which is 103,
+  while `index.html` says 53 services in seven places, the hero line and a node of
+  its own gateway diagram among them. The lab's internal edition states
+  `103 services` five times across four files, so the three numbers were one
+  population split three ways, not two measures of two different things. No basis
+  could be named for either figure, so the counts are gone and the labels
+  carry the domain names only: `grep -o ">[^<]*services[^<]*<" diagrams/index.html`
+  now returns nothing, the archetype boxes lost no layout, and the page moved
+  137,661 B to 137,619 B with Performance 99 and CLS 0 unchanged. **What this did
+  not settle:** the 53 on the landing is still published without a source or a
+  counting basis, which is the rule in `DESIGN.md` it has yet to meet.
+
+- **The performance gate did not measure the page it was added for.** The
+  `for page in` list at `quality.yml:97` carried four URLs, so `/diagrams/` had no
+  Lighthouse budget on the runner, the same class of gap as the two CI file lists
+  above. It is the fifth page measured now, and its local baseline is written next
+  to the loop: Performance 99, Accessibility 100, FCP 1.50 s, LCP 1.65 s, TBT 0 ms,
+  CLS 0, 137,661 B. The comment above the loop said "Two pages are measured" while
+  four were, so the count there was wrong before this too.
+
+- **`/diagrams/` downloaded a 42 KB dictionary that nothing read.** The page loaded
+  `i18n.js` but not `main.js`, and `main.js` is the only consumer of `window.I18N`,
+  so the 262 `data-i18n` attributes on the page were inert and the fallback text
+  was already what every visitor saw. Dropping the script tag and the attributes
+  left the rendered page identical, proven two ways on `?motion=static` so the
+  capture is not a frame of a loop: the SHA-256 of a 1280x2600 screenshot is
+  `b69e1c8de1e5fd3a` on both revisions, and the visible text, scripts and SVG
+  markup stripped, is 552 words and byte-equal. A screenshot without that query
+  parameter is not a proof, it lands on a different frame of the auto-loop each
+  run. The page
+  went from 183,728 B to 135,487 B raw, 45,346 B to 29,679 B gzipped. The 251
+  `dg.*` keys nobody else referenced came out of `i18n.js` too, 579 keys to 328
+  and 42,287 B to 27,506 B, which lightened the landing as well, since that is the
+  page that really does load the dictionary. The convention was the tell: `pipelines/`,
+  `decisions/` and `reports/` carry no `data-i18n` at all, and `sync-i18n.mjs`
+  generates the fallback for `index.html` only. The atlas had invented a rule and
+  then not followed it.
+- **Two CI lists did not know the new page existed.** `security.yml` ran
+  `html-validate@8` over five named files and `check-visible.mjs` carried the same
+  five-item `PAGES` list, so `diagrams/index.html` was validated by neither. Both
+  lists include it now. The card gate is a no-op on that page today, it has no
+  `mail-card`, `dec-card`, `pf-card` or `wv` element, and it is added anyway so a
+  card copied there later cannot ship `hidden`.
 
 - **Two of the three reports were invisible on `/reports/`, found on a real
   phone.** The cards were copied out of the tabbed widget with their `hidden`

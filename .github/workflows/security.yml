@@ -43,11 +43,11 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 20
-      # The static markup of the three pages is checked. The limit: DOM built by
+      # The static markup of every page is checked, six files. The limit: DOM built by
       # JavaScript (stage columns, trace, source tree) does not come through here, so
       # a rule like the type on a button is only proven for what is in the
       # HTML files; the rest is verified in a browser, not assumed valid.
-      - run: npx --yes html-validate@8 index.html 404.html pipelines/index.html reports/index.html decisions/index.html
+      - run: npx --yes html-validate@8 index.html 404.html pipelines/index.html reports/index.html decisions/index.html diagrams/index.html
 
       # A card that ships with `hidden` renders as a heading over nothing, which
       # is the bug this page exists to avoid. Static, so it costs no browser.
