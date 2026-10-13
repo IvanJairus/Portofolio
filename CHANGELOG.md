@@ -42,12 +42,20 @@ All notable changes to this repository are documented here. The format follows
   reader without JavaScript gets the finished diagram rather than an empty frame.
   The landing did not gain a fourth inline SVG: it gained links, one in the primary
   nav, two on the work cards, one under the gateway diagram, one in the footer band.
-  That is a weight decision, not a taste one, because `index.html` already ships
-  371,996 B raw and 108,195 B gzipped against a 524,288 B ceiling. Commits
-  `47ac390` through `1dc1cda`. **Not yet measured:** Lighthouse has never run
-  against this page, so its Performance and CLS are unknown here, and the 390px
-  reading of each plate is a horizontal pan inside its container by design
-  (`min-width: 1080px`), not a reflow.
+  That is a weight decision, not a taste one, because the landing already transfers
+  407,741 B against a 524,288 B ceiling. Measured on this branch with the flags CI
+  uses (`lighthouse@13.5.0`, mobile, `--force-prefers-reduced-motion`): `/diagrams/`
+  scores Performance 99, Accessibility 100, Best-Practices 100, SEO 100, FCP 1.502 s,
+  LCP 1.652 s, TBT 0 ms, CLS 0, and transfers 137,661 B, the lightest page on the
+  site. The landing itself moved 401,859 B to 407,741 B against `main`, +5,882 B for
+  the five new link labels, with LCP 3,307 ms to 3,306 ms and Performance 89 to 90.
+  The deep links were proven in a same-origin frame rather than by screenshot:
+  `#control-plane` lands the plate at 81 px from the top, which is exactly its
+  `scroll-margin-top`, and `#sequence-sit` at the same offset. A headless screenshot
+  of a fragment returns a blank frame either way and proves nothing about the page.
+  The 390px reading of each plate is a horizontal pan inside its container by design
+  (`min-width: 1080px`), not a reflow. Built across `47ac390` to `1dc1cda`, then
+  trimmed and wired into CI in `ea628ac`.
 - **`/decisions/`, a fourth page, and the landing finally got shorter.**
   `#runtime` and `#decisions` were eleven `decision / alternative / why / cost`
   cards and 1,252 words of prose sitting at the eighth and ninth screen of a
