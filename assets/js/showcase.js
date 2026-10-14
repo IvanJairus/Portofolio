@@ -9,7 +9,14 @@
 
   var RM = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function T(k) { return window.PF ? window.PF.t(k) : k; }
-  function esc(s) { return window.PF ? window.PF.escape(s) : String(s); }
+  /* The fallback escapes for itself. Falling open to String(s) would turn a script
+     load-order mistake into raw HTML rendered silently instead of a visible failure. */
+  var ESC = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+  function esc(s) {
+    return window.PF
+      ? window.PF.escape(s)
+      : String(s).replace(/[&<>"']/g, function (c) { return ESC[c]; });
+  }
 
   function setSafeHtml(el, str) {
     el.replaceChildren();
