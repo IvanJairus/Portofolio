@@ -341,6 +341,21 @@ window.I18N = {
     "sl.p2.title": "Dual-Engine CI Verification",
     "sl.p2.desc": "GitLab CI and Jenkins graphs evaluated against shared Groovy rules, with 217 console lines mapped to source files.",
     "sl.p2.cta": "inspect pipeline traces",
+    "gw.floor.label": "www.ivanjairus.xyz · Gateway Floor",
+    "gw.floor.title": "Two ways in.",
+    "gw.floor.sub": "One holds the work. The other holds the games.",
+    "gw.floor.link": "Open root gateway: ivanjairus.xyz ↗",
+    "gw.card1.tag": "PORTFOLIO · CURRENT",
+    "gw.card1.title": "DevSecOps Platform",
+    "gw.card1.desc": "53 services, GitLab CI + Jenkins gateway, 52 fail-closed rules, and ~90% release lead time reduction.",
+    "gw.card1.repos": "Public code references:",
+    "gw.card1.status": "/portfolio/ active",
+    "gw.card2.tag": "GAMES · PERSONAL CRAFT",
+    "gw.card2.title": "Games",
+    "gw.card2.desc": "Interactive browser games and turn-based board mechanics. Playable across local and multiplayer rooms.",
+    "gw.card2.craft": "Engineering craft:",
+    "gw.card2.craft_desc": "Real-time room state synchronization, event-driven state machines, and canvas graphics outside enterprise CI/CD.",
+    "gw.card2.action": "/games/ open ↗",
   }
 
 };
