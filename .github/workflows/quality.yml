@@ -163,11 +163,42 @@ jobs:
           last_status=000
 
           check() {
-            if [ "$1" = "-" ]; then
-              grep -qi "$2" "$raw"
+            # check <direction> <pattern> [file], file defaults to the live response.
+            local mode="$1" pattern="$2" file="${3:-$raw}"
+            if [ "$mode" = "-" ]; then
+              grep -qi "$pattern" "$file"
             else
-              ! grep -qi "$2" "$raw"
+              ! grep -qi "$pattern" "$file"
             fi
+          }
+
+          # Every protection vercel.json is written to set, asserted by name. The list
+          # living here is the point: deleting one directive from the config has to turn
+          # this job red, and the nine hand-written checks before it did not.
+          policy_ok() {
+            local f="$1" ok=1
+            check - "^content-security-policy:.*default-src 'self'" "$f" || ok=0
+            check - "^content-security-policy:.*style-src 'self'" "$f" || ok=0
+            check - "^content-security-policy:.*script-src 'self'" "$f" || ok=0
+            check - "^content-security-policy:.*img-src 'self'" "$f" || ok=0
+            check - "^content-security-policy:.*connect-src 'self'" "$f" || ok=0
+            check - "^content-security-policy:.*base-uri 'none'" "$f" || ok=0
+            check - "^content-security-policy:.*form-action 'none'" "$f" || ok=0
+            check - "^content-security-policy:.*frame-ancestors 'none'" "$f" || ok=0
+            check x "^content-security-policy:.*unsafe-inline" "$f" || ok=0
+            check - "^strict-transport-security:.*max-age=" "$f" || ok=0
+            check - "^strict-transport-security:.*includeSubDomains" "$f" || ok=0
+            check - "^x-content-type-options: *nosniff" "$f" || ok=0
+            check - "^referrer-policy: *strict-origin-when-cross-origin" "$f" || ok=0
+            check - "^cross-origin-opener-policy: *same-origin" "$f" || ok=0
+            check - "^cross-origin-resource-policy: *same-origin" "$f" || ok=0
+            check - "^permissions-policy:.*camera=()" "$f" || ok=0
+            check - "^permissions-policy:.*payment=()" "$f" || ok=0
+            # clipboard-write is allowed to self on purpose: the email copy
+            # button and the copy buttons on this page use
+            # navigator.clipboard.writeText, so denying it would break a feature.
+            check - "^permissions-policy:.*clipboard-write=(self)" "$f" || ok=0
+            [ "$ok" = 1 ]
           }
 
           compliant=0
@@ -175,18 +206,7 @@ jobs:
             last_status=$(curl -sS -o /dev/null -D "$raw" -w '%{http_code}' "$url" || echo "000")
             ok=1
             [ "$last_status" = "200" ] || ok=0
-            check -  "^content-security-policy:.*style-src 'self'" || ok=0
-            check x  "^content-security-policy:.*unsafe-inline"    || ok=0
-            check -  "^content-security-policy:.*default-src 'self'" || ok=0
-            check -  "^strict-transport-security:.*max-age="       || ok=0
-            check -  "^strict-transport-security:.*includeSubDomains" || ok=0
-            check -  "^x-content-type-options: *nosniff"           || ok=0
-            check -  "^permissions-policy:.*camera=()"             || ok=0
-            check -  "^permissions-policy:.*payment=()"            || ok=0
-            # clipboard-write is allowed to self on purpose: the email copy
-            # button and the copy buttons on this page use
-            # navigator.clipboard.writeText, so denying it would break a feature.
-            check -  "^permissions-policy:.*clipboard-write=(self)" || ok=0
+            policy_ok "$raw" || ok=0
 
             if [ "$ok" = "1" ]; then
               compliant=1
@@ -202,6 +222,16 @@ jobs:
             cat "$raw" >&2
             exit 1
           fi
+
+          # A gate that cannot fail is not a gate. The negative fixture is cut out of
+          # the response the gate just accepted, by weakening one directive, so it can
+          # never drift away from what the site actually sends.
+          sed "s/script-src 'self'/script-src/" "$raw" > /tmp/weakened-headers.txt
+          if policy_ok /tmp/weakened-headers.txt; then
+            echo "selftest failed: the gate accepted a response without script-src 'self'" >&2
+            exit 1
+          fi
+          echo "selftest ok: the same gate rejects that response with script-src weakened"
 
   copy:
     name: Copy gates (parity, dash-as-connector)
