@@ -200,6 +200,8 @@ window.I18N = {
     "hero.terminal.2": "devsecops // pipelines-as-a-product",
     "hero.terminal.3": "$ status --all",
     "hero.terminal.4": "gates: enforced   scans: wired   releases: boring",
+    "hero.terminal.chips.label": "run:",
+    "hero.terminal.chips.clear": "clear",
     "hero.photo.alt": "Ivan Jairus, DevSecOps",
 
 

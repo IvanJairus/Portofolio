@@ -131,13 +131,19 @@
         </div>
 
         <div class="hero-after">
-          <div class="terminal" aria-hidden="true">
+          <div class="terminal">
             <div class="terminal-bar"><i></i><i></i><i></i><span>~/ivan · zsh</span></div>
             <div class="terminal-body">
               <div class="ln cmd" data-i18n="hero.terminal.1">$ whoami</div>
               <div class="ln out" data-i18n="hero.terminal.2">devsecops // pipelines-as-a-product</div>
               <div class="ln cmd" data-i18n="hero.terminal.3">$ status --all</div>
               <div class="ln out dim-out" data-i18n="hero.terminal.4">gates: enforced   scans: wired   releases: boring</div>
+            </div>
+            <div class="terminal-chips">
+              <span class="tc-label mono" data-i18n="hero.terminal.chips.label">run:</span>
+              <button type="button" class="tc-btn mono" data-term-cmd="impact">$ ivan --impact</button>
+              <button type="button" class="tc-btn mono" data-term-cmd="incident">$ ivan --incident</button>
+              <button type="button" class="tc-btn mono" data-term-cmd="clear" data-i18n="hero.terminal.chips.clear">clear</button>
             </div>
           </div>
 
@@ -1177,8 +1183,21 @@
     </div>
   </footer>
 
-  <!-- mobile CTA: one pill, appears after the hero and stops at Contact -->
-  <a class="mcta" href="#contact" data-mcta hidden><span data-i18n="hero.cta.contact">Get in touch</span></a>
+  <!-- mobile quick action dock: appears past the hero and hides at contact -->
+  <nav class="floating-action-bar" data-mcta aria-label="Mobile quick actions" hidden>
+    <a class="fab-btn fab-primary" href="assets/cv/cv-ivan-jairus.pdf" download>
+      <svg class="fab-ic" viewBox="0 0 24 24" aria-hidden="true" width="15" height="15"><path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm2 14h-8v-2h8v2zm0-4h-8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+      <span data-i18n="hero.cta.cv">CV (PDF)</span>
+    </a>
+    <a class="fab-btn" href="mailto:Filemonivanjairus@gmail.com">
+      <svg class="fab-ic" viewBox="0 0 24 24" aria-hidden="true" width="15" height="15"><path fill="currentColor" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      <span data-i18n="contact.email">Email</span>
+    </a>
+    <a class="fab-btn" href="https://www.linkedin.com/in/ivan-jairus/" target="_blank" rel="noopener noreferrer">
+      <svg class="fab-ic" viewBox="0 0 24 24" aria-hidden="true" width="15" height="15"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76c-.99 0-1.8.8-1.8 1.8s.8 1.8 1.8 1.8 1.8-.8 1.8-1.8-.81-1.8-1.8-1.8m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg>
+      <span>LinkedIn</span>
+    </a>
+  </nav>
 
   <script defer src="assets/js/observability.js"></script>
   <script defer src="assets/js/config.js"></script>

@@ -180,30 +180,101 @@
     const lines = Array.from(body.querySelectorAll(".ln"));
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const texts = lines.map((l) => l.textContent);
-    if (reduced) return;
-    lines.forEach((l) => (l.textContent = ""));
 
-    let li = 0;
-    function typeLine() {
-      if (li >= lines.length) return;
-      const el = lines[li];
-      const text = texts[li];
-      const isCmd = el.classList.contains("cmd");
-      let ci = 0;
-      const speed = isCmd ? 42 : 12;
-      const tick = () => {
-        ci += 1;
-        el.textContent = text.slice(0, ci);
-        if (ci < text.length) setTimeout(tick, speed);
-        else { li += 1; setTimeout(typeLine, isCmd ? 260 : 120); }
-      };
-      setTimeout(tick, isCmd ? 200 : 40);
+    if (!reduced) {
+      lines.forEach((l) => (l.textContent = ""));
+
+      let li = 0;
+      function typeLine() {
+        if (li >= lines.length) return;
+        const el = lines[li];
+        const text = texts[li];
+        const isCmd = el.classList.contains("cmd");
+        let ci = 0;
+        const speed = isCmd ? 42 : 12;
+        const tick = () => {
+          ci += 1;
+          el.textContent = text.slice(0, ci);
+          if (ci < text.length) setTimeout(tick, speed);
+          else { li += 1; setTimeout(typeLine, isCmd ? 260 : 120); }
+        };
+        setTimeout(tick, isCmd ? 200 : 40);
+      }
+      /* start once the hero is visible */
+      const io = new IntersectionObserver((en) => {
+        if (en[0].isIntersecting) { io.disconnect(); typeLine(); }
+      }, { threshold: 0.4 });
+      io.observe(body);
     }
-    /* start once the hero is visible */
-    const io = new IntersectionObserver((en) => {
-      if (en[0].isIntersecting) { io.disconnect(); typeLine(); }
-    }, { threshold: 0.4 });
-    io.observe(body);
+
+    /* Appends simulated CLI output to the terminal body without layout shift. */
+    const chips = Array.from(document.querySelectorAll("[data-term-cmd]"));
+    if (!chips.length) return;
+
+    const commands = {
+      impact: {
+        cmd: "$ ivan --impact",
+        out: "53 services · 2 CI engines · ~90% lead time cut",
+        dim: false
+      },
+      incident: {
+        cmd: "$ ivan --incident",
+        out: "zero prod spill · MTTR 14m · gate rule #38 enforced",
+        dim: true
+      }
+    };
+
+    chips.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const cmdKey = btn.dataset.termCmd;
+        if (cmdKey === "clear") {
+          body.querySelectorAll(".active-run").forEach((el) => el.remove());
+          chips.forEach((c) => c.classList.remove("active"));
+          return;
+        }
+
+        const data = commands[cmdKey];
+        if (!data) return;
+
+        const existing = Array.from(body.querySelectorAll(".ln.cmd.active-run"));
+        if (existing.some((el) => el.textContent === data.cmd)) return;
+
+        btn.classList.add("active");
+        const cmdEl = document.createElement("div");
+        cmdEl.className = "ln cmd active-run";
+        const outEl = document.createElement("div");
+        outEl.className = "ln out active-run" + (data.dim ? " dim-out" : "");
+
+        body.appendChild(cmdEl);
+        body.appendChild(outEl);
+
+        if (reduced) {
+          cmdEl.textContent = data.cmd;
+          outEl.textContent = data.out;
+          return;
+        }
+
+        let ci = 0;
+        const tickCmd = () => {
+          ci += 1;
+          cmdEl.textContent = data.cmd.slice(0, ci);
+          if (ci < data.cmd.length) {
+            setTimeout(tickCmd, 25);
+          } else {
+            let oi = 0;
+            const tickOut = () => {
+              oi += 1;
+              outEl.textContent = data.out.slice(0, oi);
+              if (oi < data.out.length) {
+                setTimeout(tickOut, 10);
+              }
+            };
+            setTimeout(tickOut, 80);
+          }
+        };
+        tickCmd();
+      });
+    });
   }
 
   /* nav: active section + mobile menu */
