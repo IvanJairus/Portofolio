@@ -62,10 +62,16 @@ All notable changes to this repository are documented here. The format follows
   Two consequences were not predictable from the docs. Setting Status to Done made
   `github-project-automation` close every linked Issue with
   `state_reason: completed`, so the showcase reads as twelve finished Issues rather
-  than twelve open ones. And the timeline logs an item's arrival as a change from an
-  empty status, which is the card being created rather than a column being moved, so
-  `summaries` ignores events with no `previousStatus` instead of presenting a build
-  as activity.
+  than twelve open ones. And `summaries` had to be rebuilt on a different source of
+  truth: measured on this board, GitHub's
+  `ProjectV2ItemStatusChangedEvent` timeline is lossy. Three deliberate Status
+  writes, each read back as applied, produced one event. Nine of the twelve cards
+  built by `build` show no event at all although their column clearly changed. The
+  first run of `summaries` therefore summarized 3 cards out of 12, missing 9 moves
+  it should have reported. It now diffs the card's current column against the
+  snapshot in its own marker comment, so coverage is every change between two runs,
+  and reads the timeline only for who and when. A card that already carries a
+  summary gets that comment edited rather than a second one.
 
 - **`#spotlight`, two panels on the landing, and what they cost.** A band between
   `#architecture` and `#decisions` now points at the two pages that had outgrown

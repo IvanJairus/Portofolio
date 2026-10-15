@@ -14,6 +14,7 @@
 
     node scripts/sync-board.mjs --mode=plan
     node scripts/sync-board.mjs --mode=check
+    node scripts/sync-board.mjs --mode=summaries --dry
     node scripts/sync-board.mjs --mode=build
     node scripts/sync-board.mjs --mode=summaries
 
@@ -27,6 +28,7 @@ import {
 } from "./board-lib.mjs";
 
 const MODE = (process.argv.find((a) => a.startsWith("--mode=")) || "--mode=plan").split("=")[1];
+const DRY = process.argv.includes("--dry");
 const PROJECT_NUMBER = Number(process.env.PORTFOLIO_BOARD_PROJECT || 1);
 const OWNER = process.env.BOARD_OWNER || repoOwner;
 const REPO = process.env.BOARD_REPO || repoName;
@@ -185,6 +187,14 @@ async function main() {
     return;
   }
 
+  /* `--dry` means no write, for every mode. A flag that silenced comments but not
+     card creation would be the kind of switch that gets someone hurt. */
+  if (DRY && MODE === "build") {
+    console.log(planText());
+    console.log("\nok: --dry, nothing was written. Drop --dry to let build write.");
+    return;
+  }
+
   const board = await readProject();
 
   if (MODE === "check") {
@@ -309,43 +319,67 @@ async function main() {
   }
 
   if (MODE === "summaries") {
-    const marker = /<!-- board-sync (\d+) ([0-9T:.Z-]+) -->/;
+    /* The snapshot in the marker is the source of truth, not GitHub's timeline.
+       Measured on this board: three deliberate Status writes produced one event,
+       and nine of the twelve cards built by `build` show no event at all even
+       though their column clearly changed. A personal board also has no webhook,
+       so diffing the column against what was last recorded is the only way to
+       report every move rather than the fraction GitHub chose to log. The events
+       are still read, for the actor and timestamp, when they exist. */
+    const marker = /<!-- board-sync (\d+) ([0-9T:.Z-]+)(?: status=(\S+))? -->/;
     let posted = 0;
+    let quiet = 0;
     let seen = 0;
     for (const [key, it] of board.items) {
       if (!it.issueNumber) continue;
       seen += 1;
-      const data = await gql(QUERIES.moves, { owner: OWNER, name: REPO, number: it.issueNumber });
-      const nodes = data?.repository?.issue?.timelineItems?.nodes || [];
-      /* An item arriving on the board is logged as a status change from an empty
-         value by github-project-automation. That is the card being created, not a
-         column being moved, and summarizing it would present the initial build as
-         if it were activity someone performed. */
-      const events = nodes.filter((e) => e?.createdAt && e.previousStatus && e.project?.number === PROJECT_NUMBER);
-      const created = nodes.length - events.length;
-      if (!events.length) { log(`${key}: no recorded move (${created} creation event(s) ignored)`); continue; }
+      const current = it.values.Status ?? "";
       const comments = await rest(`/repos/${OWNER}/${REPO}/issues/${it.issueNumber}/comments`, {}, "issue");
+      let baseline = null;
       let lastSeen = "";
+      let held = null;
       for (const c of comments) {
         const m = marker.exec(c.body || "");
-        if (m && m[1] === String(it.issueNumber) && m[2] > lastSeen) lastSeen = m[2];
+        if (m && m[1] === String(it.issueNumber) && m[2] >= lastSeen) { lastSeen = m[2]; baseline = m[3] ?? null; held = c; }
       }
-      const fresh = events.filter((e) => e.createdAt > lastSeen);
-      log(`${key}: ${events.length} recorded move(s), ${fresh.length} not yet summarized`);
-      if (!fresh.length) continue;
-      const newest = fresh[fresh.length - 1];
-      const c = cards.find((x) => x.key === it.values.Key);
-      const lines = [
-        ...fresh.map((e) => `Moved from "${e.previousStatus}" to "${e.status}" by @${e.actor?.login ?? "?"} at ${e.createdAt}${e.wasAutomated ? " (automation)" : ""}.`),
-        "",
-        `This card carries the claim \`${it.values.Key}\`, published at ${c?.source ?? it.values.Source}.`,
-        `<!-- board-sync ${it.issueNumber} ${newest.createdAt} -->`,
-      ];
+      const data = await gql(QUERIES.moves, { owner: OWNER, name: REPO, number: it.issueNumber });
+      const nodes = data?.repository?.issue?.timelineItems?.nodes || [];
+      const events = nodes.filter((e) => e?.createdAt && e.previousStatus && e.project?.number === PROJECT_NUMBER && e.createdAt > lastSeen);
+      if (baseline === current) { log(`${key}: column unchanged since ${lastSeen} (${current})`); quiet += 1; continue; }
+
+      const card = cards.find((x) => x.key === it.values.Key);
+      const stamp = events.length ? events.map((e) => e.createdAt).sort().pop() : new Date().toISOString().replace(/\.\d+Z$/, "Z");
+      const tag = `<!-- board-sync ${it.issueNumber} ${stamp} status=${current} -->`;
+
+      /* A card that already carries a summary comment gets that comment's marker
+         upgraded rather than a second comment. The board is read by people, so the
+         tool does not add a near-duplicate of something already there. */
+      if (held && baseline === null) {
+        const patched = held.body.replace(marker, tag);
+        if (DRY) { log(`${key}: DRY would edit comment ${held.id} to record status=${current}, no new comment`); posted += 1; continue; }
+        await rest(`/repos/${OWNER}/${REPO}/issues/comments/${held.id}`, { method: "PATCH", body: { body: patched } }, "issue");
+        log(`${key}: comment ${held.id} now records status=${current} (no new comment)`);
+        posted += 1;
+        continue;
+      }
+
+      const lines = [];
+      if (baseline === null) {
+        lines.push(`This claim is published at ${card?.source ?? it.values.Source}. Board column: ${current}, recorded as the baseline the next run compares against.`);
+      } else {
+        lines.push(`Moved from "${baseline}" to "${current}", observed at ${stamp}.`);
+        for (const e of events) lines.push(`GitHub logged: "${e.previousStatus}" to "${e.status}" by @${e.actor?.login ?? "?"} at ${e.createdAt}.`);
+        if (!events.length) lines.push("GitHub recorded no timeline event for this move; the column diff is what detected it.");
+        lines.push(`This claim is published at ${card?.source ?? it.values.Source}.`);
+      }
+      lines.push(tag);
+
+      if (DRY) { log(`${key}: DRY would comment on #${it.issueNumber}: ${lines[0]}`); posted += 1; continue; }
       await rest(`/repos/${OWNER}/${REPO}/issues/${it.issueNumber}/comments`, { method: "POST", body: { body: lines.join("\n") } }, "issue");
-      log(`comment posted on #${it.issueNumber} for ${key}`);
+      log(`comment posted on #${it.issueNumber} for ${key}: ${lines[0]}`);
       posted += 1;
     }
-    console.log(`ok: ${seen} issue-backed cards read, ${posted} summary comment(s) posted. A second run over the same moves posts nothing.`);
+    console.log(`ok: ${seen} issue-backed cards read, ${posted} summary comment(s)${DRY ? " that dry run would post" : " posted"}, ${quiet} with no column change.`);
     return;
   }
 
