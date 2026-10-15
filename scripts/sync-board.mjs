@@ -317,8 +317,13 @@ async function main() {
       seen += 1;
       const data = await gql(QUERIES.moves, { owner: OWNER, name: REPO, number: it.issueNumber });
       const nodes = data?.repository?.issue?.timelineItems?.nodes || [];
-      const events = nodes.filter((e) => e?.createdAt && e.project?.number === PROJECT_NUMBER);
-      if (!events.length) { log(`${key}: no recorded move`); continue; }
+      /* An item arriving on the board is logged as a status change from an empty
+         value by github-project-automation. That is the card being created, not a
+         column being moved, and summarizing it would present the initial build as
+         if it were activity someone performed. */
+      const events = nodes.filter((e) => e?.createdAt && e.previousStatus && e.project?.number === PROJECT_NUMBER);
+      const created = nodes.length - events.length;
+      if (!events.length) { log(`${key}: no recorded move (${created} creation event(s) ignored)`); continue; }
       const comments = await rest(`/repos/${OWNER}/${REPO}/issues/${it.issueNumber}/comments`, {}, "issue");
       let lastSeen = "";
       for (const c of comments) {

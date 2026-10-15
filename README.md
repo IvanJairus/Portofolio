@@ -33,6 +33,7 @@ are: `assets/`, `pipelines/` and the rest are never moved.
 prints the 12 cards offline without a token; `--mode=check` only reads the board, and `--mode=build` and `--mode=summaries` are the two modes that write.
 Board writes need `PORTFOLIO_BOARD_PAT` (a classic token with the `project` scope and nothing else); cards and comments need `GITHUB_TOKEN`. Neither token reaches a log.
 `scripts/check-board.mjs --selftest` runs in the `copy` job and fails a card whose number is not on the published page.
+Setting a card's Status to `Done` closes its Issue: that is GitHub's own project automation, not this script, and it is why the showcase reads as finished Issues.
 
 ## Licence
 

@@ -52,9 +52,20 @@ All notable changes to this repository are documented here. The format follows
   0 dash-as-connector over 84 tracked files, which is why the em dash in the checker
   is built by code point; and the transport was run against the live API with a
   read-only token, where a GraphQL scope rejection and two `GET` calls returned
-  `http=200 remaining=4989` and `remaining=4988`. The board itself has not been
-  written to yet: that needs the token scope and 12 public Issues, so it is a
-  separate, approved step.
+  `http=200 remaining=4989` and `remaining=4988`.
+- **The board is written, and what writing it cost.** `--mode=build` created 5
+  custom fields, 12 Issues (`#17` to `#28`), 9 sub-issue links and 2 views
+  (`Recruiter showcase` number 7, `Proof by figure` number 8) across 132 GraphQL
+  calls, ending at `remaining=4868` of the 5,000-point hourly budget.
+  `--mode=check` read back that all 12 cards match the published site, and a
+  browser with no session rendered `Done (12)` with all twelve titles verbatim.
+  Two consequences were not predictable from the docs. Setting Status to Done made
+  `github-project-automation` close every linked Issue with
+  `state_reason: completed`, so the showcase reads as twelve finished Issues rather
+  than twelve open ones. And the timeline logs an item's arrival as a change from an
+  empty status, which is the card being created rather than a column being moved, so
+  `summaries` ignores events with no `previousStatus` instead of presenting a build
+  as activity.
 
 - **`#spotlight`, two panels on the landing, and what they cost.** A band between
   `#architecture` and `#decisions` now points at the two pages that had outgrown
