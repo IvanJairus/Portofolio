@@ -71,7 +71,11 @@ All notable changes to this repository are documented here. The format follows
   it should have reported. It now diffs the card's current column against the
   snapshot in its own marker comment, so coverage is every change between two runs,
   and reads the timeline only for who and when. A card that already carries a
-  summary gets that comment edited rather than a second one.
+  summary gets that comment edited rather than a second one. Measured with a
+  deliberate move: with `work.2.i2` set to In review, a dry run reported exactly
+  `1 comment(s) a dry run would post, 11 with no column change`; setting it back to
+  Done returned the run to `0 posted, 0 edited, 12 with no column change`, so the
+  detection is real and a repeated run does not duplicate anything.
 
 - **`#spotlight`, two panels on the landing, and what they cost.** A band between
   `#architecture` and `#decisions` now points at the two pages that had outgrown

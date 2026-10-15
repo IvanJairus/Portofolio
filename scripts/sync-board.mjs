@@ -327,7 +327,8 @@ async function main() {
        report every move rather than the fraction GitHub chose to log. The events
        are still read, for the actor and timestamp, when they exist. */
     const marker = /<!-- board-sync (\d+) ([0-9T:.Z-]+)(?: status=(\S+))? -->/;
-    let posted = 0;
+    let wrote = 0;
+    let edited = 0;
     let quiet = 0;
     let seen = 0;
     for (const [key, it] of board.items) {
@@ -356,10 +357,10 @@ async function main() {
          tool does not add a near-duplicate of something already there. */
       if (held && baseline === null) {
         const patched = held.body.replace(marker, tag);
-        if (DRY) { log(`${key}: DRY would edit comment ${held.id} to record status=${current}, no new comment`); posted += 1; continue; }
+        if (DRY) { log(`${key}: DRY would edit comment ${held.id} to record status=${current}, no new comment`); edited += 1; continue; }
         await rest(`/repos/${OWNER}/${REPO}/issues/comments/${held.id}`, { method: "PATCH", body: { body: patched } }, "issue");
         log(`${key}: comment ${held.id} now records status=${current} (no new comment)`);
-        posted += 1;
+        edited += 1;
         continue;
       }
 
@@ -374,12 +375,12 @@ async function main() {
       }
       lines.push(tag);
 
-      if (DRY) { log(`${key}: DRY would comment on #${it.issueNumber}: ${lines[0]}`); posted += 1; continue; }
+      if (DRY) { log(`${key}: DRY would comment on #${it.issueNumber}: ${lines[0]}`); wrote += 1; continue; }
       await rest(`/repos/${OWNER}/${REPO}/issues/${it.issueNumber}/comments`, { method: "POST", body: { body: lines.join("\n") } }, "issue");
       log(`comment posted on #${it.issueNumber} for ${key}: ${lines[0]}`);
-      posted += 1;
+      wrote += 1;
     }
-    console.log(`ok: ${seen} issue-backed cards read, ${posted} summary comment(s)${DRY ? " that dry run would post" : " posted"}, ${quiet} with no column change.`);
+    console.log(`ok: ${seen} issue-backed cards read, ${wrote} comment(s)${DRY ? " a dry run would post" : " posted"}, ${edited} marker(s)${DRY ? " a dry run would edit" : " edited"}, ${quiet} with no column change.`);
     return;
   }
 
