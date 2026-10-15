@@ -1,0 +1,77 @@
+name: board
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Board mode to run
+        required: true
+        default: check
+        type: choice
+        options:
+          - plan
+          - check
+          - build
+          - summaries
+      dry:
+        description: Preview the summaries instead of posting them
+        required: false
+        default: true
+        type: boolean
+
+# A card dragged between columns cannot start a workflow: no GitHub Actions event
+# covers Projects, and the projects_v2_item webhook exists only for organization
+# projects, not this personal board. So the trigger is this button. Every move
+# still lands in the linked Issue's timeline, which is what `summaries` reads, so
+# nothing is lost by running on demand rather than on drag.
+#
+# Two secrets on purpose. GITHUB_TOKEN (built in, issues: write) creates the cards
+# and posts the summaries. PORTFOLIO_BOARD_PAT is a classic token holding only the
+# project scope, so the one secret stored in a public repository cannot read or
+# write code. Set it to expire and replace it on a calendar you keep.
+permissions:
+  contents: read
+  issues: write
+
+# A board is shared state. Two runs writing at once would race on the same cards,
+# so a queued run waits instead of cutting the one in front of it.
+concurrency:
+  group: portfolio-board
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Portfolio board (${{ inputs.mode }})
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'IvanJairus' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 20
+
+      # Printed before anything can be sent, so the run log of a build starts with
+      # the exact card set that build is about to write.
+      - name: Card set as the published page states it
+        run: node scripts/sync-board.mjs --mode=plan
+
+      - name: Run ${{ inputs.mode }}
+        env:
+          BOARD_MODE: ${{ inputs.mode }}
+          BOARD_DRY: ${{ inputs.dry }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PORTFOLIO_BOARD_PAT: ${{ secrets.PORTFOLIO_BOARD_PAT }}
+          PORTFOLIO_BOARD_PROJECT: "1"
+          BOARD_VERBOSE: "1"
+        run: |
+          case "$BOARD_MODE" in
+            plan|check|build|summaries) ;;
+            *) echo "::error::BOARD_MODE must be plan, check, build or summaries"; exit 1 ;;
+          esac
+          ARGS="--mode=$BOARD_MODE"
+          if [ "$BOARD_DRY" = "true" ]; then ARGS="$ARGS --dry"; fi
+          if [ "$BOARD_MODE" != "plan" ] && [ "$BOARD_MODE" != "check" ] && [ "$BOARD_DRY" != "true" ] && [ -z "$PORTFOLIO_BOARD_PAT" ]; then
+            echo "::error::PORTFOLIO_BOARD_PAT is not set, so a write mode cannot reach the board."
+            exit 1
+          fi
+          echo "running: node scripts/sync-board.mjs $ARGS"
+          node scripts/sync-board.mjs $ARGS
