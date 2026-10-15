@@ -31,6 +31,31 @@ All notable changes to this repository are documented here. The format follows
 
 ### Added
 
+- **The Projects board is generated from `i18n.js`, not typed a second time.** A
+  personal board (`github.com/users/IvanJairus/projects/1`) had 6 default views and
+  0 cards, so `scripts/board-lib.mjs` now derives the card set straight from the
+  dict: `work.N.title` becomes a project card and each `work.N.i1..i3` becomes a
+  proof card, 3 + 9 = 12, every one carrying the anchor it was read from
+  (`#proj-N`) and the reference repo the site already links. `scripts/sync-board.mjs`
+  runs `plan` offline with no token, `check` read-only with exit 1 on drift, and
+  only `build` and `summaries` write. Cards are Issues rather than draft issues
+  because a draft issue has no comment thread, and the two tokens are separated:
+  `PORTFOLIO_BOARD_PAT` holds the `project` scope alone, so the one secret stored in
+  this public repository cannot touch code. Two things GitHub does not allow are
+  documented rather than worked around: no Actions event covers Projects, so a card
+  dragged between columns starts no workflow and `summaries` reads the moves out of
+  `ProjectV2ItemStatusChangedEvent` on demand instead; and `createProjectV2View`
+  accepts only `visibleFieldIds`, so filter and grouping are set once in the UI.
+  Measured on this branch: `check-board.mjs --selftest` passes the 12 real cards and
+  raises 9 problems on 2 fabricated ones (an invented number, an internal host, an
+  email, a string the page does not print); `assert-copy.mjs --strict` still reports
+  0 dash-as-connector over 84 tracked files, which is why the em dash in the checker
+  is built by code point; and the transport was run against the live API with a
+  read-only token, where a GraphQL scope rejection and two `GET` calls returned
+  `http=200 remaining=4989` and `remaining=4988`. The board itself has not been
+  written to yet: that needs the token scope and 12 public Issues, so it is a
+  separate, approved step.
+
 - **`#spotlight`, two panels on the landing, and what they cost.** A band between
   `#architecture` and `#decisions` now points at the two pages that had outgrown
   their work cards: one for the diagram atlas, one for the pipeline consoles, each

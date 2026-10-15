@@ -242,3 +242,11 @@ jobs:
       # could invent output and nobody would notice.
       - name: Every console line must exist in the pinned source
         run: node scripts/check-traces.mjs
+
+      # The GitHub Projects board is a second place where these sentences are read,
+      # and strangers read it. Its cards are generated from i18n.js, so the same
+      # rule applies there: a number that is not on the published page does not get
+      # a card. This step is offline and needs no token, and --selftest proves the
+      # checker rejects a fabricated card instead of shrugging at it.
+      - name: Every board card must exist on the published page
+        run: node scripts/check-board.mjs --selftest

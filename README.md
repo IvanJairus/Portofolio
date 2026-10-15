@@ -29,6 +29,10 @@ are: `assets/`, `pipelines/` and the rest are never moved.
 - All figures, names, hosts and screenshots on the site are sanitized dummy data; the engineering described is real.
 - All page text lives in `assets/js/i18n.js` (English only) and every value is duplicated as the HTML fallback in `index.html`. Run
 `node scripts/sync-i18n.mjs` after editing it, or `--check` in CI to catch drift. Identity data lives in `assets/js/config.js`.
+- The GitHub Projects board a recruiter reads is generated from the same dict, so it cannot say something the page does not. `node scripts/sync-board.mjs --mode=plan`
+prints the 12 cards offline without a token; `--mode=check` only reads the board, and `--mode=build` and `--mode=summaries` are the two modes that write.
+Board writes need `PORTFOLIO_BOARD_PAT` (a classic token with the `project` scope and nothing else); cards and comments need `GITHUB_TOKEN`. Neither token reaches a log.
+`scripts/check-board.mjs --selftest` runs in the `copy` job and fails a card whose number is not on the published page.
 
 ## Licence
 
