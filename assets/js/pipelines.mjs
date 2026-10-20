@@ -371,13 +371,14 @@ class Panel {
     const token = ++this.draw;
     const put = (line) => {
       if (token !== this.draw) return;
-      const row = el('div', `pv-ll ${line.lvl}`);
+      const lvl = line.l || line.lvl || 'out';
+      const row = el('div', `pv-ll ${lvl}`);
       /* One time per line, the date and the zone once in the panel head. A log
          that repeats the same date down a column spends the width the messages
          need, and says nothing new. */
       const p = stampParts(new Date());
       row.append(el('span', 'ts', p.time));
-      const tag = line.lvl === 'err' ? 'ERROR' : line.lvl === 'warn' ? 'WARN' : line.lvl === 'log' ? 'INFO' : '';
+      const tag = lvl === 'err' ? 'ERROR' : lvl === 'warn' ? 'WARN' : lvl === 'log' ? 'INFO' : '';
       const scope = this.engine === 'jenkins' ? (job ? job.scope : '') : (job ? job.id : '');
       /* A command line keeps its own "$" in the message: that is how the runner
          echoes it, and a second one in a column would be the page decorating. */
@@ -429,6 +430,11 @@ class Panel {
       row.append(el('span', 'n', String(i + 1)), el('span', 't', t.length ? t : ' '));
       body.append(row);
     });
+
+    const firstHit = body.querySelector('.hit');
+    if (firstHit) {
+      firstHit.scrollIntoView({ block: 'center', behavior: REDUCED ? 'auto' : 'smooth' });
+    }
 
     this.r['code-name'].textContent = entry.f || this.srcKey || '';
     this.r['code-why'].textContent = job && job.file === this.srcKey ? job.why

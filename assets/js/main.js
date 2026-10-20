@@ -10,7 +10,8 @@
   /* marker: controls that need JS must not appear as dead buttons without JS */
   document.documentElement.dataset.js = "1";
 
-  const t = (key) => (window.I18N[lang] && window.I18N[lang][key]) || (window.I18N.en[key] || key);
+  const t = (key) => (window.I18N && window.I18N[lang] && window.I18N[lang][key]) ||
+                     (window.I18N && window.I18N.en && window.I18N.en[key]) || key;
   const pick = (obj) => (obj && (obj[lang] || obj.en)) || "";
 
   /* read by showcase.js so components rendered by JS follow both languages */
@@ -33,23 +34,33 @@
 
   function applyI18n() {
     document.documentElement.lang = lang;
+    if (!window.I18N) return;
     document.querySelectorAll("[data-i18n]").forEach((el) => {
-      el.textContent = t(el.dataset.i18n);
+      if (el.dataset.i18n === "tm.lead" || el.dataset.i18n === "depth.hidden") return;
+      const val = t(el.dataset.i18n);
+      if (val) el.textContent = val;
     });
     document.querySelectorAll("[data-i18n-html]").forEach((el) => {
-      setSafeHtml(el, t(el.dataset.i18nHtml));
+      const val = t(el.dataset.i18nHtml);
+      if (val) setSafeHtml(el, val);
     });
     document.querySelectorAll("[data-i18n-attr]").forEach((el) => {
       el.dataset.i18nAttr.split(";").forEach((pair) => {
         const [attr, key] = pair.split(":");
-        if (attr && key) el.setAttribute(attr.trim(), t(key.trim()));
+        if (attr && key) {
+          const val = t(key.trim());
+          if (val) el.setAttribute(attr.trim(), val);
+        }
       });
     });
     /* ready text for the gate, used by diagrams.js */
     document.querySelectorAll(".g-state").forEach((el) => {
-      el.dataset.ready = t("sec.gate.ready");
-      if (el.closest(".gate-result").classList.contains("ready")) {
-        el.textContent = t("sec.gate.ready");
+      const ready = t("sec.gate.ready");
+      if (ready) {
+        el.dataset.ready = ready;
+        if (el.closest(".gate-result").classList.contains("ready")) {
+          el.textContent = ready;
+        }
       }
     });
   }
@@ -74,7 +85,9 @@
       mail.textContent = P.email;
     }
 
-    document.title = (P.name || "Portfolio") + ", " + pick(P.role);
+    if (window.PROFILE && P.name && pick(P.role)) {
+      document.title = (P.name || "Portfolio") + ", " + pick(P.role);
+    }
 
     const linksBox = document.querySelector("[data-profile='links']");
     if (linksBox) {
@@ -299,7 +312,7 @@
 
     const menuBtn = document.querySelector("[data-menu-btn]");
     const nav = document.querySelector(".nav");
-    if (menuBtn && nav) {
+    if (menuBtn && nav && !document.getElementById("nav-drawer")) {
       menuBtn.addEventListener("click", () => {
         const open = nav.classList.toggle("open");
         menuBtn.setAttribute("aria-expanded", String(open));
@@ -308,6 +321,191 @@
         if (e.target.tagName === "A") nav.classList.remove("open");
       });
     }
+  }
+
+  /* ==========================================================================
+     Mobile Drawer Navigation & Global Focus Management
+     ========================================================================== */
+
+  function initMobileDrawer() {
+    const toggleBtn = document.getElementById("nav-toggle") || document.querySelector("[data-menu-btn]");
+    const drawer = document.getElementById("nav-drawer");
+    const scrim = document.getElementById("nav-scrim");
+    const closeBtn = document.getElementById("nav-close");
+    const mainContent = document.getElementById("main-content") || document.getElementById("top") || document.querySelector("main");
+    const siteFooter = document.getElementById("site-footer") || document.querySelector(".site-footer") || document.querySelector("footer");
+
+    if (!toggleBtn || !drawer) {
+      return;
+    }
+
+    const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    function isDrawerOpen() {
+      return toggleBtn.getAttribute("aria-expanded") === "true";
+    }
+
+    function isElementVisible(el) {
+      if (typeof el.checkVisibility === "function") {
+        return el.checkVisibility({ checkVisibilityCSS: true });
+      }
+      return el.offsetParent !== null && window.getComputedStyle(el).visibility !== "hidden";
+    }
+
+    function getFocusableElements() {
+      return Array.from(drawer.querySelectorAll(focusableSelector))
+        .filter((el) => !el.hasAttribute("disabled") && isElementVisible(el));
+    }
+
+    function setBackgroundInert(inert) {
+      if (mainContent) {
+        mainContent.inert = inert;
+        if (inert) {
+          mainContent.setAttribute("aria-hidden", "true");
+        } else {
+          mainContent.removeAttribute("aria-hidden");
+        }
+      }
+      if (siteFooter) {
+        siteFooter.inert = inert;
+        if (inert) {
+          siteFooter.setAttribute("aria-hidden", "true");
+        } else {
+          siteFooter.removeAttribute("aria-hidden");
+        }
+      }
+    }
+
+    function focusDrawerFirst() {
+      const focusables = getFocusableElements();
+      for (const el of focusables) {
+        try {
+          el.focus();
+          if (document.activeElement === el) return true;
+        } catch (_) {}
+      }
+      if (closeBtn && !closeBtn.hasAttribute("disabled")) {
+        try {
+          closeBtn.focus();
+          if (document.activeElement === closeBtn) return true;
+        } catch (_) {}
+      }
+      try {
+        if (!drawer.hasAttribute("tabindex")) {
+          drawer.setAttribute("tabindex", "-1");
+        }
+        drawer.focus();
+        return document.activeElement === drawer;
+      } catch (_) {}
+      return false;
+    }
+
+    function openNav() {
+      if (isDrawerOpen()) return;
+
+      toggleBtn.setAttribute("aria-expanded", "true");
+      toggleBtn.setAttribute("aria-label", "Close navigation menu");
+
+      drawer.removeAttribute("hidden");
+      drawer.classList.add("is-open");
+      document.body.classList.add("nav-open");
+
+      setBackgroundInert(true);
+
+      const focused = focusDrawerFirst();
+      if (!focused || !drawer.contains(document.activeElement)) {
+        requestAnimationFrame(() => {
+          if (!isDrawerOpen()) return;
+          if (!drawer.contains(document.activeElement)) {
+            focusDrawerFirst();
+          }
+        });
+      }
+    }
+
+    function closeNav() {
+      if (!isDrawerOpen()) return;
+
+      toggleBtn.setAttribute("aria-expanded", "false");
+      toggleBtn.setAttribute("aria-label", "Open navigation menu");
+
+      drawer.classList.remove("is-open");
+      drawer.setAttribute("hidden", "");
+      document.body.classList.remove("nav-open");
+
+      setBackgroundInert(false);
+
+      toggleBtn.focus();
+    }
+
+    // Toggle button handler
+    toggleBtn.addEventListener("click", () => {
+      if (isDrawerOpen()) {
+        closeNav();
+      } else {
+        openNav();
+      }
+    });
+
+    // Dedicated close button handler
+    if (closeBtn) {
+      closeBtn.addEventListener("click", closeNav);
+    }
+
+    // Backdrop scrim click dismissal
+    if (scrim) {
+      scrim.addEventListener("click", closeNav);
+    }
+
+    // Navigation link click dismissal
+    drawer.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeNav);
+    });
+
+    // Escape key listener and Focus Trap
+    document.addEventListener("keydown", (e) => {
+      if (!isDrawerOpen()) return;
+
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeNav();
+        return;
+      }
+
+      if (e.key === "Tab") {
+        const focusables = getFocusableElements();
+        if (focusables.length === 0) {
+          e.preventDefault();
+          return;
+        }
+
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+
+        if (!drawer.contains(document.activeElement)) {
+          e.preventDefault();
+          if (e.shiftKey) {
+            last.focus();
+          } else {
+            first.focus();
+          }
+        } else if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    // Automatically close drawer when window resizes to desktop breakpoint
+    const mql = window.matchMedia("(min-width: 900px)");
+    mql.addEventListener("change", (e) => {
+      if (e.matches && isDrawerOpen()) {
+        closeNav();
+      }
+    });
   }
 
   /* skill references → project cards */
@@ -483,6 +681,7 @@
     initCounters();
     initTerminal();
     initNav();
+    initMobileDrawer();
     initSkillRefs();
     initDepth();
     initStackMarquee();

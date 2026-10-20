@@ -44,6 +44,14 @@
   color: var(--accent-strong);
   text-decoration: underline;
   text-underline-offset: 2px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 6px 0;
+}
+
+.scroll-target {
+  scroll-margin-top: calc(var(--header-h) + 16px);
 }
 
 .dg-plate {
@@ -66,6 +74,12 @@
   color: var(--accent-strong);
   text-decoration: underline;
   text-underline-offset: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 6px 12px;
 }
 
 .dg-plate h2 {
@@ -169,6 +183,10 @@ noscript p {
   color: var(--accent-strong);
   text-decoration: underline;
   text-underline-offset: 2px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 12px;
 }
 
 .dg-nav a + a {
@@ -180,7 +198,216 @@ noscript p {
   max-width: 72ch;
   font-size: 11.5px;
   line-height: 1.6;
+  color: var(--ink-dim);
+}
+
+/* ==========================================================================
+   Studio Viewport Interactive Controls (Feature 15)
+   ========================================================================== */
+
+/* Hidden when JavaScript is disabled to avoid inert controls */
+.dg-controls {
+  display: none;
+}
+
+/* Revealed when JavaScript marks the plate motion-ready or document is js-ready */
+.motion-ready .dg-controls,
+.js-ready .dg-controls,
+[data-js="1"] .dg-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 16px 0;
+  padding: 14px 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm, 6px);
+}
+
+.dg-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dg-playback-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Strict >= 44x44px Touch Targets */
+.dg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 16px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--radius-sm, 6px);
+  cursor: pointer;
+  transition: all 0.15s var(--ease, ease);
+}
+
+.dg-btn:hover:not(:disabled) {
+  background: var(--bg);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.dg-btn:focus-visible,
+.dg-step-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.dg-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  border-color: var(--line);
   color: var(--ink-faint);
+  transform: none;
+}
+
+.dg-btn-play[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-faint);
+}
+
+.dg-counter-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.dg-counter {
+  font-size: 13px;
+  color: var(--ink-dim);
+}
+
+.dg-counter-current {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.dg-step-caption,
+.dg-step-desc {
+  font-size: 13px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.dg-steps-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dg-step-btn {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-dim);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  border-radius: var(--radius-sm, 6px);
+  cursor: pointer;
+  transition: all 0.15s var(--ease, ease);
+}
+
+.dg-step-btn:hover:not(.is-active) {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--bg);
+}
+
+.dg-step-btn.is-active,
+.dg-step-btn[aria-current="step"] {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.dg-keyboard-hint {
+  font-size: 11px;
+  color: var(--ink-faint);
+  margin: 2px 0 0;
+}
+
+.dg-keyboard-hint kbd {
+  font-family: var(--font-mono);
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 10.5px;
+  color: var(--ink);
+}
+
+/* Noscript Static Presentation */
+.dg-noscript-card {
+  margin: 16px 0;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm, 6px);
+}
+
+.dg-noscript-title {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.dg-noscript-note {
+  margin: 0 0 10px;
+  font-size: 12.5px;
+  color: var(--ink-dim);
+}
+
+.dg-noscript-list {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ink-dim);
+}
+
+.dg-noscript-list li + li {
+  margin-top: 4px;
+}
+
+.dg-noscript-list strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .dg-controls-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 html[data-motion="static"] [data-motion-decorative] {

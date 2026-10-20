@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';" />
   <title>Pipeline runs, by Ivan Jairus</title>
   <meta name="description" content="One release gate, drawn as a GitLab pipeline page and as a Jenkins Blue Ocean graph, each with its own console beside the repository file that produced the selected job. The rules are vendored from a pinned commit and run in your browser." />
   <meta name="color-scheme" content="light" />
@@ -25,27 +26,55 @@
   <link rel="stylesheet" href="../assets/css/pipelines.css" />
 </head>
 <body id="top">
-
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <header class="site-header">
     <div class="wrap header-in">
-      <a class="brand" href="../">
-        <span class="mark">IJ</span>
-        <span>Ivan Jairus</span>
+      <a class="brand" href="../" aria-label="Home">
+        <span class="mark" data-profile="monogram">IJ</span>
+        <span data-profile="brand-name">Ivan Jairus</span>
         <span class="slash">/</span>
         <span class="dim">pipelines</span>
       </a>
-      <nav class="nav" aria-label="Primary">
-        <a href="../#about">About</a>
-        <a href="../#work">Work</a>
-        <a href="./">Pipelines</a>
-        <a href="../diagrams/">Diagrams</a>
+      <nav class="nav desktop-nav" id="nav" aria-label="Primary">
+        <a href="../">Overview</a>
+        <a href="../work/">Case Studies</a>
+        <a href="../diagrams/">Architecture</a>
+        <a href="./" class="active">Pipelines</a>
+        <a href="../decisions/">Decisions</a>
         <a href="../#toolbox">Toolbox</a>
-        <a href="../#contact">Contact</a>
+        <a href="../assets/cv/cv-ivan-jairus.pdf" download>CV (PDF)</a>
       </nav>
+      <div class="header-tools">
+        <button type="button" class="tool-btn menu-btn nav-toggle" data-menu-btn id="nav-toggle" aria-expanded="false" aria-controls="nav-drawer" aria-label="Menu">
+          <svg class="mi" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="M2 5h14M2 9h14M2 13h14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
     </div>
   </header>
 
-  <main>
+  <div class="nav-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation" hidden>
+    <div class="nav-scrim" id="nav-scrim" tabindex="-1"></div>
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <span class="drawer-title">Navigation</span>
+        <button type="button" class="drawer-close" id="nav-close" aria-label="Close navigation menu">
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="M3 3l12 12M15 3L3 15" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <ul class="drawer-links">
+        <li><a href="../" class="drawer-link"><span class="drawer-idx mono">01</span><span>Executive Overview</span></a></li>
+        <li><a href="../work/" class="drawer-link"><span class="drawer-idx mono">02</span><span>Case Studies &amp; Threat Model</span></a></li>
+        <li><a href="../diagrams/" class="drawer-link"><span class="drawer-idx mono">03</span><span>Architecture Studio (5 Plates)</span></a></li>
+        <li><a href="./" class="drawer-link active"><span class="drawer-idx mono">04</span><span>Dual-Engine Pipeline Trace</span></a></li>
+        <li><a href="../decisions/" class="drawer-link"><span class="drawer-idx mono">05</span><span>Architecture Decisions (11 ADRs)</span></a></li>
+        <li><a href="../#toolbox" class="drawer-link"><span class="drawer-idx mono">06</span><span>Production Mileage Toolbox</span></a></li>
+        <li class="drawer-divider" role="separator"></li>
+        <li><a href="../assets/cv/cv-ivan-jairus.pdf" class="drawer-link drawer-cv" download><span class="drawer-idx mono">PDF</span><span>Download CV</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <main id="main-content">
 
     <section class="pv-intro">
       <div class="wrap">
@@ -231,6 +260,159 @@
       </div>
     </section>
 
+    <section class="pv-reports" id="reports">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow mono">Off-Shift Rails · Three Scheduled Scanners</p>
+          <h2>The run reports itself: three weekly scanner digests.</h2>
+          <p class="lead">Three pipelines run on a weekly schedule when nobody is on shift: the branch auto-sync across release branches, the domain-wide SAST scan, and the SonarQube sweep. Each concludes by dispatching an HTML report to domain owners. Replicated from the real pipeline email templates with synthetic data.</p>
+        </div>
+
+        <nav class="rp-jump-bar" aria-label="Scanner Reports Navigation">
+          <a class="rp-jump-pill" href="#sync">01 · Branch Auto-Sync</a>
+          <a class="rp-jump-pill" href="#sast">02 · Domain SAST</a>
+          <a class="rp-jump-pill" href="#sonar">03 · SonarQube Sweep</a>
+        </nav>
+
+        <article class="rp-block" id="sync">
+          <div class="rp-qhead">
+            <span class="rp-num mono">report 1</span>
+            <h3>Did every release branch get the fix?</h3>
+          </div>
+          <p class="rp-look mono">what to look at: a conflict stops the chain for that service only, and the row says so</p>
+          <div class="mail-card">
+            <div class="mail-top mono">
+              <span class="mail-av">IJ</span>
+              <div>
+                <div class="mail-from">devops-platform &lt;noreply@…&gt;</div>
+                <div class="mail-subj">[board] Branch Auto Sync Summary · Thu 02:14 WIB</div>
+              </div>
+            </div>
+            <div class="mail-body">
+              <div class="mail-head">
+                <span class="mono">BRANCH AUTO SYNC REPORT</span><span class="mono mail-wm">DEVOPS&nbsp;PLATFORM</span>
+              </div>
+              <div class="mail-meta mono"><span>2026-10-01 · 02:14 WIB</span><span>domain: core</span><span>12 branch pairs · 9 MR</span></div>
+              <div class="mail-stats">
+                <div class="ms ok"><b>6</b><span>merged</span></div>
+                <div class="ms dim"><b>3</b><span>no changes</span></div>
+                <div class="ms warn"><b>1</b><span>conflict</span></div>
+                <div class="ms bad"><b>1</b><span>approval failed</span></div>
+                <div class="ms gray"><b>1</b><span>skipped</span></div>
+              </div>
+              <div class="mail-tbl-wrap" tabindex="0" role="region" aria-label="Branch Auto Sync Table">
+                <table class="mail-tbl">
+                  <tbody>
+                    <tr class="th"><td>service</td><td>branch pair</td><td>status</td><td>mr</td></tr>
+                    <tr><td>ledger-service</td><td>R1.0 &rarr; R1.1</td><td class="ok">&#10003; MERGED</td><td class="lk">view MR</td></tr>
+                    <tr><td>mobile-bff</td><td>R1.1 &rarr; R1.2</td><td class="warn">&#9888; CONFLICT: REBASE NEEDED</td><td class="lk">view MR</td></tr>
+                    <tr><td>scheduler-job</td><td>R1.0 &rarr; R1.1</td><td class="dim">NO CHANGES</td><td></td></tr>
+                    <tr><td>auth-gateway</td><td>R1.1 &rarr; R1.2</td><td class="bad">&#10005; APPROVAL FAILED</td><td class="lk">view MR</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mail-note mono">note // one design system, three report types. The run always reports itself. Separation of duties: approver cannot be the author.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="rp-block" id="sast">
+          <div class="rp-qhead">
+            <span class="rp-num mono">report 2</span>
+            <h3>What did the scanner find across the domain?</h3>
+          </div>
+          <p class="rp-look mono">what to look at: the amber box above the numbers, because a scanner that overclaims is worse than no scanner</p>
+          <div class="mail-card">
+            <div class="mail-top mono">
+              <span class="mail-av">IJ</span>
+              <div>
+                <div class="mail-from">devops-platform &lt;noreply@…&gt;</div>
+                <div class="mail-subj">[SAST Report] core · BE · &#9888; 1 critical | 5 medium | 01 Oct</div>
+              </div>
+            </div>
+            <div class="mail-body">
+              <div class="mail-head">
+                <span class="mono">SAST SECURITY SCAN REPORT</span><span class="mono mail-wm">DEVOPS&nbsp;PLATFORM</span>
+              </div>
+              <div class="mail-callout">
+                <b>&#9432; Scope and limits of this scan</b>
+                <p>Semgrep produced these results, run automatically by the pipeline. Findings are indicative and can include <i>false positives</i>. The report is a starting point for the developer who owns the service, not a substitute for a formal security review.</p>
+              </div>
+              <div class="mail-meta mono"><span>Generated: 01 Oct 2026 01:31 WIB</span><span>31 service</span><span>Scanner: Semgrep</span><span class="mail-branches">development &#10003; · R1.0 &#10003; · R1.1 &#10003; · R1.2 &#10003;</span></div>
+              <div class="mail-stats ms2">
+                <div class="ms t"><b>6</b><span>total</span></div>
+                <div class="ms c"><b>1</b><span>critical</span></div>
+                <div class="ms h"><b>0</b><span>high</span></div>
+                <div class="ms m"><b>5</b><span>medium</span></div>
+                <div class="ms l"><b>0</b><span>low</span></div>
+              </div>
+              <div class="mail-sect mono">SUMMARY BY CATEGORY</div>
+              <div class="mail-tbl-wrap" tabindex="0" role="region" aria-label="SAST Scan Category Summary Table">
+                <table class="mail-tbl">
+                  <tbody>
+                    <tr class="th"><td>category</td><td>service</td><td>critical</td><td>high</td><td>medium</td><td>low</td><td>status</td></tr>
+                    <tr><td><b>FE</b></td><td>12</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td><span class="pill ok">CLEAN</span></td></tr>
+                    <tr><td><b>BE</b></td><td>19</td><td class="bad">1</td><td class="ok">0</td><td class="warn">5</td><td class="ok">0</td><td><span class="pill bad">FINDINGS</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mail-att mono"><span>&#128206; sast-report-core-fe.html · 17 KB</span><span>&#128206; sast-report-core-be.html · 70 KB</span></div>
+              <div class="mail-note mono">Each category's full report is attached to this email and opens directly in a browser.</div>
+              <div class="mail-note mono">note // scheduled weekly, one HTML report per category, artifacts kept for 30 days</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="rp-block" id="sonar">
+          <div class="rp-qhead">
+            <span class="rp-num mono">report 3</span>
+            <h3>Which services failed their quality gate?</h3>
+          </div>
+          <p class="rp-look mono">what to look at: the row with no analysis, which is a failure of the schedule runner or polling timeout, not of the service</p>
+          <div class="mail-card">
+            <div class="mail-top mono">
+              <span class="mail-av">IJ</span>
+              <div>
+                <div class="mail-from">devops-platform &lt;noreply@…&gt;</div>
+                <div class="mail-subj">[board] SonarQube Scan Summary · CORE · 01 Oct (30 scanned, 2 not passed, 1 with no analysis)</div>
+              </div>
+            </div>
+            <div class="mail-body">
+              <div class="mail-head">
+                <span class="mono">SONARQUBE SCAN REPORT</span><span class="mono mail-wm">DEVOPS&nbsp;PLATFORM</span>
+              </div>
+              <div class="mail-meta mono"><span>Domain: core</span><span>Date: 01 Oct 2026 WIB</span><span class="mail-branches">Branches: development · R1.0 · R1.1 · R1.2</span></div>
+              <div class="mail-stats ms2">
+                <div class="ms t"><b>31</b><span>total scan</span></div>
+                <div class="ms ok2"><b>30</b><span>scanned</span></div>
+                <div class="ms p"><b>28</b><span>passed</span></div>
+                <div class="ms c"><b>2</b><span>not passed</span></div>
+                <div class="ms n"><b>1</b><span>no analysis</span></div>
+              </div>
+              <div class="mail-sect mono">SCAN RESULTS</div>
+              <div class="mail-tbl-wrap" tabindex="0" role="region" aria-label="SonarQube Scan Results Table">
+                <table class="mail-tbl">
+                  <tbody>
+                    <tr class="th"><td>service</td><td>branch</td><td>quality gate</td><td>vulns</td><td>coverage</td></tr>
+                    <tr><td>ledger-service</td><td>R1.1</td><td><span class="pill ok">PASSED</span></td><td class="ok">0</td><td>78.4%</td></tr>
+                    <tr><td>mobile-bff</td><td>R1.1</td><td><span class="pill bad">NOT PASSED</span></td><td class="bad">2</td><td>61.2%</td></tr>
+                    <tr><td>auth-gateway</td><td>R1.1</td><td><span class="pill ok">PASSED</span></td><td class="ok">0</td><td>83.0%</td></tr>
+                    <tr><td class="dim">scheduler-job</td><td>R1.1</td><td><span class="pill dim">NO ANALYSIS</span></td><td></td><td></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mail-note mono">note // The row with no analysis represents a failure of the schedule runner or polling timeout, not a defect of the service. Services are triggered in batches, then polled round-robin until complete.</div>
+            </div>
+          </div>
+        </article>
+
+        <p class="rp-where mono">
+          Standalone document view with complete logs available on
+          <a href="../reports/">the scanner reports archive</a>.
+        </p>
+      </div>
+    </section>
+
     <section class="pv-tools">
       <div class="wrap">
         <div class="section-head">
@@ -316,21 +498,33 @@
         <p class="pv-end-links">
           <a class="btn primary" href="https://github.com/IvanJairus/Pipeline" rel="noopener noreferrer">Open the repository</a>
           <a class="btn ghost" href="../diagrams/">Open the five system diagrams</a>
-          <a class="btn ghost" href="../#work">Back to the work</a>
+          <a class="btn ghost" href="../work/">Back to the work</a>
         </p>
       </div>
     </section>
 
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer" id="site-footer">
     <div class="wrap footer-in">
-      <span>© 2026 Ivan Jairus</span>
-      <span class="ftr-creed">If the process needs a hero, the process is wrong.</span>
+      <div class="footer-summary">
+        <p class="ftr-creed mono">Ivan Jairus : DevSecOps &amp; Platform Engineer : Jakarta, Indonesia</p>
+        <p class="dim">53 services · 5 artifact types · 3 environments · 1 gateway · ~330 tests · 11 ADRs</p>
+        <p class="dim">&copy; 2026 Ivan Jairus. Zero tracking, zero third-party CDNs, zero cookies.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer Navigation">
+        <a href="../">Overview</a>
+        <a href="../work/">Work</a>
+        <a href="../diagrams/">Diagrams</a>
+        <a href="./">Pipelines</a>
+        <a href="../decisions/">Decisions</a>
+        <a href="#main-content" class="back-to-top">Back to top &uarr;</a>
+      </nav>
     </div>
   </footer>
 
-  <script defer src="../assets/js/observability.js"></script>
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/observability.js" defer></script>
   <script type="module" src="../assets/js/pipelines.mjs"></script>
 </body>
 </html>

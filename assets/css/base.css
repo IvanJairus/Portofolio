@@ -8,51 +8,71 @@
 :root {
   color-scheme: light;
 
-  /* surfaces: the page is white; warm colors survive only as a recessed tint.
-     bg-2 is deliberately equal to bg: card/block separators are always lines, never color,
-     so no pair loses its separator on top of white. */
-  --bg: #ffffff;
-  --bg-2: #ffffff;
-  --bg-3: #faf7f2;
-  --surface-dark: #241c17; /* the only dark surface: terminal & code snippets */
+  /* Surfaces */
+  --bg: #FAFAFA;
+  --surface: #FFFFFF;
+  --surface-subtle: #F4F4F5;
+  --surface-raised: #FFFFFF;
+  --surface-dark: #18181B;
 
-  /* text: all >= 4.5:1 on bg, bg-2 and bg-3 */
-  --ink: #1c1917;        /* 15.7 - 17.2 */
-  --ink-dim: #5c5348;    /* 6.4 - 7.4 */
-  --ink-faint: #766b5f;  /* 4.7 - 5.1 */
-  --line: rgba(28, 25, 23, 0.12);
-  --line-strong: rgba(28, 25, 23, 0.26);
+  /* Legacy aliases for backward component compatibility */
+  --bg-2: var(--surface);
+  --bg-3: var(--surface-subtle);
 
-  /* brand: GitLab orange. Variant B -> #C2410C for text/surfaces,
-     #FC6D26 only for rail lines, hover, and small accents */
-  --accent: #c2410c;
-  --accent-strong: #a8360a;  /* orange for text on top of the --accent-dim tint: 5.49:1 */
-  --accent-bright: #fc6d26;
-  --accent-ink: #ffffff;                       /* text on top of --accent: 5.18:1 */
+  /* Hairline Borders */
+  --line: #E4E4E7;
+  --line-strong: #D4D4D8;
+  --line-faint: #F4F4F5;
+
+  /* High-Contrast Typography Ink */
+  --ink: #18181B;
+  --ink-dim: #52525B;
+  --ink-faint: #71717A;
+
+  /* Accent: Warm Rust / GitLab Orange */
+  --accent: #C2410C;
+  --accent-hover: #9A3412;
+  --accent-strong: #9A3412;
+  --accent-faint: #FFEDD5;
+  --accent-bright: #FC6D26;
+  --accent-ink: #FFFFFF;
   --accent-dim: rgba(194, 65, 12, 0.08);
-  --accent-line: rgba(194, 65, 12, 0.42);
+  --accent-line: rgba(194, 65, 12, 0.35);
 
-  /* status = real tools. The "text" versions are always >= 4.5:1, the brand versions are for decoration */
-  --pass: #2e7d32; --pass-strong: #256a2b;  --pass-brand: #63a955;  --pass-dim: rgba(99, 169, 85, 0.12); /* Jenkins */
-  --danger: #b42318;      --danger-brand: #da291c; --danger-dim: rgba(218, 41, 28, 0.07); /* OpenShift */
-  --warn: #a94e09;        --warn-brand: #d97706;   --warn-dim: rgba(180, 83, 9, 0.08);    /* amber */
-  --info: #0052cc;        --info-brand: #2496ed;   --info-dim: rgba(0, 82, 204, 0.07);    /* Jira + Docker */
-  --tool-ink: #24292f;                                                                            /* GitHub */
-  --on-dark: #faf7f2;
+  /* Functional Status Tokens */
+  --pass: #2E7D32;
+  --pass-strong: #1B5E20;
+  --pass-brand: #63a955;
+  --pass-dim: rgba(46, 125, 50, 0.08);
+  --danger: #B42318;
+  --danger-strong: #991B1B;
+  --danger-brand: #da291c;
+  --danger-dim: rgba(180, 35, 24, 0.08);
+  --warn: #A94E09;
+  --warn-strong: #78350F;
+  --warn-brand: #d97706;
+  --warn-dim: rgba(169, 78, 9, 0.08);
+  --info: #0052CC;
+  --info-strong: #1E40AF;
+  --info-brand: #2496ed;
+  --info-dim: rgba(0, 82, 204, 0.08);
+  --tool-ink: #18181B;
+  --on-dark: #FAFAFA;
 
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  /* System Typography Stacks (Zero CDNs, Zero External Fonts) */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
+  /* Layout and Geometry */
   --wrap: 1140px;
-  --pad: clamp(20px, 5vw, 48px);
-  --section: clamp(84px, 11vw, 148px);
+  --pad: clamp(16px, 4vw, 40px);
+  --section: clamp(64px, 8vw, 120px);
   --radius: 4px;
-  --ease: cubic-bezier(0.22, 0.68, 0.24, 1);
-  /* Height of the sticky chrome, shared by the sub-nav position and the anchor offset.
-     On narrow screens the subnav becomes one row, so its height changes here too,
-     not in two places a person has to remember. */
+  --radius-sm: 2px;
+  --radius-pill: 9999px;
   --header-h: 65px;
   --subnav-h: 53px;
+  --ease: cubic-bezier(0.22, 0.68, 0.24, 1);
 }
 @media (max-width: 760px) {
   :root { --subnav-h: 56px; }
@@ -61,8 +81,13 @@
 /* reset */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
-html { scroll-behavior: smooth; }
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+}
 body {
+  width: 100%;
+  max-width: 100%;
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-sans);
@@ -70,11 +95,6 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* clip, not hidden: hidden turns body into a scroll container and can
-     break position:sticky inside it. The hidden value is left in front
-     as a fallback for browsers that do not know clip.
-     Not there to cover overflow: the overflow sweep is part of CI. */
-  overflow-x: hidden;
   overflow-x: clip;
 }
 img { display: block; max-width: 100%; }
@@ -82,6 +102,30 @@ a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 ul { list-style: none; padding: 0; }
 ::selection { background: var(--accent); color: var(--accent-ink); }
+
+/* skip link for accessible keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -999px;
+  left: 16px;
+  z-index: 1000;
+  padding: 10px 16px;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+.skip-link:focus {
+  top: 16px;
+}
 
 /* subtle grid background */
 body::before {
@@ -92,7 +136,7 @@ body::before {
     linear-gradient(var(--line) 1px, transparent 1px),
     linear-gradient(90deg, var(--line) 1px, transparent 1px);
   background-size: 72px 72px;
-  opacity: 0.35;
+  opacity: 0.2;
   mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 0%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 0%, transparent 75%);
   pointer-events: none;
@@ -148,10 +192,7 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.92);
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: var(--surface);
   border-bottom: 1px solid var(--line);
 }
 .header-in {
@@ -182,34 +223,56 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
 }
 .brand:hover .mark { background: var(--accent); color: var(--accent-ink); }
 .brand .slash { color: var(--ink-faint); }
+@media (max-width: 480px) {
+  .brand { gap: 8px; }
+  .brand .slash,
+  .brand .dim { display: none; }
+}
 
 .nav { display: flex; align-items: center; gap: 4px; }
 .nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-family: var(--font-mono);
   font-size: 12.5px;
   letter-spacing: 0.04em;
   color: var(--ink-dim);
-  padding: 8px 11px;
-  border-radius: 2px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
   transition: color 0.2s var(--ease), background 0.2s var(--ease);
 }
-.nav a:hover { color: var(--ink); background: var(--accent-dim); }
-.nav a.active { color: var(--accent); }
+.nav a:hover { color: var(--ink); background: var(--surface-subtle); }
+.nav a.active { color: var(--accent); font-weight: 600; }
 
 .header-tools { display: flex; align-items: center; gap: 8px; }
-.tool-btn {
+.tool-btn,
+.nav-toggle,
+.studio-btn,
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.08em;
-  padding: 7px 12px;
+  padding: 10px 14px;
   border: 1px solid var(--line-strong);
-  border-radius: 2px;
-  color: var(--ink-dim);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
   transition: all 0.2s var(--ease);
   white-space: nowrap;
 }
-.tool-btn:hover { border-color: var(--accent); color: var(--accent); }
-.tool-btn[aria-pressed="true"] { background: var(--accent-dim); border-color: var(--accent-line); color: var(--accent); }
+.tool-btn:hover,
+.nav-toggle:hover,
+.studio-btn:hover,
+.copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+.tool-btn[aria-pressed="true"],
+.nav-toggle[aria-expanded="true"] { background: var(--accent-dim); border-color: var(--accent-line); color: var(--accent); }
 
 /* C2: two reading depths.
    Default = deep: every section is in the DOM and readable by crawlers and by a Tech Lead.
@@ -483,58 +546,75 @@ html[data-depth="skim"] .skim-note { display: flex; }
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;  font-family: var(--font-mono);
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  gap: 10px;
+  font-family: var(--font-mono);
   font-size: 13px;
-  letter-spacing: 0.06em;
-  padding: 13px 22px;
-  border-radius: 2px;
+  letter-spacing: 0.04em;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--accent);
-  transition: all 0.22s var(--ease);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
 }
 .btn-primary { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
-.btn-ghost { color: var(--ink-dim); border-color: var(--line); background: transparent; }
-.btn-ghost:hover { border-color: var(--accent-line); color: var(--ink); }
+.btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+.btn-ghost { color: var(--ink); border-color: var(--line-strong); background: transparent; }
+.btn-ghost:hover { background: var(--surface); border-color: var(--accent); color: var(--accent); }
 
-/* terminal: two visual rows (command + output side by side) */
+/* code viewer and evidence box: clean semantic styling replaces fake terminal */
+.code-card,
+.evidence-viewer,
 .terminal {
   margin-top: 0;
   flex: 1 1 420px;
   min-width: 0;
-  background: var(--surface-dark);
-  border: 1px solid rgba(250, 247, 242, 0.14);
+  background: var(--surface);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
   max-width: 560px;
 }
+.code-card-head,
 .terminal-bar {
-  display: flex; align-items: center; gap: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 8px 14px;
-  border-bottom: 1px solid rgba(250, 247, 242, 0.14);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-subtle);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
 }
-.terminal-bar i { width: 9px; height: 9px; border-radius: 50%; background: rgba(250, 247, 242, 0.28); }
-.terminal-bar i:first-child { background: var(--accent-bright); }
+.terminal-bar i { display: none; }
 .terminal-bar span {
   margin-left: auto;
   font-family: var(--font-mono);
   font-size: 11px;
-  color: #a9a29a;
+  color: var(--ink-faint);
   letter-spacing: 0.08em;
 }
+.code-card-body,
 .terminal-body {
-  padding: 12px 16px 14px;
+  padding: 14px 16px;
   font-family: var(--font-mono);
   font-size: 12.8px;
   line-height: 1.6;
+  color: var(--ink);
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   column-gap: 16px;
   row-gap: 4px;
 }
-/* min-height keeps the block height fixed while text is typed (no CLS) */
 .terminal-body .ln { white-space: pre-wrap; min-height: 1.6em; }
-.terminal-body .cmd { color: var(--on-dark); }
-.terminal-body .out { color: var(--accent-bright); }   /* 5.87:1 on the dark surface */
-.terminal-body .out.dim-out { color: #a9a29a; }               /* 6.64:1 */
+.terminal-body .cmd { color: var(--ink); font-weight: 600; }
+.terminal-body .out { color: var(--accent); }
+.terminal-body .out.dim-out { color: var(--ink-dim); }
 
 /* photo */
 .hero-photo { position: relative; justify-self: end; width: min(100%, 240px); grid-area: photo; }
@@ -724,4 +804,35 @@ html[data-depth="skim"] .skim-note { display: flex; }
 @media (hover: hover) {
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px -12px var(--accent-line); }
 .hero-photo:hover .photo-frame img { filter: grayscale(0) contrast(1.02); transform: scale(1.025); }
+}
+
+/* Zero horizontal overflow and child grid constraints */
+.hero-grid > *,
+.work-grid > *,
+.stats-in > *,
+.gate-checks > *,
+.diagram-shell,
+.code-card {
+  min-width: 0;
+}
+
+/* Long text and monospace wrapping */
+p, h1, h2, h3, h4, span, a, code, pre {
+  overflow-wrap: break-word;
+}
+.mono-break, .mail-link, code {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Responsive tables and wide containers */
+.table-responsive,
+.console-scroll,
+.diagram-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 }

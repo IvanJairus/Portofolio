@@ -109,6 +109,8 @@
       });
     }
 
+    document.documentElement.classList.add("js-ready");
+
     roots.forEach((root) => {
       const count = Number(root.dataset.stepCount);
       const styles = getComputedStyle(root);
@@ -128,6 +130,26 @@
           : null;
       const items = Array.from(root.querySelectorAll("[data-motion-item]"));
 
+      /* Extract step captions from SVG group aria-labels */
+      const stepLabels = [];
+      for (let i = 1; i <= count; i++) {
+        const it = root.querySelector(`[data-motion-item][data-step="${i}"][aria-label]`);
+        const raw = it ? it.getAttribute("aria-label") : `Step ${i}`;
+        stepLabels[i] = raw.replace(/^Step\s+\d+:\s*/i, "");
+      }
+
+      /* Control elements */
+      const controls = root.querySelector(".dg-controls");
+      const prevBtn = root.querySelector("[data-step-prev], [data-action='prev']");
+      const nextBtn = root.querySelector("[data-step-next], [data-action='next']");
+      const playPauseBtn = root.querySelector("[data-step-play], [data-action='play-pause']");
+      const playPauseIcon = playPauseBtn?.querySelector(".dg-btn-icon, .ic-pause, .ic-play");
+      const playPauseLabel = playPauseBtn?.querySelector(".dg-btn-label");
+      const currentStepEl = root.querySelector(".dg-counter-current");
+      const captionEl = root.querySelector("[data-step-caption], .dg-step-caption, .dg-step-desc");
+      const statusAnnouncer = root.querySelector('[role="status"]');
+      const stepBtns = Array.from(root.querySelectorAll("[data-step-target], [data-action='step']"));
+
       let step = 0;
       let timer = 0;
       let playing = false;
@@ -137,22 +159,56 @@
         timer = 0;
       };
 
-      function render(next) {
+      function updatePlayPauseUI(isPlaying) {
+        if (!playPauseBtn) return;
+        playPauseBtn.setAttribute("aria-pressed", String(isPlaying));
+        playPauseBtn.setAttribute(
+          "aria-label",
+          isPlaying ? "Pause automated walkthrough" : "Play automated walkthrough"
+        );
+        if (playPauseIcon) playPauseIcon.textContent = isPlaying ? "❚❚" : "▶";
+        if (playPauseLabel) playPauseLabel.textContent = isPlaying ? "Pause" : "Play";
+      }
+
+      function render(next, userInitiated = false) {
         step = Math.max(0, Math.min(count, next));
         root.dataset.stepCurrent = String(step);
         root.dataset.frame =
           step === count ? "end" : step === 0 ? "start" : "step";
+
         items.forEach((item) => {
           const itemStep = Number(item.dataset.step);
-          item.classList.toggle("is-visible", itemStep <= step);
+          item.classList.toggle("is-visible", itemStep <= step && step > 0);
           item.classList.toggle("is-current", itemStep === step);
         });
+
+        if (currentStepEl && step > 0) currentStepEl.textContent = String(step);
+        if (captionEl && stepLabels[step]) captionEl.textContent = stepLabels[step];
+
+        stepBtns.forEach((btn) => {
+          const target = Number(btn.dataset.stepTarget || btn.textContent);
+          const isActive = target === step;
+          btn.classList.toggle("is-active", isActive);
+          if (isActive) btn.setAttribute("aria-current", "step");
+          else btn.removeAttribute("aria-current");
+        });
+
+        if (prevBtn) prevBtn.disabled = step <= 1;
+        if (nextBtn) nextBtn.disabled = step >= count;
+
+        if (userInitiated && statusAnnouncer && step > 0) {
+          statusAnnouncer.textContent = `Step ${step} of ${count}: ${stepLabels[step] || "Complete"}`;
+        }
       }
 
-      function pause() {
+      function pause(userInitiated = false) {
         clearClock();
         playing = false;
         root.classList.remove("is-playing");
+        updatePlayPauseUI(false);
+        if (userInitiated && statusAnnouncer) {
+          statusAnnouncer.textContent = `Paused at step ${step} of ${count}`;
+        }
       }
 
       function tick() {
@@ -169,17 +225,75 @@
         }
         const nextStep = step + 1;
         render(nextStep);
-        /* Hold for 10 seconds on the completed frame before looping again */
+        /* Hold for loop pause on the completed frame before looping again */
         const nextDelay = nextStep >= count ? loopPause : hold;
         timer = window.setTimeout(tick, nextDelay);
       }
 
-      function playLoop() {
+      function play(fromStart = false) {
         clearClock();
+        if (fromStart || step >= count) render(1);
         playing = true;
         root.classList.add("is-playing");
-        render(1);
+        updatePlayPauseUI(true);
         timer = window.setTimeout(tick, hold);
+      }
+
+      function playLoop() {
+        play(true);
+      }
+
+      /* User interactive event listeners */
+      if (controls) {
+        controls.addEventListener("click", (e) => {
+          const btn = e.target.closest("button");
+          if (!btn) return;
+
+          if (btn.matches("[data-step-prev], [data-action='prev']")) {
+            pause(true);
+            render(Math.max(1, step - 1), true);
+          } else if (btn.matches("[data-step-next], [data-action='next']")) {
+            pause(true);
+            render(Math.min(count, step + 1), true);
+          } else if (btn.matches("[data-step-play], [data-action='play-pause']")) {
+            if (playing) {
+              pause(true);
+            } else {
+              play(step >= count);
+            }
+          } else if (btn.matches("[data-step-target], [data-action='step']")) {
+            const target = Number(btn.dataset.stepTarget || btn.textContent);
+            if (target >= 1 && target <= count) {
+              pause(true);
+              render(target, true);
+            }
+          }
+        });
+
+        root.addEventListener("keydown", (e) => {
+          if (e.target.matches("input, textarea, select")) return;
+          if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            pause(true);
+            render(Math.max(1, step - 1), true);
+          } else if (e.key === "ArrowRight") {
+            e.preventDefault();
+            pause(true);
+            render(Math.min(count, step + 1), true);
+          } else if (e.code === "Space" && !e.target.closest("button")) {
+            e.preventDefault();
+            if (playing) pause(true);
+            else play(step >= count);
+          } else if (e.key === "Home") {
+            e.preventDefault();
+            pause(true);
+            render(1, true);
+          } else if (e.key === "End") {
+            e.preventDefault();
+            pause(true);
+            render(count, true);
+          }
+        });
       }
 
       document.addEventListener("visibilitychange", () => {
@@ -218,6 +332,7 @@
       });
 
       root.classList.add("motion-ready");
+      root.classList.add("js-ready");
 
       if (staticOverride) {
         document.documentElement.dataset.motion = "static";

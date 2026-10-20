@@ -281,7 +281,11 @@
   color: var(--ink-dim);
   border: 1px solid var(--line-strong);
   border-radius: 2px;
-  padding: 5px 10px;
+  padding: 8px 12px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
 }
 .bd-break:hover { color: var(--danger); border-color: var(--danger); }
@@ -304,7 +308,8 @@ html:not([data-js]) .bd-break { display: none; }
 .bd-count { font-size: 12px; color: var(--ink-faint); letter-spacing: 0.08em; }
 .bd-count b { color: var(--ink); }
 .bd-btn {
-  width: 30px; height: 30px;
+  width: 44px; height: 44px;
+  min-width: 44px; min-height: 44px;
   display: grid; place-items: center;
   border: 1px solid var(--line-strong);
   border-radius: 2px;
@@ -314,7 +319,7 @@ html:not([data-js]) .bd-break { display: none; }
   transition: all 0.2s var(--ease);
 }
 .bd-btn:hover { border-color: var(--accent); color: var(--accent); }
-.bd-play { width: 38px; }
+.bd-play { width: 52px; min-width: 52px; }
 .bd-play .ic-play { display: none; }
 .bd-play.paused .ic-play { display: inline; }
 .bd-play.paused .ic-pause { display: none; }
@@ -322,11 +327,12 @@ html:not([data-js]) .bd-break { display: none; }
 .bd-dots { display: flex; gap: 6px; padding: 6px 16px 0; flex-wrap: wrap; }
 .bd-dot {
   flex: 1;
-  min-width: 26px;
-  /* the button is 24px tall (WCAG 2.2 AA minimum touch target); the old 3px bar is
+  min-width: 44px;
+  min-height: 44px;
+  /* the button is 44px tall (WCAG AA compliant touch target); the visible 3px bar is
      drawn by ::after so the look does not change at all */
   position: relative;
-  height: 24px;
+  height: 44px;
   padding: 0;
   border: 0;
   background: transparent;
@@ -548,6 +554,28 @@ html:not([data-js]) .bd-break { display: none; }
   background: var(--bg-2);
   padding: clamp(22px, 2.8vw, 30px);
 }
+.bpanel-wide {
+  grid-column: 1 / -1;
+}
+.flow-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 11.5px;
+}
+.flow-pill {
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  padding: 6px 12px;
+  border-radius: 2px;
+  color: var(--ink);
+}
+.flow-sep {
+  color: var(--accent);
+  font-weight: 700;
+}
 .bpanel h3 { font-size: 16.5px; letter-spacing: -0.01em; }
 .bpanel h3 .n { font-family: var(--font-mono); color: var(--accent); font-size: 12px; margin-right: 8px; }
 .bp-lead { margin-top: 14px; font-size: 13.4px; color: var(--ink-dim); line-height: 1.62; }
@@ -705,6 +733,7 @@ html:not([data-js]) .bd-break { display: none; }
   letter-spacing: 0.03em;
   color: var(--ink-dim);
   padding: 8px 10px;
+  min-height: 44px;
   border-radius: 2px;
   border: 1px solid transparent;
   text-align: left;
@@ -725,7 +754,8 @@ html:not([data-js]) .bd-break { display: none; }
   background: var(--bg-2);
   border: 1px solid var(--line-strong);
   border-radius: 2px;
-  padding: 5px 7px;
+  padding: 8px 10px;
+  min-height: 44px;
   width: 100%;
 }
 .rp-user { display: flex; align-items: center; gap: 8px; font-size: 10.5px; color: var(--ink-dim); }
@@ -1529,6 +1559,12 @@ html:not([data-js]) .bd-break { display: none; }
   border-radius: 999px;
   padding: 5px 13px;
   white-space: nowrap;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
   transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
 }
 .wsn:hover { color: var(--ink); border-color: var(--line-strong); }
@@ -1730,6 +1766,8 @@ html:not([data-js]) .dec-fold { display: none; }
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  min-height: 44px;
   gap: 8px;
   background: transparent;
   border: 0;
@@ -1738,6 +1776,7 @@ html:not([data-js]) .dec-fold { display: none; }
   flex: 1 1 90px;
   min-width: 88px;
   font: inherit;
+  box-sizing: border-box;
 }
 .lc-node > i {
   width: 11px; height: 11px;
@@ -2036,6 +2075,11 @@ html:not([data-js]) .dec-fold { display: none; }
   color: var(--accent);
   text-decoration: underline;
   text-underline-offset: 2px;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
 }
 /* The two reports that are not shown here, named by what they answer. */
 .lc-mailmore {
@@ -2055,7 +2099,14 @@ html:not([data-js]) .dec-fold { display: none; }
   border-top: 1px solid var(--line);
   padding-top: 7px;
 }
-.lc-mailmore a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.lc-mailmore a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
 .lc-mailmore span { color: var(--ink-faint); }
 .mailshow .mail-card {
   max-width: none;
@@ -2153,6 +2204,14 @@ html:not([data-js]) .dec-fold { display: none; }
   position: absolute; width: 1px; height: 1px;
   padding: 0; margin: -1px; overflow: hidden;
   clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.sr-only a,
+.work-summary-cards a {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 
@@ -2323,10 +2382,7 @@ html:not([data-js]) .dec-fold { display: none; }
 /* pause button for the lifecycle rail (WCAG 2.2.2: content that moves automatically
    for more than 5 seconds must be pausable; this rotation is 3.8 seconds per node) */
 .lc-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 16px; }
-.lc-pause { min-height: 30px; }
-@media (pointer: coarse) {
-  .lc-pause { min-height: 44px; }
-}
+.lc-pause { min-height: 44px; }
 
 /* F1, second part: at <=430px the rail must fit in full. Tool sublabels
    (git push / maven · gradle / trivy · sonar ...) are deliberately hidden at that
@@ -2384,14 +2440,28 @@ html:not([data-js]) .dec-fold { display: none; }
    Note: .depth-btn, .dec-fold, .wsn and .lc-pause are already 44px in their own blocks;
    what follows below is the rest. */
 @media (pointer: coarse) {
-  .tool-btn, .copy-btn, .tf-btn, .lc-chip, .co-chip, .rp-btn, .dec-fold, .wsn, .bd-break {
+  .tool-btn, .copy-btn, .tf-btn, .lc-chip, .co-chip, .rp-btn, .dec-fold, .wsn, .bd-break, .dx-cta, .rp-ni {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
   }
+  .rp-role select, .rp-proj {
+    min-height: 44px;
+  }
+  .bd-dot {
+    min-width: 44px;
+    min-height: 44px;
+  }
   .bd-btn { width: 44px; height: 44px; }
   .menu-btn { min-width: 44px; }
   .bd-play { width: 52px; }
+  .footer-nav a {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
   .ref { position: relative; }
     /* 18px text + 13px top-bottom = 44px touch area, the look does not change */
   .ref::after { content: ""; position: absolute; inset: -13px -6px; }
@@ -2551,7 +2621,16 @@ html:not([data-js]) .dec-fold { display: none; }
   font-size: 12px;
 }
 .lc-out > span { color: var(--ink-faint); letter-spacing: 0.06em; }
-.lc-out a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.lc-out a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+}
 
 /* The toolbox claim, and the page where it can be checked. */
 .tb-receipt {
@@ -2580,12 +2659,15 @@ html:not([data-js]) .dec-fold { display: none; }
 .dx h2 { margin: 0 0 8px; font-size: 26px; line-height: 1.2; }
 .dx-sub { margin: 0 0 18px; font-size: 12px; color: var(--ink-faint); }
 .dx-cta {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-mono);
   font-size: 12.5px;
   color: var(--accent-ink);
   background: var(--accent);
-  padding: 9px 16px;
+  padding: 10px 18px;
+  min-height: 44px;
   border-radius: 999px;
 }
 .dx-cta:hover { background: var(--accent-strong); }
@@ -2734,6 +2816,40 @@ html:not([data-js]) .dec-fold { display: none; }
   .spotlight-card {
     padding: 20px 18px;
   }
+}
+
+/* 5 packaging types & reference CTA in Case Study III */
+.art-band {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 18px;
+  margin-bottom: 24px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 12px;
+}
+.art-label {
+  font-weight: 700;
+  color: var(--accent);
+  margin-right: 6px;
+}
+.art-chip {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 4px 8px;
+  color: var(--ink-dim);
+}
+.art-chip b {
+  color: var(--ink);
+}
+.repo-cta-row {
+  margin-top: 24px;
+  margin-bottom: 16px;
 }
 
 

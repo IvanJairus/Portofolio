@@ -3,50 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'" />
-  <title>Interactive architecture and governance diagrams, by Ivan Jairus</title>
-  <meta name="description" content="Five interactive architecture, state-machine, event-router, dependency and sequence diagrams for the release orchestration and CI/CD platform." />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';" />
+  <title>Interactive Architecture Studio (5 Plates) | Ivan Jairus</title>
+  <meta name="description" content="Five interactive reference diagrams: twenty-one-phase board governance, control-plane topology, dual-track event routing, domain pipeline convergence, and card-to-SIT sequence." />
   <meta name="color-scheme" content="light" />
   <meta name="theme-color" content="#ffffff" />
   <link rel="canonical" href="https://www.ivanjairus.xyz/portfolio/diagrams/" />
+
+  <!-- Open Graph & Social Cards -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.ivanjairus.xyz/portfolio/diagrams/" />
-  <meta property="og:title" content="The release machinery, drawn in full" />
+  <meta property="og:title" content="Interactive Architecture Studio (5 Plates) | Ivan Jairus" />
   <meta property="og:description" content="Five interactive reference diagrams: twenty-one-phase board governance, control-plane topology, dual-track event routing, domain pipeline convergence, and card-to-SIT sequence." />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="The release machinery, drawn in full" />
-  <meta name="twitter:description" content="Five interactive system diagrams with continuous step animation and complete no-JS fallback." />
-  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
-  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
-  <meta name="msapplication-TileColor" content="#c2410c">
+  <meta property="og:image" content="../assets/img/og-cover-1200x630.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Ivan Jairus, DevSecOps: interactive architecture studio and release pipeline diagrams." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Interactive Architecture Studio (5 Plates) | Ivan Jairus" />
+  <meta name="twitter:description" content="Five interactive reference diagrams: twenty-one-phase board governance, control-plane topology, dual-track event routing, domain pipeline convergence, and card-to-SIT sequence." />
+  <meta name="twitter:image" content="../assets/img/og-cover-1200x630.png" />
+
+  <!-- Local Favicons -->
+  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png" />
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" />
+  <meta name="msapplication-TileColor" content="#c2410c" />
 
   <link rel="stylesheet" href="../assets/css/base.css" />
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/diagrams.css" />
 </head>
 <body id="top">
-
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <header class="site-header">
     <div class="wrap header-in">
-      <a class="brand" href="../">
-        <span class="mark">IJ</span>
-        <span>Ivan Jairus</span>
+      <a class="brand" href="../" aria-label="Home">
+        <span class="mark" data-profile="monogram">IJ</span>
+        <span data-profile="brand-name">Ivan Jairus</span>
         <span class="slash">/</span>
         <span class="dim">diagrams</span>
       </a>
-      <nav class="nav" aria-label="Primary">
-        <a href="../#about">About</a>
-        <a href="../#work">Work</a>
+      <nav class="nav desktop-nav" id="nav" aria-label="Primary">
+        <a href="../">Overview</a>
+        <a href="../work/">Case Studies</a>
+        <a href="./" class="active">Architecture</a>
         <a href="../pipelines/">Pipelines</a>
-        <a href="./">Diagrams</a>
+        <a href="../decisions/">Decisions</a>
         <a href="../#toolbox">Toolbox</a>
-        <a href="../#contact">Contact</a>
+        <a href="../assets/cv/cv-ivan-jairus.pdf" download>CV (PDF)</a>
       </nav>
+      <div class="header-tools">
+        <button type="button" class="tool-btn menu-btn nav-toggle" data-menu-btn id="nav-toggle" aria-expanded="false" aria-controls="nav-drawer" aria-label="Menu">
+          <svg class="mi" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="M2 5h14M2 9h14M2 13h14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
     </div>
   </header>
 
-  <main>
+  <div class="nav-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation" hidden>
+    <div class="nav-scrim" id="nav-scrim" tabindex="-1"></div>
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <span class="drawer-title">Navigation</span>
+        <button type="button" class="drawer-close" id="nav-close" aria-label="Close navigation menu">
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="M3 3l12 12M15 3L3 15" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <ul class="drawer-links">
+        <li><a href="../" class="drawer-link"><span class="drawer-idx mono">01</span><span>Executive Overview</span></a></li>
+        <li><a href="../work/" class="drawer-link"><span class="drawer-idx mono">02</span><span>Case Studies &amp; Threat Model</span></a></li>
+        <li><a href="./" class="drawer-link active"><span class="drawer-idx mono">03</span><span>Architecture Studio (5 Plates)</span></a></li>
+        <li><a href="../pipelines/" class="drawer-link"><span class="drawer-idx mono">04</span><span>Dual-Engine Pipeline Trace</span></a></li>
+        <li><a href="../decisions/" class="drawer-link"><span class="drawer-idx mono">05</span><span>Architecture Decisions (11 ADRs)</span></a></li>
+        <li><a href="../#toolbox" class="drawer-link"><span class="drawer-idx mono">06</span><span>Production Mileage Toolbox</span></a></li>
+        <li class="drawer-divider" role="separator"></li>
+        <li><a href="../assets/cv/cv-ivan-jairus.pdf" class="drawer-link drawer-cv" download><span class="drawer-idx mono">PDF</span><span>Download CV</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <main id="main-content">
 
     <section class="dg-intro">
       <div class="wrap">
@@ -71,6 +108,57 @@
         </div>
         <h2>21-phase board governance</h2>
         <p class="deck">The board itself carries the state. Twelve sequential upstream phases (PHASE_FLOW), five-layer role approvals, four automated execution statuses (In Dev, In Review, Merged, Deploy), four anti-loop guard layers, and nine downstream testing and promotion phases (MULTIPLE_FLOW) are all enforced by it.</p>
+        <div class="dg-controls" role="toolbar" aria-label="Playback controls for 21-phase board governance diagram">
+          <div class="dg-controls-row">
+            <div class="dg-playback-group" role="group" aria-label="Playback navigation">
+              <button type="button" class="btn dg-btn dg-btn-prev" data-step-prev data-action="prev" aria-label="Previous step">
+                <span aria-hidden="true">‹</span> Prev
+              </button>
+              <button type="button" class="btn dg-btn dg-btn-play" data-step-play data-action="play-pause" aria-label="Pause automated walkthrough" aria-pressed="true">
+                <span class="dg-btn-icon" aria-hidden="true">❚❚</span>
+                <span class="dg-btn-label">Pause</span>
+              </button>
+              <button type="button" class="btn dg-btn dg-btn-next" data-step-next data-action="next" aria-label="Next step">
+                Next <span aria-hidden="true">›</span>
+              </button>
+            </div>
+            <div class="dg-counter-wrap">
+              <span class="dg-counter mono" data-step-counter aria-hidden="true">
+                Step <strong class="dg-counter-current">1</strong> of <span class="dg-counter-total">6</span>:
+              </span>
+              <span class="dg-step-caption mono" data-step-caption aria-hidden="true">Upstream intake, business analysis, and architecture phases (P1 to P9)</span>
+            </div>
+          </div>
+
+          <div class="dg-steps-group" data-step-dots role="tablist" aria-label="Direct step selection">
+            <button type="button" class="btn dg-step-btn is-active" data-action="step" data-step-target="1" aria-label="Jump to Step 1: Upstream intake, business analysis, and architecture phases (P1 to P9)" aria-current="step">
+              <span class="dg-step-num">01</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="2" aria-label="Jump to Step 2: Dev readiness (P10 to P12) and fail-closed auto-revert guard">
+              <span class="dg-step-num">02</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="3" aria-label="Jump to Step 3: Five-layer approval passed; branch and MR opened in In Dev and In Review">
+              <span class="dg-step-num">03</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="4" aria-label="Jump to Step 4: Merge state captured in ticket description with 4-layer anti-loop guard">
+              <span class="dg-step-num">04</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="5" aria-label="Jump to Step 5: Status Deploy triggers downstream domain pipelines via API">
+              <span class="dg-step-num">05</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="6" aria-label="Jump to Step 6: Downstream SIT, UAT, security gates, RCB promotion, and release-manifest ledger">
+              <span class="dg-step-num">06</span>
+            </button>
+          </div>
+
+          <div class="sr-only" role="status" aria-live="polite" aria-atomic="true">
+            Step 1 of 6: Upstream intake, business analysis, and architecture phases (P1 to P9)
+          </div>
+
+          <p class="dg-keyboard-hint mono">
+            Keyboard: <kbd>←</kbd> / <kbd>→</kbd> step, <kbd>Space</kbd> play/pause, <kbd>Home</kbd> / <kbd>End</kbd> jump
+          </p>
+        </div>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 680" xmlns="http://www.w3.org/2000/svg" role="img"
            aria-labelledby="state-gov-public-title state-gov-public-desc">
@@ -212,11 +300,25 @@
   <text x="763.6" y="654" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">revert / anti-loop guard</text>
       </svg>
         </div>
-        <noscript><p>JavaScript is disabled. Showing the complete static diagram.</p></noscript>
+        <noscript>
+          <div class="dg-noscript-card">
+            <p class="dg-noscript-title"><strong>Static diagram reference (JavaScript disabled)</strong></p>
+            <p class="dg-noscript-note">All phases and transitions are displayed statically in the vector plate above. The sequential progression encompasses:</p>
+            <ol class="dg-noscript-list mono">
+              <li><strong>Step 1:</strong> Upstream intake, business analysis, and architecture phases (P1 to P9).</li>
+              <li><strong>Step 2:</strong> Dev readiness (P10 to P12) and fail-closed auto-revert guard.</li>
+              <li><strong>Step 3:</strong> Five-layer approval passed (Team, Business, Product, Architecture, Engineering). Branch and MR opened in In Dev and In Review.</li>
+              <li><strong>Step 4:</strong> Merge state captured in ticket description with 4-layer anti-loop guard.</li>
+              <li><strong>Step 5:</strong> Status Deploy triggers downstream domain pipelines via API.</li>
+              <li><strong>Step 6:</strong> Downstream SIT, UAT, security gates, RCB promotion, and release-manifest ledger.</li>
+            </ol>
+          </div>
+        </noscript>
       </div>
     </section>
 
     <section id="control-plane" class="dg-plate" data-motion-root data-motion-mode="loop" data-step-count="5" data-step-current="5" data-frame="end" data-static-frame="complete">
+      <div id="topology" class="scroll-target" aria-hidden="true"></div>
       <div class="wrap">
         <div class="dg-plate-head">
           <p class="eyebrow">Architecture · reference implementation · Interactive</p>
@@ -224,6 +326,54 @@
         </div>
         <h2>Control plane and three archetypes</h2>
         <p class="deck">One control plane, three execution archetypes. The orchestrator reads the board and dispatches; the execution plane runs the same contract three ways (Router+Container/Mobile, Hybrid SSH VM+OCP, Template/Shell OCP), and the dashed return is the closed webhook loop that Rule 0 stops.</p>
+        <div class="dg-controls" role="toolbar" aria-label="Playback controls for control plane and three archetypes diagram">
+          <div class="dg-controls-row">
+            <div class="dg-playback-group" role="group" aria-label="Playback navigation">
+              <button type="button" class="btn dg-btn dg-btn-prev" data-step-prev data-action="prev" aria-label="Previous step">
+                <span aria-hidden="true">‹</span> Prev
+              </button>
+              <button type="button" class="btn dg-btn dg-btn-play" data-step-play data-action="play-pause" aria-label="Pause automated walkthrough" aria-pressed="true">
+                <span class="dg-btn-icon" aria-hidden="true">❚❚</span>
+                <span class="dg-btn-label">Pause</span>
+              </button>
+              <button type="button" class="btn dg-btn dg-btn-next" data-step-next data-action="next" aria-label="Next step">
+                Next <span aria-hidden="true">›</span>
+              </button>
+            </div>
+            <div class="dg-counter-wrap">
+              <span class="dg-counter mono" data-step-counter aria-hidden="true">
+                Step <strong class="dg-counter-current">1</strong> of <span class="dg-counter-total">5</span>:
+              </span>
+              <span class="dg-step-caption mono" data-step-caption aria-hidden="true">Webhook ingress passes Rule 0 anti-loop filter and 5-layer approval validation</span>
+            </div>
+          </div>
+
+          <div class="dg-steps-group" data-step-dots role="tablist" aria-label="Direct step selection">
+            <button type="button" class="btn dg-step-btn is-active" data-action="step" data-step-target="1" aria-label="Jump to Step 1: Webhook ingress passes Rule 0 anti-loop filter and 5-layer approval validation" aria-current="step">
+              <span class="dg-step-num">01</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="2" aria-label="Jump to Step 2: Control plane state and deploy engine plus central security and branch sync">
+              <span class="dg-step-num">02</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="3" aria-label="Jump to Step 3: Trigger API fans out across three execution archetypes in the domain plane">
+              <span class="dg-step-num">03</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="4" aria-label="Jump to Step 4: Domain pipelines clone product repos, roll out to OpenShift, VM, and Mobile, and update release-manifest">
+              <span class="dg-step-num">04</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="5" aria-label="Jump to Step 5: Append-only release-manifest, security-scan reports, and closed-loop webhook guard">
+              <span class="dg-step-num">05</span>
+            </button>
+          </div>
+
+          <div class="sr-only" role="status" aria-live="polite" aria-atomic="true">
+            Step 1 of 5: Webhook ingress passes Rule 0 anti-loop filter and 5-layer approval validation
+          </div>
+
+          <p class="dg-keyboard-hint mono">
+            Keyboard: <kbd>←</kbd> / <kbd>→</kbd> step, <kbd>Space</kbd> play/pause, <kbd>Home</kbd> / <kbd>End</kbd> jump
+          </p>
+        </div>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 672" xmlns="http://www.w3.org/2000/svg" role="img"
            aria-labelledby="arch-v3-public-title arch-v3-public-desc">
@@ -363,7 +513,19 @@
   <text x="702.0" y="646" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">webhook return loop</text>
       </svg>
         </div>
-        <noscript><p>JavaScript is disabled. Showing the complete static diagram.</p></noscript>
+        <noscript>
+          <div class="dg-noscript-card">
+            <p class="dg-noscript-title"><strong>Static diagram reference (JavaScript disabled)</strong></p>
+            <p class="dg-noscript-note">All planes, archetypes, and transitions are displayed statically in the vector plate above. The sequential progression encompasses:</p>
+            <ol class="dg-noscript-list mono">
+              <li><strong>Step 1:</strong> Webhook ingress passes Rule 0 anti-loop filter and 5-layer approval validation.</li>
+              <li><strong>Step 2:</strong> Control plane state and deploy engine plus central security and branch sync.</li>
+              <li><strong>Step 3:</strong> Trigger API fans out across three execution archetypes in the domain plane (Router+App, Hybrid SSH VM+OCP, Template/Shell OCP).</li>
+              <li><strong>Step 4:</strong> Domain pipelines clone product repos, roll out to OpenShift, VM, and Mobile, and update release-manifest.</li>
+              <li><strong>Step 5:</strong> Append-only release-manifest, security-scan reports, and closed-loop webhook guard.</li>
+            </ol>
+          </div>
+        </noscript>
       </div>
     </section>
 
@@ -375,6 +537,57 @@
         </div>
         <h2>Dual-track event router</h2>
         <p class="deck">Every event enters one router. Past the four-layer anti-loop filter it splits into two parallel tracks: the Work-Item and MR release lifecycle on the left, ChatOps and the scheduled security jobs on the right.</p>
+        <div class="dg-controls" role="toolbar" aria-label="Playback controls for dual-track event router diagram">
+          <div class="dg-controls-row">
+            <div class="dg-playback-group" role="group" aria-label="Playback navigation">
+              <button type="button" class="btn dg-btn dg-btn-prev" data-step-prev data-action="prev" aria-label="Previous step">
+                <span aria-hidden="true">‹</span> Prev
+              </button>
+              <button type="button" class="btn dg-btn dg-btn-play" data-step-play data-action="play-pause" aria-label="Pause automated walkthrough" aria-pressed="true">
+                <span class="dg-btn-icon" aria-hidden="true">❚❚</span>
+                <span class="dg-btn-label">Pause</span>
+              </button>
+              <button type="button" class="btn dg-btn dg-btn-next" data-step-next data-action="next" aria-label="Next step">
+                Next <span aria-hidden="true">›</span>
+              </button>
+            </div>
+            <div class="dg-counter-wrap">
+              <span class="dg-counter mono" data-step-counter aria-hidden="true">
+                Step <strong class="dg-counter-current">1</strong> of <span class="dg-counter-total">6</span>:
+              </span>
+              <span class="dg-step-caption mono" data-step-caption aria-hidden="true">Incoming event passes 4-layer anti-loop filter and enters category router</span>
+            </div>
+          </div>
+
+          <div class="dg-steps-group" data-step-dots role="tablist" aria-label="Direct step selection">
+            <button type="button" class="btn dg-step-btn is-active" data-action="step" data-step-target="1" aria-label="Jump to Step 1: Incoming event passes 4-layer anti-loop filter and enters category router" aria-current="step">
+              <span class="dg-step-num">01</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="2" aria-label="Jump to Step 2: Track A validates sequential board phase and 5-layer approval gate">
+              <span class="dg-step-num">02</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="3" aria-label="Jump to Step 3: Invalid phase or missing approval reverts card status; valid gate proceeds to release">
+              <span class="dg-step-num">03</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="4" aria-label="Jump to Step 4: Track A executes branch, MR, ticket state capture, and domain deploy trigger">
+              <span class="dg-step-num">04</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="5" aria-label="Jump to Step 5: Track B routes note slash commands to ChatOps and cron triggers to central security scans">
+              <span class="dg-step-num">05</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="6" aria-label="Jump to Step 6: Both tracks converge to post watermarked callback comments and status reports">
+              <span class="dg-step-num">06</span>
+            </button>
+          </div>
+
+          <div class="sr-only" role="status" aria-live="polite" aria-atomic="true">
+            Step 1 of 6: Incoming event passes 4-layer anti-loop filter and enters category router
+          </div>
+
+          <p class="dg-keyboard-hint mono">
+            Keyboard: <kbd>←</kbd> / <kbd>→</kbd> step, <kbd>Space</kbd> play/pause, <kbd>Home</kbd> / <kbd>End</kbd> jump
+          </p>
+        </div>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 760" xmlns="http://www.w3.org/2000/svg" role="img"
            aria-labelledby="flow-orch-v3-public-title flow-orch-v3-public-desc">
@@ -388,8 +601,8 @@
         </defs>
         <rect width="100%" height="100%" fill="#f5f5f5"/>
         <rect x="48" y="228" width="560" height="396" rx="8" fill="rgba(45,49,66,0.02)" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
-  <rect x="60" y="232" width="240" height="14" rx="2" fill="#f5f5f5"/>
-  <text x="68" y="242" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em">TRACK A · RELEASE LIFECYCLE</text>
+  <rect x="60" y="232" width="310" height="14" rx="2" fill="#f5f5f5"/>
+  <text x="68" y="242" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em">TRACK A · BOARD ISSUE &amp; COMMIT MR TRACK</text>
         <rect x="672" y="228" width="560" height="396" rx="8" fill="rgba(45,49,66,0.02)" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
   <rect x="684" y="232" width="248" height="14" rx="2" fill="#f5f5f5"/>
   <text x="692" y="242" fill="#5a6580" font-family="var(--font-mono)" font-size="8" letter-spacing="0.14em">TRACK B · CHATOPS &amp; SECURITY</text>
@@ -500,7 +713,20 @@
   <text x="992" y="730" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">merge point</text>
       </svg>
         </div>
-        <noscript><p>JavaScript is disabled. Showing the complete static diagram.</p></noscript>
+        <noscript>
+          <div class="dg-noscript-card">
+            <p class="dg-noscript-title"><strong>Static diagram reference (JavaScript disabled)</strong></p>
+            <p class="dg-noscript-note">All flowchart branches, gates, and fallbacks are displayed statically in the vector plate above. The sequential progression encompasses:</p>
+            <ol class="dg-noscript-list mono">
+              <li><strong>Step 1:</strong> Incoming event passes 4-layer anti-loop filter and enters category router.</li>
+              <li><strong>Step 2:</strong> Track A validates sequential board phase and 5-layer approval gate.</li>
+              <li><strong>Step 3:</strong> Invalid phase or missing approval reverts card status; valid gate proceeds to release.</li>
+              <li><strong>Step 4:</strong> Track A executes branch, MR, ticket state capture, and domain deploy trigger.</li>
+              <li><strong>Step 5:</strong> Track B routes note slash commands to ChatOps and cron triggers to central security scans.</li>
+              <li><strong>Step 6:</strong> Both tracks converge to post watermarked callback comments and status reports.</li>
+            </ol>
+          </div>
+        </noscript>
       </div>
     </section>
 
@@ -512,6 +738,54 @@
         </div>
         <h2>Where the six pipelines converge</h2>
         <p class="deck">Ranked by dependency depth. The orchestrator reads one routing table and triggers six domain pipelines; those six deploy into the product repositories and converge on two shared projects. The dashed line is the one that is not a tree: a merged MR arrives back at the orchestrator as a webhook event, which is what the anti-loop guard exists to stop.</p>
+        <div class="dg-controls" role="toolbar" aria-label="Playback controls for six-domain pipeline convergence diagram">
+          <div class="dg-controls-row">
+            <div class="dg-playback-group" role="group" aria-label="Playback navigation">
+              <button type="button" class="btn dg-btn dg-btn-prev" data-step-prev data-action="prev" aria-label="Previous step">
+                <span aria-hidden="true">‹</span> Prev
+              </button>
+              <button type="button" class="btn dg-btn dg-btn-play" data-step-play data-action="play-pause" aria-label="Pause automated walkthrough" aria-pressed="true">
+                <span class="dg-btn-icon" aria-hidden="true">❚❚</span>
+                <span class="dg-btn-label">Pause</span>
+              </button>
+              <button type="button" class="btn dg-btn dg-btn-next" data-step-next data-action="next" aria-label="Next step">
+                Next <span aria-hidden="true">›</span>
+              </button>
+            </div>
+            <div class="dg-counter-wrap">
+              <span class="dg-counter mono" data-step-counter aria-hidden="true">
+                Step <strong class="dg-counter-current">1</strong> of <span class="dg-counter-total">5</span>:
+              </span>
+              <span class="dg-step-caption mono" data-step-caption aria-hidden="true">Rank 0 entry points read routing table into orchestrator pipeline</span>
+            </div>
+          </div>
+
+          <div class="dg-steps-group" data-step-dots role="tablist" aria-label="Direct step selection">
+            <button type="button" class="btn dg-step-btn is-active" data-action="step" data-step-target="1" aria-label="Jump to Step 1: Rank 0 entry points read routing table into orchestrator pipeline" aria-current="step">
+              <span class="dg-step-num">01</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="2" aria-label="Jump to Step 2: Orchestrator fans out triggers to the six domain pipelines in Rank 1">
+              <span class="dg-step-num">02</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="3" aria-label="Jump to Step 3: Domain pipelines deploy to product repositories and converge on security-scan (5 in)">
+              <span class="dg-step-num">03</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="4" aria-label="Jump to Step 4: All six pipelines plus board prepare-uat converge on release-manifest (7 in) and mobile repos">
+              <span class="dg-step-num">04</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="5" aria-label="Jump to Step 5: Workloads roll out to OpenShift (SIT, UAT, PROD) while MR webhooks return through anti-loop guard">
+              <span class="dg-step-num">05</span>
+            </button>
+          </div>
+
+          <div class="sr-only" role="status" aria-live="polite" aria-atomic="true">
+            Step 1 of 5: Rank 0 entry points read routing table into orchestrator pipeline
+          </div>
+
+          <p class="dg-keyboard-hint mono">
+            Keyboard: <kbd>←</kbd> / <kbd>→</kbd> step, <kbd>Space</kbd> play/pause, <kbd>Home</kbd> / <kbd>End</kbd> jump
+          </p>
+        </div>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 700" xmlns="http://www.w3.org/2000/svg" role="img"
            aria-labelledby="deps-public-title deps-public-desc">
@@ -607,7 +881,19 @@
   <text x="746.8000000000001" y="670" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">return path</text>
       </svg>
         </div>
-        <noscript><p>JavaScript is disabled. Showing the complete static diagram.</p></noscript>
+        <noscript>
+          <div class="dg-noscript-card">
+            <p class="dg-noscript-title"><strong>Static diagram reference (JavaScript disabled)</strong></p>
+            <p class="dg-noscript-note">All ranks, convergence nodes, and return edges are displayed statically in the vector plate above. The sequential progression encompasses:</p>
+            <ol class="dg-noscript-list mono">
+              <li><strong>Step 1:</strong> Rank 0 entry points read routing table into orchestrator pipeline.</li>
+              <li><strong>Step 2:</strong> Orchestrator fans out triggers to the six domain pipelines in Rank 1.</li>
+              <li><strong>Step 3:</strong> Domain pipelines deploy to product repositories and converge on security-scan (5 in).</li>
+              <li><strong>Step 4:</strong> All six pipelines plus board prepare-uat converge on release-manifest (7 in) and mobile repos.</li>
+              <li><strong>Step 5:</strong> Workloads roll out to OpenShift (SIT, UAT, PROD) while MR webhooks return through anti-loop guard.</li>
+            </ol>
+          </div>
+        </noscript>
       </div>
     </section>
 
@@ -619,6 +905,57 @@
         </div>
         <h2>One card from In Dev to SIT</h2>
         <p class="deck">Time runs downward. Every board move triggers an orchestrator job guarded by sequential phase and five-layer approval checks: when a card passes approval, the merge gate passes the MR, on_merge_v2 records the service state, on_deploy triggers the domain pipeline, and the returning webhook is stopped by the Rule 0 anti-loop guard.</p>
+        <div class="dg-controls" role="toolbar" aria-label="Playback controls for In Dev to SIT execution sequence diagram">
+          <div class="dg-controls-row">
+            <div class="dg-playback-group" role="group" aria-label="Playback navigation">
+              <button type="button" class="btn dg-btn dg-btn-prev" data-step-prev data-action="prev" aria-label="Previous step">
+                <span aria-hidden="true">‹</span> Prev
+              </button>
+              <button type="button" class="btn dg-btn dg-btn-play" data-step-play data-action="play-pause" aria-label="Pause automated walkthrough" aria-pressed="true">
+                <span class="dg-btn-icon" aria-hidden="true">❚❚</span>
+                <span class="dg-btn-label">Pause</span>
+              </button>
+              <button type="button" class="btn dg-btn dg-btn-next" data-step-next data-action="next" aria-label="Next step">
+                Next <span aria-hidden="true">›</span>
+              </button>
+            </div>
+            <div class="dg-counter-wrap">
+              <span class="dg-counter mono" data-step-counter aria-hidden="true">
+                Step <strong class="dg-counter-current">1</strong> of <span class="dg-counter-total">6</span>:
+              </span>
+              <span class="dg-step-caption mono" data-step-caption aria-hidden="true">Sequence lifelines and five system actors</span>
+            </div>
+          </div>
+
+          <div class="dg-steps-group" data-step-dots role="tablist" aria-label="Direct step selection">
+            <button type="button" class="btn dg-step-btn is-active" data-action="step" data-step-target="1" aria-label="Jump to Step 1: Sequence lifelines and five system actors" aria-current="step">
+              <span class="dg-step-num">01</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="2" aria-label="Jump to Step 2: Card move to In Dev, validation, and MR creation">
+              <span class="dg-step-num">02</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="3" aria-label="Jump to Step 3: Promotion move to Merged or Deploy and webhook arrival">
+              <span class="dg-step-num">03</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="4" aria-label="Jump to Step 4: Alt frame: approval pass saves state, failure reverts card">
+              <span class="dg-step-num">04</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="5" aria-label="Jump to Step 5: Orchestrator triggers domain pipeline and SIT deployment">
+              <span class="dg-step-num">05</span>
+            </button>
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="6" aria-label="Jump to Step 6: Returning bot webhook blocked by Rule 0 anti-loop guard">
+              <span class="dg-step-num">06</span>
+            </button>
+          </div>
+
+          <div class="sr-only" role="status" aria-live="polite" aria-atomic="true">
+            Step 1 of 6: Sequence lifelines and five system actors
+          </div>
+
+          <p class="dg-keyboard-hint mono">
+            Keyboard: <kbd>←</kbd> / <kbd>→</kbd> step, <kbd>Space</kbd> play/pause, <kbd>Home</kbd> / <kbd>End</kbd> jump
+          </p>
+        </div>
         <div class="diagram-container">
           <svg viewBox="0 0 1280 980" xmlns="http://www.w3.org/2000/svg" role="img"
            aria-labelledby="seq-public-title seq-public-desc">
@@ -718,13 +1055,27 @@
   <text x="294.8" y="938" fill="#5a6580" font-family="var(--font-mono)" font-size="9" letter-spacing="0.06em">actor</text>
       </svg>
         </div>
-        <noscript><p>JavaScript is disabled. Showing the complete static diagram.</p></noscript>
+        <noscript>
+          <div class="dg-noscript-card">
+            <p class="dg-noscript-title"><strong>Static diagram reference (JavaScript disabled)</strong></p>
+            <p class="dg-noscript-note">All actors, lifelines, and sequence activations are displayed statically in the vector plate above. The sequential progression encompasses:</p>
+            <ol class="dg-noscript-list mono">
+              <li><strong>Step 1:</strong> Sequence lifelines and five system actors.</li>
+              <li><strong>Step 2:</strong> Card move to In Dev, validation, and MR creation.</li>
+              <li><strong>Step 3:</strong> Promotion move to Merged or Deploy and webhook arrival.</li>
+              <li><strong>Step 4:</strong> Alt frame: approval pass saves state, failure reverts card.</li>
+              <li><strong>Step 5:</strong> Orchestrator triggers domain pipeline and SIT deployment.</li>
+              <li><strong>Step 6:</strong> Returning bot webhook blocked by Rule 0 anti-loop guard.</li>
+            </ol>
+          </div>
+        </noscript>
       </div>
     </section>
 
     <section class="dg-end">
       <div class="wrap">
         <p class="dg-nav mono">
+          <a href="../work/">case studies and threat model →</a>
           <a href="../pipelines/">the gate those pipelines enforce, with the source behind every line →</a>
           <a href="../decisions/">eleven architecture and production decisions →</a>
           <a href="../">back to the overview</a>
@@ -735,14 +1086,26 @@
 
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer" id="site-footer">
     <div class="wrap footer-in">
-      <span>© 2026 Ivan Jairus</span>
-      <span class="ftr-creed">If the process needs a hero, the process is wrong.</span>
+      <div class="footer-summary">
+        <p class="ftr-creed mono">Ivan Jairus : DevSecOps &amp; Platform Engineer : Jakarta, Indonesia</p>
+        <p class="dim">53 services · 5 artifact types · 3 environments · 1 gateway · ~330 tests · 11 ADRs</p>
+        <p class="dim">&copy; 2026 Ivan Jairus. Zero tracking, zero third-party CDNs, zero cookies.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer Navigation">
+        <a href="../">Overview</a>
+        <a href="../work/">Work</a>
+        <a href="./">Diagrams</a>
+        <a href="../pipelines/">Pipelines</a>
+        <a href="../decisions/">Decisions</a>
+        <a href="#main-content" class="back-to-top">Back to top &uarr;</a>
+      </nav>
     </div>
   </footer>
 
-  <script defer src="../assets/js/observability.js"></script>
-  <script defer src="../assets/js/diagrams.js"></script>
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/observability.js" defer></script>
+  <script src="../assets/js/diagrams.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';" />
+  <title>Case Studies &amp; Threat Model | Ivan Jairus</title>
+  <meta name="description" content="Deep dive case studies: GitLab Board Orchestrator, Release Control Plane, Pipeline Platform and 8-asset Threat Model by Ivan Jairus." />
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="canonical" href="https://www.ivanjairus.xyz/portfolio/work/" />
+
+  <!-- Open Graph & Social Cards -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.ivanjairus.xyz/portfolio/work/" />
+  <meta property="og:title" content="Case Studies &amp; Threat Model | Ivan Jairus" />
+  <meta property="og:description" content="Deep dive case studies: GitLab Board Orchestrator, Release Control Plane, Pipeline Platform and 8-asset Threat Model by Ivan Jairus." />
+  <meta property="og:image" content="../assets/img/og-cover-1200x630.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Ivan Jairus, DevSecOps: case studies, release control plane, gateway architecture, and threat model." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Case Studies &amp; Threat Model | Ivan Jairus" />
+  <meta name="twitter:description" content="Deep dive case studies: GitLab Board Orchestrator, Release Control Plane, Pipeline Platform and 8-asset Threat Model by Ivan Jairus." />
+  <meta name="twitter:image" content="../assets/img/og-cover-1200x630.png" />
+
+  <!-- Local Favicons -->
+  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png" />
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" />
+
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+  <link rel="stylesheet" href="../assets/css/showcase.css" />
+  <link rel="stylesheet" href="../assets/css/animations.css" />
+  <script src="../assets/js/i18n.js" defer></script>
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/showcase.js" defer></script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <header class="site-header">
+    <div class="wrap header-in">
+      <a class="brand" href="../" aria-label="Home">
+        <span class="mark" data-profile="monogram">IJ</span>
+        <span data-profile="brand-name">Ivan Jairus</span>
+        <span class="slash">/</span>
+        <span class="dim">devsecops</span>
+      </a>
+      <nav class="nav desktop-nav" id="nav" aria-label="Primary">
+        <a href="../">Overview</a>
+        <a href="./" class="active">Case Studies</a>
+        <a href="../diagrams/">Architecture</a>
+        <a href="../pipelines/">Pipelines</a>
+        <a href="../decisions/">Decisions</a>
+        <a href="../#toolbox">Toolbox</a>
+        <a href="../assets/cv/cv-ivan-jairus.pdf" download>CV (PDF)</a>
+      </nav>
+      <div class="header-tools">
+        <button type="button" class="tool-btn menu-btn nav-toggle" data-menu-btn id="nav-toggle" aria-expanded="false" aria-controls="nav-drawer" aria-label="Menu">
+          <svg class="mi" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="M2 5h14M2 9h14M2 13h14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="nav-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation" hidden>
+    <div class="nav-scrim" id="nav-scrim" tabindex="-1"></div>
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <span class="drawer-title">Navigation</span>
+        <button type="button" class="drawer-close" id="nav-close" aria-label="Close navigation menu">
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="M3 3l12 12M15 3L3 15" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <ul class="drawer-links">
+        <li><a href="../" class="drawer-link"><span class="drawer-idx mono">01</span><span>Executive Overview</span></a></li>
+        <li><a href="./" class="drawer-link active"><span class="drawer-idx mono">02</span><span>Case Studies &amp; Threat Model</span></a></li>
+        <li><a href="../diagrams/" class="drawer-link"><span class="drawer-idx mono">03</span><span>Architecture Studio (5 Plates)</span></a></li>
+        <li><a href="../pipelines/" class="drawer-link"><span class="drawer-idx mono">04</span><span>Dual-Engine Pipeline Trace</span></a></li>
+        <li><a href="../decisions/" class="drawer-link"><span class="drawer-idx mono">05</span><span>Architecture Decisions (11 ADRs)</span></a></li>
+        <li><a href="../#toolbox" class="drawer-link"><span class="drawer-idx mono">06</span><span>Production Mileage Toolbox</span></a></li>
+        <li class="drawer-divider" role="separator"></li>
+        <li><a href="../assets/cv/cv-ivan-jairus.pdf" class="drawer-link drawer-cv" download><span class="drawer-idx mono">PDF</span><span>Download CV</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <main id="main-content">
+
+    <div class="depth-row wrap">
+      <button type="button" class="tool-btn depth-btn" data-depth-btn aria-pressed="false"><span data-i18n="depth.skim">Hide case studies</span></button>
+    </div>
+    <div class="work-summary-cards sr-only">
+      <div id="work-summary-1">
+        <p>32 pipeline jobs across 18 orchestrators and 21-phase flow</p>
+        <p>~330 unit tests covering routing, idempotency and merge races</p>
+        <p>Anti-loop watermarks added after a real infinite-webhook incident</p>
+      </div>
+      <div id="work-summary-2">
+        <p>53 services onboarded; source repositories carry no CI file at all</p>
+        <p>Codified release standard, published in the reference library and versioned with the pipelines</p>
+        <p>Vulnerability scan + SBOM on every container image</p>
+        <p>5 artifact types: jar, image, apk, ipa, web</p>
+        <a href="https://github.com/IvanJairus/Pipeline">Pipeline reference</a>
+      </div>
+      <div id="work-summary-3">
+        <p>Built on Express + SSE event streaming</p>
+        <p>Composite quality gate: Deployment SUCCESS + Quality gate PASSED (code quality) + 0 CRITICAL vulnerabilities findings</p>
+        <p>Role-based access: admin / devsecops / developer</p>
+        <p>Live updates over SSE; API-key auth for machine callers</p>
+      </div>
+    </div>
+
+    <div class="work-subnav wrap" data-subnav>
+      <span class="wsn-label mono">work</span>
+      <a href="#board" class="wsn" data-wsn="board" data-i18n="work.sub.board">Board</a>
+      <a href="#platform" class="wsn" data-wsn="platform" data-i18n="work.sub.platform">Platform</a>
+      <a href="#architecture" class="wsn" data-wsn="architecture" data-i18n="work.sub.architecture">Architecture</a>
+      <a href="#decisions" class="wsn" data-wsn="decisions" data-i18n="work.sub.decisions">Decisions</a>
+      <a href="#threat" class="wsn" data-wsn="threat" data-i18n="work.sub.threat">Threat model</a>
+    </div>
+
+    <!-- masterpiece I: board -->
+    <section id="board" data-deep>
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker" data-i18n="board.kicker">Case study I: release orchestration</span>
+          <h2 data-i18n="board.title">I turned a bare GitLab board into a release system</h2>
+          <p class="lead" data-i18n="board.lead">A GitLab issue board has almost none of what a regulated release needs: no approval chain, no phase enforcement, no persistent state, no deploy trigger. Instead of buying a tool, I made the board itself drive the pipeline. Engineers move a card, and branches, merge requests, scans, approvals, deploys and audit comments follow. Every result is written back into the ticket.</p>
+          <p class="before-line mono"><span>before:</span> <span data-i18n="board.before">approvals lived in chat, release state lived in one person's head, deploys were triggered from a terminal</span></p>
+        </div>
+
+        <div class="stack-facts">
+          <div class="sf"><b>18</b><span>orchestrators routing 32 pipeline jobs</span></div>
+          <div class="sf"><b>21-phase</b><span>governance flow with 5-layer approvals</span></div>
+          <div class="sf"><b>~330</b><span>unit tests for routing, idempotency and races</span></div>
+          <div class="sf"><b>4-layer</b><span>anti-loop guards preventing runaway webhooks</span></div>
+        </div>
+
+        <!-- before / after: readable in one glance -->
+        <div class="ba">
+          <div class="ba-side ba-before">
+            <div class="ba-tag mono">gitlab <em>out of the box</em></div>
+            <div class="ba-cols">
+              <div class="ba-col"><h3>To do</h3><span class="ba-card"></span><span class="ba-card sm"></span></div>
+              <div class="ba-col"><h3>Doing</h3><span class="ba-card"></span></div>
+              <div class="ba-col"><h3>Done</h3></div>
+            </div>
+            <p class="ba-note" data-i18n="board.ba.before">no approval chain · no phase state · no trigger, just columns</p>
+          </div>
+          <div class="ba-arrow">
+            <span class="ba-arrow-ic" aria-hidden="true">→</span>
+            <span class="ba-arrow-txt" data-i18n="board.ba.arrow">1 card moved → 6 automated actions</span>
+          </div>
+          <div class="ba-side ba-after">
+            <div class="ba-tag mono">the board <em>I built</em></div>
+            <div class="ba-cols five">
+              <div class="ba-col"><h3>To do</h3><span class="ba-card on">#471<i class="ba-badge">Intake</i></span></div>
+              <div class="ba-col"><h3>In Dev</h3><span class="ba-card lit"><i class="ba-dot"></i>branch auto-made</span></div>
+              <div class="ba-col"><h3>In Review</h3><span class="ba-card lit"><i class="ba-dot"></i>MR + scans</span></div>
+              <div class="ba-col"><h3>Merged</h3><span class="ba-card lit"><i class="ba-chips">✓✓✓✓✓</i>5-layer approval</span></div>
+              <div class="ba-col"><h3>Deploy</h3><span class="ba-card lit"><i class="ba-dot"></i>pipeline + audit</span></div>
+            </div>
+            <p class="ba-note">21-phase state machine · 5-layer approvals · bot comments · deploy trigger: the board runs the release</p>
+          </div>
+        </div>
+
+        <!-- interactive storyboard -->
+        <div class="bd">
+          <div class="bd-bar">
+            <div class="bd-bar-l">
+              <span class="bd-live"><i></i><span data-i18n="board.demo.live">live walkthrough</span></span>
+              <span class="bd-count mono"><b data-bd-cur>1</b> / <span data-bd-total>8</span></span>
+              <button type="button" class="bd-break" data-bd-break aria-pressed="false"><span data-i18n="board.demo.break">break the gate</span></button>
+              <span class="bd-break-flag mono" data-i18n="board.demo.breakflag">counter-example</span>
+            </div>
+            <div class="bd-bar-r">
+              <button type="button" class="bd-btn" data-bd-prev aria-label="Previous step">‹</button>
+              <button type="button" class="bd-btn bd-play" data-bd-play aria-label="Play or pause"><span class="ic-pause">❚❚</span><span class="ic-play">▶</span></button>
+              <button type="button" class="bd-btn" data-bd-next aria-label="Next step">›</button>
+            </div>
+          </div>
+
+          <div class="bd-dots" role="tablist" aria-label="Release cycle steps">
+            <button type="button" class="bd-dot on" data-bd-go="0" role="tab" aria-label="Step 1"></button>
+            <button type="button" class="bd-dot" data-bd-go="1" role="tab" aria-label="Step 2"></button>
+            <button type="button" class="bd-dot" data-bd-go="2" role="tab" aria-label="Step 3"></button>
+            <button type="button" class="bd-dot" data-bd-go="3" role="tab" aria-label="Step 4"></button>
+            <button type="button" class="bd-dot" data-bd-go="4" role="tab" aria-label="Step 5"></button>
+            <button type="button" class="bd-dot" data-bd-go="5" role="tab" aria-label="Step 6"></button>
+            <button type="button" class="bd-dot" data-bd-go="6" role="tab" aria-label="Step 7"></button>
+            <button type="button" class="bd-dot" data-bd-go="7" role="tab" aria-label="Step 8"></button>
+          </div>
+
+          <p class="scroll-hint mono bd-hint" data-i18n="scroll.hint">swipe sideways to see the rest</p>
+          <div class="bd-grid">
+            <div class="bd-board">
+              <div class="bd-col" data-col="0"><h3>To do<span class="cc">1</span></h3><div class="bd-colbody"></div></div>
+              <div class="bd-col" data-col="1"><h3>In Dev<span class="cc">1</span></h3><div class="bd-colbody">
+                <div class="bd-card ghost"><div class="bc-top"><span class="bc-iid mono">#468</span></div><div class="bc-title">fix: timeout on statement export</div></div>
+              </div></div>
+              <div class="bd-col" data-col="2"><h3>In Review<span class="cc">0</span></h3><div class="bd-colbody"></div></div>
+              <div class="bd-col" data-col="3"><h3>Merged<span class="cc">1</span></h3><div class="bd-colbody">
+                <div class="bd-card ghost"><div class="bc-top"><span class="bc-iid mono">#465</span></div><div class="bc-title">chore: bump base image</div></div>
+              </div></div>
+              <div class="bd-col" data-col="4"><h3>Deploy<span class="cc">0</span></h3><div class="bd-colbody"></div></div>
+
+              <div class="bd-card" id="bd-card">
+                <div class="bc-top"><span class="bc-iid mono">#471</span><span class="bc-phase mono" data-bd-phase>Intake</span></div>
+                <div class="bc-title">feat: nightly ledger reconciliation</div>
+                <div class="bc-meta">
+                  <span class="bc-lbl">Sprint 24</span>
+                  <span class="bc-lbl sev">severity:2</span>
+                  <span class="bc-lbl">priority:high</span>
+                </div>
+                <div class="bc-approve" data-bd-approve></div>
+                <div class="bc-bot" data-bd-botmark><span class="mono">state</span><code>&lt;!-- PIPELINE_STATE --&gt;</code></div>
+              </div>
+            </div>
+
+            <div class="bd-ticket">
+              <div class="bt-head">
+                <span class="bt-ic">◧</span>
+                <div>
+                  <div class="bt-title">#471 · feat: nightly ledger reconciliation</div>
+                  <div class="bt-sub mono" data-i18n="board.demo.activity">activity, everything below is written by the automation</div>
+                </div>
+              </div>
+              <div class="bt-feed" data-bd-feed aria-live="polite"></div>
+            </div>
+          </div>
+
+          <p class="bd-narr" data-bd-narr></p>
+        </div>
+
+        <!-- gate & anti-incident -->
+        <div class="board-panels">
+          <div class="bpanel">
+            <h3><span class="n">D1</span><span data-i18n="board.p1.title">A five-layer approval chain, enforced by machine</span></h3>
+            <div class="chain">
+              <span class="chain-link" data-i18n="board.chain.1">team</span><i>→</i>
+              <span class="chain-link" data-i18n="board.chain.2">business</span><i>→</i>
+              <span class="chain-link" data-i18n="board.chain.3">product</span><i>→</i>
+              <span class="chain-link" data-i18n="board.chain.4">architecture</span><i>→</i>
+              <span class="chain-link" data-i18n="board.chain.5">engineering</span>
+            </div>
+            <ul class="blist">
+              <li data-i18n="board.p1.a">Every phase demands a specific approval field. Skip one and the phase is reverted automatically with an explanatory comment.</li>
+              <li data-i18n="board.p1.b">Phase jumps are rejected: the sequential flow allows no leap forward, and one role may hold only one approval state at a time, so a contradictory second value clears both.</li>
+              <li data-i18n="board.p1.c">Fail-closed by default: a missing milestone or an unconfirmed merge stops the job with exit 1 instead of quietly continuing with a guess.</li>
+            </ul>
+          </div>
+
+          <div class="bpanel">
+            <h3><span class="n">D2</span><span data-i18n="board.p2.title">Designed around a real incident</span></h3>
+            <p class="bp-lead" data-i18n="board.p2.lead">A retry command with substring matching let the bot trigger itself: hundreds of runaway comments across multiple tickets in one night. The fix is four layered guards, and 25 regression tests keep it from recurring.</p>
+            <div class="layers">
+              <div class="layer"><b>L1</b><span data-i18n="board.layer.1">bot accounts excluded at the CI rule level</span></div>
+              <div class="layer"><b>L2</b><span data-i18n="board.layer.2">bot username guard inside the orchestrator</span></div>
+              <div class="layer"><b>L3</b><span data-i18n="board.layer.3">anchored regex: a comment must start with the command</span></div>
+              <div class="layer"><b>L4</b><span data-i18n="board.layer.4">bot replies are written so they can never re-trigger</span></div>
+            </div>
+            <div class="cool">
+              <span class="cool-chip mono">deploy watermark 60s</span>
+              <span class="cool-chip mono">scan cooldown 900s</span>
+              <span class="cool-chip mono">merge dedupe 120s</span>
+              <span class="cool-chip mono">cycle idempotency</span>
+            </div>
+          </div>
+
+          <div class="bpanel bpanel-wide">
+            <h3><span class="n">D3</span><span>The 21-phase flow: end-to-end governance</span></h3>
+            <p class="bp-lead">The board state machine governs 21 explicit phases across the release lifecycle: 12 upstream sequential phases in <code>PHASE_FLOW</code> (from Intake and Technical Review through Staging and Release Gate), 4 automated execution triggers (<code>In Dev</code>, <code>In Review</code>, <code>Merged</code>, and <code>Deploy</code>), and 9 downstream release promotion phases in <code>MULTIPLE_FLOW</code> (regression sweeps, UAT sign-off, hotfix cascades, and production deployment).</p>
+            <div class="flow-pills mono">
+              <span class="flow-pill">12 upstream sequential phases (PHASE_FLOW)</span>
+              <span class="flow-sep">→</span>
+              <span class="flow-pill">4 execution triggers</span>
+              <span class="flow-sep">→</span>
+              <span class="flow-pill">9 downstream release promotion phases (MULTIPLE_FLOW)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- chatops condensed into one annotation -->
+        <p class="care-note co-line"><span class="mono">chatops //</span> <span data-i18n="board.co.line">/retry · /sonarqube · /diff &lt;domain&gt; · /deploy-secure · /sync · /follow #iid · /summarypic · /notif. The board doubles as a command line; every command is anchored, gated by ticket status and bot-proof.</span></p>
+      </div>
+    </section>
+
+    <!-- masterpiece II: platform -->
+    <section id="platform" data-deep>
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker" data-i18n="plat.kicker">Case study II: release control plane</span>
+          <h2 data-i18n="plat.title">The dashboard that replaced five tools and a spreadsheet</h2>
+          <p class="lead">A release management platform built on Express + SSE event streaming: version drift between environments, diff-driven releases, build and deploy triggering, live console streaming, composite quality gates (Deployment SUCCESS + Quality gate PASSED + 0 CRITICAL findings), secret changes, mobile test recordings, and role-based access (admin, devsecops, developer) with API-key auth for machine callers, all on one page and updated in realtime. Below is an interactive replica with sanitized dummy data. Click anything.</p>
+          <p class="before-line mono"><span>before:</span> <span data-i18n="plat.before">five tools and one spreadsheet to answer "what runs in UAT right now?"</span></p>
+        </div>
+
+        <div class="rp" data-rp>
+          <div class="rp-chrome">
+            <span class="rp-dots"><i></i><i></i><i></i></span>
+            <span class="rp-url mono">release-control-plane <em>/ interactive replica · dummy data</em></span>
+            <span class="rp-sse" data-rp-sse><i></i><span class="mono">live</span></span>
+          </div>
+
+          <div class="rp-body">
+            <aside class="rp-side" aria-label="Replica navigation">
+              <div class="rp-brand"><span class="rp-mark">▤</span><span class="mono">release<span>ctrl</span></span></div>
+              <nav class="rp-nav" data-rp-nav aria-label="Replica views">
+                <button type="button" class="rp-ni on" data-view="dashboard"><i>◱</i>Dashboard</button>
+                <button type="button" class="rp-ni" data-view="board"><i>▦</i>Board</button>
+                <button type="button" class="rp-ni" data-view="deploys"><i>▲</i>Deploys</button>
+                <button type="button" class="rp-ni" data-view="preuat"><i>⇪</i>PRE-UAT</button>
+                <button type="button" class="rp-ni" data-view="scans"><i>◎</i>Scans</button>
+                <button type="button" class="rp-ni" data-view="testing"><i>▷</i>Testing</button>
+                <button type="button" class="rp-ni" data-view="secrets"><i>⚿</i>Secrets</button>
+                <button type="button" class="rp-ni rp-admin" data-view="settings"><i>⚙</i>Settings</button>
+              </nav>
+              <div class="rp-side-foot">
+                <div class="rp-role">
+                  <label class="mono" for="rp-role">role</label>
+                  <select id="rp-role" data-rp-role>
+                    <option value="admin">admin</option>
+                    <option value="devsecops" selected>devsecops</option>
+                    <option value="developer">developer</option>
+                  </select>
+                </div>
+                <div class="rp-user mono"><span class="av">IJ</span> ivan.j</div>
+              </div>
+            </aside>
+
+            <div class="rp-main">
+              <div class="rp-top">
+                <select class="rp-proj" data-rp-proj aria-label="Project">
+                  <option value="all">All Projects</option>
+                  <option value="core">core-banking</option>
+                  <option value="mobile">mobile-channel</option>
+                  <option value="portal">customer-portal</option>
+                </select>
+                <span class="rp-crumb mono" data-rp-crumb>Dashboard</span>
+                <span class="rp-clock mono" data-rp-clock>--:--:--</span>
+              </div>
+              <p class="scroll-hint mono rp-hint" data-i18n="scroll.hint">swipe sideways to see the rest</p>
+              <div class="rp-view" data-rp-view></div>
+            </div>
+          </div>
+
+          <div class="rp-toasts" data-rp-toasts aria-live="polite"></div>
+        </div>
+
+        <p class="rp-caption" data-i18n="plat.caption">The replica UI is shown in English, exactly like the real product. Names, versions, hashes and paths below are sanitized dummy data. The behaviour, the layout and the numbers describing the platform itself are real.</p>
+
+        <div class="rp-facts">
+          <div class="sf"><b>12</b><span data-i18n="plat.fact.1">views in a single-page app</span></div>
+          <div class="sf"><b>~110</b><span data-i18n="plat.fact.2">route handlers across 7 API modules</span></div>
+          <div class="sf"><b>14</b><span data-i18n="plat.fact.3">realtime event types pushed over SSE</span></div>
+          <div class="sf"><b>3</b><span data-i18n="plat.fact.4">runtime dependencies on the server</span></div>
+          <div class="sf"><b>~9.9k</b><span data-i18n="plat.fact.5">lines written and maintained by me</span></div>
+        </div>
+
+        <div class="points-row four">
+          <div class="point">
+            <h3><span data-i18n="plat.p1.title">Diff-driven releases</span></h3>
+            <p data-i18n="plat.p1.body">The core question is "what differs between SIT and UAT?" The release plan is generated only from services whose versions actually diverged, so nothing rides along by accident.</p>
+          </div>
+          <div class="point">
+            <h3><span data-i18n="plat.p2.title">Deploy without leaving the page</span></h3>
+            <p>Pick services or paste a commit SHA; Express resolves which services that diff touches, triggers the build, then streams queue, stages and console output back live over SSE.</p>
+          </div>
+          <div class="point">
+            <h3><span>Composite quality gate</span></h3>
+            <p>Every release evaluates a three-part composite quality gate: Deployment SUCCESS, Quality gate PASSED (code quality), and 0 CRITICAL vulnerabilities findings. If any gate fails, the promotion refuses to proceed.</p>
+          </div>
+          <div class="point">
+            <h3><span data-i18n="plat.p4.title">Accountable by design</span></h3>
+            <p>Role-based access: admin, devsecops, developer, per-project assignment, revocable API-key auth for machine callers, and an append-only audit log for every destructive action.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- architecture -->
+    <section id="architecture" data-deep>
+      <div class="wrap">
+        <div class="section-head">
+          <h2 data-i18n="arch.title">One gateway, fifty-three services</h2>
+          <p class="lead" data-i18n="arch.lead">The idea I keep returning to: developers should never own pipeline plumbing. A four-line include routes every repository to its domain pipeline, and the standard evolves in one place.</p>
+          <p class="before-line mono"><span>before:</span> <span data-i18n="arch.before">every repo kept its own copy of the pipeline, so fixing the standard meant editing every repo's copy by hand</span></p>
+        </div>
+
+        <div class="art-band mono">
+          <span class="art-label">5 packaging types:</span>
+          <span class="art-chip"><b>jar</b> (Spring Boot backend)</span>
+          <span class="art-chip"><b>image</b> (OCI container with Trivy + SBOM)</span>
+          <span class="art-chip"><b>apk</b> (Android mobile binary via DexGuard)</span>
+          <span class="art-chip"><b>ipa</b> (iOS mobile binary via iXGuard)</span>
+          <span class="art-chip"><b>web</b> (React single-page applications)</span>
+        </div>
+
+        <div class="diagram-shell" data-diagram="gateway">
+            <p class="scroll-hint mono" data-i18n="scroll.hint">swipe sideways to see the rest</p>
+          <svg viewBox="0 0 1080 340" role="img" aria-label="Architecture diagram: many service repositories route through a single gateway to domain pipelines and environments">
+            <text class="col-label" x="20" y="30" data-i18n="arch.node.repos">53 services</text>
+            <text class="col-label" x="650" y="30" data-i18n="arch.node.dom">domain pipelines</text>
+            <text class="col-label" x="930" y="30" data-i18n="arch.node.env">environments</text>
+
+            <!-- links: repos -> gateway -->
+            <path class="dg-link d7" id="rp1"  d="M170 82 H250 V180 H330" />
+            <path class="dg-link d8" id="rp2"  d="M170 146 H250 V180 H330" />
+            <path class="dg-link d9" id="rp3"  d="M170 210 H250 V180 H330" />
+            <path class="dg-link d10" id="rp4"  d="M170 274 H250 V180 H330" />
+            <!-- gateway -> domains -->
+            <path class="dg-link d11" id="gd1" d="M510 180 H580 V100 H650" />
+            <path class="dg-link d12" id="gd2" d="M510 180 H580 V190 H650" />
+            <path class="dg-link d13" id="gd3" d="M510 180 H580 V280 H650" />
+            <!-- domains -> bus -> envs -->
+            <path class="dg-link d14" id="dm1" d="M820 100 H875" />
+            <path class="dg-link d15" id="dm2" d="M820 190 H875" />
+            <path class="dg-link d16" id="dm3" d="M820 280 H875" />
+            <path class="dg-link d17" id="busv" d="M875 100 V280" />
+            <path class="dg-link d18" id="be1" d="M875 112 H930" />
+            <path class="dg-link d19" id="be2" d="M875 192 H930" />
+            <path class="dg-link d20" id="be3" d="M875 272 H930" />
+
+            <!-- repos -->
+            <g class="dg-node n-repo" data-dg="rp1"><rect x="20" y="60" width="150" height="44" rx="3" /><text class="node-sub" x="95" y="86" text-anchor="middle" data-i18n="arch.node.repo">service repo</text></g>
+            <g class="dg-node n-repo" data-dg="rp2"><rect x="20" y="124" width="150" height="44" rx="3" /><text class="node-sub" x="95" y="150" text-anchor="middle" data-i18n="arch.node.repo">service repo</text></g>
+            <g class="dg-node n-repo" data-dg="rp3"><rect x="20" y="188" width="150" height="44" rx="3" /><text class="node-sub" x="95" y="214" text-anchor="middle" data-i18n="arch.node.repo">service repo</text></g>
+            <g class="dg-node n-repo" data-dg="rp4"><rect x="20" y="252" width="150" height="44" rx="3" /><text class="node-sub" x="95" y="278" text-anchor="middle" data-i18n="arch.node.more">+50 more</text></g>
+
+            <!-- gateway -->
+            <g class="dg-node n-gateway" data-dg="rp1 rp2 rp3 rp4 gd1 gd2 gd3">
+              <rect x="330" y="145" width="180" height="70" rx="3" />
+              <text class="node-title accent-txt" x="420" y="176" text-anchor="middle" data-i18n="arch.node.gateway">gateway.yml</text>
+              <text class="node-sub" x="420" y="196" text-anchor="middle" data-i18n="arch.node.gateway.sub">route by project id</text>
+            </g>
+
+            <!-- domains -->
+            <g class="dg-node n-dom"><rect x="650" y="76" width="170" height="48" rx="3" /><text class="node-title" x="735" y="105" text-anchor="middle" data-i18n="arch.node.dom1">mobile banking</text></g>
+            <g class="dg-node n-dom"><rect x="650" y="166" width="170" height="48" rx="3" /><text class="node-title" x="735" y="195" text-anchor="middle" data-i18n="arch.node.dom2">dashboards</text></g>
+            <g class="dg-node n-dom"><rect x="650" y="256" width="170" height="48" rx="3" /><text class="node-title" x="735" y="285" text-anchor="middle" data-i18n="arch.node.dom3">onboarding</text></g>
+
+            <!-- envs -->
+            <g class="dg-node n-env"><rect x="930" y="90" width="130" height="44" rx="3" /><text class="node-title" x="995" y="117" text-anchor="middle" data-i18n="arch.node.sit">SIT</text></g>
+            <g class="dg-node n-env"><rect x="930" y="170" width="130" height="44" rx="3" /><text class="node-title" x="995" y="197" text-anchor="middle" data-i18n="arch.node.uat">UAT</text></g>
+            <g class="dg-node n-env"><rect x="930" y="250" width="130" height="44" rx="3" /><text class="node-title" x="995" y="277" text-anchor="middle" data-i18n="arch.node.prod">PROD</text></g>
+            <!-- steady flow: the package travels repos -> gateway -> domain -> env -->
+            <g class="dg-flow" aria-hidden="true">
+              <circle class="dgfp" r="3.5"><animateMotion dur="1.6s" begin="0s" repeatCount="indefinite"><mpath href="#rp1"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1.6s" begin="0.4s" repeatCount="indefinite"><mpath href="#rp2"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1.6s" begin="0.8s" repeatCount="indefinite"><mpath href="#rp3"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1.6s" begin="1.2s" repeatCount="indefinite"><mpath href="#rp4"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1.2s" begin="1.7s" repeatCount="indefinite"><mpath href="#gd1"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1.2s" begin="2.0s" repeatCount="indefinite"><mpath href="#gd2"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1.2s" begin="2.3s" repeatCount="indefinite"><mpath href="#gd3"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="0.9s" begin="3.1s" repeatCount="indefinite"><mpath href="#dm1"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="0.9s" begin="3.4s" repeatCount="indefinite"><mpath href="#dm2"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="0.9s" begin="3.7s" repeatCount="indefinite"><mpath href="#dm3"/></animateMotion></circle>
+              <circle class="dgfp" r="3"><animateMotion dur="1.6s" begin="4.2s" repeatCount="indefinite"><mpath href="#busv"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1s" begin="4.6s" repeatCount="indefinite"><mpath href="#be1"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1s" begin="4.9s" repeatCount="indefinite"><mpath href="#be2"/></animateMotion></circle>
+              <circle class="dgfp" r="3.5"><animateMotion dur="1s" begin="5.2s" repeatCount="indefinite"><mpath href="#be3"/></animateMotion></circle>
+            </g>
+          </svg>
+        </div>
+
+        <p class="lc-out mono"><a href="../diagrams/#control-plane" data-i18n="arch.atlas.link">open the interactive control-plane and runner topology plate in the diagram atlas →</a></p>
+
+        <div class="repo-cta-row">
+          <a class="btn btn-primary" href="https://github.com/IvanJairus/Pipeline" target="_blank" rel="noopener noreferrer">
+            Inspect Pinned Pipeline Repository (GitHub) ↗
+          </a>
+        </div>
+
+        <div class="points-row">
+          <div class="point">
+            <h3><span data-i18n="arch.p1.title">Routing is data, not duplication</span></h3>
+            <p data-i18n="arch.p1.body">Project IDs map to domain pipelines in one config. Onboarding a new team means changing one include, not forking a pipeline.</p>
+          </div>
+          <div class="point">
+            <h3><span data-i18n="arch.p2.title">Two engines, one contract</span></h3>
+            <p data-i18n="arch.p2.body">GitLab CI and legacy Jenkins coexist behind the same stage contract and callback format, so migration is incremental instead of a big bang.</p>
+          </div>
+          <div class="point">
+            <h3><span data-i18n="arch.p3.title">Promotion is an event</span></h3>
+            <p data-i18n="arch.p3.body">SIT → UAT → PROD moves are tag-and-merge operations with an append-only release ledger as the source of truth for what runs where.</p>
+          </div>
+        </div>
+
+        <!-- lifecycle: what happens to ONE change, and what happens every week -->
+        <div class="lc">
+          <div class="section-head lc-head">
+            <h3 data-i18n="lc.title">The lifecycle of one change</h3>
+            <p class="mono lc-sub" data-i18n="lc.sub">click any node, the detail appears below the rail</p>
+            <button type="button" class="tool-btn lc-pause" data-lc-pause aria-pressed="false"><span data-i18n="lc.pause">pause</span></button>
+          </div>
+
+          <div class="lc-rail" data-lc-rail>
+            <div class="lc-line" aria-hidden="true"></div>
+            <div class="lc-packet" aria-hidden="true"></div>
+            <button type="button" class="lc-node on" data-lc="0"><i></i><span data-i18n="lc.n1">commit</span></button>
+            <button type="button" class="lc-node" data-lc="1"><i></i><span data-i18n="lc.n2">branch auto-made</span></button>
+            <button type="button" class="lc-node" data-lc="2"><i></i><span data-i18n="lc.n3">MR opened</span></button>
+            <button type="button" class="lc-node lc-fan" data-lc="3"><i></i><span data-i18n="lc.n4">parallel checks</span>
+              <em>build ✓/✗</em><em>sonarqube</em><em>sast · semgrep</em>
+            </button>
+            <button type="button" class="lc-node lc-gate" data-lc="4"><i></i><span data-i18n="lc.n5">composite gate</span></button>
+            <button type="button" class="lc-node" data-lc="5"><i></i><span data-i18n="lc.n6">merge, by a human</span></button>
+            <button type="button" class="lc-node" data-lc="6"><i></i><span data-i18n="lc.n7">deploy SIT</span></button>
+            <button type="button" class="lc-node lc-prod" data-lc="7"><i></i><span data-i18n="lc.n8">promote UAT → PROD</span></button>
+          </div>
+          <p class="lc-detail mono" data-lc-detail></p>
+
+          <div class="lc-rail lc-sched" data-lc-sched>
+            <button type="button" class="lc-chip" data-lc="8"><b data-i18n="lc.n9">weekly schedule</b><span data-i18n="lc.s0">// no human present</span></button>
+            <span class="lc-sep">→</span>
+            <button type="button" class="lc-chip" data-lc="9"><b data-i18n="lc.n10">branch auto-sync</b><span data-i18n="lc.s1">cascade MRs · approver ≠ author</span></button>
+            <span class="lc-sep">→</span>
+            <button type="button" class="lc-chip" data-lc="10"><b data-i18n="lc.n11">SAST · all services</b><span data-i18n="lc.s2">semgrep in docker · 30-day artifacts</span></button>
+            <span class="lc-sep">→</span>
+            <button type="button" class="lc-chip" data-lc="11"><b data-i18n="lc.n12">SonarQube · all services</b><span data-i18n="lc.s3">triggered in batches · polled to done</span></button>
+            <span class="lc-sep">→</span>
+            <button type="button" class="lc-chip lc-mail-chip" data-lc="12"><b data-i18n="lc.n13">email summary per domain</b><span data-i18n="lc.s4">the run reports itself ↓</span></button>
+          </div>
+
+          <!-- Six standard rules. Before this they were only readable after someone clicked a
+               lifecycle node or a board card (lc.d* keys), so they were absent from the served
+               HTML: printed, crawled, and a 60-second read of the page would not show them. -->
+          <div class="std-band">
+            <div class="std-head">
+              <span class="std-title mono" data-i18n="std.title">What the standard enforces</span>
+              <span class="std-note" data-i18n="std.note">six rules a service cannot opt out of, the same ones the lifecycle above applies</span>
+            </div>
+            <ol class="std-list">
+              <li data-i18n="std.1">A branch is created from the milestone release branch and named after the ticket, so a wrong name cannot be produced.</li>
+              <li data-i18n="std.2">The merge request opens against the correct target for that release line, so nobody picks a branch.</li>
+              <li data-i18n="std.3">Deploy, quality gate and zero critical findings must agree, or the release is blocked rather than queued.</li>
+              <li data-i18n="std.4">The merge stays human: the bot prepares, records and waits; a person clicks merge.</li>
+              <li data-i18n="std.5">Promotion between environments is tag-and-merge: same pipeline, same artefact, only the target changes.</li>
+              <li data-i18n="std.6">A fix cascades forward through merge requests between release branches, so it never misses an older line.</li>
+            </ol>
+          </div>
+
+          <!-- One of the three reports. The other two, and this one in full
+               context, are on /reports/; the rows below name what each answers so
+               the link carries the claim instead of a bare "read more". -->
+          <div class="lc-mailgrid">
+            <div class="mailshow">
+              <div class="mailshow-head">
+                <div>
+                  <span class="ms-title mono">email reports</span>
+                  <span class="ms-sub" data-i18n="lc.mail.headsub">report emails my pipelines generate, sample data sanitized</span>
+                </div>
+                <a class="ms-more mono" href="../pipelines/">all three scanner reports</a>
+              </div>
+              <div class="mail-card">
+                <div class="mail-top mono">
+                  <span class="mail-av">IJ</span>
+                  <div>
+                    <div class="mail-from">devops-platform &lt;noreply@…&gt;</div>
+                    <div class="mail-subj">[board] Branch Auto Sync Summary · Thu 02:14 WIB</div>
+                  </div>
+                </div>
+                <div class="mail-body">
+                  <div class="mail-head">
+                    <span class="mono">BRANCH AUTO SYNC REPORT</span><span class="mono mail-wm">DEVOPS&nbsp;PLATFORM</span>
+                  </div>
+                  <div class="mail-meta mono"><span>2026-10-01 · 02:14 WIB</span><span>domain: core</span><span>12 branch pairs · 9 MR</span></div>
+                  <div class="mail-stats">
+                    <div class="ms ok"><b>6</b><span>merged</span></div>
+                    <div class="ms dim"><b>3</b><span>no changes</span></div>
+                    <div class="ms warn"><b>1</b><span>conflict</span></div>
+                    <div class="ms bad"><b>1</b><span>approval failed</span></div>
+                    <div class="ms gray"><b>1</b><span>skipped</span></div>
+                  </div>
+                  <table class="mail-tbl">
+<tbody><tr class="th"><td>service</td><td>branch pair</td><td>status</td><td>mr</td></tr>
+                    <tr><td>ledger-service</td><td>R1.0 → R1.1</td><td class="ok">✓ MERGED</td><td class="lk">view MR</td></tr>
+                    <tr><td>mobile-bff</td><td>R1.1 → R1.2</td><td class="warn">⚠ CONFLICT: REBASE NEEDED</td><td class="lk">view MR</td></tr>
+                    <tr><td>scheduler-job</td><td>R1.0 → R1.1</td><td class="dim">NO CHANGES</td><td></td></tr>
+                    <tr><td>auth-gateway</td><td>R1.1 → R1.2</td><td class="bad">✕ APPROVAL FAILED</td><td class="lk">view MR</td></tr>
+</tbody>
+                  </table>
+                  <div class="mail-note mono">note // one design system, three report types. The run always reports itself</div>
+                </div>
+              </div>
+            </div>
+            <ul class="lc-mailmore mono">
+              <li><a href="../pipelines/">SAST · core</a><span>1 critical, 5 medium, 31 services scanned</span></li>
+              <li><a href="../pipelines/">SonarQube · core</a><span>30 scanned, 2 not passed, 1 with no analysis</span></li>
+            </ul>
+            <p class="care-note lc-mailcap" data-i18n="lc.mail.caption">// dummy data in the report format my pipelines generate. Names, domains and links are sanitized. The amber disclaimer is there because a scanner that overclaims is worse than no scanner</p>
+          </div>
+        </div>
+
+        <!-- Where the rules above are actually enforced. Two destinations, each
+             named by what a reader finds there. -->
+        <div class="lc-out mono">
+          <span>where this is enforced</span>
+          <a href="../pipelines/">the gate as a GitLab pipeline and as a Jenkins graph, with the file behind every line</a>
+          <a href="../pipelines/">the three scanner reports a weekly run sends when nobody is on shift</a>
+          <a href="../diagrams/" data-i18n="lc.out.diagrams">the five interactive system diagrams: 21-phase board governance, control plane, event router, dependency convergence, and SIT sequence</a>
+        </div>
+
+        <!-- two ecosystems: Jira+Jenkins before, GitLab board+CI now -->
+        <div class="eco">
+          <div class="eco-card eco-old">
+            <div class="eco-tag mono">then: jira + jenkins</div>
+            <ul>
+              <li data-i18n="eco.o1">dozens of shared-library steps wiring Jira webhooks to GitLab automation</li>
+              <li data-i18n="eco.o2">Jira webhook → gateway job parses the changelog and dispatches sibling Jenkins jobs</li>
+              <li data-i18n="eco.o3">those jobs create branches, open MRs, approve, merge and deploy across SIT / UAT / PROD</li>
+              <li data-i18n="eco.o4">secrets from Vault, email reports before any dashboard existed</li>
+            </ul>
+          </div>
+          <div class="eco-arrow">
+            <span class="ea-ic" aria-hidden="true">⇒</span>
+            <span class="ea-txt mono" data-i18n="eco.arrow">same standard, different tools</span>
+          </div>
+          <div class="eco-card eco-new">
+            <div class="eco-tag mono">now: gitlab board + gitlab ci</div>
+            <ul>
+              <li data-i18n="eco.n1">the issue board is the trigger, so there is no second tracker and no gateway fan-out</li>
+              <li data-i18n="eco.n2">one webhook → workflow.rules routes to 18 orchestrators, one module per job</li>
+              <li data-i18n="eco.n3">state lives inside the ticket, as watermarks in its notes. There is no extra database that can drift from it.</li>
+              <li data-i18n="eco.n4">the same gates survived the move: approval chain, scans, fail-closed</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- security as a gate: one visual line is enough, not a full section -->
+        <div class="arch-gate">
+          <div class="ag-title mono" data-i18n="arch.gate.title">what "release ready" means on my platform</div>
+          <div class="diagram-shell" data-diagram="gate">
+            <p class="scroll-hint mono" data-i18n="scroll.hint">swipe sideways to see the rest</p>
+            <div class="gate">
+              <div class="gate-checks">
+                <div class="gate-check"><span class="box">✓</span><span data-i18n="sec.check.1">Deployment SUCCESS</span></div>
+                <div class="gate-check"><span class="box">✓</span><span data-i18n="sec.check.2">Quality gate PASSED</span></div>
+                <div class="gate-check"><span class="box">✓</span><span data-i18n="sec.check.3">No CRITICAL findings</span></div>
+              </div>
+              <div class="gate-result">
+                <div class="g-label">composite gate</div>
+                <div class="g-state" aria-live="polite" data-ready="RELEASE READY">···</div>
+              </div>
+            </div>
+          </div>
+          <div class="scan-card" role="img" aria-label="Sample scan summary">
+            <div class="sc-head mono"><span>◎ sonarqube · ledger-service · release/sprint-24</span><span class="sc-tag" data-i18n="arch.scan.label">sample output (sanitized)</span></div>
+            <div class="sc-rows mono">
+              <div><span>quality gate</span><b class="ok">PASSED</b></div>
+              <div><span>coverage</span><b>78.4%</b><i>threshold 70%</i></div>
+              <div><span>new issues</span><b>0 critical · 2 high · 11 medium</b></div>
+              <div><span>duplication</span><b>3.1%</b><i>tests: 128 passed</i></div>
+              <div><span>trivy image</span><b class="ok">0 CRITICAL</b><i>SBOM cyclonedx attached</i></div>
+            </div>
+          </div>
+          <p class="care-note" data-i18n="arch.sec.line">// security is a gate, not a report: SAST on the merge path, SBOM per image, secrets fail closed</p>
+        </div>
+
+        <p class="care-note" data-i18n="arch.note1">// the stage orchestrator was designed on paper before a line of code. 53 services share one contract, so a new team onboards with a four-line include</p>
+        <p class="care-note" data-i18n="arch.note2">// every helper ships with permanent debug logs, so when production misbehaves I read instead of guessing</p>
+        <p class="care-note" data-i18n="arch.note3">// I hate copy-paste versioning more than I hate writing code: sync groups retag a whole release train consistently, next version suggested</p>
+      </div>
+    </section>
+
+    <!-- spotlight: architecture atlas and pipeline verification -->
+
+
+    <!-- runtime -->
+    <!-- The decision record moved to /decisions/. The band keeps the claim in
+         place for a reader scrolling past, and names three of the cards by what
+         they cost, so the link has to earn its click. -->
+    <section id="decisions">
+      <div class="wrap">
+        <div class="dx">
+          <div class="dx-head">
+            <h2>Decisions and what they cost</h2>
+            <p class="dx-sub mono">eleven cards, each with the alternative rejected and the cost paid</p>
+            <a class="dx-cta" href="../decisions/">read the record</a>
+          </div>
+          <ul class="dx-list mono">
+            <li><b>Gates fail closed</b><span>a week of cursed builds, then config drift stopped shipping</span></li>
+            <li><b>Two CI engines, no big-bang migration</b><span>dual maintenance, plus an abstraction teams never see</span></li>
+            <li><b>A backup is only real if it expires</b><span>a wrong rule deletes the evidence you wanted</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="threat" data-deep>
+      <div class="wrap">
+        <div class="section-head">
+          <h2 data-i18n="tm.title">What I was actually defending</h2>
+          <p class="lead" data-i18n="tm.lead">The tool list is what I used. This table is what I was thinking about. The table is wider than a phone, so swipe it sideways.</p>
+        </div>
+        <div class="tm-wrap">
+            <p class="scroll-hint mono" data-i18n="scroll.hint">swipe sideways to see the rest</p>
+          <table class="tm-tbl">
+            <thead><tr>
+              <th scope="col" data-i18n="tm.h.asset">asset</th>
+              <th scope="col" data-i18n="tm.h.threat">threat</th>
+              <th scope="col" data-i18n="tm.h.gate">the gate that closes it</th>
+            </tr></thead>
+            <tbody>
+              <tr><td data-i18n="tm.1a">release integrity</td><td data-i18n="tm.1t">merge without approval · phase skip</td><td data-i18n="tm.1g">5-layer chain + machine revert with an explanatory comment</td></tr>
+              <tr><td data-i18n="tm.2a">production</td><td data-i18n="tm.2t">manual "quick fix" deploy</td><td data-i18n="tm.2g">deploy only fires from board state; watermark + running-pipeline refusal</td></tr>
+              <tr><td data-i18n="tm.3a">secrets</td><td data-i18n="tm.3t">plaintext in logs or repo</td><td data-i18n="tm.3g">KV store, JWT-scoped pipeline auth, fail-closed, values masked in audit</td></tr>
+              <tr><td data-i18n="tm.4a">artifacts</td><td data-i18n="tm.4t">vulnerable or untraceable image</td><td data-i18n="tm.4g">trivy + SBOM on the merge path; quality gate before promote</td></tr>
+              <tr><td data-i18n="tm.5a">release record</td><td data-i18n="tm.5t">"what runs where" disputes</td><td data-i18n="tm.5g">append-only ledger + pipeline callbacks written back to the ticket</td></tr>
+              <tr><td data-i18n="tm.6a">mobile binaries</td><td data-i18n="tm.6t">a released app repackaged or reverse-engineered</td><td data-i18n-html="tm.6g">one pipeline, two build standards: plain by default, <code>/deploy-secure</code> puts Android through DexGuard and iOS through iXGuard</td></tr>
+              <tr><td data-i18n="tm.7a">dependencies</td><td data-i18n="tm.7t">a poisoned or unpinned package reaching a build</td><td data-i18n="tm.7g">every Maven and npm resolution is required to pass through one internal store: proxy, hosted and group repositories I administer</td></tr>
+              <tr><td data-i18n="tm.8a">the model itself</td><td data-i18n="tm.8t">an agent writing a secret, a credential or an approval into a pipeline</td><td data-i18n="tm.8g">its output is a diff: same published standard, same secret scan, same human merge. Nothing an agent produces reaches a runner without passing through a person</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+      <!-- where the six case studies used to sit; only appears while the page is being shortened,
+         so the user does not have to guess where the content went -->
+      <div class="wrap">
+        <p class="skim-note" data-skim-note hidden>
+          <span class="mono" data-i18n="depth.hidden">three case studies hidden, this is the short read</span>
+          <button type="button" class="tool-btn skim-back" data-depth-btn aria-pressed="true"><span data-i18n="depth.show">Show them</span></button>
+        </p>
+      </div>
+
+  </main>
+
+  <footer class="site-footer" id="site-footer">
+    <div class="wrap footer-in">
+      <div class="footer-summary">
+        <p class="ftr-creed mono">Ivan Jairus : DevSecOps &amp; Platform Engineer : Jakarta, Indonesia</p>
+        <p class="dim">53 services · 5 artifact types · 3 environments · 1 gateway · ~330 tests · 11 ADRs</p>
+        <p class="dim">&copy; 2026 Ivan Jairus. Zero tracking, zero third-party CDNs, zero cookies.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer Navigation">
+        <a href="../">Overview</a>
+        <a href="./">Work</a>
+        <a href="../diagrams/">Diagrams</a>
+        <a href="../pipelines/">Pipelines</a>
+        <a href="../decisions/">Decisions</a>
+        <a href="#main-content" class="back-to-top">Back to top &uarr;</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
