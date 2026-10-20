@@ -9,6 +9,8 @@
 
 # macOS metadata written next to any file a previewer has opened
 .DS_Store
+.env*
+.env.local
 .AppleDouble
 .LSOverride
 ._*

@@ -29,22 +29,55 @@
 
   <header class="site-header">
     <div class="wrap header-in">
-      <a class="brand" href="../">
-        <span class="mark">IJ</span>
-        <span>Ivan Jairus</span>
+      <a class="brand" href="../" aria-label="Home">
+        <span class="mark" data-profile="monogram">IJ</span>
+        <span data-profile="brand-name">Ivan Jairus</span>
         <span class="slash">/</span>
         <span class="dim">reports</span>
       </a>
-      <nav class="nav" aria-label="Primary">
-        <a href="../#about">About</a>
-        <a href="../#work">Work</a>
+      <nav class="nav desktop-nav" id="nav" aria-label="Primary">
+        <a href="../">Overview</a>
+        <a href="../work/">Case Studies</a>
+        <a href="../diagrams/">Architecture</a>
         <a href="../pipelines/">Pipelines</a>
-        <a href="../diagrams/">Diagrams</a>
+        <a href="../reports/" class="active">Reports</a>
+        <a href="./" class="active">Decisions</a>
         <a href="../#toolbox">Toolbox</a>
-        <a href="../#contact">Contact</a>
+        <a href="../assets/cv/cv-ivan-jairus.pdf" download>CV (PDF)</a>
       </nav>
+      <div class="header-tools">
+        <button type="button" class="tool-btn menu-btn nav-toggle" data-menu-btn id="nav-toggle" aria-expanded="false" aria-controls="nav-drawer" aria-label="Menu">
+          <svg class="mi" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="M2 5h14M2 9h14M2 13h14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
     </div>
   </header>
+
+  <div class="nav-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation" hidden>
+    <div class="nav-scrim" id="nav-scrim" tabindex="-1"></div>
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <span class="drawer-title">Navigation</span>
+        <button type="button" class="drawer-close" id="nav-close" aria-label="Close navigation menu">
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="M3 3l12 12M15 3L3 15" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <ul class="drawer-links">
+        <li><a href="../" class="drawer-link"><span class="drawer-idx mono">01</span><span>Executive Overview</span></a></li>
+        <li><a href="../work/" class="drawer-link"><span class="drawer-idx mono">02</span><span>Case Studies &amp; Threat Model</span></a></li>
+        <li><a href="../diagrams/" class="drawer-link"><span class="drawer-idx mono">03</span><span>Architecture Studio (5 Plates)</span></a></li>
+        <li><a href="../pipelines/" class="drawer-link"><span class="drawer-idx mono">04</span><span>Dual-Engine Pipeline Trace</span></a></li>
+        <li>
+          <a href="../reports/" class="drawer-link"><span class="drawer-idx mono">05</span><span>Run Reports</span></a>
+        </li>
+        <li><a href="./" class="drawer-link active"><span class="drawer-idx mono">06</span><span>Architecture Decisions (11 ADRs)</span></a></li>
+        <li><a href="../#toolbox" class="drawer-link"><span class="drawer-idx mono">07</span><span>Production Mileage Toolbox</span></a></li>
+        <li class="drawer-divider" role="separator"></li>
+        <li><a href="../assets/cv/cv-ivan-jairus.pdf" class="drawer-link drawer-cv" download><span class="drawer-idx mono">PDF</span><span>Download CV</span></a></li>
+      </ul>
+    </div>
+  </div>
+
 
   <main>
 
@@ -64,7 +97,7 @@
           produced by the weekly rails on
           <a href="../pipelines/">the pipelines page</a>
           · explained on
-          <a href="../#architecture">the lifecycle</a>
+          <a href="../work/#architecture">the lifecycle</a>
         </p>
       </div>
     </section>
@@ -206,7 +239,7 @@
         <p class="rp-nav mono">
           <a href="../pipelines/">the consoles that produce these &rarr;</a>
           <a href="../diagrams/">the five system diagrams &rarr;</a>
-          <a href="../#architecture">back to the lifecycle</a>
+          <a href="../work/#architecture">back to the lifecycle</a>
         </p>
       </div>
     </section>
@@ -220,6 +253,8 @@
     </div>
   </footer>
 
+  <script defer src="../assets/js/config.js"></script>
+  <script defer src="../assets/js/main.js"></script>
   <script defer src="../assets/js/observability.js"></script>
 
 </body>

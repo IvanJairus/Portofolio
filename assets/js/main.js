@@ -12,7 +12,11 @@
 
   const t = (key) => (window.I18N && window.I18N[lang] && window.I18N[lang][key]) ||
                      (window.I18N && window.I18N.en && window.I18N.en[key]) || key;
-  const pick = (obj) => (obj && (obj[lang] || obj.en)) || "";
+  const pick = (obj) => {
+    if (!obj) return "";
+    if (typeof obj === "string") return obj;
+    return (obj[lang] || obj.en) || "";
+  };
 
   /* read by showcase.js so components rendered by JS follow both languages */
   window.PF = {
@@ -69,15 +73,15 @@
   function renderProfile() {
     const P = window.PROFILE || {};
     const set = (sel, val) => {
-      if (val == null) return;
+      if (val == null || val === "") return;
       document.querySelectorAll(sel).forEach((el) => { el.textContent = val; });
     };
-    set("[data-profile='name']", P.name);
-    set("[data-profile='monogram']", P.monogram);
-    set("[data-profile='brand-name']", P.name);
-    set("[data-profile='role']", pick(P.role));
-    set("[data-profile='email']", P.email);
-    set("[data-profile='location']", P.location);
+    if (P.name) set("[data-profile='name']", P.name);
+    if (P.monogram) set("[data-profile='monogram']", P.monogram);
+    if (P.name) set("[data-profile='brand-name']", P.name);
+    if (P.role && pick(P.role)) set("[data-profile='role']", pick(P.role));
+    if (P.email) set("[data-profile='email']", P.email);
+    if (P.location) set("[data-profile='location']", P.location);
 
     const mail = document.querySelector("[data-profile='email-link']");
     if (mail && P.email) {

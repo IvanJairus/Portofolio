@@ -10,7 +10,7 @@
 
   Dev-only. The deployed site still has no build step.
 
-    node scripts/sync-i18n.mjs            rewrite index.html from both sources
+    node scripts/sync-i18n.mjs            rewrite every page in PAGES from both sources
     node scripts/sync-i18n.mjs --check    exit non-zero on drift, change nothing
 */
 import fs from "node:fs";
@@ -26,115 +26,130 @@ const PROFILE = new Function("window", read("assets/js/config.js") + "; return w
 const escape = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const pick = (obj) => (obj && (obj.en ?? obj)) || "";
 
-let file = read("index.html");
+/* Two pages carry copy: index.html and work/index.html, the deep sections split
+   off the main page. Everything in PAGES is synced and checked, so a page cannot
+   leave parity by being forgotten here. */
+const PAGES = ["index.html", "work/index.html"];
 let touched = 0;
 const missing = [];
 
-const value = (key, replacement) => {
-  const before = file;
-  file = file.replace(key, replacement);
-  if (file !== before) touched += 1;
-};
+for (const page of PAGES) {
+  let file = read(page);
+    const pageStart = touched;
 
-/* 1. text bound by i18n key */
+  const value = (key, replacement) => {
+    const before = file;
+    file = file.replace(key, replacement);
+    if (file !== before) touched += 1;
+  };
 
-const PLAIN = /<([a-z][a-z0-9]*)((?:\s[^<>]*?)?)\sdata-i18n="([a-z0-9_.]+)"((?:\s[^<>]*?)?)>([^<]*)<\/\1>/g;
-const HTML = /<([a-z][a-z0-9]*)((?:\s[^<>]*?)?)\sdata-i18n-html="([a-z0-9_.]+)"((?:\s[^<>]*?)?)>([\s\S]*?)<\/\1>/g;
+  /* 1. text bound by i18n key */
 
-function bindI18n(re, render, suffix) {
-  file = file.replace(re, (match, tag, pre, key, post, content) => {
-    const v = STRINGS[key];
-    if (v === undefined) { missing.push(key); return match; }
-    const next = render(v);
-    if (next === content) return match;
-    touched += 1;
-    return `<${tag}${pre} data-i18n${suffix}="${key}"${post}>${next}</${tag}>`;
-  });
-}
+  const PLAIN = /<([a-z][a-z0-9]*)((?:\s[^<>]*?)?)\sdata-i18n="([a-z0-9_.]+)"((?:\s[^<>]*?)?)>([^<]*)<\/\1>/g;
+  const HTML = /<([a-z][a-z0-9]*)((?:\s[^<>]*?)?)\sdata-i18n-html="([a-z0-9_.]+)"((?:\s[^<>]*?)?)>([\s\S]*?)<\/\1>/g;
 
-bindI18n(PLAIN, escape, "");
-bindI18n(HTML, (v) => v, "-html");
-
-/* 2. scalars filled from PROFILE */
-
-const SCALAR = {
-  name: () => PROFILE.name,
-  "brand-name": () => PROFILE.name,
-  monogram: () => PROFILE.monogram,
-  role: () => pick(PROFILE.role),
-  email: () => PROFILE.email,
-  location: () => PROFILE.location,
-};
-
-for (const [attr, get] of Object.entries(SCALAR)) {
-  const re = new RegExp(`<(span|div|a)((?:\\s[^<>]*?)?)\\sdata-profile="${attr}"((?:\\s[^<>]*?)?)>([^<]*)</\\1>`, "g");
-  file = file.replace(re, (match, tag, pre, post, content) => {
-    const next = escape(get());
-    if (next === content) return match;
-    touched += 1;
-    return `<${tag}${pre} data-profile="${attr}"${post}>${next}</${tag}>`;
-  });
-}
-
-const mail = /<a([^>]*data-profile="email-link"[^>]*)>([^<]*)<\/a>/;
-file = file.replace(mail, (match, attrs, content) => {
-  const href = `mailto:${PROFILE.email}`;
-  const kept = attrs.replace(/\s+href="[^"]*"/, "");
-  const next = `<a${kept} href="${href}">${escape(PROFILE.email)}</a>`;
-  if (next !== match) touched += 1;
-  return next;
-});
-
-/* 3. containers rebuilt the way main.js builds them */
-
-// Find the matching close for a nested div, because the timeline block
-// holds divs inside divs and a non-greedy pattern would stop too early.
-function innerBlock(startTag) {
-  const at = file.indexOf(startTag);
-  if (at < 0) return null;
-  let i = at + startTag.length;
-  let depth = 1;
-  const token = /<\/?(div|ul)\b[^>]*>/g;
-  token.lastIndex = i;
-  let m;
-  while ((m = token.exec(file))) {
-    const closing = m[0][1] === "/";
-    depth += closing ? -1 : 1;
-    if (depth === 0) return { from: i, to: m.index, close: m[0] };
+  function bindI18n(re, render, suffix) {
+    file = file.replace(re, (match, tag, pre, key, post, content) => {
+      const v = STRINGS[key];
+      if (v === undefined) { missing.push(key); return match; }
+      const next = render(v);
+      if (next === content) return match;
+      touched += 1;
+      return `<${tag}${pre} data-i18n${suffix}="${key}"${post}>${next}</${tag}>`;
+    });
   }
-  return null;
+
+  bindI18n(PLAIN, escape, "");
+  bindI18n(HTML, (v) => v, "-html");
+
+  /* 2. scalars filled from PROFILE */
+
+  const SCALAR = {
+    name: () => PROFILE.name,
+    "brand-name": () => PROFILE.name,
+    monogram: () => PROFILE.monogram,
+    role: () => pick(PROFILE.role),
+    email: () => PROFILE.email,
+    location: () => PROFILE.location,
+  };
+
+  for (const [attr, get] of Object.entries(SCALAR)) {
+    const re = new RegExp(`<(span|div|a)((?:\\s[^<>]*?)?)\\sdata-profile="${attr}"((?:\\s[^<>]*?)?)>([^<]*)</\\1>`, "g");
+    file = file.replace(re, (match, tag, pre, post, content) => {
+      const next = escape(get());
+      if (next === content) return match;
+      touched += 1;
+      return `<${tag}${pre} data-profile="${attr}"${post}>${next}</${tag}>`;
+    });
+  }
+
+  const mail = /<a([^>]*data-profile="email-link"[^>]*)>([^<]*)<\/a>/;
+  file = file.replace(mail, (match, attrs, content) => {
+    const href = `mailto:${PROFILE.email}`;
+    const kept = attrs.replace(/\s+href="[^"]*"/, "");
+    const next = `<a${kept} href="${href}">${escape(PROFILE.email)}</a>`;
+    if (next !== match) touched += 1;
+    return next;
+  });
+
+  /* 3. containers rebuilt the way main.js builds them */
+
+  // Find the matching close for a nested div, because the timeline block
+  // holds divs inside divs and a non-greedy pattern would stop too early.
+  function innerBlock(startTag) {
+    const at = file.indexOf(startTag);
+    if (at < 0) return null;
+    let i = at + startTag.length;
+    let depth = 1;
+    const token = /<\/?(div|ul)\b[^>]*>/g;
+    token.lastIndex = i;
+    let m;
+    while ((m = token.exec(file))) {
+      const closing = m[0][1] === "/";
+      depth += closing ? -1 : 1;
+      if (depth === 0) return { from: i, to: m.index, close: m[0] };
+    }
+    return null;
+  }
+
+  function rebuild(startTag, build) {
+    const block = innerBlock(startTag);
+    if (!block) {
+        /* The timeline and the profile links live on one page; a page without them
+           is normal, and deleting one shows up in the diff, not here. */
+        console.log(`[sync-i18n] ${page}: no ${startTag.slice(0, 46)} to rebuild`);
+        return;
+      }
+    const next = build();
+    if (next === file.slice(block.from, block.to)) return;
+    file = file.slice(0, block.from) + next + file.slice(block.to);
+    touched += 1;
+  }
+
+  rebuild(`<div class="timeline" data-profile="experience">`, () => {
+    const items = (PROFILE.experience || []).map((e) => [
+      "          <div class=\"tl-item\">",
+      `            <div class="tl-period">${escape(pick(e.period))}</div>`,
+      `            <h3 class="tl-title">${escape(pick(e.title))}</h3>`,
+      `            <div class="tl-company">${escape(pick(e.company))}</div>`,
+      ...((pick(e.points) || []).length ? [
+        "            <ul class=\"tl-points\">",
+        ...pick(e.points).map((p) => `              <li>${escape(p)}</li>`),
+        "            </ul>",
+      ] : []),
+      "          </div>",
+    ].join("\n"));
+    return "\n" + items.join("\n") + "\n        ";
+  });
+
+  rebuild(`<div class="cm-v profile-links" data-profile="links">`, () => "\n" +
+    (PROFILE.links || []).map((l) =>
+      `            <a href="${escape(l.href)}" target="_blank" rel="noopener noreferrer">${escape(l.label)} ↗</a>`).join("\n") +
+    "\n          ");
+
+  if (!check && touched !== pageStart) fs.writeFileSync(path.join(root, page), file);
+  console.log(`[sync-i18n] ${page}: ${touched - pageStart} places ${check ? "differ from source" : "written"}, ${file.length} chars`);
 }
-
-function rebuild(startTag, build) {
-  const block = innerBlock(startTag);
-  if (!block) { missing.push(startTag.slice(0, 40)); return; }
-  const next = build();
-  if (next === file.slice(block.from, block.to)) return;
-  file = file.slice(0, block.from) + next + file.slice(block.to);
-  touched += 1;
-}
-
-rebuild(`<div class="timeline" data-profile="experience">`, () => {
-  const items = (PROFILE.experience || []).map((e) => [
-    "          <div class=\"tl-item\">",
-    `            <div class="tl-period">${escape(pick(e.period))}</div>`,
-    `            <h3 class="tl-title">${escape(pick(e.title))}</h3>`,
-    `            <div class="tl-company">${escape(pick(e.company))}</div>`,
-    ...((pick(e.points) || []).length ? [
-      "            <ul class=\"tl-points\">",
-      ...pick(e.points).map((p) => `              <li>${escape(p)}</li>`),
-      "            </ul>",
-    ] : []),
-    "          </div>",
-  ].join("\n"));
-  return "\n" + items.join("\n") + "\n        ";
-});
-
-rebuild(`<div class="cm-v profile-links" data-profile="links">`, () => "\n" +
-  (PROFILE.links || []).map((l) =>
-    `            <a href="${escape(l.href)}" target="_blank" rel="noopener noreferrer">${escape(l.label)} ↗</a>`).join("\n") +
-  "\n          ");
-
 /* report */
 
 if (missing.length) {
@@ -147,5 +162,4 @@ if (check && touched) {
   process.exit(1);
 }
 
-if (!check && touched) fs.writeFileSync(path.join(root, "index.html"), file);
 console.log(`${check ? "parity ok" : "synced"}: ${touched} places changed, ${Object.keys(STRINGS).length} i18n keys, ${PROFILE.experience.length} experience entries, ${PROFILE.links.length} links`);

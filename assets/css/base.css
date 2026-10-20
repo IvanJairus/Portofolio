@@ -241,7 +241,8 @@ h2 { font-size: clamp(30px, 4.6vw, 50px); margin-top: 18px; }
   padding: 8px 14px;
   border-radius: var(--radius-sm);
   transition: color 0.2s var(--ease), background 0.2s var(--ease);
-}
+
+  white-space: nowrap;}
 .nav a:hover { color: var(--ink); background: var(--surface-subtle); }
 .nav a.active { color: var(--accent); font-weight: 600; }
 
@@ -318,7 +319,7 @@ html[data-depth="skim"] .skim-note { display: flex; }
 
 .menu-btn { display: none; }
 
-@media (max-width: 900px) {
+@media (max-width: 1080px) {
   .nav {
     position: fixed;
     top: var(--header-h); left: 0; right: 0;
@@ -357,30 +358,27 @@ html[data-depth="skim"] .skim-note { display: flex; }
 }
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.78fr);
   grid-template-areas:
-    "id    photo"
-    "stack stack"
-    "flow  flow"
-    "after after";
-  column-gap: clamp(40px, 6vw, 84px);
-  row-gap: clamp(26px, 3.6vw, 40px);
-  align-items: center;
+    "id     visual"
+    "flow   flow"
+    "proof  proof";
+  column-gap: clamp(32px, 5vw, 64px);
+  row-gap: clamp(28px, 4vw, 44px);
+  align-items: start;
 }
-/* Laptop 1280x720 (F1 target): the rail is placed above the stack strip so the
-   terminal rises into the first screen. At <=860px the one-column rule below
-   wins, so mobile does not change. */
-@media (max-width: 1300px) {
+@media (max-width: 960px) {
   .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
-      "id    photo"
-      "flow  flow"
-      "stack stack"
-      "after after";
+      "id"
+      "visual"
+      "flow"
+      "proof";
+    row-gap: 28px;
   }
 }
 .hero-id { grid-area: id; }
-.hero-after { grid-area: after; }
 /* terminal and include card side by side; on narrow screens they stack */
 .hero-after { display: flex; flex-wrap: wrap; gap: 22px; align-items: stretch; }
 
@@ -397,7 +395,8 @@ html[data-depth="skim"] .skim-note { display: flex; }
   overflow: hidden;
 }
 .hy-head {
-  display: flex; align-items: baseline; gap: 10px;
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  flex-wrap: wrap;
   padding: 8px 14px;
   border-bottom: 1px solid var(--line);
   background: var(--bg-3);
@@ -405,8 +404,8 @@ html[data-depth="skim"] .skim-note { display: flex; }
   font-size: 11.5px;
   color: var(--ink-faint);
 }
-.hy-file { color: var(--ink); font-weight: 600; }
-.hy-where { margin-left: auto; }
+.hy-file { color: var(--ink); font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+.hy-where { margin-left: 0; }
 .hy-code {
   margin: 0;
   padding: 11px 14px 13px;
@@ -654,16 +653,6 @@ html[data-depth="skim"] .skim-note { display: flex; }
    a place where a face is expected. See .contact-meta in components.css for
    how it sits there. Without JS it stays in the hero, only hidden. */
 @media (max-width: 860px) {
-  .hero-photo { display: none; }
-}
-
-@media (max-width: 860px) {
-  .hero-grid {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "id" "flow" "stack" "after" "photo";
-    row-gap: 24px;
-  }
-  /* the rail rises under the name column; the photo drops to the very bottom so the rail fits on the first screen */
   .hero-photo { justify-self: start; width: min(46%, 190px); }
 }
 /* F7: after the hero was compacted, the 161px photo on the left left empty space
@@ -745,29 +734,6 @@ html[data-depth="skim"] .skim-note { display: flex; }
   * { animation: none !important; transition: none !important; }
 }
 
-/* Reading progress: one 2px line under the header, pure CSS (animation-timeline),
-   no JS and no reveal-on-scroll. Gone entirely under reduced-motion. */
-@supports (animation-timeline: scroll()) {
-  /* do not change the header position: the header is fixed, and sticky would put it
-     in the document flow so the whole hero drops 65px (measured) */
-  .site-header::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -1px;
-    width: 100%;
-    height: 2px;
-    background: var(--accent-bright);
-    transform-origin: 0 50%;
-    transform: scaleX(0);
-    animation: read-progress linear both;
-    animation-timeline: scroll(root);
-  }
-  @keyframes read-progress { to { transform: scaleX(1); } }
-}
-@media (prefers-reduced-motion: reduce) {
-  .site-header::after { display: none; }
-}
 
 /* C4: one contact path on phones.
    Contact used to exist only at the very bottom, and the CV button only in the hero.
@@ -835,4 +801,24 @@ p, h1, h2, h3, h4, span, a, code, pre {
   -webkit-overflow-scrolling: touch;
   border: 1px solid var(--line);
   border-radius: var(--radius);
+}
+
+/* Screen-reader-only text. It was defined in showcase.css, which
+   /diagrams/ does not load, so the label rendered visibly. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Small uppercase label above a heading. Five pages use it; only /diagrams/
+   styled it, so everywhere else it fell back to body text. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  margin: 0 0 8px;
 }

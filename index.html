@@ -32,7 +32,7 @@
   <!-- Self-Hosted Stylesheets -->
   <link rel="stylesheet" href="assets/css/base.css" />
   <link rel="stylesheet" href="assets/css/components.css" />
-  <noscript><link rel="stylesheet" href="assets/css/base.css" /></noscript>
+  <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -50,6 +50,7 @@
   </script>
 
   <!-- Scripts -->
+  <script src="assets/js/config.js" defer></script>
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/toolbox.js" defer></script>
 </head>
@@ -73,6 +74,7 @@
         <a href="work/">Case Studies</a>
         <a href="diagrams/">Architecture</a>
         <a href="pipelines/">Pipelines</a>
+        <a href="reports/">Reports</a>
         <a href="decisions/">Decisions</a>
         <a href="#toolbox">Toolbox</a>
         <a href="assets/cv/cv-ivan-jairus.pdf" download>CV (PDF)</a>
@@ -127,14 +129,17 @@
           </a>
         </li>
         <li>
+          <a href="reports/" class="drawer-link"><span class="drawer-idx mono">05</span><span>Run Reports</span></a>
+        </li>
+        <li>
           <a href="decisions/" class="drawer-link">
-            <span class="drawer-idx mono">05</span>
+            <span class="drawer-idx mono">06</span>
             <span>Architecture Decisions (11 ADRs)</span>
           </a>
         </li>
         <li>
           <a href="#toolbox" class="drawer-link">
-            <span class="drawer-idx mono">06</span>
+            <span class="drawer-idx mono">07</span>
             <span>Production Mileage Toolbox</span>
           </a>
         </li>
@@ -201,7 +206,6 @@
         <!-- Static Release Pipeline Rail -->
         <div class="hero-flow-wrap">
           <div class="hero-flow" data-flow="hero" aria-label="7-phase release pipeline architecture">
-            <div class="hf-line"></div>
             <div class="hf-node" data-hf="0"><i></i><span>commit</span><em class="hf-sub">git push</em></div>
             <div class="hf-node" data-hf="1"><i></i><span>build</span><em class="hf-sub">maven · gradle · npm</em></div>
             <div class="hf-node hf-scan" data-hf="2"><i></i><span>scan</span><em class="hf-sub">trivy · semgrep</em></div>
@@ -456,9 +460,7 @@
                 <span class="badge mono">3 Studies · 8 Assets</span>
               </div>
               <h3 class="card-title" data-i18n="work.1.title">ChatOps Release Orchestrator</h3>
-              <p class="card-desc" data-i18n="work.1.desc">
-                Webhook-driven orchestrator that turns issue-board movements into action: branch creation, merge requests, approval validation, deploy triggers and scan scheduling, with a state machine persisted in the issue itself.
-              </p>
+              <p class="card-desc" data-i18n="work.1.desc">Webhook-driven orchestrator that turns issue-board movements into action: branch creation, merge requests, approval validation, deploy triggers and scan scheduling, with a state machine persisted in the issue itself.</p>
             </div>
 
             <div class="card-body">
@@ -494,9 +496,7 @@
                 <span class="badge mono">5 Interactive Plates</span>
               </div>
               <h3 class="card-title" data-i18n="work.2.title">Pipeline-as-a-Product Platform</h3>
-              <p class="card-desc" data-i18n="work.2.desc">
-                A single repository holding every CI/CD definition: a gateway that routes 53 services to their domain pipelines, shared stage templates per artifact type, and a codified rulebook the whole organization deploys by.
-              </p>
+              <p class="card-desc" data-i18n="work.2.desc">A single repository holding every CI/CD definition: a gateway that routes 53 services to their domain pipelines, shared stage templates per artifact type, and a codified rulebook the whole organization deploys by.</p>
             </div>
 
             <div class="card-body">
@@ -532,9 +532,7 @@
                 <span class="badge mono">11 Structured Records</span>
               </div>
               <h3 class="card-title" data-i18n="work.3.title">Release Control Plane</h3>
-              <p class="card-desc" data-i18n="work.3.desc">
-                Self-built release management platform: deployment history, build and deploy triggering, scan results, environment promotion, secrets and audit in one UI, fed live by pipeline callbacks over server-sent events.
-              </p>
+              <p class="card-desc" data-i18n="work.3.desc">Self-built release management platform: deployment history, build and deploy triggering, scan results, environment promotion, secrets and audit in one UI, fed live by pipeline callbacks over server-sent events.</p>
               <p class="card-dep mono" data-i18n="skills.e.2.2">the release control plane: Express, SSE event bus, RBAC, three dependencies total.</p>
             </div>
 
@@ -833,6 +831,7 @@
         <a href="work/">Work</a>
         <a href="diagrams/">Diagrams</a>
         <a href="pipelines/">Pipelines</a>
+        <a href="reports/">Reports</a>
         <a href="decisions/">Decisions</a>
         <a href="#main-content" class="back-to-top">Back to top &uarr;</a>
       </nav>
