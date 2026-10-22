@@ -211,6 +211,12 @@ All notable changes to this repository are documented here. The format follows
 
 ### Changed
 
+- **The Projects board check is paused for the v3 release.** The board is a
+  separate v2 artifact and the release-file homepage no longer prints its 12
+  card titles, so the quality workflow no longer runs `check-board.mjs` until
+  the board is regenerated from the v3 case copy. The script stays in the tree
+  for that migration. The live site does not link the board.
+
 - **The release-file site and the 15 second reel are now part of this release.**
   The homepage is a release-file dossier with a Porcelain light theme, three System
   views, the public CV, and a 15.000 s reel built from eight cues at 1.875 s and
