@@ -31,8 +31,11 @@ const TICS = [
 
 // Verbatim legal text is not our prose. Creative Commons writes its own licence
 // headings with em dashes, and rewording them would misquote the licence.
+// The two OFL licence files shipped with the self-hosted fonts are exempt for the
+// same reason: the licence text is upstream and must stay verbatim.
 // The checker itself is excluded because it contains every pattern it looks for.
 const EXEMPT = new Set(["LICENSE.md", "scripts/assert-copy.mjs"]);
+const EXEMPT_FONT_LICENSE = /^assets\/fonts\/OFL-[^/]+\.txt$/;
 // The challenger and headless test scripts carry the very patterns the gate looks
 // for, because finding them is their job. Same reason the gate exempts itself.
 const EXEMPT_PATTERN = /^scripts\/(assert-copy\.mjs|(empirical|adversarial|test)-[\w-]+\.(mjs|py))$/;
@@ -41,7 +44,7 @@ const files = execFileSync("git", ["ls-files"], { cwd: root, encoding: "utf8" })
   .split("\n").filter(Boolean)
   .filter((f) => /\.(html?|md|js|mjs|c?js|css|json|txt|groovy|sh|yml|yaml|svg)$/.test(f))
   .filter((f) => !/^node_modules\//.test(f) && !/package-lock\.json$/.test(f))
-  .filter((f) => !EXEMPT.has(f) && !EXEMPT_PATTERN.test(f));
+  .filter((f) => !EXEMPT.has(f) && !EXEMPT_PATTERN.test(f) && !EXEMPT_FONT_LICENSE.test(f));
 
 const hits = [];
 const tics = new Map();
