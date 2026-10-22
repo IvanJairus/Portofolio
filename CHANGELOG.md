@@ -211,6 +211,43 @@ All notable changes to this repository are documented here. The format follows
 
 ### Changed
 
+- **The release-file site and the 15 second reel are now part of this release.**
+  The homepage is a release-file dossier with a Porcelain light theme, three System
+  views, the public CV, and a 15.000 s reel built from eight cues at 1.875 s and
+  the original 128 BPM score. The reel ships as a 3,752,049-byte 1080p60 master and
+  a 1,842,926-byte 720p30 web cut; cue 03 is Gate, cue 04 is Scale, and the
+  transcript has eight lines. Public role copy across the site now reads DevSecOps
+  only, and the OG card was regenerated from the current homepage. The CV is
+  rebuilt again at 203,346 bytes: BNI is named, the incident is generalised,
+  `9.9k lines` and the Selected Platform Work section are gone, and the published
+  53 services, 52 rules and ~90% estimate remain. Lighthouse 13.5.0 passes all five
+  pages; `/pipelines/` CLS is 0.056 after the source loader became per-file. This
+  supersedes the 188,366-byte CV entry below.
+
+- **The downloadable CV was rebuilt around results instead of restatement.**
+  `assets/cv/cv-ivan-jairus.pdf` is regenerated from `cv-draft/cv-ivan-jairus.html`
+  after an outside review found the old text giving the same facts three times: two
+  Impact bullets restated Experience, and a third section repeated both again. Impact
+  now holds three results, and all three describe the system rather than the people
+  around it. The *Selected Platform Work* section is gone. Lines of code stopped being
+  an achievement and became scale context inside a new leading bullet that names what
+  was built: backend build and release, mobile build through tester distribution,
+  stage templates per artefact type, environment promotion, quality gates, and release
+  reporting. Skills are tiered as *daily use* and *regular use* under the same
+  assignment the site already publishes, so no tool is printed at a level the site
+  does not support. Security is stated as coverage and as location, not as a tally: a
+  scan plus SBOM on every container image, and a CRITICAL finding pointed at the exact
+  code or image so a developer knows what to fix. No count of blocked builds is
+  printed, because that number has never been pulled from the systems that hold it.
+  The employer line now reads `Bank Negara Indonesia (BNI)` with *a state-owned bank*
+  as the descriptor, since BUMN is a category and not this company's abbreviation.
+  Operational figures on the CV are generalised (`50+ services`, `50+ rule`) while the
+  site copy keeps the measured ones; 53 is inside 50+, so the two do not contradict.
+  The incident write-up that used to close the DevSecOps role is off the CV and stays
+  on the site. Measured: 1 page, A4 595 by 842 pt, 188,366 bytes replacing 206,243,
+  rendered by headless Chrome with `--no-pdf-header-footer` and `--no-margins`, then
+  rastered back to PNG to confirm nothing is clipped.
+
 - **The portfolio now answers at `/portfolio/`.** `vercel.json` gained
   `trailingSlash` and an internal rewrite from `/portfolio/:path*` to `/:path*`, so
   no file moves and the mounted path and the project's own origin resolve to the
