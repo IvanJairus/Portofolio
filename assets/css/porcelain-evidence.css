@@ -1,0 +1,147 @@
+@font-face {
+  font-family: "Archivo";
+  src: url("../fonts/archivo-latin-var.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-style: normal;
+  font-display: optional;
+}
+
+@font-face {
+  font-family: "Fragment Mono";
+  src: url("../fonts/fragment-mono-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: optional;
+}
+
+:root {
+  color-scheme: light;
+
+  --bg: #f2f4f5;
+  --surface: #ffffff;
+  --surface-subtle: #f7f9fa;
+  --surface-raised: #ffffff;
+  --surface-dark: #0e1417;
+
+  --line: #dde3e7;
+  --line-strong: #c9d2d8;
+  --line-faint: #edf1f3;
+
+  --ink: #0e1417;
+  --ink-dim: #465157;
+  --ink-faint: #5c686e;
+
+  --accent: #a8360a;
+  --accent-hover: #7f2a08;
+  --accent-strong: #7f2a08;
+  --accent-faint: #f6e7df;
+  --accent-bright: #c2410c;
+  --accent-ink: #ffffff;
+  --accent-dim: rgba(168, 54, 10, 0.08);
+  --accent-line: rgba(168, 54, 10, 0.35);
+
+  --font-sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Fragment Mono", "SF Mono", Menlo, Consolas, monospace;
+
+  --radius: 0px;
+  --radius-sm: 0px;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+h1,
+h2 {
+  font-stretch: 84%;
+  letter-spacing: -0.03em;
+}
+
+h3 {
+  font-stretch: 92%;
+  letter-spacing: -0.015em;
+}
+
+::selection {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.site-header {
+  background: var(--bg);
+}
+
+.brand {
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-stretch: 82%;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+
+.brand .mark {
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+}
+
+.brand .slash,
+.brand .dim {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.nav a {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.btn,
+.tool-btn,
+.nav-toggle,
+.studio-btn,
+.copy-btn {
+  border-radius: 0;
+}
+
+.wsn {
+  border-radius: 0;
+}
+
+.drawer-link.active {
+  background: var(--accent-faint);
+  color: var(--accent-strong);
+  border-left-color: var(--accent);
+}
+
+.drawer-link.active .drawer-idx {
+  color: var(--accent-strong);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 4px 12px var(--accent-line);
+}
+
+.flagship-card:hover {
+  box-shadow: 0 14px 34px -14px var(--accent-line);
+}
+
+.skip-link {
+  background: var(--surface);
+  color: var(--accent-strong);
+  border-color: var(--accent);
+}
+
+@media (max-width: 760px) {
+  .nav a {
+    font-size: 9.5px;
+  }
+}

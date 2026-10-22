@@ -1,0 +1,222 @@
+:root {
+  --ink: #f2f4f5;
+  --ink-soft: #ffffff;
+  --paper: #ffffff;
+  --paper-deep: #e3e8ea;
+  --paper-shadow: #c9d1d6;
+  --cream: #0e1417;
+  --cream-dim: #465157;
+  --muted: #5c686e;
+  --accent: #a8360a;
+  --accent-soft: #c2410c;
+  --accent-ink: #7f2a08;
+  --accent-faint: #f6e7df;
+  --accent-line: rgba(168, 54, 10, 0.35);
+  --hair: rgba(14, 20, 23, 0.16);
+  --hair-soft: rgba(14, 20, 23, 0.075);
+  --paper-hair: rgba(14, 20, 23, 0.16);
+  --card-ink: #0e1417;
+  --card-muted: #5d6a70;
+  --card-dim: #39444a;
+  --card-top-bg: #f7f9fa;
+}
+
+html {
+  color-scheme: light;
+}
+
+::selection {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.skip {
+  background: var(--cream);
+  color: #ffffff;
+}
+
+.stage-in a[aria-current="location"] {
+  background: rgba(14, 20, 23, 0.04);
+}
+
+.sheet {
+  color: var(--card-ink);
+  border: 1px solid var(--paper-deep);
+  border-top: 3px solid var(--accent);
+  box-shadow: 8px 8px 0 var(--paper-shadow);
+}
+
+.sheet-top {
+  background: var(--card-top-bg);
+  color: var(--card-muted);
+}
+
+.sheet .label {
+  color: var(--card-muted);
+}
+
+.identity h1 {
+  color: var(--card-ink);
+}
+
+.role,
+.base-row p,
+.ledger span {
+  color: var(--card-dim);
+}
+
+.summary p,
+.ledger strong {
+  color: var(--card-ink);
+}
+
+.ledger dt {
+  color: var(--card-muted);
+}
+
+.btn {
+  background: var(--card-ink);
+  color: #ffffff;
+  border-color: var(--card-ink);
+}
+
+.btn:hover {
+  background: var(--accent-ink);
+  border-color: var(--accent-ink);
+  color: #ffffff;
+}
+
+.reel-link {
+  color: var(--card-ink);
+}
+
+.sheet-foot {
+  color: var(--card-muted);
+}
+
+.viewing {
+  color: var(--accent-ink);
+}
+
+.progress span {
+  background: rgba(14, 20, 23, 0.18);
+}
+
+.cover-note span {
+  color: var(--accent-ink);
+}
+
+.menu-panel {
+  background: #ffffff;
+  color: var(--card-ink);
+  border-color: var(--hair);
+  box-shadow: 0 20px 44px rgba(14, 20, 23, 0.2);
+}
+
+.menu-panel a {
+  border-bottom-color: var(--hair);
+}
+
+.menu-panel a > span:first-child {
+  color: var(--accent-ink);
+}
+
+.menu-panel a[aria-current="location"] {
+  background: var(--accent-faint);
+  color: var(--accent-ink);
+}
+
+.menu-panel a[aria-current="location"] > span:first-child {
+  color: var(--accent-ink);
+}
+
+.menu-panel .menu-cv {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.menu-panel .menu-cv > span {
+  color: #ffffff;
+}
+
+.menu-panel .menu-cv:hover {
+  background: var(--accent-ink);
+  color: #ffffff;
+}
+
+.menu-panel .menu-cv:hover > span {
+  color: #ffffff;
+}
+
+.reel-frame {
+  border-color: rgba(14, 20, 23, 0.22);
+}
+
+.reel-play {
+  background: var(--card-ink);
+  color: #ffffff;
+  border-color: var(--card-ink);
+}
+
+.reel-play:hover {
+  background: var(--accent-ink);
+  border-color: var(--accent-ink);
+  color: #ffffff;
+}
+
+.reel-play-time {
+  border-left-color: rgba(255, 255, 255, 0.28);
+  opacity: 0.7;
+}
+
+.reel-fallback {
+  background: var(--card-ink);
+  color: #ffffff;
+}
+
+.cue:hover {
+  color: var(--cream);
+  background: rgba(14, 20, 23, 0.04);
+}
+
+.cue.is-active {
+  color: var(--accent-ink);
+}
+
+.route-num,
+.artifact-index {
+  color: var(--accent-ink);
+}
+
+.artifact:hover {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.artifact:hover .artifact-index {
+  color: #ffffff;
+}
+
+.artifact:hover .artifact-route,
+.artifact:hover .artifact-desc {
+  color: #ffffff;
+}
+
+.artifact:hover .artifact-open {
+  color: #ffffff;
+}
+
+.head-cv:hover,
+.text-link:hover,
+.reel-foot a:hover,
+.contact-email:hover,
+.contact-row a:hover,
+.foot-in a:hover {
+  color: var(--accent-ink);
+}
+
+@media (max-width: 980px) {
+  .menu-panel {
+    box-shadow: 0 20px 44px rgba(14, 20, 23, 0.2);
+  }
+}

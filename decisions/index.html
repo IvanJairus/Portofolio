@@ -7,7 +7,7 @@
   <title>Decisions and what they cost, by Ivan Jairus</title>
   <meta name="description" content="Eleven pipeline and platform decisions, each with the alternative that was rejected and what the choice cost in practice: fail-closed gates, one gateway instead of per-repo templates, two CI engines without a big-bang migration, and the things deliberately not built." />
   <meta name="color-scheme" content="light" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#f2f4f5" />
   <link rel="canonical" href="https://www.ivanjairus.xyz/portfolio/decisions/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.ivanjairus.xyz/portfolio/decisions/" />
@@ -19,31 +19,31 @@
   <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
   <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
-  <meta name="msapplication-TileColor" content="#c2410c">
+  <meta name="msapplication-TileColor" content="#a8360a">
 
   <link rel="stylesheet" href="../assets/css/base.css" />
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/showcase.css" />
   <link rel="stylesheet" href="../assets/css/decisions.css" />
+  <link rel="preload" href="../assets/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/fragment-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/porcelain-evidence.css" />
 </head>
 <body id="top">
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <header class="site-header">
     <div class="wrap header-in">
-      <a class="brand" href="../" aria-label="Home">
+      <a class="brand" href="../">
         <span class="mark" data-profile="monogram">IJ</span>
         <span data-profile="brand-name">Ivan Jairus</span>
         <span class="slash">/</span>
         <span class="dim">decisions</span>
       </a>
       <nav class="nav desktop-nav" id="nav" aria-label="Primary">
-        <a href="../">Overview</a>
-        <a href="../work/">Case Studies</a>
-        <a href="../diagrams/">Architecture</a>
-        <a href="../pipelines/">Pipelines</a>
-        <a href="../reports/">Reports</a>
-        <a href="./" class="active">Decisions</a>
-        <a href="../#toolbox">Toolbox</a>
+        <a href="../work/">Work</a>
+        <a href="../#evidence" class="active">Evidence</a>
+        <a href="../#about">About</a>
+        <a href="../#contact">Contact</a>
         <a href="../assets/cv/cv-ivan-jairus.pdf" download>CV (PDF)</a>
       </nav>
       <div class="header-tools">
@@ -64,15 +64,10 @@
         </button>
       </div>
       <ul class="drawer-links">
-        <li><a href="../" class="drawer-link"><span class="drawer-idx mono">01</span><span>Executive Overview</span></a></li>
-        <li><a href="../work/" class="drawer-link"><span class="drawer-idx mono">02</span><span>Case Studies &amp; Threat Model</span></a></li>
-        <li><a href="../diagrams/" class="drawer-link"><span class="drawer-idx mono">03</span><span>Architecture Studio (5 Plates)</span></a></li>
-        <li><a href="../pipelines/" class="drawer-link"><span class="drawer-idx mono">04</span><span>Dual-Engine Pipeline Trace</span></a></li>
-        <li>
-          <a href="../reports/" class="drawer-link"><span class="drawer-idx mono">05</span><span>Run Reports</span></a>
-        </li>
-        <li><a href="./" class="drawer-link active"><span class="drawer-idx mono">06</span><span>Architecture Decisions (11 ADRs)</span></a></li>
-        <li><a href="../#toolbox" class="drawer-link"><span class="drawer-idx mono">07</span><span>Production Mileage Toolbox</span></a></li>
+        <li><a href="../work/" class="drawer-link"><span class="drawer-idx mono">01</span><span>Work</span></a></li>
+        <li><a href="../#evidence" class="drawer-link active"><span class="drawer-idx mono">02</span><span>Evidence</span></a></li>
+        <li><a href="../#about" class="drawer-link"><span class="drawer-idx mono">03</span><span>About</span></a></li>
+        <li><a href="../#contact" class="drawer-link"><span class="drawer-idx mono">04</span><span>Contact</span></a></li>
         <li class="drawer-divider" role="separator"></li>
         <li><a href="../assets/cv/cv-ivan-jairus.pdf" class="drawer-link drawer-cv" download><span class="drawer-idx mono">PDF</span><span>Download CV</span></a></li>
       </ul>
@@ -89,17 +84,17 @@
           Eleven architecture decisions, each featuring the alternative rejected, the engineering rationale, and what the choice actually cost in production. Categorized into two groups: System Topology (how the delivery platform is shaped) and Production Operations (what keeps 53 microservices running on a weekday). A decision with no cost line next to it is an advertisement, so every card here carries one, including the choices that cost an argument with a team.
         </p>
 
-        <div class="ds-legend mono" aria-label="ADR Section Guide">
+        <div class="ds-legend mono" role="group" aria-label="ADR Section Guide">
           <span class="ds-key"><span class="k-dec">DECISION</span> What was decided</span>
           <span class="ds-key"><span class="k-alt">ALTERNATIVE</span> Options considered and rejected</span>
           <span class="ds-key"><span class="k-why">WHY</span> Engineering rationale</span>
           <span class="ds-key"><span class="k-cost">COST</span> Real trade-offs and maintenance accepted</span>
         </div>
 
-        <div class="ds-jump mono" role="navigation" aria-label="Category Navigation">
+        <nav class="ds-jump mono" aria-label="Category Navigation">
           <a href="#system-topology" class="jump-pill"><span class="jump-idx">01</span> System Topology (6 ADRs) &darr;</a>
           <a href="#production-operations" class="jump-pill"><span class="jump-idx">02</span> Production Operations (5 ADRs) &darr;</a>
-        </div>
+        </nav>
       </div>
     </section>
 
@@ -119,10 +114,10 @@
             </div>
             <h3><span>One gateway, not per-repo templates</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
             <dl>
-              <dt class="field-decision" aria-label="Decision" title="Decision">decision</dt><dd class="val-decision">A single gateway.yml include routes every repository to its domain pipeline standard. Services declare their type and domain; the gateway dynamically invokes the corresponding pipeline workflow.</dd>
-              <dt class="field-alternative" aria-label="Alternative Rejected" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Copy-paste pipeline templates into all 53 individual service repositories, or provide per-repository overrides as the default escape hatch.</dd>
-              <dt class="field-why" aria-label="Engineering Rationale" title="Engineering Rationale">why</dt><dd class="val-why">The delivery standard evolves in one central place. Onboarding stays a four-line include, and security scanner upgrades propagate across all 53 services instantaneously without chasing 40 drifting YAML files.</dd>
-              <dt class="field-cost" aria-label="Real Cost Paid" title="Real Cost Paid">cost</dt><dd class="val-cost">The gateway is on the critical release path: one bad merge affects all 53 services. Paid for by versioning and testing the gateway with the exact same pipeline that protects production releases.</dd>
+              <dt class="field-decision" title="Decision">decision</dt><dd class="val-decision">A single gateway.yml include routes every repository to its domain pipeline standard. Services declare their type and domain; the gateway dynamically invokes the corresponding pipeline workflow.</dd>
+              <dt class="field-alternative" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Copy-paste pipeline templates into all 53 individual service repositories, or provide per-repository overrides as the default escape hatch.</dd>
+              <dt class="field-why" title="Engineering Rationale">why</dt><dd class="val-why">The delivery standard evolves in one central place. Onboarding stays a four-line include, and security scanner upgrades propagate across all 53 services instantaneously without chasing 40 drifting YAML files.</dd>
+              <dt class="field-cost" title="Real Cost Paid">cost</dt><dd class="val-cost">The gateway is on the critical release path: one bad merge affects all 53 services. Paid for by versioning and testing the gateway with the exact same pipeline that protects production releases.</dd>
             </dl>
           </article>
 
@@ -133,10 +128,10 @@
             </div>
             <h3><span>Gates fail closed</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
             <dl>
-              <dt class="field-decision" aria-label="Decision" title="Decision">decision</dt><dd class="val-decision">Every pipeline gate evaluates in fail-closed mode: a missing secret, an unconfirmed merge, an unreachable scanner, or an unparseable result stops the job with non-zero exit code (exit 1).</dd>
-              <dt class="field-alternative" aria-label="Alternative Rejected" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Warn and continue, keeping builds green to prioritize developer convenience.</dd>
-              <dt class="field-why" aria-label="Engineering Rationale" title="Engineering Rationale">why</dt><dd class="val-why">A silently falling back secret or skipped scanner check is a compliance incident with a head start. In a regulated bank, a green build that silently skipped validation is worse than a failed build because people trust green.</dd>
-              <dt class="field-cost" aria-label="Real Cost Paid" title="Real Cost Paid">cost</dt><dd class="val-cost">Builds fail when configuration is incomplete. The team cursed it for a week, then configuration drift stopped shipping to staging. Availability is traded for correctness, with manual rerun from GitLab UI as the transparent fallback.</dd>
+              <dt class="field-decision" title="Decision">decision</dt><dd class="val-decision">Every pipeline gate evaluates in fail-closed mode: a missing secret, an unconfirmed merge, an unreachable scanner, or an unparseable result stops the job with non-zero exit code (exit 1).</dd>
+              <dt class="field-alternative" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Warn and continue, keeping builds green to prioritize developer convenience.</dd>
+              <dt class="field-why" title="Engineering Rationale">why</dt><dd class="val-why">A silently falling back secret or skipped scanner check is a compliance incident with a head start. In a regulated bank, a green build that silently skipped validation is worse than a failed build because people trust green.</dd>
+              <dt class="field-cost" title="Real Cost Paid">cost</dt><dd class="val-cost">Builds fail when configuration is incomplete. The team cursed it for a week, then configuration drift stopped shipping to staging. Availability is traded for correctness, with manual rerun from GitLab UI as the transparent fallback.</dd>
             </dl>
           </article>
 
@@ -147,10 +142,10 @@
             </div>
             <h3><span>Two CI engines, no big-bang migration</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
             <dl>
-              <dt class="field-decision" aria-label="Decision" title="Decision">decision</dt><dd class="val-decision">Two CI engines running side by side: GitLab CI and legacy Jenkins are bound by one shared stage contract per artifact type (build, scan, gate, deploy, verify).</dd>
-              <dt class="field-alternative" aria-label="Alternative Rejected" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Force every pipeline onto one engine via a big-bang migration, or freeze Jenkins and let legacy pipelines decay without modern security gates.</dd>
-              <dt class="field-why" aria-label="Engineering Rationale" title="Engineering Rationale">why</dt><dd class="val-why">29 pipelines still actively delivered banking features with immovable deadlines. Migration is safe only behind a unified stage contract where services see identical exit conditions regardless of which engine executes the job.</dd>
-              <dt class="field-cost" aria-label="Real Cost Paid" title="Real Cost Paid">cost</dt><dd class="val-cost">Dual maintenance plus maintaining the contract abstraction layer itself across Groovy and GitLab YAML, which is invisible to delivery teams. The contract must be tested twice to prevent abstraction drift.</dd>
+              <dt class="field-decision" title="Decision">decision</dt><dd class="val-decision">Two CI engines running side by side: GitLab CI and legacy Jenkins are bound by one shared stage contract per artifact type (build, scan, gate, deploy, verify).</dd>
+              <dt class="field-alternative" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Force every pipeline onto one engine via a big-bang migration, or freeze Jenkins and let legacy pipelines decay without modern security gates.</dd>
+              <dt class="field-why" title="Engineering Rationale">why</dt><dd class="val-why">29 pipelines still actively delivered banking features with immovable deadlines. Migration is safe only behind a unified stage contract where services see identical exit conditions regardless of which engine executes the job.</dd>
+              <dt class="field-cost" title="Real Cost Paid">cost</dt><dd class="val-cost">Dual maintenance plus maintaining the contract abstraction layer itself across Groovy and GitLab YAML, which is invisible to delivery teams. The contract must be tested twice to prevent abstraction drift.</dd>
             </dl>
           </article>
 
@@ -161,10 +156,10 @@
             </div>
             <h3><span>What I deliberately did NOT build</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
             <dl>
-              <dt class="field-decision" aria-label="Decision" title="Decision">decision</dt><dd class="val-decision">No dedicated state database for the release board; no asynchronous deploy queue; no bot that clicks merge on a human's behalf.</dd>
-              <dt class="field-alternative" aria-label="Alternative Rejected" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Postgres for state storage, a job queue for concurrent deploys, and an automated merge bot executing upon green gates.</dd>
-              <dt class="field-why" aria-label="Engineering Rationale" title="Engineering Rationale">why</dt><dd class="val-why">State lives natively inside the ticket and GitLab objects, providing an immutable audit trail without synchronization jobs. A second deploy targeting an active route is refused, not queued, and the merge bot reverts the card and waits for a designated person to hold regulatory accountability.</dd>
-              <dt class="field-cost" aria-label="Real Cost Paid" title="Real Cost Paid">cost</dt><dd class="val-cost">Fewer moving parts and zero state reconciliation jobs. The cost is that promotion lead time is bounded by human approval latency, and an operator occasionally waits for an active slot.</dd>
+              <dt class="field-decision" title="Decision">decision</dt><dd class="val-decision">No dedicated state database for the release board; no asynchronous deploy queue; no bot that clicks merge on a human's behalf.</dd>
+              <dt class="field-alternative" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Postgres for state storage, a job queue for concurrent deploys, and an automated merge bot executing upon green gates.</dd>
+              <dt class="field-why" title="Engineering Rationale">why</dt><dd class="val-why">State lives natively inside the ticket and GitLab objects, providing an immutable audit trail without synchronization jobs. A second deploy targeting an active route is refused, not queued, and the merge bot reverts the card and waits for a designated person to hold regulatory accountability.</dd>
+              <dt class="field-cost" title="Real Cost Paid">cost</dt><dd class="val-cost">Fewer moving parts and zero state reconciliation jobs. The cost is that promotion lead time is bounded by human approval latency, and an operator occasionally waits for an active slot.</dd>
             </dl>
           </article>
 
@@ -175,10 +170,10 @@
             </div>
             <h3><span>Built the control plane, did not buy one</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
             <dl>
-              <dt class="field-decision" aria-label="Decision" title="Decision">decision</dt><dd class="val-decision">Built the control plane, did not buy one: a custom release board, an append-only release ledger, and automated notification reports, built on top of Jira and GitLab APIs with Node.js Express and SSE event streaming.</dd>
-              <dt class="field-alternative" aria-label="Alternative Rejected" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Adopt ArgoCD for deployments, GitLab Environments for promotion, Spinnaker, or Backstage as the central portal.</dd>
-              <dt class="field-why" aria-label="Engineering Rationale" title="Engineering Rationale">why</dt><dd class="val-why">The source of truth is the issue board, not a git repository: a release is the set of services that diverged between environments, and each promotion requires approval across a five-layer governance chain (team, business, product, architecture, engineering). Argo reconciles one repo toward one desired state, and GitLab Environments assume one approver. On-premises OpenShift lacked cloud tenancy to attach either tool.</dd>
-              <dt class="field-cost" aria-label="Real Cost Paid" title="Real Cost Paid">cost</dt><dd class="val-cost">I own a UI that Argo ships for free, every enhancement costs personal engineering time, and the bus factor is small. Accepted with an explicit exit condition: if workloads migrate to public cloud git-native models, retire the custom control plane and adopt the standard.</dd>
+              <dt class="field-decision" title="Decision">decision</dt><dd class="val-decision">Built the control plane, did not buy one: a custom release board, an append-only release ledger, and automated notification reports, built on top of Jira and GitLab APIs with Node.js Express and SSE event streaming.</dd>
+              <dt class="field-alternative" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Adopt ArgoCD for deployments, GitLab Environments for promotion, Spinnaker, or Backstage as the central portal.</dd>
+              <dt class="field-why" title="Engineering Rationale">why</dt><dd class="val-why">The source of truth is the issue board, not a git repository: a release is the set of services that diverged between environments, and each promotion requires approval across a five-layer governance chain (team, business, product, architecture, engineering). Argo reconciles one repo toward one desired state, and GitLab Environments assume one approver. On-premises OpenShift lacked cloud tenancy to attach either tool.</dd>
+              <dt class="field-cost" title="Real Cost Paid">cost</dt><dd class="val-cost">I own a UI that Argo ships for free, every enhancement costs personal engineering time, and the bus factor is small. Accepted with an explicit exit condition: if workloads migrate to public cloud git-native models, retire the custom control plane and adopt the standard.</dd>
             </dl>
           </article>
 
@@ -189,10 +184,10 @@
             </div>
             <h3><span>Agents write the pipeline. Nothing they write merges itself.</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
             <dl>
-              <dt class="field-decision" aria-label="Decision" title="Decision">decision</dt><dd class="val-decision">AI coding agents draft and edit gateway.yml, Groovy shared libraries, and shell scripts; a model generates merge request scanner summaries, but possesses zero push, merge, or bypass authority. Nothing they write merges itself.</dd>
-              <dt class="field-alternative" aria-label="Alternative Rejected" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Ban generative models completely from the platform delivery path, or grant autonomous agents direct write and merge access to release branches.</dd>
-              <dt class="field-why" aria-label="Engineering Rationale" title="Engineering Rationale">why</dt><dd class="val-why">Drafting boilerplate pipeline logic is cheap, provided it arrives in front of the identical quality gates and human engineering review as human commits. Summary generation is a convenience over raw scanner findings; the composite quality gate underneath is arithmetic, and arithmetic stays strictly outside the model.</dd>
-              <dt class="field-cost" aria-label="Real Cost Paid" title="Real Cost Paid">cost</dt><dd class="val-cost">Reviewers must inspect agent diffs thoroughly, and an overly confident scanner summary is dangerous. Summary metrics must point directly back to verbatim scanner lines, and approvals are never recorded as a model's opinion.</dd>
+              <dt class="field-decision" title="Decision">decision</dt><dd class="val-decision">AI coding agents draft and edit gateway.yml, Groovy shared libraries, and shell scripts; a model generates merge request scanner summaries, but possesses zero push, merge, or bypass authority. Nothing they write merges itself.</dd>
+              <dt class="field-alternative" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Ban generative models completely from the platform delivery path, or grant autonomous agents direct write and merge access to release branches.</dd>
+              <dt class="field-why" title="Engineering Rationale">why</dt><dd class="val-why">Drafting boilerplate pipeline logic is cheap, provided it arrives in front of the identical quality gates and human engineering review as human commits. Summary generation is a convenience over raw scanner findings; the composite quality gate underneath is arithmetic, and arithmetic stays strictly outside the model.</dd>
+              <dt class="field-cost" title="Real Cost Paid">cost</dt><dd class="val-cost">Reviewers must inspect agent diffs thoroughly, and an overly confident scanner summary is dangerous. Summary metrics must point directly back to verbatim scanner lines, and approvals are never recorded as a model's opinion.</dd>
             </dl>
           </article>
         </div>
@@ -216,10 +211,10 @@
             </div>
             <h3><span>Capacity is decided upstream. I make it stick.</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
             <dl>
-              <dt class="field-decision" aria-label="Decision" title="Decision">decision</dt><dd class="val-decision">Capacity is decided upstream. I make it stick. CPU requests, memory limits, and horizontal pod autoscaler thresholds default from the shared stage contract. Any service requiring deviations must carry an explicit manifest override with a documented rationale.</dd>
-              <dt class="field-alternative" aria-label="Alternative Rejected" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Allow every team to copy a deployment manifest and configure arbitrary resource numbers by hand.</dd>
-              <dt class="field-why" aria-label="Engineering Rationale" title="Engineering Rationale">why</dt><dd class="val-why">Capacity targets belong to system analysts and capacity planners. The platform role is ensuring agreed targets reach production unchanged across all 53 services, so exceptions read as audited architectural changes rather than silent configuration forks.</dd>
-              <dt class="field-cost" aria-label="Real Cost Paid" title="Real Cost Paid">cost</dt><dd class="val-cost">A flawed default propagates to all repositories including the contract, and overrides can outlive the workload condition that justified them. Mitigated by versioning the contract and requiring merge request reviews on all override additions.</dd>
+              <dt class="field-decision" title="Decision">decision</dt><dd class="val-decision">Capacity is decided upstream. I make it stick. CPU requests, memory limits, and horizontal pod autoscaler thresholds default from the shared stage contract. Any service requiring deviations must carry an explicit manifest override with a documented rationale.</dd>
+              <dt class="field-alternative" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Allow every team to copy a deployment manifest and configure arbitrary resource numbers by hand.</dd>
+              <dt class="field-why" title="Engineering Rationale">why</dt><dd class="val-why">Capacity targets belong to system analysts and capacity planners. The platform role is ensuring agreed targets reach production unchanged across all 53 services, so exceptions read as audited architectural changes rather than silent configuration forks.</dd>
+              <dt class="field-cost" title="Real Cost Paid">cost</dt><dd class="val-cost">A flawed default propagates to all repositories including the contract, and overrides can outlive the workload condition that justified them. Mitigated by versioning the contract and requiring merge request reviews on all override additions.</dd>
             </dl>
           </article>
 
@@ -230,10 +225,10 @@
             </div>
             <h3><span>One rollout rule, and no two deploys at once.</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
             <dl>
-              <dt class="field-decision" aria-label="Decision" title="Decision">decision</dt><dd class="val-decision">One rollout rule, and no two deploys at once. The rolling update strategy is enforced globally in the stage contract rather than configured per team. The deployment job enforces a mutex lock that refuses a second deployment while one is actively executing.</dd>
-              <dt class="field-alternative" aria-label="Alternative Rejected" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Permit individual services to select disparate rollout strategies (such as stop-then-start recreate), and allow concurrent deployment pipelines targeting shared routes.</dd>
-              <dt class="field-why" aria-label="Engineering Rationale" title="Engineering Rationale">why</dt><dd class="val-why">A deployment that interrupts active banking traffic causes an immediate production incident. Two simultaneous releases racing for the same ingress route turn rollbacks into non-deterministic recovery guesswork.</dd>
-              <dt class="field-cost" aria-label="Real Cost Paid" title="Real Cost Paid">cost</dt><dd class="val-cost">One standardized rule requires services with non-standard lifecycle hooks to request audited exceptions. Refusing concurrent releases rather than queuing them means operators occasionally wait for an open slot.</dd>
+              <dt class="field-decision" title="Decision">decision</dt><dd class="val-decision">One rollout rule, and no two deploys at once. The rolling update strategy is enforced globally in the stage contract rather than configured per team. The deployment job enforces a mutex lock that refuses a second deployment while one is actively executing.</dd>
+              <dt class="field-alternative" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Permit individual services to select disparate rollout strategies (such as stop-then-start recreate), and allow concurrent deployment pipelines targeting shared routes.</dd>
+              <dt class="field-why" title="Engineering Rationale">why</dt><dd class="val-why">A deployment that interrupts active banking traffic causes an immediate production incident. Two simultaneous releases racing for the same ingress route turn rollbacks into non-deterministic recovery guesswork.</dd>
+              <dt class="field-cost" title="Real Cost Paid">cost</dt><dd class="val-cost">One standardized rule requires services with non-standard lifecycle hooks to request audited exceptions. Refusing concurrent releases rather than queuing them means operators occasionally wait for an open slot.</dd>
             </dl>
           </article>
 
@@ -244,10 +239,10 @@
             </div>
             <h3><span>A backup is only real if it expires.</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
             <dl>
-              <dt class="field-decision" aria-label="Decision" title="Decision">decision</dt><dd class="val-decision">A backup is only real if it expires. Destructive deployment steps cannot execute without a timestamped backup created first, and all backups carry strict expiration dates with automated scheduled pruning.</dd>
-              <dt class="field-alternative" aria-label="Alternative Rejected" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Take one-off backups, keep snapshots indefinitely, and manually purge storage volumes only when disk exhaustion alerts fire.</dd>
-              <dt class="field-why" aria-label="Engineering Rationale" title="Engineering Rationale">why</dt><dd class="val-why">"We have backups" without retention rules inevitably causes disk exhaustion outages months later. Directories that operators are forbidden to clean eventually stop being inspected or tested altogether.</dd>
-              <dt class="field-cost" aria-label="Real Cost Paid" title="Real Cost Paid">cost</dt><dd class="val-cost">A flawed cleanup script risks removing necessary recovery evidence. Timestamps must live in the snapshot filename, retention policies must be published, and all deletion actions must write audit logs.</dd>
+              <dt class="field-decision" title="Decision">decision</dt><dd class="val-decision">A backup is only real if it expires. Destructive deployment steps cannot execute without a timestamped backup created first, and all backups carry strict expiration dates with automated scheduled pruning.</dd>
+              <dt class="field-alternative" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Take one-off backups, keep snapshots indefinitely, and manually purge storage volumes only when disk exhaustion alerts fire.</dd>
+              <dt class="field-why" title="Engineering Rationale">why</dt><dd class="val-why">"We have backups" without retention rules inevitably causes disk exhaustion outages months later. Directories that operators are forbidden to clean eventually stop being inspected or tested altogether.</dd>
+              <dt class="field-cost" title="Real Cost Paid">cost</dt><dd class="val-cost">A flawed cleanup script risks removing necessary recovery evidence. Timestamps must live in the snapshot filename, retention policies must be published, and all deletion actions must write audit logs.</dd>
             </dl>
           </article>
 
@@ -258,10 +253,10 @@
             </div>
             <h3><span>Measured baseline per artifact type, not copied configs</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
             <dl>
-              <dt class="field-decision" aria-label="Decision" title="Decision">decision</dt><dd class="val-decision">Measured baseline per artifact type, not copied configs. Derive resource requests, memory limits, and JVM heap configurations from measured baseline profiles per artifact type (Spring Boot JAR, container image, static web bundle, Android APK, iOS IPA) rather than copied templates.</dd>
-              <dt class="field-alternative" aria-label="Alternative Rejected" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Copy resource values from whatever service deployed most recently, or assign uniform generic sizing across radically different runtime technologies.</dd>
-              <dt class="field-why" aria-label="Engineering Rationale" title="Engineering Rationale">why</dt><dd class="val-why">Different runtimes exhibit fundamentally different memory dynamics: Java Virtual Machines require heap headroom, whereas Go binaries and static bundles operate in minimal memory. Sizing from empirical observation prevents node memory pressure while keeping the override list short enough to review in one sitting.</dd>
-              <dt class="field-cost" aria-label="Real Cost Paid" title="Real Cost Paid">cost</dt><dd class="val-cost">Requires ongoing profiling and benchmarking across staging clusters whenever runtime base images (such as JDK versions or Node runtimes) are upgraded across the domain.</dd>
+              <dt class="field-decision" title="Decision">decision</dt><dd class="val-decision">Measured baseline per artifact type, not copied configs. Derive resource requests, memory limits, and JVM heap configurations from measured baseline profiles per artifact type (Spring Boot JAR, container image, static web bundle, Android APK, iOS IPA) rather than copied templates.</dd>
+              <dt class="field-alternative" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Copy resource values from whatever service deployed most recently, or assign uniform generic sizing across radically different runtime technologies.</dd>
+              <dt class="field-why" title="Engineering Rationale">why</dt><dd class="val-why">Different runtimes exhibit fundamentally different memory dynamics: Java Virtual Machines require heap headroom, whereas Go binaries and static bundles operate in minimal memory. Sizing from empirical observation prevents node memory pressure while keeping the override list short enough to review in one sitting.</dd>
+              <dt class="field-cost" title="Real Cost Paid">cost</dt><dd class="val-cost">Requires ongoing profiling and benchmarking across staging clusters whenever runtime base images (such as JDK versions or Node runtimes) are upgraded across the domain.</dd>
             </dl>
           </article>
 
@@ -272,10 +267,10 @@
             </div>
             <h3><span>Numbers, with the sample size attached</span><button type="button" class="dec-fold" aria-expanded="true"><span>hide</span></button></h3>
             <dl>
-              <dt class="field-decision" aria-label="Decision" title="Decision">decision</dt><dd class="val-decision">Numbers, with the sample size attached. Every published deployment timing, performance metric, and pipeline SLA must disclose its explicit sample size (n), percentiles (median/p50 and p90), and observation window measured directly from private platform telemetry.</dd>
-              <dt class="field-alternative" aria-label="Alternative Rejected" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Publish synthetic vanity benchmarks, single best-case timing runs, or unverified speed claims without sample size, variance, or date context.</dd>
-              <dt class="field-why" aria-label="Engineering Rationale" title="Engineering Rationale">why</dt><dd class="val-why">A figure you cannot interrogate is worth nothing in engineering. Measured from the platform's own GitLab API on 8 October 2026: 53 services declared across the service maps, 99 source repositories carrying no CI file at all (46 of them with pipeline history), and 10 pipeline projects that have run 7,550 pipelines between them. On one backend service: a deploy to an app-server VM takes a median 93 seconds (n = 13 successful jobs, p90 162 s, range 19–199 s), and the SonarQube gate a median 80 seconds (n = 30, p90 140 s). On private banking infrastructure, transparency about empirical metrics builds verifiable technical credibility.</dd>
-              <dt class="field-cost" aria-label="Real Cost Paid" title="Real Cost Paid">cost</dt><dd class="val-cost">Disclosing empirical sample sizes reveals operational variance and long-tail outliers rather than an idealized clean graph, and requires persistent metrics collection across both CI engines.</dd>
+              <dt class="field-decision" title="Decision">decision</dt><dd class="val-decision">Numbers, with the sample size attached. Every published deployment timing, performance metric, and pipeline SLA must disclose its explicit sample size (n), percentiles (median/p50 and p90), and observation window measured directly from private platform telemetry.</dd>
+              <dt class="field-alternative" title="Alternative Rejected">alternative</dt><dd class="val-alternative">Publish synthetic vanity benchmarks, single best-case timing runs, or unverified speed claims without sample size, variance, or date context.</dd>
+              <dt class="field-why" title="Engineering Rationale">why</dt><dd class="val-why">A figure you cannot interrogate is worth nothing in engineering. Measured from the platform's own GitLab API on 8 October 2026: 53 services declared across the service maps, 99 source repositories carrying no CI file at all (46 of them with pipeline history), and 10 pipeline projects that have run 7,550 pipelines between them. On one backend service: a deploy to an app-server VM takes a median 93 seconds (n = 13 successful jobs, p90 162 s, range 19–199 s), and the SonarQube gate a median 80 seconds (n = 30, p90 140 s). On private banking infrastructure, transparency about empirical metrics builds verifiable technical credibility.</dd>
+              <dt class="field-cost" title="Real Cost Paid">cost</dt><dd class="val-cost">Disclosing empirical sample sizes reveals operational variance and long-tail outliers rather than an idealized clean graph, and requires persistent metrics collection across both CI engines.</dd>
             </dl>
           </article>
         </div>
@@ -303,16 +298,15 @@
   <footer class="site-footer" id="site-footer">
     <div class="wrap footer-in">
       <div class="footer-summary">
-        <p class="ftr-creed mono">Ivan Jairus : DevSecOps &amp; Platform Engineer : Jakarta, Indonesia</p>
+        <p class="ftr-creed mono">Ivan Jairus : DevSecOps : Jakarta, Indonesia</p>
         <p class="dim">53 services · 5 artifact types · 3 environments · 1 gateway · ~330 tests · 11 ADRs</p>
         <p class="dim">&copy; 2026 Ivan Jairus. Zero tracking, zero third-party CDNs, zero cookies.</p>
       </div>
       <nav class="footer-nav" aria-label="Footer Navigation">
-        <a href="../">Overview</a>
         <a href="../work/">Work</a>
-        <a href="../diagrams/">Diagrams</a>
-        <a href="../pipelines/">Pipelines</a>
-        <a href="./">Decisions</a>
+        <a href="../#evidence">Evidence</a>
+        <a href="../#about">About</a>
+        <a href="../#contact">Contact</a>
         <a href="#main-content" class="back-to-top">Back to top &uarr;</a>
       </nav>
     </div>

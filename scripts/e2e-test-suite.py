@@ -276,7 +276,7 @@ class Tier1_FeatureCoverage(unittest.TestCase):
         self.assertIn("Jakarta", facts.get_text())
         tagline = dom.find("p", cls="hero-tag")
         self.assertIsNotNone(tagline, "hero-tag element must exist")
-        self.assertIn("Platform engineer", tagline.get_text())
+        self.assertIn("DevSecOps", tagline.get_text())
 
     def test_f01_04_hero_action_ctas(self):
         dom = parse_html(CTX.get_text("index.html"))

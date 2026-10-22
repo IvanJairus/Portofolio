@@ -6,7 +6,7 @@
   <title>Email reports a release run leaves behind, by Ivan Jairus</title>
   <meta name="description" content="Three HTML reports the scheduled pipelines send after a run: branch auto-sync across release branches, Semgrep SAST across a domain, and SonarQube quality gates. Replicated from the real template with names, hosts and links removed." />
   <meta name="color-scheme" content="light" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#f2f4f5" />
   <link rel="canonical" href="https://www.ivanjairus.xyz/portfolio/reports/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.ivanjairus.xyz/portfolio/reports/" />
@@ -18,31 +18,31 @@
   <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
   <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
-  <meta name="msapplication-TileColor" content="#c2410c">
+  <meta name="msapplication-TileColor" content="#a8360a">
 
   <link rel="stylesheet" href="../assets/css/base.css" />
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/showcase.css" />
   <link rel="stylesheet" href="../assets/css/reports.css" />
+  <link rel="preload" href="../assets/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/fragment-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/porcelain-evidence.css" />
 </head>
 <body id="top">
 
   <header class="site-header">
     <div class="wrap header-in">
-      <a class="brand" href="../" aria-label="Home">
+      <a class="brand" href="../">
         <span class="mark" data-profile="monogram">IJ</span>
         <span data-profile="brand-name">Ivan Jairus</span>
         <span class="slash">/</span>
         <span class="dim">reports</span>
       </a>
       <nav class="nav desktop-nav" id="nav" aria-label="Primary">
-        <a href="../">Overview</a>
-        <a href="../work/">Case Studies</a>
-        <a href="../diagrams/">Architecture</a>
-        <a href="../pipelines/">Pipelines</a>
-        <a href="../reports/" class="active">Reports</a>
-        <a href="./" class="active">Decisions</a>
-        <a href="../#toolbox">Toolbox</a>
+        <a href="../work/">Work</a>
+        <a href="../#evidence" class="active">Evidence</a>
+        <a href="../#about">About</a>
+        <a href="../#contact">Contact</a>
         <a href="../assets/cv/cv-ivan-jairus.pdf" download>CV (PDF)</a>
       </nav>
       <div class="header-tools">
@@ -63,15 +63,10 @@
         </button>
       </div>
       <ul class="drawer-links">
-        <li><a href="../" class="drawer-link"><span class="drawer-idx mono">01</span><span>Executive Overview</span></a></li>
-        <li><a href="../work/" class="drawer-link"><span class="drawer-idx mono">02</span><span>Case Studies &amp; Threat Model</span></a></li>
-        <li><a href="../diagrams/" class="drawer-link"><span class="drawer-idx mono">03</span><span>Architecture Studio (5 Plates)</span></a></li>
-        <li><a href="../pipelines/" class="drawer-link"><span class="drawer-idx mono">04</span><span>Dual-Engine Pipeline Trace</span></a></li>
-        <li>
-          <a href="../reports/" class="drawer-link"><span class="drawer-idx mono">05</span><span>Run Reports</span></a>
-        </li>
-        <li><a href="./" class="drawer-link active"><span class="drawer-idx mono">06</span><span>Architecture Decisions (11 ADRs)</span></a></li>
-        <li><a href="../#toolbox" class="drawer-link"><span class="drawer-idx mono">07</span><span>Production Mileage Toolbox</span></a></li>
+        <li><a href="../work/" class="drawer-link"><span class="drawer-idx mono">01</span><span>Work</span></a></li>
+        <li><a href="../#evidence" class="drawer-link active"><span class="drawer-idx mono">02</span><span>Evidence</span></a></li>
+        <li><a href="../#about" class="drawer-link"><span class="drawer-idx mono">03</span><span>About</span></a></li>
+        <li><a href="../#contact" class="drawer-link"><span class="drawer-idx mono">04</span><span>Contact</span></a></li>
         <li class="drawer-divider" role="separator"></li>
         <li><a href="../assets/cv/cv-ivan-jairus.pdf" class="drawer-link drawer-cv" download><span class="drawer-idx mono">PDF</span><span>Download CV</span></a></li>
       </ul>

@@ -7,7 +7,7 @@
   <title>Interactive Architecture Studio (5 Plates) | Ivan Jairus</title>
   <meta name="description" content="Five interactive reference diagrams: twenty-one-phase board governance, control-plane topology, dual-track event routing, domain pipeline convergence, and card-to-SIT sequence." />
   <meta name="color-scheme" content="light" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#f2f4f5" />
   <link rel="canonical" href="https://www.ivanjairus.xyz/portfolio/diagrams/" />
 
   <!-- Open Graph & Social Cards -->
@@ -28,30 +28,30 @@
   <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png" />
   <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png" />
-  <meta name="msapplication-TileColor" content="#c2410c" />
+  <meta name="msapplication-TileColor" content="#a8360a" />
 
   <link rel="stylesheet" href="../assets/css/base.css" />
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/diagrams.css" />
+  <link rel="preload" href="../assets/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/fragment-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/porcelain-evidence.css" />
 </head>
 <body id="top">
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <header class="site-header">
     <div class="wrap header-in">
-      <a class="brand" href="../" aria-label="Home">
+      <a class="brand" href="../">
         <span class="mark" data-profile="monogram">IJ</span>
         <span data-profile="brand-name">Ivan Jairus</span>
         <span class="slash">/</span>
         <span class="dim">diagrams</span>
       </a>
       <nav class="nav desktop-nav" id="nav" aria-label="Primary">
-        <a href="../">Overview</a>
-        <a href="../work/">Case Studies</a>
-        <a href="./" class="active">Architecture</a>
-        <a href="../pipelines/">Pipelines</a>
-        <a href="../reports/">Reports</a>
-        <a href="../decisions/">Decisions</a>
-        <a href="../#toolbox">Toolbox</a>
+        <a href="../work/">Work</a>
+        <a href="../#evidence" class="active">Evidence</a>
+        <a href="../#about">About</a>
+        <a href="../#contact">Contact</a>
         <a href="../assets/cv/cv-ivan-jairus.pdf" download>CV (PDF)</a>
       </nav>
       <div class="header-tools">
@@ -72,15 +72,10 @@
         </button>
       </div>
       <ul class="drawer-links">
-        <li><a href="../" class="drawer-link"><span class="drawer-idx mono">01</span><span>Executive Overview</span></a></li>
-        <li><a href="../work/" class="drawer-link"><span class="drawer-idx mono">02</span><span>Case Studies &amp; Threat Model</span></a></li>
-        <li><a href="./" class="drawer-link active"><span class="drawer-idx mono">03</span><span>Architecture Studio (5 Plates)</span></a></li>
-        <li><a href="../pipelines/" class="drawer-link"><span class="drawer-idx mono">04</span><span>Dual-Engine Pipeline Trace</span></a></li>
-        <li>
-          <a href="../reports/" class="drawer-link"><span class="drawer-idx mono">05</span><span>Run Reports</span></a>
-        </li>
-        <li><a href="../decisions/" class="drawer-link"><span class="drawer-idx mono">06</span><span>Architecture Decisions (11 ADRs)</span></a></li>
-        <li><a href="../#toolbox" class="drawer-link"><span class="drawer-idx mono">07</span><span>Production Mileage Toolbox</span></a></li>
+        <li><a href="../work/" class="drawer-link"><span class="drawer-idx mono">01</span><span>Work</span></a></li>
+        <li><a href="../#evidence" class="drawer-link active"><span class="drawer-idx mono">02</span><span>Evidence</span></a></li>
+        <li><a href="../#about" class="drawer-link"><span class="drawer-idx mono">03</span><span>About</span></a></li>
+        <li><a href="../#contact" class="drawer-link"><span class="drawer-idx mono">04</span><span>Contact</span></a></li>
         <li class="drawer-divider" role="separator"></li>
         <li><a href="../assets/cv/cv-ivan-jairus.pdf" class="drawer-link drawer-cv" download><span class="drawer-idx mono">PDF</span><span>Download CV</span></a></li>
       </ul>
@@ -115,14 +110,14 @@
         <div class="dg-controls" role="toolbar" aria-label="Playback controls for 21-phase board governance diagram">
           <div class="dg-controls-row">
             <div class="dg-playback-group" role="group" aria-label="Playback navigation">
-              <button type="button" class="btn dg-btn dg-btn-prev" data-step-prev data-action="prev" aria-label="Previous step">
+              <button type="button" class="btn dg-btn dg-btn-prev" data-step-prev data-action="prev">
                 <span aria-hidden="true">‹</span> Prev
               </button>
               <button type="button" class="btn dg-btn dg-btn-play" data-step-play data-action="play-pause" aria-label="Pause automated walkthrough" aria-pressed="true">
                 <span class="dg-btn-icon" aria-hidden="true">❚❚</span>
                 <span class="dg-btn-label">Pause</span>
               </button>
-              <button type="button" class="btn dg-btn dg-btn-next" data-step-next data-action="next" aria-label="Next step">
+              <button type="button" class="btn dg-btn dg-btn-next" data-step-next data-action="next">
                 Next <span aria-hidden="true">›</span>
               </button>
             </div>
@@ -134,23 +129,23 @@
             </div>
           </div>
 
-          <div class="dg-steps-group" data-step-dots role="tablist" aria-label="Direct step selection">
-            <button type="button" class="btn dg-step-btn is-active" data-action="step" data-step-target="1" aria-label="Jump to Step 1: Upstream intake, business analysis, and architecture phases (P1 to P9)" aria-current="step">
+          <div class="dg-steps-group" data-step-dots role="group" aria-label="Direct step selection">
+            <button type="button" class="btn dg-step-btn is-active" data-action="step" data-step-target="1" aria-label="01. Jump to Step 1: Upstream intake, business analysis, and architecture phases (P1 to P9)" aria-current="step">
               <span class="dg-step-num">01</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="2" aria-label="Jump to Step 2: Dev readiness (P10 to P12) and fail-closed auto-revert guard">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="2" aria-label="02. Jump to Step 2: Dev readiness (P10 to P12) and fail-closed auto-revert guard">
               <span class="dg-step-num">02</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="3" aria-label="Jump to Step 3: Five-layer approval passed; branch and MR opened in In Dev and In Review">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="3" aria-label="03. Jump to Step 3: Five-layer approval passed; branch and MR opened in In Dev and In Review">
               <span class="dg-step-num">03</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="4" aria-label="Jump to Step 4: Merge state captured in ticket description with 4-layer anti-loop guard">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="4" aria-label="04. Jump to Step 4: Merge state captured in ticket description with 4-layer anti-loop guard">
               <span class="dg-step-num">04</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="5" aria-label="Jump to Step 5: Status Deploy triggers downstream domain pipelines via API">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="5" aria-label="05. Jump to Step 5: Status Deploy triggers downstream domain pipelines via API">
               <span class="dg-step-num">05</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="6" aria-label="Jump to Step 6: Downstream SIT, UAT, security gates, RCB promotion, and release-manifest ledger">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="6" aria-label="06. Jump to Step 6: Downstream SIT, UAT, security gates, RCB promotion, and release-manifest ledger">
               <span class="dg-step-num">06</span>
             </button>
           </div>
@@ -333,14 +328,14 @@
         <div class="dg-controls" role="toolbar" aria-label="Playback controls for control plane and three archetypes diagram">
           <div class="dg-controls-row">
             <div class="dg-playback-group" role="group" aria-label="Playback navigation">
-              <button type="button" class="btn dg-btn dg-btn-prev" data-step-prev data-action="prev" aria-label="Previous step">
+              <button type="button" class="btn dg-btn dg-btn-prev" data-step-prev data-action="prev">
                 <span aria-hidden="true">‹</span> Prev
               </button>
               <button type="button" class="btn dg-btn dg-btn-play" data-step-play data-action="play-pause" aria-label="Pause automated walkthrough" aria-pressed="true">
                 <span class="dg-btn-icon" aria-hidden="true">❚❚</span>
                 <span class="dg-btn-label">Pause</span>
               </button>
-              <button type="button" class="btn dg-btn dg-btn-next" data-step-next data-action="next" aria-label="Next step">
+              <button type="button" class="btn dg-btn dg-btn-next" data-step-next data-action="next">
                 Next <span aria-hidden="true">›</span>
               </button>
             </div>
@@ -352,20 +347,20 @@
             </div>
           </div>
 
-          <div class="dg-steps-group" data-step-dots role="tablist" aria-label="Direct step selection">
-            <button type="button" class="btn dg-step-btn is-active" data-action="step" data-step-target="1" aria-label="Jump to Step 1: Webhook ingress passes Rule 0 anti-loop filter and 5-layer approval validation" aria-current="step">
+          <div class="dg-steps-group" data-step-dots role="group" aria-label="Direct step selection">
+            <button type="button" class="btn dg-step-btn is-active" data-action="step" data-step-target="1" aria-label="01. Jump to Step 1: Webhook ingress passes Rule 0 anti-loop filter and 5-layer approval validation" aria-current="step">
               <span class="dg-step-num">01</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="2" aria-label="Jump to Step 2: Control plane state and deploy engine plus central security and branch sync">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="2" aria-label="02. Jump to Step 2: Control plane state and deploy engine plus central security and branch sync">
               <span class="dg-step-num">02</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="3" aria-label="Jump to Step 3: Trigger API fans out across three execution archetypes in the domain plane">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="3" aria-label="03. Jump to Step 3: Trigger API fans out across three execution archetypes in the domain plane">
               <span class="dg-step-num">03</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="4" aria-label="Jump to Step 4: Domain pipelines clone product repos, roll out to OpenShift, VM, and Mobile, and update release-manifest">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="4" aria-label="04. Jump to Step 4: Domain pipelines clone product repos, roll out to OpenShift, VM, and Mobile, and update release-manifest">
               <span class="dg-step-num">04</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="5" aria-label="Jump to Step 5: Append-only release-manifest, security-scan reports, and closed-loop webhook guard">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="5" aria-label="05. Jump to Step 5: Append-only release-manifest, security-scan reports, and closed-loop webhook guard">
               <span class="dg-step-num">05</span>
             </button>
           </div>
@@ -544,14 +539,14 @@
         <div class="dg-controls" role="toolbar" aria-label="Playback controls for dual-track event router diagram">
           <div class="dg-controls-row">
             <div class="dg-playback-group" role="group" aria-label="Playback navigation">
-              <button type="button" class="btn dg-btn dg-btn-prev" data-step-prev data-action="prev" aria-label="Previous step">
+              <button type="button" class="btn dg-btn dg-btn-prev" data-step-prev data-action="prev">
                 <span aria-hidden="true">‹</span> Prev
               </button>
               <button type="button" class="btn dg-btn dg-btn-play" data-step-play data-action="play-pause" aria-label="Pause automated walkthrough" aria-pressed="true">
                 <span class="dg-btn-icon" aria-hidden="true">❚❚</span>
                 <span class="dg-btn-label">Pause</span>
               </button>
-              <button type="button" class="btn dg-btn dg-btn-next" data-step-next data-action="next" aria-label="Next step">
+              <button type="button" class="btn dg-btn dg-btn-next" data-step-next data-action="next">
                 Next <span aria-hidden="true">›</span>
               </button>
             </div>
@@ -563,23 +558,23 @@
             </div>
           </div>
 
-          <div class="dg-steps-group" data-step-dots role="tablist" aria-label="Direct step selection">
-            <button type="button" class="btn dg-step-btn is-active" data-action="step" data-step-target="1" aria-label="Jump to Step 1: Incoming event passes 4-layer anti-loop filter and enters category router" aria-current="step">
+          <div class="dg-steps-group" data-step-dots role="group" aria-label="Direct step selection">
+            <button type="button" class="btn dg-step-btn is-active" data-action="step" data-step-target="1" aria-label="01. Jump to Step 1: Incoming event passes 4-layer anti-loop filter and enters category router" aria-current="step">
               <span class="dg-step-num">01</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="2" aria-label="Jump to Step 2: Track A validates sequential board phase and 5-layer approval gate">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="2" aria-label="02. Jump to Step 2: Track A validates sequential board phase and 5-layer approval gate">
               <span class="dg-step-num">02</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="3" aria-label="Jump to Step 3: Invalid phase or missing approval reverts card status; valid gate proceeds to release">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="3" aria-label="03. Jump to Step 3: Invalid phase or missing approval reverts card status; valid gate proceeds to release">
               <span class="dg-step-num">03</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="4" aria-label="Jump to Step 4: Track A executes branch, MR, ticket state capture, and domain deploy trigger">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="4" aria-label="04. Jump to Step 4: Track A executes branch, MR, ticket state capture, and domain deploy trigger">
               <span class="dg-step-num">04</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="5" aria-label="Jump to Step 5: Track B routes note slash commands to ChatOps and cron triggers to central security scans">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="5" aria-label="05. Jump to Step 5: Track B routes note slash commands to ChatOps and cron triggers to central security scans">
               <span class="dg-step-num">05</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="6" aria-label="Jump to Step 6: Both tracks converge to post watermarked callback comments and status reports">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="6" aria-label="06. Jump to Step 6: Both tracks converge to post watermarked callback comments and status reports">
               <span class="dg-step-num">06</span>
             </button>
           </div>
@@ -745,14 +740,14 @@
         <div class="dg-controls" role="toolbar" aria-label="Playback controls for six-domain pipeline convergence diagram">
           <div class="dg-controls-row">
             <div class="dg-playback-group" role="group" aria-label="Playback navigation">
-              <button type="button" class="btn dg-btn dg-btn-prev" data-step-prev data-action="prev" aria-label="Previous step">
+              <button type="button" class="btn dg-btn dg-btn-prev" data-step-prev data-action="prev">
                 <span aria-hidden="true">‹</span> Prev
               </button>
               <button type="button" class="btn dg-btn dg-btn-play" data-step-play data-action="play-pause" aria-label="Pause automated walkthrough" aria-pressed="true">
                 <span class="dg-btn-icon" aria-hidden="true">❚❚</span>
                 <span class="dg-btn-label">Pause</span>
               </button>
-              <button type="button" class="btn dg-btn dg-btn-next" data-step-next data-action="next" aria-label="Next step">
+              <button type="button" class="btn dg-btn dg-btn-next" data-step-next data-action="next">
                 Next <span aria-hidden="true">›</span>
               </button>
             </div>
@@ -764,20 +759,20 @@
             </div>
           </div>
 
-          <div class="dg-steps-group" data-step-dots role="tablist" aria-label="Direct step selection">
-            <button type="button" class="btn dg-step-btn is-active" data-action="step" data-step-target="1" aria-label="Jump to Step 1: Rank 0 entry points read routing table into orchestrator pipeline" aria-current="step">
+          <div class="dg-steps-group" data-step-dots role="group" aria-label="Direct step selection">
+            <button type="button" class="btn dg-step-btn is-active" data-action="step" data-step-target="1" aria-label="01. Jump to Step 1: Rank 0 entry points read routing table into orchestrator pipeline" aria-current="step">
               <span class="dg-step-num">01</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="2" aria-label="Jump to Step 2: Orchestrator fans out triggers to the six domain pipelines in Rank 1">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="2" aria-label="02. Jump to Step 2: Orchestrator fans out triggers to the six domain pipelines in Rank 1">
               <span class="dg-step-num">02</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="3" aria-label="Jump to Step 3: Domain pipelines deploy to product repositories and converge on security-scan (5 in)">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="3" aria-label="03. Jump to Step 3: Domain pipelines deploy to product repositories and converge on security-scan (5 in)">
               <span class="dg-step-num">03</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="4" aria-label="Jump to Step 4: All six pipelines plus board prepare-uat converge on release-manifest (7 in) and mobile repos">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="4" aria-label="04. Jump to Step 4: All six pipelines plus board prepare-uat converge on release-manifest (7 in) and mobile repos">
               <span class="dg-step-num">04</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="5" aria-label="Jump to Step 5: Workloads roll out to OpenShift (SIT, UAT, PROD) while MR webhooks return through anti-loop guard">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="5" aria-label="05. Jump to Step 5: Workloads roll out to OpenShift (SIT, UAT, PROD) while MR webhooks return through anti-loop guard">
               <span class="dg-step-num">05</span>
             </button>
           </div>
@@ -912,14 +907,14 @@
         <div class="dg-controls" role="toolbar" aria-label="Playback controls for In Dev to SIT execution sequence diagram">
           <div class="dg-controls-row">
             <div class="dg-playback-group" role="group" aria-label="Playback navigation">
-              <button type="button" class="btn dg-btn dg-btn-prev" data-step-prev data-action="prev" aria-label="Previous step">
+              <button type="button" class="btn dg-btn dg-btn-prev" data-step-prev data-action="prev">
                 <span aria-hidden="true">‹</span> Prev
               </button>
               <button type="button" class="btn dg-btn dg-btn-play" data-step-play data-action="play-pause" aria-label="Pause automated walkthrough" aria-pressed="true">
                 <span class="dg-btn-icon" aria-hidden="true">❚❚</span>
                 <span class="dg-btn-label">Pause</span>
               </button>
-              <button type="button" class="btn dg-btn dg-btn-next" data-step-next data-action="next" aria-label="Next step">
+              <button type="button" class="btn dg-btn dg-btn-next" data-step-next data-action="next">
                 Next <span aria-hidden="true">›</span>
               </button>
             </div>
@@ -931,23 +926,23 @@
             </div>
           </div>
 
-          <div class="dg-steps-group" data-step-dots role="tablist" aria-label="Direct step selection">
-            <button type="button" class="btn dg-step-btn is-active" data-action="step" data-step-target="1" aria-label="Jump to Step 1: Sequence lifelines and five system actors" aria-current="step">
+          <div class="dg-steps-group" data-step-dots role="group" aria-label="Direct step selection">
+            <button type="button" class="btn dg-step-btn is-active" data-action="step" data-step-target="1" aria-label="01. Jump to Step 1: Sequence lifelines and five system actors" aria-current="step">
               <span class="dg-step-num">01</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="2" aria-label="Jump to Step 2: Card move to In Dev, validation, and MR creation">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="2" aria-label="02. Jump to Step 2: Card move to In Dev, validation, and MR creation">
               <span class="dg-step-num">02</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="3" aria-label="Jump to Step 3: Promotion move to Merged or Deploy and webhook arrival">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="3" aria-label="03. Jump to Step 3: Promotion move to Merged or Deploy and webhook arrival">
               <span class="dg-step-num">03</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="4" aria-label="Jump to Step 4: Alt frame: approval pass saves state, failure reverts card">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="4" aria-label="04. Jump to Step 4: Alt frame: approval pass saves state, failure reverts card">
               <span class="dg-step-num">04</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="5" aria-label="Jump to Step 5: Orchestrator triggers domain pipeline and SIT deployment">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="5" aria-label="05. Jump to Step 5: Orchestrator triggers domain pipeline and SIT deployment">
               <span class="dg-step-num">05</span>
             </button>
-            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="6" aria-label="Jump to Step 6: Returning bot webhook blocked by Rule 0 anti-loop guard">
+            <button type="button" class="btn dg-step-btn" data-action="step" data-step-target="6" aria-label="06. Jump to Step 6: Returning bot webhook blocked by Rule 0 anti-loop guard">
               <span class="dg-step-num">06</span>
             </button>
           </div>
@@ -1094,16 +1089,15 @@
   <footer class="site-footer" id="site-footer">
     <div class="wrap footer-in">
       <div class="footer-summary">
-        <p class="ftr-creed mono">Ivan Jairus : DevSecOps &amp; Platform Engineer : Jakarta, Indonesia</p>
+        <p class="ftr-creed mono">Ivan Jairus : DevSecOps : Jakarta, Indonesia</p>
         <p class="dim">53 services · 5 artifact types · 3 environments · 1 gateway · ~330 tests · 11 ADRs</p>
         <p class="dim">&copy; 2026 Ivan Jairus. Zero tracking, zero third-party CDNs, zero cookies.</p>
       </div>
       <nav class="footer-nav" aria-label="Footer Navigation">
-        <a href="../">Overview</a>
         <a href="../work/">Work</a>
-        <a href="./">Diagrams</a>
-        <a href="../pipelines/">Pipelines</a>
-        <a href="../decisions/">Decisions</a>
+        <a href="../#evidence">Evidence</a>
+        <a href="../#about">About</a>
+        <a href="../#contact">Contact</a>
         <a href="#main-content" class="back-to-top">Back to top &uarr;</a>
       </nav>
     </div>

@@ -191,7 +191,7 @@ window.I18N = {
     "lc.out.diagrams": "the five interactive system diagrams: 21-phase board governance, control plane, event router, dependency convergence, and SIT sequence",
 
     "hero.role": "I build the machines that build the software.",
-    "hero.tagline": "Platform engineer specialized in GitLab CI/CD release governance, multi-project pipeline orchestration, and automated control planes for enterprise microservices. Turning release days into predictable non-events.",
+    "hero.tagline": "DevSecOps engineer specialized in GitLab CI/CD release governance, multi-project pipeline orchestration, and automated control planes for enterprise microservices. Turning release days into predictable non-events.",
     "hero.facts": "4+ years in software delivery · DevSecOps since 2024 · Jakarta, Indonesia",
     "hero.proof": "53 services · 5 artifact types · 3 environments · 1 gateway · ~330 tests",
     "hero.cta.work": "Explore Case Studies",
@@ -315,7 +315,7 @@ window.I18N = {
     "exp.title": "One direction, deepened",
 
     "contact.title": "Let's make releases boring.",
-    "contact.lead": "Open to DevSecOps, platform engineering and developer-experience roles, on-premise or cloud, banking-grade or startup-speed.",
+    "contact.lead": "Open to DevSecOps and developer-experience roles, on-premise or cloud, banking-grade or startup-speed.",
     "contact.email": "Email",
     "contact.location": "Based in",
     "contact.cta": "Copy email",

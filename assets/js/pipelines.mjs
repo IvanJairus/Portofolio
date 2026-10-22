@@ -186,6 +186,9 @@ const SOURCES = { data: null };
 const TRACES = { data: null };
 const LOCK = { data: null };
 const FILE_TEXT = {};
+const SOURCE_PENDING = new Map();
+const sourcePath = (key) => (key === 'fixture.json' ? '../assets/data/fixture.json' : `../assets/data/src/${key}`);
+const sourcePin = (key) => (key === 'fixture.json' ? 'assets/data/fixture.json' : `assets/data/src/${key}`);
 const STATE_LABEL = { bad: 'failed', manual: 'waiting for input', hollow: 'not run', ok: 'passed' };
 
 /*
@@ -413,9 +416,20 @@ class Panel {
          be an option, and this strip also carries directory labels. */
       if (on) b.setAttribute('aria-current', 'true');
       b.append(el('span', '', n.f), el('span', 'm', String(n.lines)));
-      b.addEventListener('click', () => { this.srcKey = n.k; this.srcPick = n.k; this.paintSource(); });
+      b.addEventListener('click', async () => {
+        this.srcKey = n.k;
+        this.srcPick = n.k;
+        await this.loadSource(n.k);
+        this.paintSource();
+      });
       tree.append(b);
     });
+
+    if (!(this.srcKey in FILE_TEXT)) {
+      const wanted = this.srcKey;
+      this.loadSource(wanted).then(() => { if (this.srcKey === wanted) this.paintSource(); });
+      return;
+    }
 
     const entry = this.tree().find((n) => n.k === this.srcKey) || {};
     const text = FILE_TEXT[this.srcKey] || '';
@@ -446,7 +460,7 @@ class Panel {
       word of it: if the file served by this site and the file the lock names ever
       disagree, this line says so.
     */
-    const pinned = LOCK.data && LOCK.data.files[`assets/data/src/${this.srcKey}`];
+    const pinned = LOCK.data && LOCK.data.files[sourcePin(this.srcKey)];
     let hashNote = '';
     if (pinned && text) {
       const got = __sha256Hex(text);
@@ -478,18 +492,21 @@ class Panel {
     markScrollable(this.r.skin, this.r.tree);
   }
 
-  async ensureSources() {
+  ensureSources() {
     if (this.loaded || !SOURCES.data) return;
-    /* A job can point at a file the strip does not list (the gate classes are
-       compiled by both engines), so the union is what has to be fetched. */
-    const keys = new Set(this.tree().filter((n) => n.k).map((n) => n.k));
-    Object.values(this.jobMap()).forEach((m) => keys.add(m.file));
-    const wanted = [...keys].filter((k) => !(k in FILE_TEXT));
-    await Promise.all(wanted.map(async (k) => {
-      FILE_TEXT[k] = await (await fetch(`../assets/data/src/${k}`, { cache: 'no-store' })).text();
-    }));
     this.loaded = true;
     this.paintSource();
+  }
+
+  async loadSource(key) {
+    if (!key || key in FILE_TEXT) return;
+    if (SOURCE_PENDING.has(key)) return SOURCE_PENDING.get(key);
+    const pending = fetch(sourcePath(key), { cache: 'no-store' })
+      .then((response) => response.text())
+      .then((text) => { FILE_TEXT[key] = text; })
+      .finally(() => SOURCE_PENDING.delete(key));
+    SOURCE_PENDING.set(key, pending);
+    return pending;
   }
 }
 

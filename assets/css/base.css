@@ -1,6 +1,6 @@
 /*
-  Tokens, reset, typography, layout, header and hero.
-  One theme: warm broken white with GitLab orange as the main color.
+  Base tokens for the evidence pages. porcelain-evidence.css overrides the
+  surfaces, ink and accent for the live Porcelain theme.
   Status colors use the real tool colors (Jenkins, OpenShift, Jira, Docker,
   GitHub) so they match the diagrams on the page.
 */

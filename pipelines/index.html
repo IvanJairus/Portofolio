@@ -7,7 +7,7 @@
   <title>Pipeline runs, by Ivan Jairus</title>
   <meta name="description" content="One release gate, drawn as a GitLab pipeline page and as a Jenkins Blue Ocean graph, each with its own console beside the repository file that produced the selected job. The rules are vendored from a pinned commit and run in your browser." />
   <meta name="color-scheme" content="light" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#f2f4f5" />
   <link rel="canonical" href="https://www.ivanjairus.xyz/portfolio/pipelines/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.ivanjairus.xyz/portfolio/pipelines/" />
@@ -19,30 +19,30 @@
   <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
   <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
-  <meta name="msapplication-TileColor" content="#c2410c">
+  <meta name="msapplication-TileColor" content="#a8360a">
 
   <link rel="stylesheet" href="../assets/css/base.css" />
   <link rel="stylesheet" href="../assets/css/components.css" />
   <link rel="stylesheet" href="../assets/css/pipelines.css" />
+  <link rel="preload" href="../assets/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/fragment-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/porcelain-evidence.css" />
 </head>
 <body id="top">
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <header class="site-header">
     <div class="wrap header-in">
-      <a class="brand" href="../" aria-label="Home">
+      <a class="brand" href="../">
         <span class="mark" data-profile="monogram">IJ</span>
         <span data-profile="brand-name">Ivan Jairus</span>
         <span class="slash">/</span>
         <span class="dim">pipelines</span>
       </a>
       <nav class="nav desktop-nav" id="nav" aria-label="Primary">
-        <a href="../">Overview</a>
-        <a href="../work/">Case Studies</a>
-        <a href="../diagrams/">Architecture</a>
-        <a href="./" class="active">Pipelines</a>
-        <a href="../reports/">Reports</a>
-        <a href="../decisions/">Decisions</a>
-        <a href="../#toolbox">Toolbox</a>
+        <a href="../work/">Work</a>
+        <a href="../#evidence" class="active">Evidence</a>
+        <a href="../#about">About</a>
+        <a href="../#contact">Contact</a>
         <a href="../assets/cv/cv-ivan-jairus.pdf" download>CV (PDF)</a>
       </nav>
       <div class="header-tools">
@@ -63,15 +63,10 @@
         </button>
       </div>
       <ul class="drawer-links">
-        <li><a href="../" class="drawer-link"><span class="drawer-idx mono">01</span><span>Executive Overview</span></a></li>
-        <li><a href="../work/" class="drawer-link"><span class="drawer-idx mono">02</span><span>Case Studies &amp; Threat Model</span></a></li>
-        <li><a href="../diagrams/" class="drawer-link"><span class="drawer-idx mono">03</span><span>Architecture Studio (5 Plates)</span></a></li>
-        <li><a href="./" class="drawer-link active"><span class="drawer-idx mono">04</span><span>Dual-Engine Pipeline Trace</span></a></li>
-        <li>
-          <a href="../reports/" class="drawer-link"><span class="drawer-idx mono">05</span><span>Run Reports</span></a>
-        </li>
-        <li><a href="../decisions/" class="drawer-link"><span class="drawer-idx mono">06</span><span>Architecture Decisions (11 ADRs)</span></a></li>
-        <li><a href="../#toolbox" class="drawer-link"><span class="drawer-idx mono">07</span><span>Production Mileage Toolbox</span></a></li>
+        <li><a href="../work/" class="drawer-link"><span class="drawer-idx mono">01</span><span>Work</span></a></li>
+        <li><a href="../#evidence" class="drawer-link active"><span class="drawer-idx mono">02</span><span>Evidence</span></a></li>
+        <li><a href="../#about" class="drawer-link"><span class="drawer-idx mono">03</span><span>About</span></a></li>
+        <li><a href="../#contact" class="drawer-link"><span class="drawer-idx mono">04</span><span>Contact</span></a></li>
         <li class="drawer-divider" role="separator"></li>
         <li><a href="../assets/cv/cv-ivan-jairus.pdf" class="drawer-link drawer-cv" download><span class="drawer-idx mono">PDF</span><span>Download CV</span></a></li>
       </ul>
@@ -304,7 +299,7 @@
                 <div class="ms bad"><b>1</b><span>approval failed</span></div>
                 <div class="ms gray"><b>1</b><span>skipped</span></div>
               </div>
-              <div class="mail-tbl-wrap" tabindex="0" role="region" aria-label="Branch Auto Sync Table">
+              <section class="mail-tbl-wrap" tabindex="0" aria-label="Branch Auto Sync Table">
                 <table class="mail-tbl">
                   <tbody>
                     <tr class="th"><td>service</td><td>branch pair</td><td>status</td><td>mr</td></tr>
@@ -314,7 +309,7 @@
                     <tr><td>auth-gateway</td><td>R1.1 &rarr; R1.2</td><td class="bad">&#10005; APPROVAL FAILED</td><td class="lk">view MR</td></tr>
                   </tbody>
                 </table>
-              </div>
+              </section>
               <div class="mail-note mono">note // one design system, three report types. The run always reports itself. Separation of duties: approver cannot be the author.</div>
             </div>
           </div>
@@ -351,7 +346,7 @@
                 <div class="ms l"><b>0</b><span>low</span></div>
               </div>
               <div class="mail-sect mono">SUMMARY BY CATEGORY</div>
-              <div class="mail-tbl-wrap" tabindex="0" role="region" aria-label="SAST Scan Category Summary Table">
+              <section class="mail-tbl-wrap" tabindex="0" aria-label="SAST Scan Category Summary Table">
                 <table class="mail-tbl">
                   <tbody>
                     <tr class="th"><td>category</td><td>service</td><td>critical</td><td>high</td><td>medium</td><td>low</td><td>status</td></tr>
@@ -359,7 +354,7 @@
                     <tr><td><b>BE</b></td><td>19</td><td class="bad">1</td><td class="ok">0</td><td class="warn">5</td><td class="ok">0</td><td><span class="pill bad">FINDINGS</span></td></tr>
                   </tbody>
                 </table>
-              </div>
+              </section>
               <div class="mail-att mono"><span>&#128206; sast-report-core-fe.html · 17 KB</span><span>&#128206; sast-report-core-be.html · 70 KB</span></div>
               <div class="mail-note mono">Each category's full report is attached to this email and opens directly in a browser.</div>
               <div class="mail-note mono">note // scheduled weekly, one HTML report per category, artifacts kept for 30 days</div>
@@ -394,7 +389,7 @@
                 <div class="ms n"><b>1</b><span>no analysis</span></div>
               </div>
               <div class="mail-sect mono">SCAN RESULTS</div>
-              <div class="mail-tbl-wrap" tabindex="0" role="region" aria-label="SonarQube Scan Results Table">
+              <section class="mail-tbl-wrap" tabindex="0" aria-label="SonarQube Scan Results Table">
                 <table class="mail-tbl">
                   <tbody>
                     <tr class="th"><td>service</td><td>branch</td><td>quality gate</td><td>vulns</td><td>coverage</td></tr>
@@ -404,7 +399,7 @@
                     <tr><td class="dim">scheduler-job</td><td>R1.1</td><td><span class="pill dim">NO ANALYSIS</span></td><td></td><td></td></tr>
                   </tbody>
                 </table>
-              </div>
+              </section>
               <div class="mail-note mono">note // The row with no analysis represents a failure of the schedule runner or polling timeout, not a defect of the service. Services are triggered in batches, then polled round-robin until complete.</div>
             </div>
           </div>
@@ -512,16 +507,15 @@
   <footer class="site-footer" id="site-footer">
     <div class="wrap footer-in">
       <div class="footer-summary">
-        <p class="ftr-creed mono">Ivan Jairus : DevSecOps &amp; Platform Engineer : Jakarta, Indonesia</p>
+        <p class="ftr-creed mono">Ivan Jairus : DevSecOps : Jakarta, Indonesia</p>
         <p class="dim">53 services · 5 artifact types · 3 environments · 1 gateway · ~330 tests · 11 ADRs</p>
         <p class="dim">&copy; 2026 Ivan Jairus. Zero tracking, zero third-party CDNs, zero cookies.</p>
       </div>
       <nav class="footer-nav" aria-label="Footer Navigation">
-        <a href="../">Overview</a>
         <a href="../work/">Work</a>
-        <a href="../diagrams/">Diagrams</a>
-        <a href="./">Pipelines</a>
-        <a href="../decisions/">Decisions</a>
+        <a href="../#evidence">Evidence</a>
+        <a href="../#about">About</a>
+        <a href="../#contact">Contact</a>
         <a href="#main-content" class="back-to-top">Back to top &uarr;</a>
       </nav>
     </div>
